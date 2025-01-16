@@ -3,6 +3,8 @@ import React from 'react'
 import Intensity from './components/Intensity'
 import logo from '../assets/logo.png'
 import Color from './components/Color'
+import Endo from './components/Endo'
+import Lamp from './components/Lamp'
 
 const App = () => {
   return (
@@ -16,10 +18,10 @@ const App = () => {
       <Color/>
         </View>
         <View style={styles.intensity}>
-      <Intensity/>
+      <Endo/>
         </View>
         <View style={styles.intensity}>
-      <Intensity/>
+      <Lamp/>
         </View>
       </View>
     </View>
