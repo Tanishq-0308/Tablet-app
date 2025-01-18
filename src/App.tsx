@@ -1,49 +1,48 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import Intensity from './components/Intensity'
 import logo from '../assets/logo.png'
-import Color from './components/Color'
-import Endo from './components/Endo'
-import Lamp from './components/Lamp'
+import Page1 from './Page1'
+
+const { width: screenWidth } = Dimensions.get('window');
 
 const App = () => {
   return (
-    <View>
-      <Image source={logo} style={styles.logoImage}/>
-      <View style={styles.blockOne}>
-        <View style={styles.intensity}>
-      <Intensity/>
+    <SafeAreaView style={{flex:1}}>
+    <View style={styles.appContainer}>
+      <Image source={logo} style={styles.logoImage} />
+      <ScrollView contentContainerStyle={{flexGrow:1}}  style={styles.scrollContainer} horizontal={true}>
+        <View style={[styles.page, {width:screenWidth}]}>
+        <Page1  />
         </View>
-        <View style={styles.intensity}>
-      <Color/>
+        <View style={[styles.page, {width:screenWidth}]}>
+        <Page1  />
         </View>
-        <View style={styles.intensity}>
-      <Endo/>
-        </View>
-        <View style={styles.intensity}>
-      <Lamp/>
-        </View>
-      </View>
+      </ScrollView>
     </View>
+    </SafeAreaView>
   )
 }
 
 export default App
 
 const styles = StyleSheet.create({
-  logoImage:{
-    height:70,
-    width:180,
-    marginHorizontal:15,
-    marginVertical:5
+  appContainer: {
+    flex: 1,
+    width:'100%',
+    borderWidth:5,
   },
-  blockOne:{
-    // borderWidth:2,
+  logoImage: {
+    height: 70,
+    width: 180,
+    marginHorizontal: 15,
+    marginVertical: 5,
+  },
+  scrollContainer: {
+    flex: 1,
+  },
+  page:{
+    flex:1,
     flexDirection:'row',
-    alignItems:'center',
-    justifyContent:'space-around'
-  },
-  intensity:{
-    // borderWidth:2,
+    borderWidth:2,
   }
 })

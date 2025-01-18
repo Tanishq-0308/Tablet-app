@@ -1,23 +1,22 @@
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
-import EndoOn from '../../assets/endo.png'
-import EndoOff from '../../assets/endo-off.png'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import BoostOn from '../../assets/boostMode.png'
+import BoostOff from '../../assets/boostOff.png'
 
-const Endo = () => {
+const BoostMode = () => {
     const [power, setPower] = useState(false)
     return (
         <View style={styles.container}>
             {
                 power ?
-                    <Image source={EndoOff} style={styles.endoOffImg} />
+                    <Image source={BoostOff} style={styles.boostOffImg} />
                     :
-                    <Image source={EndoOn} style={styles.endoOnImg} />
+                    <Image source={BoostOn} style={styles.boostOnImg} />
             }
             <Text
                
                 style={styles.heading}
-            >ENDO</Text>
+            >BOOST MODE</Text>
             <Pressable
             style={styles.onBtn}
                  onPress={() => setPower(!power)}
@@ -29,7 +28,6 @@ const Endo = () => {
                 </Text>
                     :
                 <Text style={styles.onBtnTxt}>
-                    {/* <Icon name='play' size={26} style={styles.iconBtn}/> */}
                     ON
                 </Text>
                 }
@@ -38,7 +36,7 @@ const Endo = () => {
     )
 }
 
-export default Endo
+export default BoostMode
 
 const styles = StyleSheet.create({
     container: {
@@ -53,16 +51,13 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontStyle: 'italic'
     },
-    endoOnImg: {
+    boostOnImg: {
         height: 150,
         width: 170,
-        // borderWidth:2,
-        marginLeft:12,
-        marginRight:9
     },
-    endoOffImg: {
+    boostOffImg: {
         height: 150,
-        width: 190,
+        width: 170,
         // borderWidth:2
     },
     onBtn:{
@@ -83,8 +78,5 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         padding:6,
         color:'white'
-    },
-    iconBtn:{
-        
     }
 })
