@@ -10,9 +10,13 @@ const Focus = () => {
         <View style={styles.container}>
             {
                 isEnabled ?
+                <View  style={styles.offImgContainer}>
                     <Image source={focusOff} style={styles.boostOffImg} />
+                </View>
                     :
+                <View style={styles.onImgContainer}>
                     <Image source={focusOn} style={styles.boostOnImg} />
+                </View>
             }
             <Text
                
@@ -39,24 +43,35 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        // gap:10
+        gap:5,
+        height:'100%',
+        width:'100%',
     },
     heading: {
         fontWeight: 'bold',
-        fontSize: 22,
+        fontSize: 25,
         fontStyle: 'italic',
         // borderWidth:2,
         // marginBottom:33
     },
+    onImgContainer:{
+        height:'60%',
+        width:'54%',
+    },
     boostOnImg: {
-        height: 160,
-        width: 170,
+        height: '100%',
+        width: '100%',
         // borderWidth:2,
         // marginBottom:10
     },
+    
+    offImgContainer:{
+        height:'60%',
+        width:'54%',
+    },
     boostOffImg: {
-        height: 160,
-        width: 170,
+        height: '100%',
+        width: '100%',
         // borderWidth:2
     },
     switchContainer:{

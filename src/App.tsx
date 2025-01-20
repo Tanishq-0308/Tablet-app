@@ -3,46 +3,39 @@ import React from 'react'
 import logo from '../assets/logo.png'
 import Page1 from './Page1'
 
-const { width: screenWidth } = Dimensions.get('window');
+const {width, height}= Dimensions.get('screen')
 
 const App = () => {
   return (
-    <SafeAreaView style={{flex:1}}>
-    <View style={styles.appContainer}>
-      <Image source={logo} style={styles.logoImage} />
-      <ScrollView contentContainerStyle={{flexGrow:1}}  style={styles.scrollContainer} horizontal={true}>
-        <View style={[styles.page, {width:screenWidth}]}>
-        <Page1  />
-        </View>
-        <View style={[styles.page, {width:screenWidth}]}>
-        <Page1  />
-        </View>
-      </ScrollView>
+    <>
+    <Image source={logo} style={styles.logoImage} />
+    <ScrollView horizontal>
+    <View style={styles.container}>
+      <Page1/>
     </View>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <Page1/>
+    </View>
+    </ScrollView>
+    </>
   )
 }
 
 export default App
 
 const styles = StyleSheet.create({
-  appContainer: {
-    flex: 1,
-    width:'100%',
-    borderWidth:5,
-  },
-  logoImage: {
+  container:{
+    height:height-140,
+    width:width,
+    // borderWidth:3,
+    alignItems:'center',
+    justifyContent:'center',
+    // margin:10
+},
+logoImage: {
     height: 70,
     width: 180,
     marginHorizontal: 15,
     marginVertical: 5,
   },
-  scrollContainer: {
-    flex: 1,
-  },
-  page:{
-    flex:1,
-    flexDirection:'row',
-    borderWidth:2,
-  }
 })

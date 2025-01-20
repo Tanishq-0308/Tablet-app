@@ -7,10 +7,13 @@ import Focus from './components/Focus'
 import Intensity from './components/Intensity'
 import Lamp from './components/Lamp'
 import Settings from './components/Settings'
+import { Dimensions } from 'react-native'
+
+const {width, height}= Dimensions.get('screen')
 
 const Page1 = () => {
   return (
-    <View>
+    <View style={styles.mainContainer}>
       <View style={styles.blockOne}>
         <View style={styles.box}>
       <Intensity/>
@@ -35,6 +38,9 @@ const Page1 = () => {
         <View style={styles.box}>
       <Focus/>
         </View>
+        <View style={styles.box}>
+
+        </View>
       </View>
     </View>
   )
@@ -44,28 +50,24 @@ export default Page1
 
 const styles = StyleSheet.create({
     mainContainer: {
-        flex: 1, // Use flex to take full height
-        margin:10,
-        alignItems:'center'
+        gap:30,
+        // height:height,
+        // borderWidth:2,
+        // margin:100
       },
       blockOne: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-around',
-        flexGrow: 1,
-        // borderWidth:2,
-        width:'100%'
       },
       blockTwo: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent:'space-around',
-        marginTop: 60,
-        flexGrow: 1,
-        width: '80%',
-        // borderWidth:2
+        justifyContent:'space-around'
       },
       box: {
-        // borderWidth:2
+        // borderWidth:2,
+        width:width/4,
+        height:height/3
       },
 })

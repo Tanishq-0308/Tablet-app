@@ -72,7 +72,9 @@ const Intensity = () => {
       }
   return (
     <View style={styles.container}>
+      <View style={styles.intImageContainer}>
          <IntensityImage imageUrl={intImage}/>
+      </View>
          <Text style={styles.heading}>INTENSITY</Text>
          <View style={styles.diceContainer}>
          <Pressable>
@@ -111,28 +113,34 @@ const Intensity = () => {
 export default Intensity
 
 const styles = StyleSheet.create({
+  container:{
+      flexDirection:'column',
+      alignItems:'center',
+      justifyContent:'center',
+      height:'100%',
+      width:'100%'
+  },
+  intImageContainer:{
+    height:'60%',
+    width:'60%',
+  },
     intImage:{
-        height:170,
-        width:210
-    },
-    heading:{
-      fontWeight:'bold',
-      fontSize:22,
-      fontStyle:'italic'
-    },
-    container:{
-        flexDirection:'column',
-        alignItems:'center',
-        justifyContent:'center'
-    },
-    diceContainer:{
-      flexDirection:'row'
-    },
-    rollDiceBtnText:{
+        height:'100%',
+        width:'100%',
+      },
+      heading:{
+        fontWeight:'bold',
+        fontSize:24,
+        fontStyle:'italic',
+      },
+      diceContainer:{
+        flexDirection:'row'
+      },
+      rollDiceBtnText:{
       paddingHorizontal:25,
       borderRadius:8,
       borderColor:'black',
-      fontSize:43,
+      fontSize:48,
       color:'black',
       fontWeight:'700',
       textTransform:'uppercase'

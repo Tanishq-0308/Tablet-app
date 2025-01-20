@@ -44,12 +44,13 @@ const Color = () => {
                 <Text style={styles.headTxt}>NW</Text>
                 <Text style={styles.headTxt}>CW</Text>
             </View>
-            <View>
+            <View style={styles.intImageContainer}>
                 <Image source={colorImg} style={styles.colorImage} />
             </View>
-            <View>
+            <View style={styles.colImageContainer}>
                 <ColorImage imageUrl={colImage}/>
             </View>
+             <Text style={styles.title}>COLOR</Text>
             <View style={styles.counterBtn}>
                 <Pressable>
                     <Text
@@ -91,37 +92,52 @@ const styles = StyleSheet.create({
         flexDirection:'column',
         alignItems:'center',
         justifyContent:'center',
-        gap:12
+        // gap:12,
+        height:'100%',
+        width:'100%'
     },
+    intImageContainer:{
+        height:'35%',
+        width:'70%',
+        // borderWidth:2,
+      },
+      colorImage: {
+          height: '100%',
+          width: '100%',
+      },
     heading: {
         flexDirection: 'row',
         justifyContent: 'space-around',
         gap:40
     },
-    headTxt: {
-        fontSize: 23,
-        fontWeight: 'bold'
+    title:{
+        fontWeight:'bold',
+        fontSize:24,
+        fontStyle:'italic',
     },
-    colorImage: {
-        height: 100,
-        width: 250,
+    headTxt: {
+        fontSize: 25,
+        fontWeight: 'bold'
     },
     counterBtn: {
         flexDirection:'row'
     },
     rollDiceBtnText:{
-        paddingTop:10,
         paddingHorizontal:25,
         borderRadius:8,
         borderColor:'black',
-        fontSize:43,
+        fontSize:48,
         color:'black',
         fontWeight:'700',
         textTransform:'uppercase'
       },
+      colImageContainer:{
+        height:'10%',
+        width:'65%'
+      },
     colImage:{
-        height:20,
-        width:230
+        height:'100%',
+        width:'100%'
     }
 
 })

@@ -6,7 +6,9 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 const Settings = () => {
   return (
     <View style={styles.container}>
+      <View style={styles.imgContainer}>
         <Image source={settingImg} style={styles.settingImg}/>
+      </View>
       <Text style={styles.heading}>SETTINGS</Text>
       <Pressable style={styles.onBtnTxt}>
         <Icon name='play' size={38} color='#fff'/>
@@ -20,18 +22,26 @@ export default Settings
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'column',
-        gap:10,
+        gap:5,
+        height:'100%',
+        width:'100%',
         alignItems: 'center',
         justifyContent: 'center',
     },
     heading: {
         fontWeight: 'bold',
-        fontSize: 22,
+        fontSize: 25,
         fontStyle: 'italic'
     },
+    imgContainer:{
+      height:'60%',
+      width:'55%',
+      // borderWidth:2
+    },
     settingImg: {
-        height: 140,
-        width: 170,
+        height: '100%',
+        width: '100%',
+        // borderWidth:2
     },
     onBtnTxt:{
         borderRadius:7,

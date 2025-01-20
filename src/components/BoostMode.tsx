@@ -9,9 +9,13 @@ const BoostMode = () => {
         <View style={styles.container}>
             {
                 power ?
-                    <Image source={BoostOff} style={styles.boostOffImg} />
+                <View style={styles.offImgContainer}>
+                                        <Image source={BoostOff} style={styles.boostOffImg} />
+                                    </View>
                     :
-                    <Image source={BoostOn} style={styles.boostOnImg} />
+                    <View style={styles.onImgContainer}>
+                        <Image source={BoostOn} style={styles.boostOnImg} />
+                        </View>
             }
             <Text
                
@@ -41,23 +45,34 @@ export default BoostMode
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'column',
-        gap:10,
+        gap:5,
         alignItems: 'center',
         justifyContent: 'center',
+        height:'100%',
+        width:'100%',
         // borderWidth:2
     },
     heading: {
         fontWeight: 'bold',
-        fontSize: 22,
+        fontSize: 25,
         fontStyle: 'italic'
     },
+    onImgContainer:{
+        height:'60%',
+        width:'54%',
+    },
     boostOnImg: {
-        height: 150,
-        width: 170,
+        height: '100%',
+        width: '100%',
+        // borderWidth:2
+    },
+    offImgContainer:{
+        height:'60%',
+        width:'54%',
     },
     boostOffImg: {
-        height: 150,
-        width: 170,
+        height: '100%',
+        width: '100%',
         // borderWidth:2
     },
     onBtn:{
