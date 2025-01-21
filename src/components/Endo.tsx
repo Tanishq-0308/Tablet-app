@@ -47,7 +47,7 @@ export default Endo
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'column',
-        gap: 3,
+        gap: 5,
         alignItems: 'center',
         justifyContent: 'center',
         height: '100%',
@@ -87,7 +87,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#95d151',
         fontSize: 30,
         fontWeight: 'bold',
-        padding: 6,
+        paddingHorizontal:12,
+        paddingVertical:12,
         color: 'white'
     },
     offBtnTxt: {
@@ -95,7 +96,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'red',
         fontSize: 30,
         fontWeight: 'bold',
-        padding: 6,
+        paddingHorizontal:12,
+        paddingVertical:12,
         color: 'white'
     },
     iconBtn: {

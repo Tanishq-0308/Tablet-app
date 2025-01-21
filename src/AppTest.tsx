@@ -1,6 +1,6 @@
 import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import Page1 from './Page1'
+import Page1 from './screen/Page1'
 import { Image } from 'react-native'
 import logo from '../assets/logo.png'
 

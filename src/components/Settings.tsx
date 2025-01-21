@@ -2,15 +2,23 @@ import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import React from 'react'
 import settingImg from '../../assets/settings.png'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { RootParamList } from '../App'
 
-const Settings = () => {
+type HomeProps= NativeStackScreenProps<RootParamList, 'Home'>
+const Settings = ({navigation}:HomeProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.imgContainer}>
         <Image source={settingImg} style={styles.settingImg}/>
       </View>
       <Text style={styles.heading}>SETTINGS</Text>
-      <Pressable style={styles.onBtnTxt}>
+      <Pressable 
+      style={styles.onBtnTxt}
+      onPress={()=>{
+        navigation.navigate('FactorySetting')
+      }}
+      >
         <Icon name='play' size={38} color='#fff'/>
       </Pressable>
     </View>
@@ -48,18 +56,9 @@ const styles = StyleSheet.create({
         backgroundColor:'#95d151',
         fontSize:30,
         fontWeight:'bold',
-        paddingVertical:8,
-        // paddingBottom:8,
-        paddingHorizontal:10,
+        paddingHorizontal:12,
+        paddingVertical:11,
         color:'white',
         // marginTop:4
-    },
-    offBtnTxt:{
-        borderRadius:7,
-        backgroundColor:'red',
-        fontSize:30,
-        fontWeight:'bold',
-        padding:6,
-        color:'white'
     }
 })

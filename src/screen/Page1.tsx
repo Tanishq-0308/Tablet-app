@@ -1,17 +1,21 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import BoostMode from './components/BoostMode'
-import Color from './components/Color'
-import Endo from './components/Endo'
-import Focus from './components/Focus'
-import Intensity from './components/Intensity'
-import Lamp from './components/Lamp'
-import Settings from './components/Settings'
+import BoostMode from '../components/BoostMode'
+import Color from '../components/Color'
+import Endo from '../components/Endo'
+import Focus from '../components/Focus'
+import Intensity from '../components/Intensity'
+import Lamp from '../components/Lamp'
+import Settings from '../components/Settings'
 import { Dimensions } from 'react-native'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { RootParamList } from '../App'
 
 const {width, height}= Dimensions.get('screen')
 
-const Page1 = () => {
+type HomeProps= NativeStackScreenProps<RootParamList, 'Home'>
+
+const Page1 = ({navigation, route}:HomeProps) => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.blockOne}>
@@ -33,13 +37,10 @@ const Page1 = () => {
       <BoostMode/>
         </View>
         <View style={styles.box}>
-      <Settings/>
+      <Settings navigation={navigation} route={route}/>
         </View>
-        <View style={styles.box}>
+        <View style={styles.box2}>
       <Focus/>
-        </View>
-        <View style={styles.box}>
-
         </View>
       </View>
     </View>
@@ -50,8 +51,9 @@ export default Page1
 
 const styles = StyleSheet.create({
     mainContainer: {
-        gap:30,
-        // height:height,
+        gap:50,
+        backgroundColor:'white',
+        height:height,
         // borderWidth:2,
         // margin:100
       },
@@ -63,11 +65,16 @@ const styles = StyleSheet.create({
       blockTwo: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent:'space-around'
+        // justifyContent:'space-around'
       },
       box: {
         // borderWidth:2,
         width:width/4,
         height:height/3
       },
+      box2:{
+        // borderWidth:2,
+        width:width/2,
+        height:height/3
+      }
 })

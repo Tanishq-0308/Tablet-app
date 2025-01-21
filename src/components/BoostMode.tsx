@@ -83,7 +83,8 @@ const styles = StyleSheet.create({
         backgroundColor:'#95d151',
         fontSize:30,
         fontWeight:'bold',
-        padding:6,
+        paddingHorizontal:12,
+        paddingVertical:11,
         color:'white'
     },
     offBtnTxt:{
@@ -91,7 +92,8 @@ const styles = StyleSheet.create({
         backgroundColor:'red',
         fontSize:30,
         fontWeight:'bold',
-        padding:6,
+        paddingHorizontal:12,
+        paddingVertical:11,
         color:'white'
     }
 })
