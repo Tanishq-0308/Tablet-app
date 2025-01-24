@@ -6,132 +6,66 @@ import greenModeOn from '../../assets/greenModeOn.png'
 import greenModeOff from '../../assets/greenModeOff.png'
 import { RootParamList } from '../App';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import GreenMode from '../components/GreenMode';
+import RedMode from '../components/RedMode';
+import OverHeadSensor from '../components/OverHeadSensor';
 
 
-type ColorModeProps=NativeStackScreenProps<RootParamList, 'ColorMode'>
-const {width, height}= Dimensions.get('screen')
-const ColorMode = ({navigation}:ColorModeProps) => {
-    const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-  return (
-    <View style={styles.box}>
-        <View style={styles.backBtnContainer}>
-            <Pressable onPress={()=>navigation.goBack()}>
-                <BackButton/>
-            </Pressable>
+type ColorModeProps = NativeStackScreenProps<RootParamList, 'ColorMode'>
+const { width, height } = Dimensions.get('screen')
+const ColorMode = ({ navigation }: ColorModeProps) => {
+    return (
+        <View style={styles.mainContainer}>
+            <View style={styles.container1}>
+                <View>
+                    <Pressable onPress={() => navigation.goBack()}>
+                        <BackButton />
+                    </Pressable>
+                </View>
+            </View>
+            <View style={styles.container2}>
+                <View style={styles.blockOne}>
+                    <View style={styles.box}>
+                        <GreenMode />
+                    </View>
+                    <View style={styles.box}>
+                        <RedMode />
+                    </View>
+                </View>
+                <View style={styles.blockTwo}>
+                    <View style={styles.box}>
+                        <OverHeadSensor />
+                    </View>
+                </View>
+            </View>
         </View>
-        <View style={styles.container}>
-               <View style={styles.container2}>
-               {
-                    isEnabled ?
-                        <View style={styles.onImgContainer}>
-                            <Image source={greenModeOn} style={styles.boostOnImg} />
-                        </View>
-                        :
-                        <View style={styles.offImgContainer}>
-                            <Image source={greenModeOff} style={styles.boostOffImg} />
-                        </View>
-                }
-                <Text
-
-                    style={styles.heading}
-                >FOCUS</Text>
-                <View style={styles.switchContainer}>
-                    <Switch
-                        trackColor={{ false: '#767577', true: '#81b0ff' }}
-                        thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-                        ios_backgroundColor="#3e3e3e"
-                        onValueChange={toggleSwitch}
-                        value={isEnabled}
-                        style={[styles.switchBtn, { transform: [{ scaleX: 1.7 }, { scaleY: 1.7 }] }]}
-                    />
-                </View>
-               </View>
-            </View>
-            <View style={styles.container}>
-                <View style={styles.container2}>
-                {
-                    isEnabled ?
-                        <View style={styles.onImgContainer}>
-                            <Image source={greenModeOn} style={styles.boostOnImg} />
-                        </View>
-                        :
-                        <View style={styles.offImgContainer}>
-                            <Image source={greenModeOff} style={styles.boostOffImg} />
-                        </View>
-                }
-                <Text
-
-                    style={styles.heading}
-                >FOCUS</Text>
-                <View style={styles.switchContainer}>
-                    <Switch
-                        trackColor={{ false: '#767577', true: '#81b0ff' }}
-                        thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-                        ios_backgroundColor="#3e3e3e"
-                        onValueChange={toggleSwitch}
-                        value={isEnabled}
-                        style={[styles.switchBtn, { transform: [{ scaleX: 1.7 }, { scaleY: 1.7 }] }]}
-                    />
-                </View>
-                </View>
-            </View>
-    </View>
-  )
+    )
 }
 
 export default ColorMode
 
 const styles = StyleSheet.create({
-    box: {
-        // borderWidth:2,
-        flexDirection:'row',
-        margin:10
-    },
-    backBtnContainer:{
-        // borderWidth:2
-    },
-    container: {
+    mainContainer: {
         flexDirection: 'row',
-        alignItems: 'center',
-        width:width/2.2,
-        height:height/3,
-        borderWidth:2
+        margin: 10
+    },
+    container1: {
+        flexDirection: 'column',
     },
     container2: {
-        flexDirection:'column',
-        borderWidth:2,
-        height:'100%',
-        width:'50%',
-        alignItems:'center',
-        justifyContent:'center',
-        // gap:5
+        flexDirection: 'column',
+        gap: 20
     },
-    heading: {
-        fontWeight: 'bold',
-        fontSize: 25,
-        fontStyle: 'italic',
+    box: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: width / 2.2,
+        height: height / 3,
     },
-    onImgContainer: {
-        height: '60%',
-        width: '54%',
+    blockOne: {
+        flexDirection: 'row'
     },
-    boostOnImg: {
-        height: '100%',
-        width: '100%',
-    },
-
-    offImgContainer: {
-        height: '60%',
-        width: '54%',
-    },
-    boostOffImg: {
-        height: '100%',
-        width: '100%',
-    },
-    switchContainer: {
-    },
-    switchBtn: {
-        margin: 18
-    },
+    blockTwo: {
+        flexDirection: 'row'
+    }
 })

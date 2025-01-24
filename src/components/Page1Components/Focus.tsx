@@ -1,7 +1,7 @@
 import { Image, Pressable, StyleSheet, Switch, Text, View } from 'react-native'
 import React, { useState } from 'react'
-import focusOn from '../../assets/focus.png'
-import focusOff from '../../assets/focusOff.png'
+import focusOn from '../../../assets/focus.png'
+import focusOff from '../../../assets/focusOff.png'
 
 const Focus = () => {
     const [isEnabled, setIsEnabled] = useState(false);
@@ -36,23 +36,23 @@ const Focus = () => {
             </View>
             {
                 isEnabled && (
-            <View style={styles.container2}>
-                <Pressable style={styles.smallBtn}>
-                <Text style={styles.onBtnTxt}>
-                    S
-                </Text>
-                </Pressable>
-                <Pressable style={styles.mediumBtn}>
-                <Text style={styles.onBtnTxt}>
-                    M
-                </Text>
-                </Pressable>
-                <Pressable style={styles.largeBtn}>
-                <Text style={styles.onBtnTxt}>
-                    L
-                </Text>
-                </Pressable>
-            </View>
+                    <View style={styles.container2}>
+                        <Pressable style={styles.smallBtn}>
+                            <Text style={styles.onBtnTxt}>
+                                S
+                            </Text>
+                        </Pressable>
+                        <Pressable style={styles.mediumBtn}>
+                            <Text style={styles.onBtnTxt}>
+                                M
+                            </Text>
+                        </Pressable>
+                        <Pressable style={styles.largeBtn}>
+                            <Text style={styles.onBtnTxt}>
+                                L
+                            </Text>
+                        </Pressable>
+                    </View>
                 )
             }
         </View>
@@ -76,12 +76,11 @@ const styles = StyleSheet.create({
         width: '50%',
     },
     container2: {
-        flexDirection:'column',
-        // borderWidth:2,
-        width:'50%',
-        alignItems:'center',
-        justifyContent:'center',
-        gap:30
+        flexDirection: 'column',
+        width: '50%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 30
     },
     heading: {
         fontWeight: 'bold',
@@ -110,31 +109,31 @@ const styles = StyleSheet.create({
     switchBtn: {
         margin: 18
     },
-    smallBtn:{
+    smallBtn: {
         backgroundColor: '#95d151',
         borderRadius: 12,
-        paddingHorizontal:25,
-        paddingVertical:5
-        
+        paddingHorizontal: 25,
+        paddingVertical: 5
+
     },
-    mediumBtn:{
+    mediumBtn: {
         backgroundColor: '#f8a5c2',
         borderRadius: 12,
-        paddingHorizontal:20,
-        paddingVertical:5
-        
+        paddingHorizontal: 20,
+        paddingVertical: 5
+
     },
-    largeBtn:{
+    largeBtn: {
         backgroundColor: '#778beb',
         borderRadius: 12,
-        paddingHorizontal:25,
-        paddingVertical:5
+        paddingHorizontal: 25,
+        paddingVertical: 5
 
     },
     onBtnTxt: {
         fontSize: 39,
         fontWeight: 'bold',
         color: 'white',
-        fontStyle:'italic',
+        fontStyle: 'italic',
     },
 })

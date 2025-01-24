@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
         fontSize: 13,
         fontWeight: 'bold',
         color: 'white',
-        // lineHeight:20,
         letterSpacing: 1
     }
 })

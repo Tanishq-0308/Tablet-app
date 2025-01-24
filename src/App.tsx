@@ -3,75 +3,67 @@ import React from 'react'
 import logo from '../assets/logo.png'
 import Page1 from './screen/Page1'
 import { NavigationContainer } from '@react-navigation/native'
-import {createNativeStackNavigator} from '@react-navigation/native-stack'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import FactorySetting from './screen/FactorySetting'
 import ColorMode from './screen/ColorMode'
+import { BtnEnableProvider } from './Context/EnableContext'
 
-const {width, height}= Dimensions.get('screen')
+const { width, height } = Dimensions.get('screen')
 
-export type RootParamList={
+export type RootParamList = {
   Home: undefined;
-  FactorySetting:undefined;
-  ColorMode:undefined;
+  FactorySetting: undefined;
+  ColorMode: undefined;
 }
 
-const Stack= createNativeStackNavigator<RootParamList>()
+const Stack = createNativeStackNavigator<RootParamList>()
 const App = () => {
   return (
+    <BtnEnableProvider>
     <NavigationContainer>
-    <Image source={logo} style={styles.logoImage} />
-    <Stack.Navigator>
-      <Stack.Screen
-        component={Page1}
-        name='Home'
-        options={{
-          headerShown:false
-        }}
-      />
-      <Stack.Screen
-        component={FactorySetting}
-        name='FactorySetting'
-        options={{
-          headerShown:false
-        }}
-      />
-      <Stack.Screen
-        component={ColorMode}
-        name='ColorMode'
-        options={{
-          headerShown:false
-        }}
-      />
-    </Stack.Navigator>
-
-    {/* <ScrollView horizontal>
-    <View style={styles.container}>
-      <Page1/>
-    </View>
-    <View style={styles.container}>
-      <Page1/>
-    </View>
-    </ScrollView> */}
+      <Image source={logo} style={styles.logoImage} />
+      <Stack.Navigator>
+        <Stack.Screen
+          component={Page1}
+          name='Home'
+          options={{
+            headerShown: false
+          }}
+        />
+        <Stack.Screen
+          component={FactorySetting}
+          name='FactorySetting'
+          options={{
+            headerShown: false
+          }}
+        />
+        <Stack.Screen
+          component={ColorMode}
+          name='ColorMode'
+          options={{
+            headerShown: false
+          }}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
+    </BtnEnableProvider>
   )
 }
 
 export default App
 
 const styles = StyleSheet.create({
-  container:{
-    height:height-140,
-    width:width,
-    // borderWidth:3,
-    alignItems:'center',
-    justifyContent:'center',
-    // margin:10
-},
-logoImage: {
+  container: {
+    height: height - 140,
+    width: width,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logoImage: {
     height: 70,
     width: 180,
     marginHorizontal: 15,
     marginVertical: 5,
-    backgroundColor:'white'
+    backgroundColor: 'white'
   },
 })

@@ -1,27 +1,27 @@
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
-import EndoOn from '../../assets/endo.png'
-import EndoOff from '../../assets/endo-off.png'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import LampOn from '../../../assets/lamp.png';
+import LampOff from '../../../assets/lamp-off.png';
 
-const Endo = () => {
+const Lamp = () => {
+
     const [power, setPower] = useState(false)
     return (
         <View style={styles.container}>
             {
                 power ?
                     <View style={styles.offImgContainer}>
-                        <Image source={EndoOff} style={styles.endoOffImg} />
+                        <Image source={LampOff} style={styles.lampOffImg} />
                     </View>
                     :
                     <View style={styles.onImgContainer}>
-                        <Image source={EndoOn} style={styles.endoOnImg} />
+                        <Image source={LampOn} style={styles.lampOnImg} />
                     </View>
             }
             <Text
 
                 style={styles.heading}
-            >ENDO</Text>
+            >LAMP</Text>
             <Pressable
                 style={styles.onBtn}
                 onPress={() => setPower(!power)}
@@ -33,7 +33,6 @@ const Endo = () => {
                         </Text>
                         :
                         <Text style={styles.onBtnTxt}>
-                            {/* <Icon name='play' size={26} style={styles.iconBtn}/> */}
                             ON
                         </Text>
                 }
@@ -42,7 +41,7 @@ const Endo = () => {
     )
 }
 
-export default Endo
+export default Lamp
 
 const styles = StyleSheet.create({
     container: {
@@ -51,44 +50,39 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         height: '100%',
-        width: '100%'
+        width: '100%',
     },
     heading: {
         fontWeight: 'bold',
         fontSize: 25,
-        fontStyle: 'italic',
-        // borderWidth:2
+        fontStyle: 'italic'
     },
-    onImgContainer:{
-        height:'60%',
-        width:'54%',
-        // borderWidth:2
+    onImgContainer: {
+        height: '60%',
+        width: '54%',
     },
-    endoOnImg: {
+    lampOnImg: {
         height: '100%',
         width: '100%',
-        // borderWidth: 2,
-        marginLeft: 2,
     },
-    offImgContainer:{
-        height:'60%',
-        width:'62%',
+
+    offImgContainer: {
+        height: '60%',
+        width: '54%',
     },
-    endoOffImg: {
+    lampOffImg: {
         height: '100%',
         width: '100%',
-        // borderWidth: 2
     },
     onBtn: {
-        // padding:
     },
     onBtnTxt: {
         borderRadius: 7,
         backgroundColor: '#95d151',
         fontSize: 30,
         fontWeight: 'bold',
-        paddingHorizontal:12,
-        paddingVertical:12,
+        paddingHorizontal: 12,
+        paddingVertical: 12,
         color: 'white'
     },
     offBtnTxt: {
@@ -96,11 +90,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'red',
         fontSize: 30,
         fontWeight: 'bold',
-        paddingHorizontal:12,
-        paddingVertical:12,
+        paddingHorizontal: 12,
+        paddingVertical: 12,
         color: 'white'
-    },
-    iconBtn: {
-
     }
 })
