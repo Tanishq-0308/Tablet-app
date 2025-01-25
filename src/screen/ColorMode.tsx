@@ -47,10 +47,14 @@ export default ColorMode
 const styles = StyleSheet.create({
     mainContainer: {
         flexDirection: 'row',
-        margin: 10
+        backgroundColor:'white',
+        height:'100%',
+        width:'100%'
     },
     container1: {
         flexDirection: 'column',
+        marginLeft:10,
+        marginTop:10
     },
     container2: {
         flexDirection: 'column',

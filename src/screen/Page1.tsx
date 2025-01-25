@@ -58,12 +58,14 @@ const styles = StyleSheet.create({
     gap: 50,
     backgroundColor: 'white',
     height: height,
-    // borderWidth:2
+    // borderWidth:2,
+    width:width
   },
   blockOne: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
+    // borderWidth:2
   },
   blockTwo: {
     flexDirection: 'row',
@@ -71,7 +73,8 @@ const styles = StyleSheet.create({
   },
   box: {
     width: width / 4,
-    height: height / 3
+    height: height / 3,
+    // borderWidth:2
   },
   box2: {
     width: width / 2,

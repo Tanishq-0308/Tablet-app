@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     backgroundColor:'white',
     // borderWidth:2,
     height:'100%',
-    width:'100%'
+    width:'100%',
 },
 container1: {
     flexDirection: 'column',

@@ -12,7 +12,7 @@ const OverHeadSensor = () => {
 
         if(!headSensorEnabled){
             Snackbar.show({
-                text:'redMode is Enabled!',
+                text:'OverHead sensor is Enabled!',
                 duration:Snackbar.LENGTH_LONG,
                 backgroundColor:'#5BBD17',
                 textColor:'white'
