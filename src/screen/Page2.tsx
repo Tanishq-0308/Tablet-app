@@ -1,42 +1,52 @@
 import { Dimensions, Settings, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import BoostMode from '../components/Page1Components/BoostMode'
-import Color from '../components/Page1Components/Color'
-import Endo from '../components/Page1Components/Endo'
-import Focus from '../components/Page1Components/Focus'
-import Intensity from '../components/Page1Components/Intensity'
-import Lamp from '../components/Page1Components/Lamp'
+import WhiteBalance from '../components/Page2Components/WhiteBalance'
+import Iris from '../components/Page2Components/Iris'
+import CameraFocus from '../components/Page2Components/CameraFocus'
+import CameraSetting from '../components/Page2Components/CameraSetting'
+import ImageRotation from '../components/Page2Components/ImageRotation'
+import ImageFreeze from '../components/Page2Components/ImageFreeze'
+import ImageStablizer from '../components/Page2Components/ImageStablizer'
+import Zoom from '../components/Page2Components/Zoom'
 
 const { width, height } = Dimensions.get('screen')
 const Page2 = () => {
+  console.log(height);
+  
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.blockOne}>
+      <View style={styles.block}>
         <View style={styles.box}>
-          <Intensity />
+          <WhiteBalance/>
         </View>
-        <View style={styles.box}>
-          <Color />
-        </View>
-        <View style={styles.box}>
-          <Endo />
-        </View>
-        <View style={styles.box}>
-          <Lamp />
+        <View style={styles.box1}>
+          <Iris/>
         </View>
       </View>
-      <View style={styles.blockTwo}>
+      <View style={styles.block}>
         <View style={styles.box}>
-          <BoostMode />
+          <Zoom/>
         </View>
-        <View style={styles.box}>
-          <BoostMode />
+        <View style={styles.box1}>
+          <CameraFocus/>
         </View>
-        <View style={styles.box}>
-          <BoostMode />
+      </View>
+      <View style={styles.block}>
+        <View style={styles.innerBlock}>
+          <View style={styles.box2}>
+            <ImageStablizer/>
+          </View>
+          <View style={styles.box2}>
+            <ImageFreeze/>
+          </View>
         </View>
-        <View style={styles.box}>
-          <BoostMode />
+        <View style={styles.innerBlock}>
+          <View style={styles.box2}>
+            <ImageRotation/>
+          </View>
+          <View style={styles.box2}>
+            <CameraSetting/>
+          </View>
         </View>
       </View>
     </View>
@@ -46,26 +56,36 @@ const Page2 = () => {
 export default Page2
 
 const styles = StyleSheet.create({
-    mainContainer: {
-        gap: 50,
-        backgroundColor: 'white',
-        height: height,
-      },
-      blockOne: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-      },
-      blockTwo: {
-        flexDirection: 'row',
-        alignItems: 'center',
-      },
-      box: {
-        width: width / 4,
-        height: height / 3
-      },
-      box2: {
-        width: width / 2,
-        height: height / 3
-      }
+  mainContainer: {
+    backgroundColor: 'white',
+    height: height,
+    // borderWidth: 2,
+    width: width,
+  },
+  block: {
+    height:height/3.64,
+    width:'100%',
+    flexDirection: 'row',
+  },
+  box: {
+    width: '55%',
+    height: '100%',
+    // borderWidth:2
+  },
+  box1:{
+    width: '60%',
+    height: '100%',
+    // borderWidth:2
+  },
+  box2: {
+    width: '50%',
+    height: '100%',
+    // borderWidth:2
+  },
+  innerBlock:{
+    flexDirection:'row',
+    width: '50%',
+    height: '100%',
+    // borderWidth:2,
+  }
 })

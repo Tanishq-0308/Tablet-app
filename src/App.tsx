@@ -16,7 +16,7 @@ export type RootParamList = {
   FactorySetting: undefined;
   ColorMode: undefined;
 }
-console.log(width, height);
+// console.log(width, height);
 
 const Stack = createNativeStackNavigator<RootParamList>()
 const App = () => {

@@ -19,7 +19,7 @@ type HomeProps = NativeStackScreenProps<RootParamList, 'Home'>
 const Page1 = ({ navigation, route }: HomeProps) => {
   return (
     <ScrollView horizontal>
-      {/* <Page2/> */}
+      <Page2/>
     <View style={styles.mainContainer}>
       <View style={styles.blockOne}>
         <View style={styles.box}>
