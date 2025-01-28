@@ -7,6 +7,16 @@ type BtnEnableType = {
     setRedEnabled: (redEnabled:boolean) => void;
     headSensorEnabled: boolean;
     setHeadSensorEnabled: (headSensorEnabled:boolean) => void;
+    greenValue: number;
+    setGreenValue: (greenValue: number) => void;
+    redValue: number;
+    setRedValue: (greenValue: number) => void;
+    headSensor: boolean;
+    setHeadSensor: (headSensor: boolean)=> void;
+    greenEnabledValue: boolean;
+    setGreenEnabledValue: (greenEnabled:boolean) => void;
+    redEnabledValue: boolean;
+    setRedEnabledValue: (redEnabled:boolean) => void;
 }
 
 export const BtnEnableContext = createContext<BtnEnableType>({
@@ -16,12 +26,27 @@ export const BtnEnableContext = createContext<BtnEnableType>({
     setRedEnabled: () => { },
     headSensorEnabled: false,
     setHeadSensorEnabled: () => { },
+    greenValue: 0,
+    setGreenValue: ()=> {},
+    redValue: 0,
+    setRedValue: ()=>{},
+    headSensor: false,
+    setHeadSensor: ()=>{},
+    greenEnabledValue: false,
+    setGreenEnabledValue: () => { },
+    redEnabledValue: false,
+    setRedEnabledValue: () => { },
 })
 
 export const BtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
     const [greenEnabled,setGreenEnabled]= useState(false)
+    const [greenEnabledValue,setGreenEnabledValue]= useState(false)
     const [redEnabled,setRedEnabled] = useState(false)
+    const [redEnabledValue,setRedEnabledValue] = useState(false)
     const [headSensorEnabled,setHeadSensorEnabled]= useState(false)
+    const [greenValue, setGreenValue]= useState(0)
+    const [redValue, setRedValue] = useState(0)
+    const [headSensor, setHeadSensor]= useState(false)
 
     const defaultValue = {
         greenEnabled,
@@ -29,7 +54,17 @@ export const BtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
         redEnabled,
         setRedEnabled,
         headSensorEnabled,
-        setHeadSensorEnabled
+        setHeadSensorEnabled,
+        greenValue,
+        setGreenValue,
+        redValue,
+        setRedValue,
+        headSensor,
+        setHeadSensor,
+        greenEnabledValue,
+        setGreenEnabledValue,
+        redEnabledValue,
+        setRedEnabledValue,
     }
     return (
         <BtnEnableContext.Provider value={defaultValue}>

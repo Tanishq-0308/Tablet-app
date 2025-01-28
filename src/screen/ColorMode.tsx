@@ -2,8 +2,6 @@ import { Image, Pressable, StyleSheet, Switch, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import BackButton from '../components/BackButton';
 import { Dimensions } from 'react-native';
-import greenModeOn from '../../assets/greenModeOn.png'
-import greenModeOff from '../../assets/greenModeOff.png'
 import { RootParamList } from '../App';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import GreenMode from '../components/GreenMode';
@@ -47,14 +45,14 @@ export default ColorMode
 const styles = StyleSheet.create({
     mainContainer: {
         flexDirection: 'row',
-        backgroundColor:'white',
-        height:'100%',
-        width:'100%'
+        backgroundColor: 'white',
+        height: '100%',
+        width: '100%'
     },
     container1: {
         flexDirection: 'column',
-        marginLeft:10,
-        marginTop:10
+        marginLeft: 10,
+        marginTop: 10
     },
     container2: {
         flexDirection: 'column',

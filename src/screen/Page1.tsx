@@ -19,34 +19,34 @@ type HomeProps = NativeStackScreenProps<RootParamList, 'Home'>
 const Page1 = ({ navigation, route }: HomeProps) => {
   return (
     <ScrollView horizontal>
-      <Page2/>
-    <View style={styles.mainContainer}>
-      <View style={styles.blockOne}>
-        <View style={styles.box}>
-          <Intensity />
+      <Page2 />
+      <View style={styles.mainContainer}>
+        <View style={styles.blockOne}>
+          <View style={styles.box}>
+            <Intensity />
+          </View>
+          <View style={styles.box}>
+            <Color />
+          </View>
+          <View style={styles.box}>
+            <Endo />
+          </View>
+          <View style={styles.box}>
+            <Lamp />
+          </View>
         </View>
-        <View style={styles.box}>
-          <Color />
-        </View>
-        <View style={styles.box}>
-          <Endo />
-        </View>
-        <View style={styles.box}>
-          <Lamp />
+        <View style={styles.blockTwo}>
+          <View style={styles.box}>
+            <BoostMode />
+          </View>
+          <View style={styles.box}>
+            <Settings navigation={navigation} route={route} />
+          </View>
+          <View style={styles.box2}>
+            <Focus />
+          </View>
         </View>
       </View>
-      <View style={styles.blockTwo}>
-        <View style={styles.box}>
-          <BoostMode />
-        </View>
-        <View style={styles.box}>
-          <Settings navigation={navigation} route={route} />
-        </View>
-        <View style={styles.box2}>
-          <Focus />
-        </View>
-      </View>
-    </View>
     </ScrollView>
   )
 }
@@ -58,14 +58,12 @@ const styles = StyleSheet.create({
     gap: 50,
     backgroundColor: 'white',
     height: height,
-    // borderWidth:2,
-    width:width
+    width: width
   },
   blockOne: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    // borderWidth:2
   },
   blockTwo: {
     flexDirection: 'row',
@@ -74,7 +72,6 @@ const styles = StyleSheet.create({
   box: {
     width: width / 4,
     height: height / 3,
-    // borderWidth:2
   },
   box2: {
     width: width / 2,

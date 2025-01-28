@@ -1,7 +1,5 @@
 import { Image, ImageSourcePropType, Pressable, StyleSheet, Switch, Text, View } from 'react-native'
-import React, { useState } from 'react'
-import { isEnabled } from 'react-native/Libraries/Performance/Systrace'
-import Snackbar from 'react-native-snackbar';
+import React, { useContext, useEffect, useState } from 'react'
 import greenModeOn from '../../../assets/greenModeOn.png'
 import greenModeOff from '../../../assets/greenModeOff.png'
 
@@ -16,6 +14,7 @@ import IntSix from '../../../assets/6.png'
 import IntSeven from '../../../assets/7.png'
 import IntEight from '../../../assets/8.png'
 import IntNine from '../../../assets/9.png'
+import { BtnEnableContext } from '../../Context/EnableContext';
 
 type ImageProps = PropsWithChildren<{
   imageUrl: ImageSourcePropType
@@ -31,121 +30,123 @@ function IntensityImage({ imageUrl }: ImageProps): React.JSX.Element {
 }
 
 const GreenIntensity = () => {
-    const [intImage, setIntImage] = useState<ImageSourcePropType>(IntZero)
-    const [counter, setCounter] = useState(0);
-  
-    const setimage = (value: number) => {
-  
-      switch (value) {
-        case 0:
-          setIntImage(IntZero)
-          break;
-        case 1:
-          setIntImage(IntOne)
-          break;
-        case 2:
-          setIntImage(IntTwo)
-          break;
-        case 3:
-          setIntImage(IntThree)
-          break;
-        case 4:
-          setIntImage(IntFour)
-          break;
-        case 5:
-          setIntImage(IntFive)
-          break;
-        case 6:
-          setIntImage(IntSix)
-          break;
-        case 7:
-          setIntImage(IntSeven)
-          break;
-        case 8:
-          setIntImage(IntEight)
-          break;
-        case 9:
-          setIntImage(IntNine)
-          break;
-        default:
-          setIntImage(IntZero)
-          break;
-      }
+  const [intImage, setIntImage] = useState<ImageSourcePropType>(IntZero)
+  const { greenValue, setGreenValue, greenEnabledValue, setGreenEnabledValue } = useContext(BtnEnableContext)
+
+  useEffect(() => {
+    setimage(greenValue);
+  }, [greenValue])
+  const setimage = (value: number) => {
+
+    switch (value) {
+      case 0:
+        setIntImage(IntZero)
+        break;
+      case 1:
+        setIntImage(IntOne)
+        break;
+      case 2:
+        setIntImage(IntTwo)
+        break;
+      case 3:
+        setIntImage(IntThree)
+        break;
+      case 4:
+        setIntImage(IntFour)
+        break;
+      case 5:
+        setIntImage(IntFive)
+        break;
+      case 6:
+        setIntImage(IntSix)
+        break;
+      case 7:
+        setIntImage(IntSeven)
+        break;
+      case 8:
+        setIntImage(IntEight)
+        break;
+      case 9:
+        setIntImage(IntNine)
+        break;
+      default:
+        setIntImage(IntZero)
+        break;
     }
-        const [power, setPower] = useState(false)
+  }
   return (
     <View style={styles.container}>
-    <View style={styles.container2}>
-            {
-                power ?
-                    <View style={styles.onImgContainer}>
-                        <Image source={greenModeOn} style={styles.boostOnImg} />
-                    </View>
-                    :
-                    <View style={styles.offImgContainer}>
-                        <Image source={greenModeOff} style={styles.boostOffImg} />
-                    </View>
-            }
-            <Text
+      <View style={styles.container2}>
+        {
+          greenEnabledValue ?
+            <View style={styles.onImgContainer}>
+              <Image source={greenModeOn} style={styles.boostOnImg} />
+            </View>
+            :
+            <View style={styles.offImgContainer}>
+              <Image source={greenModeOff} style={styles.boostOffImg} />
+            </View>
+        }
+        <Text
 
-                style={styles.heading}
-            >GREEN MODE</Text>
-                        <Pressable
-                            onPress={() => setPower(!power)}
-                        >
-                            {
-                                power ?
-                                    <Text style={styles.offBtnTxt}>
-                                        OFF
-                                    </Text>
-                                    :
-                                    <Text style={styles.onBtnTxt}>
-                                        ON
-                                    </Text>
-                            }
-                        </Pressable>
+          style={styles.heading}
+        >GREEN MODE</Text>
+        <Pressable
+          onPress={() => setGreenEnabledValue(!greenEnabledValue)}
+        >
+          {
+            greenEnabledValue ?
+              <Text style={styles.offBtnTxt}>
+                OFF
+              </Text>
+              :
+              <Text style={styles.onBtnTxt}>
+                ON
+              </Text>
+          }
+        </Pressable>
+      </View>
+      <View style={styles.container3}>
+
+        <View style={styles.intImageContainer}>
+          <IntensityImage imageUrl={intImage} />
         </View>
-        <View style={styles.container3}>
-            
-                  <View style={styles.intImageContainer}>
-                    <IntensityImage imageUrl={intImage} />
-                  </View>
-                  <Text style={styles.heading}>INTENSITY</Text>
-                  <View style={styles.diceContainer}>
-                    <Pressable
-                    disabled={power ? false : true}
-                        onPress={() => {
-                            if (counter > 0) {
-                              const newCounter = counter - 1; // Calculate the new counter
-                              setCounter(newCounter);
-                              setimage(newCounter); // Use the new counter value
-                            }
-                          }}
-                    >
-                      <Text
-                        style={styles.rollDiceBtnText}
-                      >
-                        ⬅️
-                      </Text>
-                    </Pressable>
-                    <Pressable
-                    disabled={power ? false : true}
-                         onPress={() => {
-                            if (counter < 9) {
-                              const newCounter = counter + 1; // Calculate the new counter
-                              setCounter(newCounter);
-                              setimage(newCounter); // Use the new counter value
-                            }
-                          }}
-                    >
-                      <Text
-                        style={styles.rollDiceBtnText}
-                      >
-                        ➡️
-                      </Text>
-                    </Pressable>
-                  </View>
+        <Text style={styles.heading}>INTENSITY</Text>
+        <View style={styles.diceContainer}>
+          <Pressable
+            disabled={greenEnabledValue ? false : true}
+            onPress={() => {
+              if (greenValue > 0) {
+                const newgreenValue = greenValue - 1; // Calculate the new greenValue
+                setGreenValue(newgreenValue);
+                setimage(newgreenValue); // Use the new greenValue value
+              }
+            }}
+          >
+            <Text
+              style={styles.rollDiceBtnText}
+            >
+              ⬅️
+            </Text>
+          </Pressable>
+          <Pressable
+            disabled={greenEnabledValue ? false : true}
+            onPress={() => {
+              if (greenValue < 9) {
+                const newgreenValue = greenValue + 1; // Calculate the new greenValue
+                setGreenValue(newgreenValue);
+                setimage(newgreenValue); // Use the new greenValue value
+              }
+            }}
+          >
+            <Text
+              style={styles.rollDiceBtnText}
+            >
+              ➡️
+            </Text>
+          </Pressable>
         </View>
+      </View>
     </View>
   )
 }
@@ -153,86 +154,86 @@ const GreenIntensity = () => {
 export default GreenIntensity
 
 const styles = StyleSheet.create({
-    container:{
-        flexDirection:'row'
-    },
-    container2: {
-        flexDirection: 'column',
-        height: '100%',
-        width: '50%',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    container3:{
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100%',
-        width: '50%',
-    },
-      intImageContainer: {
-        height: '60%',
-        width: '69%',
-      },
-      intImage: {
-        height: '100%',
-        width: '100%',
-      },
-      heading: {
-        fontWeight: 'bold',
-        fontSize: 24,
-        fontStyle: 'italic',
-      },
-      diceContainer: {
-        flexDirection: 'row'
-      },
-      rollDiceBtnText: {
-        paddingHorizontal: 25,
-        borderRadius: 8,
-        borderColor: 'black',
-        fontSize: 42,
-        color: 'black',
-        fontWeight: '700',
-        textTransform: 'uppercase'
-      },
-    onImgContainer: {
-        height: '60%',
-        width: '54%',
-    },
-    boostOnImg: {
-        height: '100%',
-        width: '100%',
-    },
+  container: {
+    flexDirection: 'row'
+  },
+  container2: {
+    flexDirection: 'column',
+    height: '100%',
+    width: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  container3: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    width: '50%',
+  },
+  intImageContainer: {
+    height: '60%',
+    width: '69%',
+  },
+  intImage: {
+    height: '100%',
+    width: '100%',
+  },
+  heading: {
+    fontWeight: 'bold',
+    fontSize: 24,
+    fontStyle: 'italic',
+  },
+  diceContainer: {
+    flexDirection: 'row'
+  },
+  rollDiceBtnText: {
+    paddingHorizontal: 25,
+    borderRadius: 8,
+    borderColor: 'black',
+    fontSize: 42,
+    color: 'black',
+    fontWeight: '700',
+    textTransform: 'uppercase'
+  },
+  onImgContainer: {
+    height: '60%',
+    width: '54%',
+  },
+  boostOnImg: {
+    height: '100%',
+    width: '100%',
+  },
 
-    offImgContainer: {
-        height: '60%',
-        width: '54%',
-    },
-    boostOffImg: {
-        height: '100%',
-        width: '100%',
-    },
-    switchContainer: {
-    },
-    switchBtn: {
-        margin: 18
-    },
-    onBtnTxt: {
-        borderRadius: 7,
-        backgroundColor: '#95d151',
-        fontSize: 30,
-        fontWeight: 'bold',
-        paddingHorizontal: 12,
-        paddingVertical: 12,
-        color: 'white'
-    },
-    offBtnTxt: {
-        borderRadius: 7,
-        backgroundColor: 'red',
-        fontSize: 30,
-        fontWeight: 'bold',
-        paddingHorizontal: 12,
-        paddingVertical: 12,
-        color: 'white'
-    }
+  offImgContainer: {
+    height: '60%',
+    width: '54%',
+  },
+  boostOffImg: {
+    height: '100%',
+    width: '100%',
+  },
+  switchContainer: {
+  },
+  switchBtn: {
+    margin: 18
+  },
+  onBtnTxt: {
+    borderRadius: 7,
+    backgroundColor: '#95d151',
+    fontSize: 30,
+    fontWeight: 'bold',
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+    color: 'white'
+  },
+  offBtnTxt: {
+    borderRadius: 7,
+    backgroundColor: 'red',
+    fontSize: 30,
+    fontWeight: 'bold',
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+    color: 'white'
+  }
 })

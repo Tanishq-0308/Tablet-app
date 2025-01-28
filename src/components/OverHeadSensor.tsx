@@ -6,16 +6,16 @@ import { BtnEnableContext } from '../Context/EnableContext'
 import Snackbar from 'react-native-snackbar'
 
 const OverHeadSensor = () => {
-    const {headSensorEnabled, setHeadSensorEnabled}= useContext(BtnEnableContext);
+    const { headSensorEnabled, setHeadSensorEnabled } = useContext(BtnEnableContext);
     const toggleSwitch = () => {
         setHeadSensorEnabled(!headSensorEnabled)
 
-        if(!headSensorEnabled){
+        if (!headSensorEnabled) {
             Snackbar.show({
-                text:'OverHead sensor is Enabled!',
-                duration:Snackbar.LENGTH_LONG,
-                backgroundColor:'#5BBD17',
-                textColor:'white'
+                text: 'OverHead sensor is Enabled!',
+                duration: Snackbar.LENGTH_LONG,
+                backgroundColor: '#5BBD17',
+                textColor: 'white'
             })
         }
     }

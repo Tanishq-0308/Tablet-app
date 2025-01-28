@@ -1,16 +1,15 @@
-import { Image, Pressable, StyleSheet, Switch, Text, View } from 'react-native'
-import React, { useContext, useState } from 'react'
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
+import React, { useContext, } from 'react'
 import overHdSensorOn from '../../../assets/overheadSensorOn.png'
 import overHdSensorOff from '../../../assets/overheadSensorOff.png'
-import Snackbar from 'react-native-snackbar';
 import { BtnEnableContext } from '../../Context/EnableContext';
 
 const OverheadEnable = () => {
-        const [power, setPower] = useState(false)
+    const { headSensor, setHeadSensor } = useContext(BtnEnableContext);
     return (
         <View style={styles.container2}>
             {
-                !power ?
+                !headSensor ?
                     <View style={styles.offImgContainer}>
                         <Image source={overHdSensorOff} style={styles.boostOffImg} />
                     </View>
@@ -23,20 +22,20 @@ const OverheadEnable = () => {
 
                 style={styles.heading}
             >OVERHEAD SENSOR</Text>
-                        <Pressable
-                            onPress={() => setPower(!power)}
-                        >
-                            {
-                                power ?
-                                    <Text style={styles.offBtnTxt}>
-                                        OFF
-                                    </Text>
-                                    :
-                                    <Text style={styles.onBtnTxt}>
-                                        ON
-                                    </Text>
-                            }
-                        </Pressable>
+            <Pressable
+                onPress={() => setHeadSensor(!headSensor)}
+            >
+                {
+                    headSensor ?
+                        <Text style={styles.offBtnTxt}>
+                            OFF
+                        </Text>
+                        :
+                        <Text style={styles.onBtnTxt}>
+                            ON
+                        </Text>
+                }
+            </Pressable>
         </View>
     )
 }
