@@ -4,6 +4,7 @@ import IrisImage from '../../../assets/cameraIcons/iris.png'
 
 const Iris = () => {
     const [width, setWidth] = useState(10);
+    const [manualBtn, setManualBtn] = useState(false);
 
     const increase = () => {
         if (width < 100) {
@@ -27,33 +28,35 @@ const Iris = () => {
                 <Pressable>
                     <Text style={styles.button}>Auto</Text>
                 </Pressable>
-                <Text style={styles.button}>Manual</Text>
-                <View>
-                <View
-                    style={styles.valueContainer}
-                >
-                    <View>
-                        <TouchableOpacity onPress={decrease}>
-                            <Text style={{ fontSize: 28 }}>-</Text>
+                <View style={manualBtn ? { flexDirection: 'column', gap: 27, position: 'relative', right: 43 } : styles.manualContainer}>
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity onPress={() => setManualBtn(!manualBtn)}>
+                            <Text style={styles.button}>Manual</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.length}>
-                        <View
-                            style={{
-                                height: "100%",
-                                backgroundColor: "black",
-                                width: `${width}%`,
-                                borderRadius:10
-                            }}
-                        >
+                    <View style={manualBtn ? styles.valueContainer : styles.valueContainerOff}>
+                        <View>
+                            <TouchableOpacity onPress={decrease}>
+                                <Text style={{ fontSize: 38 }}>-</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.length}>
+                            <View
+                                style={{
+                                    height: "100%",
+                                    backgroundColor: "black",
+                                    width: `${width}%`,
+                                    borderTopLeftRadius: 10,
+                                    borderBottomLeftRadius: 10,
+                                }}
+                            ></View>
+                        </View>
+                        <View>
+                            <TouchableOpacity onPress={increase}>
+                                <Text style={{ fontSize: 38 }}>+</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
-                    <View>
-                        <TouchableOpacity onPress={increase}>
-                            <Text style={{ fontSize: 28 }}>+</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
                 </View>
             </View>
         </View>
@@ -104,23 +107,36 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         backgroundColor: '#ced6e0',
         paddingHorizontal: 13,
-        paddingVertical: 2,
+        paddingVertical: 5,
         borderRadius: 12,
         elevation: 2,
         borderColor: '#747d8c'
     },
     length: {
-        width: 100,
-        height: 15,
+        flexDirection: 'row',
+        flexGrow: 1,
+        width: 130,
+        height: 17,
         borderRadius: 10,
         borderColor: '#747d8c',
-        backgroundColor:'#ced6e0'
+        backgroundColor: '#ced6e0',
+        alignItems: 'center',
+        overflow: 'hidden'
     },
-    valueContainer:{
+    valueContainer: {
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "center",
+        // justifyContent: "center",
         gap: 10,
+        // borderWidth:2
+    },
+    valueContainerOff: {
+        display: 'none'
+    },
+    buttonContainer: {
+        alignItems: 'center'
+    },
+    manualContainer: {
 
     }
 })
