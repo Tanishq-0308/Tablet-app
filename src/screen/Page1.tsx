@@ -17,6 +17,8 @@ const { width, height } = Dimensions.get('screen')
 type HomeProps = NativeStackScreenProps<RootParamList, 'Home'>
 
 const Page1 = ({ navigation, route }: HomeProps) => {
+  console.log('width'+ width + 'height' + height);
+  
   return (
     <ScrollView horizontal>
       <Page2 />
@@ -57,8 +59,9 @@ const styles = StyleSheet.create({
   mainContainer: {
     gap: 50,
     backgroundColor: 'white',
-    height: height,
-    width: width
+    height: height -170,
+    width: width,
+    // borderWidth:2
   },
   blockOne: {
     flexDirection: 'row',
@@ -72,9 +75,11 @@ const styles = StyleSheet.create({
   box: {
     width: width / 4,
     height: height / 3,
+    // borderWidth:2
   },
   box2: {
     width: width / 2,
-    height: height / 3
+    height: height / 3,
+    // borderWidth:2
   }
 })

@@ -6,7 +6,7 @@ const { width, height } = Dimensions.get('screen')
 const Header = () => {
   return (
     <View style={styles.container}>
-        <Image source={logo} style={[styles.logoImage, height<500 ? {display:'none'}: null]} />
+        <Image source={logo} style={styles.logoImage} />
     </View>
   )
 }
@@ -15,9 +15,10 @@ export default Header
 
 const styles = StyleSheet.create({
     container:{
-        // borderWidth:2,
+        borderWidth:2,
         // alignItems:'center'
-        backgroundColor:'white'
+        backgroundColor:'white',
+        height:height/9
     },
     logoImage: {
         height: 70,
@@ -25,6 +26,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 15,
         marginVertical: 5,
         backgroundColor: 'white',
-        // borderWidth:2
+        borderWidth:2
       },
 })

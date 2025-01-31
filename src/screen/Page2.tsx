@@ -11,6 +11,7 @@ import Zoom from '../components/Page2Components/Zoom'
 
 const { width, height } = Dimensions.get('screen')
 const Page2 = () => {
+console.log("width", width + "height" + height);
 
   return (
     <View style={styles.mainContainer}>
@@ -57,25 +58,30 @@ export default Page2
 const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: 'white',
-    height: height,
+    height: height-170,
     width: width,
+    // borderWidth:2
   },
   block: {
-    height: height / 3.64,
+    height: (height - 170) / 3,
     width: '100%',
     flexDirection: 'row',
+    borderWidth:2
   },
   box: {
     width: '55%',
     height: '100%',
+    borderWidth:2
   },
   box1: {
     width: '60%',
     height: '100%',
+    borderWidth:2
   },
   box2: {
     width: '50%',
     height: '100%',
+    borderWidth:2
   },
   innerBlock: {
     flexDirection: 'row',

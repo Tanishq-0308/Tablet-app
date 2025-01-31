@@ -1,0 +1,43 @@
+import { create } from "zustand";
+
+type StateType={
+    states:{
+        [key: string]: any;
+    };
+    setState: (key: string, value: any)=> void;
+}
+
+const useStore= create<StateType>((set)=>({
+    states:{
+        stateIL:'',
+        stateIR:'',
+        stateCL:'',
+        stateCR:'',
+        stateEL:'',
+        stateER:'',
+        stateLL:'',
+        stateLR:'',
+        stateDL:'',
+        stateDR:'',
+        stateFL:'',
+        stateFR:'',
+        stateML:'',
+        stateMR:'',
+        stateOL:'',
+        stateOR:'',
+        stateGL:'',
+        stateGR:'',
+        stateRL:'',
+        stateRR:'',
+    },
+    setState:(key, value)=>set((state)=>({
+        states:{
+            ...state.states,
+            [key]:value,
+        }
+    }))
+}))
+
+
+
+export default useStore;

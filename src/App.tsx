@@ -6,6 +6,7 @@ import FactorySetting from './screen/FactorySetting'
 import ColorMode from './screen/ColorMode'
 import { BtnEnableProvider } from './Context/EnableContext'
 import Header from './components/Header/Header'
+import { WebSocketContextProvider } from './Context/webSocketContext'
 
 
 export type RootParamList = {
@@ -17,6 +18,7 @@ export type RootParamList = {
 const Stack = createNativeStackNavigator<RootParamList>()
 const App = () => {
   return (
+    <WebSocketContextProvider>
     <BtnEnableProvider>
     <NavigationContainer>
       <Header/>
@@ -45,6 +47,7 @@ const App = () => {
       </Stack.Navigator>
     </NavigationContainer>
     </BtnEnableProvider>
+    </WebSocketContextProvider>
   )
 }
 

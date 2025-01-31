@@ -2,9 +2,11 @@ import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import EndoOn from '../../../assets/endo.png'
 import EndoOff from '../../../assets/endo-off.png'
+import { useWebSocket } from '../../Context/webSocketContext'
 
 const Endo = () => {
     const [power, setPower] = useState(false)
+    const {sendMessage}=useWebSocket();
     return (
         <View style={styles.container}>
             {
