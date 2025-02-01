@@ -6,6 +6,7 @@ import type { PropsWithChildren } from 'react'
 import colorA from '../../../assets/24.png';
 import colorB from '../../../assets/25.png';
 import colorC from '../../../assets/26.png';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 type colorImageProps = PropsWithChildren<{
     imageUrl: ImageSourcePropType
@@ -96,12 +97,12 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     intImageContainer: {
-        height: '35%',
-        width: '70%',
+        // height: '35%',
+        // width: '70%',
     },
     colorImage: {
-        height: '100%',
-        width: '100%',
+        height: hp('12%'),
+        width: wp('22%'),
     },
     heading: {
         flexDirection: 'row',
@@ -110,11 +111,11 @@ const styles = StyleSheet.create({
     },
     title: {
         fontWeight: 'bold',
-        fontSize: 24,
+        fontSize: hp('3.3%'),
         fontStyle: 'italic',
     },
     headTxt: {
-        fontSize: 25,
+        fontSize: hp('3%'),
         fontWeight: 'bold'
     },
     counterBtn: {
@@ -124,18 +125,18 @@ const styles = StyleSheet.create({
         paddingHorizontal: 25,
         borderRadius: 8,
         borderColor: 'black',
-        fontSize: 48,
+        fontSize: hp('6%'),
         color: 'black',
         fontWeight: '700',
         textTransform: 'uppercase'
     },
     colImageContainer: {
-        height: '10%',
-        width: '65%'
+        // height: '10%',
+        // width: '65%'
     },
     colImage: {
-        height: '100%',
-        width: '100%'
+        height: hp('4%'),
+        width: wp('19%')
     }
 
 })

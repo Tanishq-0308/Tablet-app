@@ -7,6 +7,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import GreenMode from '../components/GreenMode';
 import RedMode from '../components/RedMode';
 import OverHeadSensor from '../components/OverHeadSensor';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 
 type ColorModeProps = NativeStackScreenProps<RootParamList, 'ColorMode'>
@@ -46,8 +47,9 @@ const styles = StyleSheet.create({
     mainContainer: {
         flexDirection: 'row',
         backgroundColor: 'white',
-        height: '100%',
-        width: '100%'
+        height: hp('85.5%'),
+        width: wp('100%'),
+        borderWidth:1,
     },
     container1: {
         flexDirection: 'column',
@@ -56,13 +58,14 @@ const styles = StyleSheet.create({
     },
     container2: {
         flexDirection: 'column',
-        gap: 20
+        gap: 50
     },
     box: {
         flexDirection: 'row',
         alignItems: 'center',
-        width: width / 2.2,
-        height: height / 3,
+        width: wp('45.61%'),
+        height: hp('37%'),
+        borderWidth:1,
     },
     blockOne: {
         flexDirection: 'row'

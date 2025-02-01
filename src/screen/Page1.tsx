@@ -12,6 +12,8 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { RootParamList } from '../App'
 import Page2 from './Page2'
 
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 const { width, height } = Dimensions.get('screen')
 
 type HomeProps = NativeStackScreenProps<RootParamList, 'Home'>
@@ -59,9 +61,9 @@ const styles = StyleSheet.create({
   mainContainer: {
     gap: 50,
     backgroundColor: 'white',
-    height: height -170,
-    width: width,
-    // borderWidth:2
+    height: hp('85.5%'),
+    width: wp('100%'),
+    borderWidth:1
   },
   blockOne: {
     flexDirection: 'row',
@@ -73,13 +75,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   box: {
-    width: width / 4,
-    height: height / 3,
-    // borderWidth:2
+    width: wp('25%'),
+    height: hp('37%'),
+    borderWidth:1
   },
   box2: {
-    width: width / 2,
-    height: height / 3,
-    // borderWidth:2
+    width: wp('50%'),
+    height: hp('37%'),
+    borderWidth:1
   }
 })

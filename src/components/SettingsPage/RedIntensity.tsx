@@ -15,6 +15,7 @@ import IntSeven from '../../../assets/7.png'
 import IntEight from '../../../assets/8.png'
 import IntNine from '../../../assets/9.png'
 import { BtnEnableContext } from '../../Context/EnableContext';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 type ImageProps = PropsWithChildren<{
   imageUrl: ImageSourcePropType
@@ -155,33 +156,32 @@ export default RedIntensity
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    height:'100%'
   },
   container2: {
     flexDirection: 'column',
-    height: '100%',
-    width: '50%',
+    // height: '100%',
+    width:wp('22%'),
     alignItems: 'center',
     justifyContent: 'center',
+    gap:5,
   },
   container3: {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     height: '100%',
-    width: '50%',
+    width:wp('22%'),
   },
-  intImageContainer: {
-    height: '60%',
-    width: '69%',
-  },
+  intImageContainer: {},
   intImage: {
-    height: '100%',
-    width: '100%',
+    height: hp('19%'),
+    width: wp('16%'),
   },
   heading: {
     fontWeight: 'bold',
-    fontSize: 24,
+    fontSize: hp('3.3%'),
     fontStyle: 'italic',
   },
   diceContainer: {
@@ -191,27 +191,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     borderRadius: 8,
     borderColor: 'black',
-    fontSize: 42,
+    fontSize: hp('6%'),
     color: 'black',
     fontWeight: '700',
     textTransform: 'uppercase'
   },
-  onImgContainer: {
-    height: '60%',
-    width: '54%',
-  },
+  onImgContainer: {},
   boostOnImg: {
-    height: '100%',
-    width: '100%',
+    height: hp('19%'),
+    width: wp('13.5%'),
   },
 
-  offImgContainer: {
-    height: '60%',
-    width: '54%',
-  },
+  offImgContainer: {},
   boostOffImg: {
-    height: '100%',
-    width: '100%',
+    height: hp('19%'),
+    width: wp('14%'),
   },
   switchContainer: {
   },
@@ -221,7 +215,7 @@ const styles = StyleSheet.create({
   onBtnTxt: {
     borderRadius: 7,
     backgroundColor: '#95d151',
-    fontSize: 30,
+    fontSize: hp('4%'),
     fontWeight: 'bold',
     paddingHorizontal: 12,
     paddingVertical: 12,
@@ -230,7 +224,7 @@ const styles = StyleSheet.create({
   offBtnTxt: {
     borderRadius: 7,
     backgroundColor: 'red',
-    fontSize: 30,
+    fontSize: hp('4%'),
     fontWeight: 'bold',
     paddingHorizontal: 12,
     paddingVertical: 12,

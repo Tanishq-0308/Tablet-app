@@ -1,11 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Icons from 'react-native-vector-icons/Ionicons'
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const BackButton = () => {
     return (
         <View style={styles.backBtnContainer}>
-            <Icons name='return-up-back-outline' size={30} style={{ color: 'white', fontWeight: 'bold' }} />
+            <Icons name='return-up-back-outline' 
+            style={styles.icon} />
             <Text style={styles.backBtn}>GO BACK</Text>
         </View>
     )
@@ -23,9 +25,13 @@ const styles = StyleSheet.create({
         borderRadius: 13,
     },
     backBtn: {
-        fontSize: 13,
+        fontSize: hp('1.6%'),
         fontWeight: 'bold',
         color: 'white',
         letterSpacing: 1
+    },
+    icon:{
+        fontSize:hp('4%'),
+        color:'white',
     }
 })

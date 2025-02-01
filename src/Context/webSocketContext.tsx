@@ -25,13 +25,16 @@ export const WebSocketContextProvider:FC<{children: React.ReactNode}> =({childre
             console.log(message);
             const component= message[1];
             const dome= message[5];
-            setState(`state${component+dome}`, message);
+            let key = `state${component+dome}`
+            setState(key, message);
+            console.log('message send');
+            
         }
         setSocket(ws)
         return()=>{
             ws.close();
         };
-    },[]);
+    },[setState]);
 
     const sendMessage= (message: string)=>{
         if(socket && socket.readyState === WebSocket.OPEN){

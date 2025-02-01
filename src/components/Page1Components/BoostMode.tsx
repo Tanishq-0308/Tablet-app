@@ -2,6 +2,8 @@ import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import BoostOn from '../../../assets/boostMode.png'
 import BoostOff from '../../../assets/boostOff.png'
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { verticalScale, scale } from 'react-native-size-matters';
 
 const BoostMode = () => {
     const [power, setPower] = useState(false)
@@ -49,35 +51,34 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         height: '100%',
-        width: '100%',
     },
     heading: {
         fontWeight: 'bold',
-        fontSize: 25,
+        fontSize: hp('3.3%'),
         fontStyle: 'italic'
     },
     onImgContainer: {
-        height: '60%',
-        width: '54%',
+        // height: '60%',
+        // width: '54%',
     },
     boostOnImg: {
-        height: '100%',
-        width: '100%',
+            height: verticalScale(76),
+            width: scale(75),
     },
     offImgContainer: {
-        height: '60%',
-        width: '54%',
+        // height: '60%',
+        // width: '54%',
     },
     boostOffImg: {
-        height: '100%',
-        width: '100%',
+        height: verticalScale(76),
+        width: scale(75),
     },
     onBtn: {
     },
     onBtnTxt: {
         borderRadius: 7,
         backgroundColor: '#95d151',
-        fontSize: 30,
+        fontSize: hp('4%'),
         fontWeight: 'bold',
         paddingHorizontal: 12,
         paddingVertical: 11,
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
     offBtnTxt: {
         borderRadius: 7,
         backgroundColor: 'red',
-        fontSize: 30,
+        fontSize: hp('4%'),
         fontWeight: 'bold',
         paddingHorizontal: 12,
         paddingVertical: 11,

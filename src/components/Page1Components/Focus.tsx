@@ -2,6 +2,7 @@ import { Image, Pressable, StyleSheet, Switch, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import focusOn from '../../../assets/focus.png'
 import focusOff from '../../../assets/focusOff.png'
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const Focus = () => {
     const [isEnabled, setIsEnabled] = useState(false);
@@ -65,7 +66,6 @@ const styles = StyleSheet.create({
     mainContainer: {
         flexDirection: 'row',
         height: '100%',
-        width: '100%',
     },
     container: {
         flexDirection: 'column',
@@ -73,36 +73,36 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         gap: 5,
         height: '100%',
-        width: '50%',
+        width: wp('25%'),
     },
     container2: {
         flexDirection: 'column',
-        width: '50%',
+        width: wp('25%'),
         alignItems: 'center',
         justifyContent: 'center',
         gap: 30
     },
     heading: {
         fontWeight: 'bold',
-        fontSize: 25,
+        fontSize: hp('3.3%'),
         fontStyle: 'italic',
     },
     onImgContainer: {
-        height: '60%',
-        width: '54%',
+        // height: '60%',
+        // width: '54%',
     },
     boostOnImg: {
-        height: '100%',
-        width: '100%',
+        height: hp('19%'),
+        width: wp('13%'),
     },
 
     offImgContainer: {
-        height: '60%',
-        width: '54%',
+        // height: '60%',
+        // width: '54%',
     },
     boostOffImg: {
-        height: '100%',
-        width: '100%',
+        height: hp('19%'),
+        width: wp('13%'),
     },
     switchContainer: {
     },
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
 
     },
     onBtnTxt: {
-        fontSize: 39,
+        fontSize: hp('5%'),
         fontWeight: 'bold',
         color: 'white',
         fontStyle: 'italic',

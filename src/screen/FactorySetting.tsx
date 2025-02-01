@@ -10,6 +10,7 @@ import GreenIntensity from '../components/SettingsPage/GreenIntensity'
 import RedIntensity from '../components/SettingsPage/RedIntensity'
 import OverheadEnable from '../components/SettingsPage/OverheadEnable'
 import { BtnEnableContext } from '../Context/EnableContext'
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 type FactorySettingProps = NativeStackScreenProps<RootParamList, 'FactorySetting'>
 
@@ -56,24 +57,13 @@ const FactorySetting = ({ navigation, route }: FactorySettingProps) => {
 export default FactorySetting
 
 const styles = StyleSheet.create({
-  // box: {
-  //   flexDirection: 'row',
-  //   // width: width / 4,
-  //   // height: height / 3,
-  //   // justifyContent: 'space-between',
-  //   margin: 10,
-  //   // borderWidth:2
-  // },
-  // container1:{
-
-  // },
   mainContainer: {
     flexDirection: 'row',
     // margin: 10,
     backgroundColor:'white',
-    // borderWidth:2,
-    height:'100%',
-    width:'100%',
+    borderWidth:1,
+    height: hp('85.5%'),
+    width: wp('100%'),
 },
 container1: {
     flexDirection: 'column',
@@ -82,14 +72,14 @@ container1: {
 },
 container2: {
     flexDirection: 'column',
-    gap: 35
+    gap: 50
 },
 box: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: width / 2.22,
-    height: height / 3,
-    // borderWidth:2,
+    width: wp('45.61%'),
+    height: hp('37%'),
+    borderWidth:1,
 },
 blockOne: {
     flexDirection: 'row'

@@ -4,6 +4,7 @@ import overHdSensorOn from '../../assets/overheadSensorOn.png'
 import overHdSensorOff from '../../assets/overheadSensorOff.png'
 import { BtnEnableContext } from '../Context/EnableContext'
 import Snackbar from 'react-native-snackbar'
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const OverHeadSensor = () => {
     const { headSensorEnabled, setHeadSensorEnabled } = useContext(BtnEnableContext);
@@ -55,31 +56,26 @@ const styles = StyleSheet.create({
     container2: {
         flexDirection: 'column',
         height: '100%',
-        width: '50%',
+        width:wp('22%'),
         alignItems: 'center',
         justifyContent: 'center',
+        gap:5,
     },
     heading: {
         fontWeight: 'bold',
-        fontSize: 25,
+        fontSize: hp('3.3%'),
         fontStyle: 'italic',
     },
-    onImgContainer: {
-        height: '60%',
-        width: '54%',
-    },
+    onImgContainer: {},
     boostOnImg: {
-        height: '100%',
-        width: '100%',
+        height: hp('19%'),
+        width: wp('11.6%'),
     },
 
-    offImgContainer: {
-        height: '60%',
-        width: '54%',
-    },
+    offImgContainer: {},
     boostOffImg: {
-        height: '100%',
-        width: '100%',
+        height: hp('19%'),
+        width: wp('11.6%'),
     },
     switchContainer: {
     },

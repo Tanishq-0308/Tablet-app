@@ -2,6 +2,8 @@ import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import LampOn from '../../../assets/lamp.png';
 import LampOff from '../../../assets/lamp-off.png';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { scale, verticalScale } from 'react-native-size-matters';
 
 const Lamp = () => {
 
@@ -50,36 +52,35 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         height: '100%',
-        width: '100%',
     },
     heading: {
         fontWeight: 'bold',
-        fontSize: 25,
+        fontSize: hp('3.3%'),
         fontStyle: 'italic'
     },
     onImgContainer: {
-        height: '60%',
-        width: '54%',
+        // height: '60%',
+        // width: '54%',
     },
     lampOnImg: {
-        height: '100%',
-        width: '100%',
+            height: verticalScale(76),
+            width: scale(75),
     },
 
     offImgContainer: {
-        height: '60%',
-        width: '54%',
+        // height: '60%',
+        // width: '54%',
     },
     lampOffImg: {
-        height: '100%',
-        width: '100%',
+        height: verticalScale(76),
+        width: scale(75),
     },
     onBtn: {
     },
     onBtnTxt: {
         borderRadius: 7,
         backgroundColor: '#95d151',
-        fontSize: 30,
+        fontSize: hp('4%'),
         fontWeight: 'bold',
         paddingHorizontal: 12,
         paddingVertical: 12,
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
     offBtnTxt: {
         borderRadius: 7,
         backgroundColor: 'red',
-        fontSize: 30,
+        fontSize: hp('4%'),
         fontWeight: 'bold',
         paddingHorizontal: 12,
         paddingVertical: 12,
