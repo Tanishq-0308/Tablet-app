@@ -1,22 +1,51 @@
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import BoostOn from '../../../assets/boostMode.png'
 import BoostOff from '../../../assets/boostOff.png'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { verticalScale, scale } from 'react-native-size-matters';
+import { verticalScale, scale, moderateScale } from 'react-native-size-matters';
+import { useWebSocket } from '../../Context/webSocketContext';
+import useStore from '../../Store/stateStore';
 
 const BoostMode = () => {
-    const [power, setPower] = useState(false)
+    const [power, setPower] = useState('@D_0#TL')
+    const {sendMessage}=useWebSocket();
+    const value= useStore((state)=>state.states.stateDL);
+
+    useEffect(()=>{
+            if(value.length>0){
+                if(value === '@D_1#TL'){
+                    setPower('@D_1#TL')
+                    console.log("====");
+                    
+                } else if (value === '@D_0#TL'){
+                    setPower('@D_0#TL')
+                    console.log("+++");
+                    
+                }
+            }
+        },[value])
+    
+        const handleButton=()=>{
+            if(power === '@D_0#TL'){
+                setPower('@D_1#TL');
+                sendMessage('@D_1#TL')
+            }
+            else{
+                setPower('@D_0#TL')
+                sendMessage('@D_0#TL');
+            }
+        }
     return (
         <View style={styles.container}>
             {
-                power ?
+                power !== '@D_0#TL' ?
                     <View style={styles.offImgContainer}>
-                        <Image source={BoostOff} style={styles.boostOffImg} />
+                        <Image source={BoostOff} style={styles.boostOffImg} resizeMode='contain'/>
                     </View>
                     :
                     <View style={styles.onImgContainer}>
-                        <Image source={BoostOn} style={styles.boostOnImg} />
+                        <Image source={BoostOn} style={styles.boostOnImg} resizeMode='contain'/>
                     </View>
             }
             <Text
@@ -25,10 +54,10 @@ const BoostMode = () => {
             >BOOST MODE</Text>
             <Pressable
                 style={styles.onBtn}
-                onPress={() => setPower(!power)}
+                onPress={handleButton}
             >
                 {
-                    power ?
+                    power !== '@D_0#TL' ?
                         <Text style={styles.offBtnTxt}>
                             OFF
                         </Text>
@@ -54,7 +83,7 @@ const styles = StyleSheet.create({
     },
     heading: {
         fontWeight: 'bold',
-        fontSize: hp('3.3%'),
+        fontSize: hp('3%'),
         fontStyle: 'italic'
     },
     onImgContainer: {
@@ -62,35 +91,37 @@ const styles = StyleSheet.create({
         // width: '54%',
     },
     boostOnImg: {
-            height: verticalScale(76),
-            width: scale(75),
+        height: hp('19%'),
+        width: wp('13%'),
+        aspectRatio:1
     },
     offImgContainer: {
         // height: '60%',
         // width: '54%',
     },
     boostOffImg: {
-        height: verticalScale(76),
-        width: scale(75),
+        height: hp('19%'),
+        width: wp('13%'),
+        aspectRatio:1
     },
     onBtn: {
     },
     onBtnTxt: {
-        borderRadius: 7,
-        backgroundColor: '#95d151',
-        fontSize: hp('4%'),
-        fontWeight: 'bold',
-        paddingHorizontal: 12,
-        paddingVertical: 11,
-        color: 'white'
+                borderRadius: 7,
+                backgroundColor: '#95d151',
+                fontSize: hp('3.5%'),
+                fontWeight: 'bold',
+                paddingHorizontal: moderateScale(6),
+                paddingVertical: moderateScale(8),
+                color: 'white'
     },
     offBtnTxt: {
         borderRadius: 7,
         backgroundColor: 'red',
-        fontSize: hp('4%'),
+        fontSize: hp('3.5%'),
         fontWeight: 'bold',
-        paddingHorizontal: 12,
-        paddingVertical: 11,
+        paddingHorizontal: moderateScale(6),
+        paddingVertical: moderateScale(8),
         color: 'white'
     }
 })

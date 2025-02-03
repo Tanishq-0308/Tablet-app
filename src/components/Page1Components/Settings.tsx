@@ -12,7 +12,7 @@ const Settings = ({ navigation }: HomeProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.imgContainer}>
-        <Image source={settingImg} style={styles.settingImg} />
+        <Image source={settingImg} style={styles.settingImg} resizeMode='contain'/>
       </View>
       <Text style={styles.heading}>SETTINGS</Text>
       <Pressable
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontWeight: 'bold',
-    fontSize: hp('3.3%'),
+    fontSize: hp('3%'),
     fontStyle: 'italic'
   },
   imgContainer: {
@@ -48,8 +48,9 @@ const styles = StyleSheet.create({
     // width: '55%',
   },
   settingImg: {
-          height: verticalScale(76),
-          width: scale(75),
+    height: hp('19%'),
+    width: wp('13%'),
+    aspectRatio:1
   },
   onBtnTxt: {
     borderRadius: 7,

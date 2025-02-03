@@ -11,6 +11,7 @@ import RedIntensity from '../components/SettingsPage/RedIntensity'
 import OverheadEnable from '../components/SettingsPage/OverheadEnable'
 import { BtnEnableContext } from '../Context/EnableContext'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import CameraBtn from '../components/SettingsPage/CameraBtn'
 
 type FactorySettingProps = NativeStackScreenProps<RootParamList, 'FactorySetting'>
 
@@ -19,17 +20,18 @@ const FactorySetting = ({ navigation, route }: FactorySettingProps) => {
     const {greenEnabled,redEnabled,headSensorEnabled}=useContext(BtnEnableContext)
   return (
     <View style={styles.mainContainer}>
-            <View style={styles.container1}>
-                <View>
+            <View style={styles.container2}>
+                <View style={styles.blockOne}>
+                <View style={styles.container1}>
                     <Pressable onPress={() => navigation.goBack()}>
                         <BackButton />
                     </Pressable>
                 </View>
-            </View>
-            <View style={styles.container2}>
-                <View style={styles.blockOne}>
                     <View style={styles.box}>
                         <FactoryBtn navigation={navigation} route={route} />
+                    </View>
+                    <View style={styles.box}>
+                        <CameraBtn />
                     </View>
                     <View style={styles.box}>
                         {
@@ -38,12 +40,12 @@ const FactorySetting = ({ navigation, route }: FactorySettingProps) => {
                     </View>
                 </View>
                 <View style={styles.blockTwo}>
-                <View style={styles.box}>
+                <View style={styles.box2}>
                         {
                             greenEnabled && <GreenIntensity />
                         }
                     </View>
-                    <View style={styles.box}>
+                    <View style={styles.box2}>
                         {
                             redEnabled && <RedIntensity />
                         }
@@ -61,28 +63,36 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     // margin: 10,
     backgroundColor:'white',
-    borderWidth:1,
-    height: hp('85.5%'),
+    // borderWidth:1,
+    height: hp('87%'),
     width: wp('100%'),
 },
 container1: {
     flexDirection: 'column',
     marginLeft:10,
-    marginTop:10
+    marginTop:10,
+    // borderWidth:2
 },
 container2: {
     flexDirection: 'column',
-    gap: 50
+    gap: 15
 },
 box: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: wp('45.61%'),
+    width: wp('30.6%'),
     height: hp('37%'),
-    borderWidth:1,
+    // borderWidth:1,
+},
+box2:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: wp('50%'),
+    height: hp('37%'),
+    // borderWidth:1,
 },
 blockOne: {
-    flexDirection: 'row'
+    flexDirection: 'row',
 },
 blockTwo: {
     flexDirection: 'row'

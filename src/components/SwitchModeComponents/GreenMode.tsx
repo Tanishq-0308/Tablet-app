@@ -1,9 +1,9 @@
 import { Image, StyleSheet, Switch, Text, View } from 'react-native'
 import React, { useContext, useState } from 'react'
-import greenModeOn from '../../assets/greenModeOn.png'
-import greenModeOff from '../../assets/greenModeOff.png'
+import greenModeOn from '../../../assets/greenModeOn.png'
+import greenModeOff from '../../../assets/greenModeOff.png'
 import Snackbar from 'react-native-snackbar'
-import { BtnEnableContext } from '../Context/EnableContext'
+import { BtnEnableContext } from '../../Context/EnableContext'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const GreenMode = () => {
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     },
     heading: {
         fontWeight: 'bold',
-        fontSize: hp('3.3%'),
+        fontSize: hp('3%'),
         fontStyle: 'italic',
     },
     onImgContainer: {},

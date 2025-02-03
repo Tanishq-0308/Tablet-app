@@ -4,9 +4,9 @@ import BackButton from '../components/BackButton';
 import { Dimensions } from 'react-native';
 import { RootParamList } from '../App';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import GreenMode from '../components/GreenMode';
-import RedMode from '../components/RedMode';
-import OverHeadSensor from '../components/OverHeadSensor';
+import GreenMode from '../components/SwitchModeComponents/GreenMode';
+import RedMode from '../components/SwitchModeComponents/RedMode';
+import OverHeadSensor from '../components/SwitchModeComponents/OverHeadSensor';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         height: hp('85.5%'),
         width: wp('100%'),
-        borderWidth:1,
+        // borderWidth:1,
     },
     container1: {
         flexDirection: 'column',
@@ -58,14 +58,14 @@ const styles = StyleSheet.create({
     },
     container2: {
         flexDirection: 'column',
-        gap: 50
+        gap: 15
     },
     box: {
         flexDirection: 'row',
         alignItems: 'center',
         width: wp('45.61%'),
         height: hp('37%'),
-        borderWidth:1,
+        // borderWidth:1,
     },
     blockOne: {
         flexDirection: 'row'

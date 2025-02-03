@@ -7,19 +7,19 @@ import useStore from '../../Store/stateStore'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 const Endo = () => {
-    const [power, setPower] = useState('@E_0#L')
+    const [power, setPower] = useState('@E_0#TL')
     const {sendMessage}=useWebSocket();
     const value= useStore((state)=>state.states.stateEL)
     console.log("update", value);
     
     useEffect(()=>{
         if(value.length>0){
-            if(value === '@E_1#L'){
-                setPower('@E_1#L')
+            if(value === '@E_1#TL'){
+                setPower('@E_1#TL')
                 console.log("====");
                 
-            } else if (value === '@E_0#L'){
-                setPower('@E_0#L')
+            } else if (value === '@E_0#TL'){
+                setPower('@E_0#TL')
                 console.log("+++");
                 
             }
@@ -27,19 +27,19 @@ const Endo = () => {
     },[value])
 
     const handleButton=()=>{
-        if(power === '@E_0#L'){
-            setPower('@E_1#L');
-            sendMessage('@E_1#L')
+        if(power === '@E_0#TL'){
+            setPower('@E_1#TL');
+            sendMessage('@E_1#TL')
         }
         else{
-            setPower('@E_0#L')
-            sendMessage('@E_0#L');
+            setPower('@E_0#TL')
+            sendMessage('@E_0#TL');
         }
     }
     return (
         <View style={styles.container}>
             {
-                power !== '@E_0#L' ?
+                power !== '@E_0#TL' ?
                     <View style={styles.offImgContainer}>
                         <Image source={EndoOff} style={styles.endoOffImg} />
                     </View>
@@ -57,7 +57,7 @@ const Endo = () => {
                 onPress={handleButton}
             >
                 {
-                    power === '@E_0#L' ?
+                    power === '@E_0#TL' ?
                         <Text style={styles.onBtnTxt}>
                             ON
                         </Text>
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     },
     heading: {
         fontWeight: 'bold',
-        fontSize: hp('3.3%'),
+        fontSize: hp('3%'),
         fontStyle: 'italic',
     },
     onImgContainer: {
@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
         // width: '54%',
     },
     endoOnImg: {
-        height: verticalScale(76),
-        width: scale(75),
+        height: hp('19%'),
+        width: wp('13%'),
         marginLeft: 2,
     },
     offImgContainer: {
@@ -100,27 +100,27 @@ const styles = StyleSheet.create({
         // width: '62%',
     },
     endoOffImg: {
-        height: verticalScale(76),
-        width: scale(84),
+        height: hp('19%'),
+        width: wp('14.5%'),
     },
     onBtn: {
     },
     onBtnTxt: {
         borderRadius: 7,
         backgroundColor: '#95d151',
-        fontSize: hp('4%'),
+        fontSize: hp('3.5%'),
         fontWeight: 'bold',
-        paddingHorizontal: 12,
-        paddingVertical: 12,
+        paddingHorizontal: moderateScale(6),
+        paddingVertical: moderateScale(8),
         color: 'white'
     },
     offBtnTxt: {
         borderRadius: 7,
         backgroundColor: 'red',
-        fontSize: hp('4%'),
+        fontSize: hp('3.5%'),
         fontWeight: 'bold',
-        paddingHorizontal: 12,
-        paddingVertical: 12,
+        paddingHorizontal: moderateScale(6),
+        paddingVertical: moderateScale(8),
         color: 'white'
     },
     iconBtn: {

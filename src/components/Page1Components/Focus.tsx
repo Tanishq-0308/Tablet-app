@@ -1,23 +1,46 @@
 import { Image, Pressable, StyleSheet, Switch, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import focusOn from '../../../assets/focus.png'
 import focusOff from '../../../assets/focusOff.png'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { useWebSocket } from '../../Context/webSocketContext';
+import useStore from '../../Store/stateStore';
 
 const Focus = () => {
     const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+    const {sendMessage}=useWebSocket();
+    const valueStore= useStore((state)=>state.states.stateFL)
+    const toggleSwitch = () => {
+        if(isEnabled){
+            setIsEnabled(false);          
+            sendMessage('@F_0#TL')
+        } else {
+            setIsEnabled(true);
+            sendMessage('@F_1#TL')
+        }
+    };
+
+    useEffect(()=>{
+        if(valueStore.length>0){
+            if(valueStore === '@F_1#TL'){
+                setIsEnabled(true)
+            } else if (valueStore === '@F_0#TL'){
+                setIsEnabled(false)
+            }
+        }
+    },[valueStore])
+
     return (
         <View style={styles.mainContainer}>
             <View style={styles.container}>
                 {
                     isEnabled ?
                         <View style={styles.offImgContainer}>
-                            <Image source={focusOff} style={styles.boostOffImg} />
+                            <Image source={focusOff} style={styles.boostOffImg} resizeMode='contain'/>
                         </View>
                         :
                         <View style={styles.onImgContainer}>
-                            <Image source={focusOn} style={styles.boostOnImg} />
+                            <Image source={focusOn} style={styles.boostOnImg} resizeMode='contain'/>
                         </View>
                 }
                 <Text
@@ -38,17 +61,17 @@ const Focus = () => {
             {
                 isEnabled && (
                     <View style={styles.container2}>
-                        <Pressable style={styles.smallBtn}>
+                        <Pressable style={styles.smallBtn} onPress={()=> sendMessage('@F01#TL')}>
                             <Text style={styles.onBtnTxt}>
                                 S
                             </Text>
                         </Pressable>
-                        <Pressable style={styles.mediumBtn}>
+                        <Pressable style={styles.mediumBtn} onPress={()=> sendMessage('@F02#TL')}>
                             <Text style={styles.onBtnTxt}>
                                 M
                             </Text>
                         </Pressable>
-                        <Pressable style={styles.largeBtn}>
+                        <Pressable style={styles.largeBtn} onPress={()=> sendMessage('@F03#TL')}>
                             <Text style={styles.onBtnTxt}>
                                 L
                             </Text>
@@ -84,25 +107,21 @@ const styles = StyleSheet.create({
     },
     heading: {
         fontWeight: 'bold',
-        fontSize: hp('3.3%'),
+        fontSize: hp('3%'),
         fontStyle: 'italic',
     },
-    onImgContainer: {
-        // height: '60%',
-        // width: '54%',
-    },
+    onImgContainer: {},
     boostOnImg: {
         height: hp('19%'),
         width: wp('13%'),
+        aspectRatio:2
     },
 
-    offImgContainer: {
-        // height: '60%',
-        // width: '54%',
-    },
+    offImgContainer: {},
     boostOffImg: {
         height: hp('19%'),
-        width: wp('13%'),
+        // width: wp('13%'),
+        aspectRatio:2
     },
     switchContainer: {
     },
@@ -131,7 +150,7 @@ const styles = StyleSheet.create({
 
     },
     onBtnTxt: {
-        fontSize: hp('5%'),
+        fontSize: hp('4%'),
         fontWeight: 'bold',
         color: 'white',
         fontStyle: 'italic',

@@ -59,11 +59,11 @@ export default Page1
 
 const styles = StyleSheet.create({
   mainContainer: {
-    gap: 50,
+    gap: 15,
     backgroundColor: 'white',
     height: hp('85.5%'),
     width: wp('100%'),
-    borderWidth:1
+    // borderWidth:1
   },
   blockOne: {
     flexDirection: 'row',
@@ -77,11 +77,11 @@ const styles = StyleSheet.create({
   box: {
     width: wp('25%'),
     height: hp('37%'),
-    borderWidth:1
+    // borderWidth:1
   },
   box2: {
     width: wp('50%'),
     height: hp('37%'),
-    borderWidth:1
+    // borderWidth:1
   }
 })

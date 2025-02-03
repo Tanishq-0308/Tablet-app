@@ -1,23 +1,52 @@
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import LampOn from '../../../assets/lamp.png';
 import LampOff from '../../../assets/lamp-off.png';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { scale, verticalScale } from 'react-native-size-matters';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+import { useWebSocket } from '../../Context/webSocketContext';
+import useStore from '../../Store/stateStore';
 
 const Lamp = () => {
 
-    const [power, setPower] = useState(false)
+    const [power, setPower] = useState('@L_0#TL')
+    const {sendMessage}=useWebSocket();
+    const value= useStore((state)=>state.states.stateLL)
+
+    useEffect(()=>{
+            if(value.length>0){
+                if(value === '@L_1#TL'){
+                    setPower('@L_1#TL')
+                    console.log("====");
+                    
+                } else if (value === '@L_0#TL'){
+                    setPower('@L_0#TL')
+                    console.log("+++");
+                    
+                }
+            }
+        },[value])
+    
+        const handleButton=()=>{
+            if(power === '@L_0#TL'){
+                setPower('@L_1#TL');
+                sendMessage('@L_1#TL')
+            }
+            else{
+                setPower('@L_0#TL')
+                sendMessage('@L_0#TL');
+            }
+        }
     return (
         <View style={styles.container}>
             {
-                power ?
+                power !== '@L_0#TL' ?
                     <View style={styles.offImgContainer}>
-                        <Image source={LampOff} style={styles.lampOffImg} />
+                        <Image source={LampOff} style={styles.lampOffImg} resizeMode='contain'/>
                     </View>
                     :
                     <View style={styles.onImgContainer}>
-                        <Image source={LampOn} style={styles.lampOnImg} />
+                        <Image source={LampOn} style={styles.lampOnImg} resizeMode='contain'/>
                     </View>
             }
             <Text
@@ -26,10 +55,10 @@ const Lamp = () => {
             >LAMP</Text>
             <Pressable
                 style={styles.onBtn}
-                onPress={() => setPower(!power)}
+                onPress={handleButton}
             >
                 {
-                    power ?
+                    power !== '@L_0#TL' ?
                         <Text style={styles.offBtnTxt}>
                             OFF
                         </Text>
@@ -55,7 +84,7 @@ const styles = StyleSheet.create({
     },
     heading: {
         fontWeight: 'bold',
-        fontSize: hp('3.3%'),
+        fontSize: hp('3%'),
         fontStyle: 'italic'
     },
     onImgContainer: {
@@ -63,8 +92,9 @@ const styles = StyleSheet.create({
         // width: '54%',
     },
     lampOnImg: {
-            height: verticalScale(76),
-            width: scale(75),
+        height: hp('19%'),
+        width: wp('13%'),
+        aspectRatio:1
     },
 
     offImgContainer: {
@@ -72,27 +102,28 @@ const styles = StyleSheet.create({
         // width: '54%',
     },
     lampOffImg: {
-        height: verticalScale(76),
-        width: scale(75),
+        height: hp('19%'),
+        width: wp('13%'),
+        aspectRatio:1
     },
     onBtn: {
     },
     onBtnTxt: {
-        borderRadius: 7,
-        backgroundColor: '#95d151',
-        fontSize: hp('4%'),
-        fontWeight: 'bold',
-        paddingHorizontal: 12,
-        paddingVertical: 12,
-        color: 'white'
+            borderRadius: 7,
+            backgroundColor: '#95d151',
+            fontSize: hp('3.5%'),
+            fontWeight: 'bold',
+            paddingHorizontal: moderateScale(6),
+            paddingVertical: moderateScale(8),
+            color: 'white'
     },
     offBtnTxt: {
         borderRadius: 7,
         backgroundColor: 'red',
-        fontSize: hp('4%'),
+        fontSize: hp('3.5%'),
         fontWeight: 'bold',
-        paddingHorizontal: 12,
-        paddingVertical: 12,
+        paddingHorizontal: moderateScale(6),
+        paddingVertical: moderateScale(8),
         color: 'white'
     }
 })

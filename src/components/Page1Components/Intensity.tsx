@@ -79,43 +79,43 @@ const Intensity = () => {
 
     switch (imageNumber) {
       case 0:
-        sendMessage('@I01#L')
+        sendMessage('@I01#TL')
         setIntImage(IntZero)
         break;
       case 1:
-        sendMessage('@I02#L')
+        sendMessage('@I02#TL')
         setIntImage(IntOne)
         break;
       case 2:
-        sendMessage('@I03#L')
+        sendMessage('@I03#TL')
         setIntImage(IntTwo)
         break;
       case 3:
-        sendMessage('@I04#L')
+        sendMessage('@I04#TL')
         setIntImage(IntThree)
         break;
       case 4:
-        sendMessage('@I05#L')
+        sendMessage('@I05#TL')
         setIntImage(IntFour)
         break;
       case 5:
-        sendMessage('@I06#L')
+        sendMessage('@I06#TL')
         setIntImage(IntFive)
         break;
       case 6:
-        sendMessage('@I07#L')
+        sendMessage('@I07#TL')
         setIntImage(IntSix)
         break;
       case 7:
-        sendMessage('@I08#L')
+        sendMessage('@I08#TL')
         setIntImage(IntSeven)
         break;
       case 8:
-        sendMessage('@I09#L')
+        sendMessage('@I09#TL')
         setIntImage(IntEight)
         break;
       case 9:
-        sendMessage('@I0:#L')
+        sendMessage('@I0:#TL')
         setIntImage(IntNine)
         break;
       default:
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontWeight: 'bold',
-    fontSize: hp('3.3%'),
+    fontSize: hp('3%'),
     fontStyle: 'italic',
   },
   diceContainer: {

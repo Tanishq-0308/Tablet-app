@@ -16,6 +16,9 @@ import IntEight from '../../../assets/8.png'
 import IntNine from '../../../assets/9.png'
 import { BtnEnableContext } from '../../Context/EnableContext';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import useStore from '../../Store/stateStore'
+import { useWebSocket } from '../../Context/webSocketContext'
+import { moderateScale } from 'react-native-size-matters'
 
 type ImageProps = PropsWithChildren<{
   imageUrl: ImageSourcePropType
@@ -33,41 +36,115 @@ function IntensityImage({ imageUrl }: ImageProps): React.JSX.Element {
 const RedIntensity = () => {
   const [intImage, setIntImage] = useState<ImageSourcePropType>(IntZero)
   const { redValue, setRedValue, redEnabledValue, setRedEnabledValue } = useContext(BtnEnableContext);
-
+  
+  const value= useStore((state)=>state.states.stateRL);
+  const {sendMessage}= useWebSocket();
   useEffect(() => {
     setimage(redValue)
   }, [])
-  const setimage = (value: number) => {
+  useEffect(()=>{
+    if(value.length>0){
+      if(value === '@R_0#TL'){
+        setRedEnabledValue(false);
+      }
+      else if( value === '@R_1#TL'){
+        setRedEnabledValue(true);
+      }
+      else {
+        let number= parseInt(value[3]);
+        console.log(value, number);
+        
+        switch (number) {
+          case 1:
+            setIntImage(IntZero)
+            break;
+          case 2:
+            setIntImage(IntOne)
+            break;
+          case 3:
+            setIntImage(IntTwo)
+            break;
+          case 4:
+            setIntImage(IntThree)
+            break;
+          case 5:
+            setIntImage(IntFour)
+            break;
+          case 6:
+            setIntImage(IntFive)
+            break;
+          case 7:
+            setIntImage(IntSix)
+            break;
+          case 8:
+            setIntImage(IntSeven)
+            break;
+          case 9:
+            setIntImage(IntEight)
+            break;
+          case NaN:
+            setIntImage(IntNine)
+            break;
+          default:
+            setIntImage(IntNine)
+            break;
+        }
+      }
+    }
+  },[value]);
 
-    switch (value) {
+  const handleButton=()=>{
+    if(redEnabledValue){
+      setRedEnabledValue(false);
+        sendMessage('@G_0#TL')
+    }
+    else{
+      setRedEnabledValue(true)
+        sendMessage('@G_1#TL');
+    }
+}
+
+  const setimage = (imageNumber: number) => {
+
+    switch (imageNumber) {
       case 0:
+        sendMessage('@R01#TL')
         setIntImage(IntZero)
         break;
       case 1:
+        sendMessage('@R02#TL')
         setIntImage(IntOne)
         break;
       case 2:
+        sendMessage('@R03#TL')
         setIntImage(IntTwo)
         break;
       case 3:
+        sendMessage('@R04#TL')
         setIntImage(IntThree)
         break;
       case 4:
+        sendMessage('@R05#TL')
         setIntImage(IntFour)
         break;
       case 5:
+        sendMessage('@R06#TL')
         setIntImage(IntFive)
         break;
       case 6:
+        sendMessage('@R07#TL')
         setIntImage(IntSix)
         break;
       case 7:
+        sendMessage('@R08#TL')
         setIntImage(IntSeven)
         break;
       case 8:
+        sendMessage('@R09#TL')
         setIntImage(IntEight)
         break;
       case 9:
+        sendMessage('@R0:#TL')
         setIntImage(IntNine)
         break;
       default:
@@ -181,7 +258,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontWeight: 'bold',
-    fontSize: hp('3.3%'),
+    fontSize: hp('3%'),
     fontStyle: 'italic',
   },
   diceContainer: {
@@ -213,21 +290,21 @@ const styles = StyleSheet.create({
     margin: 18
   },
   onBtnTxt: {
-    borderRadius: 7,
-    backgroundColor: '#95d151',
-    fontSize: hp('4%'),
-    fontWeight: 'bold',
-    paddingHorizontal: 12,
-    paddingVertical: 12,
-    color: 'white'
+      borderRadius: 7,
+      backgroundColor: '#95d151',
+      fontSize: hp('3.5%'),
+      fontWeight: 'bold',
+      paddingHorizontal: moderateScale(6),
+      paddingVertical: moderateScale(8),
+      color: 'white'
   },
   offBtnTxt: {
     borderRadius: 7,
     backgroundColor: 'red',
-    fontSize: hp('4%'),
+    fontSize: hp('3.5%'),
     fontWeight: 'bold',
-    paddingHorizontal: 12,
-    paddingVertical: 12,
+    paddingHorizontal: moderateScale(6),
+    paddingVertical: moderateScale(8),
     color: 'white'
   }
 })

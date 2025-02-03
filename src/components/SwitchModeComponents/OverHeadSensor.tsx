@@ -1,48 +1,48 @@
 import { Image, StyleSheet, Switch, Text, View } from 'react-native'
 import React, { useContext, useState } from 'react'
-import redModeOn from '../../assets/redmodeOn.png'
-import redModeOff from '../../assets/redModeOff.png'
-import { BtnEnableContext } from '../Context/EnableContext'
+import overHdSensorOn from '../../../assets/overheadSensorOn.png'
+import overHdSensorOff from '../../../assets/overheadSensorOff.png'
+import { BtnEnableContext } from '../../Context/EnableContext'
 import Snackbar from 'react-native-snackbar'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
-const RedMode = () => {
-    const {redEnabled, setRedEnabled}= useContext(BtnEnableContext);
+const OverHeadSensor = () => {
+    const { headSensorEnabled, setHeadSensorEnabled } = useContext(BtnEnableContext);
     const toggleSwitch = () => {
-        setRedEnabled(!redEnabled)
+        setHeadSensorEnabled(!headSensorEnabled)
 
-        if(!redEnabled){
+        if (!headSensorEnabled) {
             Snackbar.show({
-                text:'RedMode is Enabled!',
-                duration:Snackbar.LENGTH_LONG,
-                backgroundColor:'#5BBD17',
-                textColor:'white'
+                text: 'OverHead sensor is Enabled!',
+                duration: Snackbar.LENGTH_LONG,
+                backgroundColor: '#5BBD17',
+                textColor: 'white'
             })
         }
     }
     return (
         <View style={styles.container2}>
             {
-                !redEnabled ?
+                !headSensorEnabled ?
                     <View style={styles.offImgContainer}>
-                        <Image source={redModeOff} style={styles.boostOffImg} />
+                        <Image source={overHdSensorOff} style={styles.boostOffImg} />
                     </View>
                     :
                     <View style={styles.onImgContainer}>
-                        <Image source={redModeOn} style={styles.boostOnImg} />
+                        <Image source={overHdSensorOn} style={styles.boostOnImg} />
                     </View>
             }
             <Text
 
                 style={styles.heading}
-            >RED MODE</Text>
+            >OVERHEAD SENSOR</Text>
             <View style={styles.switchContainer}>
                 <Switch
                     trackColor={{ false: '#767577', true: '#81b0ff' }}
-                    thumbColor={redEnabled ? '#f5dd4b' : '#f4f3f4'}
+                    thumbColor={headSensorEnabled ? '#f5dd4b' : '#f4f3f4'}
                     ios_backgroundColor="#3e3e3e"
                     onValueChange={toggleSwitch}
-                    value={redEnabled}
+                    value={headSensorEnabled}
                     style={[styles.switchBtn, { transform: [{ scaleX: 1.7 }, { scaleY: 1.7 }] }]}
                 />
             </View>
@@ -50,7 +50,7 @@ const RedMode = () => {
     )
 }
 
-export default RedMode
+export default OverHeadSensor
 
 const styles = StyleSheet.create({
     container2: {
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     },
     heading: {
         fontWeight: 'bold',
-        fontSize: hp('3.3%'),
+        fontSize: hp('3%'),
         fontStyle: 'italic',
     },
     onImgContainer: {},

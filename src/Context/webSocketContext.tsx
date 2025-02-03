@@ -21,14 +21,15 @@ export const WebSocketContextProvider:FC<{children: React.ReactNode}> =({childre
         }
 
         ws.onmessage=(e)=>{
-            const message= e.data;
+            let message: string= e.data;
+            let newStrArray: string[]= message.split("");
+            newStrArray[5]='T';
+            let newStr: string= newStrArray.join('');
             console.log(message);
             const component= message[1];
-            const dome= message[5];
+            const dome= message[6];
             let key = `state${component+dome}`
-            setState(key, message);
-            console.log('message send');
-            
+            setState(key, newStr);
         }
         setSocket(ws)
         return()=>{

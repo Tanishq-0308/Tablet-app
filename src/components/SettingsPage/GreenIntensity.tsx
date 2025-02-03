@@ -16,6 +16,9 @@ import IntEight from '../../../assets/8.png'
 import IntNine from '../../../assets/9.png'
 import { BtnEnableContext } from '../../Context/EnableContext';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { moderateScale } from 'react-native-size-matters'
+import { useWebSocket } from '../../Context/webSocketContext'
+import useStore from '../../Store/stateStore'
 
 type ImageProps = PropsWithChildren<{
   imageUrl: ImageSourcePropType
@@ -33,41 +36,116 @@ function IntensityImage({ imageUrl }: ImageProps): React.JSX.Element {
 const GreenIntensity = () => {
   const [intImage, setIntImage] = useState<ImageSourcePropType>(IntZero)
   const { greenValue, setGreenValue, greenEnabledValue, setGreenEnabledValue } = useContext(BtnEnableContext)
+  const value= useStore((state)=>state.states.stateGL);
+  const {sendMessage}= useWebSocket();
 
   useEffect(() => {
     setimage(greenValue);
   }, [greenValue])
-  const setimage = (value: number) => {
 
-    switch (value) {
+  useEffect(()=>{
+    if(value.length>0){
+      if(value === '@G_0#TL'){
+        setGreenEnabledValue(false);
+      }
+      else if( value === '@G_1#TL'){
+        setGreenEnabledValue(true);
+      }
+      else {
+        let number= parseInt(value[3]);
+        console.log(value, number);
+        
+        switch (number) {
+          case 1:
+            setIntImage(IntZero)
+            break;
+          case 2:
+            setIntImage(IntOne)
+            break;
+          case 3:
+            setIntImage(IntTwo)
+            break;
+          case 4:
+            setIntImage(IntThree)
+            break;
+          case 5:
+            setIntImage(IntFour)
+            break;
+          case 6:
+            setIntImage(IntFive)
+            break;
+          case 7:
+            setIntImage(IntSix)
+            break;
+          case 8:
+            setIntImage(IntSeven)
+            break;
+          case 9:
+            setIntImage(IntEight)
+            break;
+          case NaN:
+            setIntImage(IntNine)
+            break;
+          default:
+            setIntImage(IntNine)
+            break;
+        }
+      }
+    }
+  },[value]);
+
+  const handleButton=()=>{
+    if(greenEnabledValue){
+      setGreenEnabledValue(false);
+        sendMessage('@G_0#TL')
+    }
+    else{
+      setGreenEnabledValue(true)
+        sendMessage('@G_1#TL');
+    }
+}
+
+  const setimage = (imageNumber: number) => {
+
+    switch (imageNumber) {
       case 0:
+        sendMessage('@G01#TL')
         setIntImage(IntZero)
         break;
       case 1:
+        sendMessage('@G02#TL')
         setIntImage(IntOne)
         break;
       case 2:
+        sendMessage('@G03#TL')
         setIntImage(IntTwo)
         break;
       case 3:
+        sendMessage('@G04#TL')
         setIntImage(IntThree)
         break;
       case 4:
+        sendMessage('@G05#TL')
         setIntImage(IntFour)
         break;
       case 5:
+        sendMessage('@G06#TL')
         setIntImage(IntFive)
         break;
       case 6:
+        sendMessage('@G07#TL')
         setIntImage(IntSix)
         break;
       case 7:
+        sendMessage('@G08#TL')
         setIntImage(IntSeven)
         break;
       case 8:
+        sendMessage('@G09#TL')
         setIntImage(IntEight)
         break;
       case 9:
+        sendMessage('@G0:#TL')
         setIntImage(IntNine)
         break;
       default:
@@ -93,7 +171,7 @@ const GreenIntensity = () => {
           style={styles.heading}
         >GREEN MODE</Text>
         <Pressable
-          onPress={() => setGreenEnabledValue(!greenEnabledValue)}
+          onPress={handleButton}
         >
           {
             greenEnabledValue ?
@@ -182,7 +260,7 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontWeight: 'bold',
-    fontSize: hp('3.3%'),
+    fontSize: hp('3%'),
     fontStyle: 'italic',
   },
   diceContainer: {
@@ -216,19 +294,19 @@ const styles = StyleSheet.create({
   onBtnTxt: {
     borderRadius: 7,
     backgroundColor: '#95d151',
-    fontSize: hp('4%'),
+    fontSize: hp('3.5%'),
     fontWeight: 'bold',
-    paddingHorizontal: 12,
-    paddingVertical: 12,
+    paddingHorizontal: moderateScale(6),
+    paddingVertical: moderateScale(8),
     color: 'white'
   },
   offBtnTxt: {
-    borderRadius: 7,
-    backgroundColor: 'red',
-    fontSize: hp('4%'),
-    fontWeight: 'bold',
-    paddingHorizontal: 12,
-    paddingVertical: 12,
-    color: 'white'
+          borderRadius: 7,
+          backgroundColor: 'red',
+          fontSize: hp('3.5%'),
+          fontWeight: 'bold',
+          paddingHorizontal: moderateScale(6),
+          paddingVertical: moderateScale(8),
+          color: 'white'
   }
 })

@@ -11,8 +11,8 @@ type BtnEnableType = {
     setGreenValue: (greenValue: number) => void;
     redValue: number;
     setRedValue: (greenValue: number) => void;
-    headSensor: boolean;
-    setHeadSensor: (headSensor: boolean)=> void;
+    headSensor: string;
+    setHeadSensor: (headSensor: string)=> void;
     greenEnabledValue: boolean;
     setGreenEnabledValue: (greenEnabled:boolean) => void;
     redEnabledValue: boolean;
@@ -30,7 +30,7 @@ export const BtnEnableContext = createContext<BtnEnableType>({
     setGreenValue: ()=> {},
     redValue: 0,
     setRedValue: ()=>{},
-    headSensor: false,
+    headSensor: '@O_0#TL',
     setHeadSensor: ()=>{},
     greenEnabledValue: false,
     setGreenEnabledValue: () => { },
@@ -46,7 +46,7 @@ export const BtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
     const [headSensorEnabled,setHeadSensorEnabled]= useState(false)
     const [greenValue, setGreenValue]= useState(0)
     const [redValue, setRedValue] = useState(0)
-    const [headSensor, setHeadSensor]= useState(false)
+    const [headSensor, setHeadSensor]= useState('@O_0#TL')
 
     const defaultValue = {
         greenEnabled,

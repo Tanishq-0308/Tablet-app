@@ -1,12 +1,14 @@
 import { Image, ImageSourcePropType, Pressable, StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import colorImg from '../../../assets/Color.png'
 import type { PropsWithChildren } from 'react'
 
 import colorA from '../../../assets/24.png';
 import colorB from '../../../assets/25.png';
 import colorC from '../../../assets/26.png';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import useStore from '../../Store/stateStore';
+import { useWebSocket } from '../../Context/webSocketContext';
 
 type colorImageProps = PropsWithChildren<{
     imageUrl: ImageSourcePropType
@@ -21,17 +23,40 @@ function ColorImage({ imageUrl }: colorImageProps): React.JSX.Element {
 const Color = () => {
     const [colImage, setColImage] = useState<ImageSourcePropType>(colorA);
     const [counter, setCounter] = useState(0);
+    const value = useStore((state) => state.states.stateCL);
+    const { sendMessage } = useWebSocket();
 
-    const setimage = (value: number) => {
-        switch (value) {
+    useEffect(() => {
+        let number = (value[2]);
+        console.log(value, number);
+        switch (number) {
+            case '-':
+                setimage(0)
+                break;
+            case '0':
+                setimage(1)
+                break;
+            case '+':
+                setimage(2)
+                break;
+            default:
+                break;
+        }
+    }, [value]);
+
+    const setimage = (imageNumber: number) => {
+        switch (imageNumber) {
             case 0:
                 setColImage(colorA)
+                sendMessage('@C-5#TL')
                 break;
             case 1:
                 setColImage(colorB)
+                sendMessage('@C00#TL')
                 break;
             case 2:
                 setColImage(colorC)
+                sendMessage('@C+5#TL')
                 break;
             default:
                 setColImage(colorA)
@@ -111,7 +136,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontWeight: 'bold',
-        fontSize: hp('3.3%'),
+        fontSize: hp('3%'),
         fontStyle: 'italic',
     },
     headTxt: {

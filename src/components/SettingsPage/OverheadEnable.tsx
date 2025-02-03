@@ -1,16 +1,46 @@
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
-import React, { useContext, } from 'react'
+import React, { useContext, useEffect, useState, } from 'react'
 import overHdSensorOn from '../../../assets/overheadSensorOn.png'
 import overHdSensorOff from '../../../assets/overheadSensorOff.png'
 import { BtnEnableContext } from '../../Context/EnableContext';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { moderateScale } from 'react-native-size-matters';
+import { useWebSocket } from '../../Context/webSocketContext';
+import useStore from '../../Store/stateStore';
 
 const OverheadEnable = () => {
     const { headSensor, setHeadSensor } = useContext(BtnEnableContext);
+    
+    // const [power, setPower] = useState('@E_0#TL')
+    const {sendMessage}=useWebSocket();
+    const value= useStore((state)=>state.states.stateOL)
+    console.log("update", value);
+    
+    useEffect(()=>{
+        if(value.length>0){
+            if(value === '@O_1#TL'){
+                setHeadSensor('@O_1#TL')
+                
+            } else if (value === '@O_0#TL'){
+                setHeadSensor('@O_0#TL')
+            }
+        }
+    },[value])
+
+    const handleButton=()=>{
+        if(headSensor === '@O_0#TL'){
+            setHeadSensor('@O_1#TL');
+            sendMessage('@O_1#TL')
+        }
+        else{
+            setHeadSensor('@O_0#TL')
+            sendMessage('@O_0#TL');
+        }
+    }
     return (
         <View style={styles.container2}>
             {
-                !headSensor ?
+                headSensor == '@O_0#TL' ?
                     <View style={styles.offImgContainer}>
                         <Image source={overHdSensorOff} style={styles.boostOffImg} />
                     </View>
@@ -20,20 +50,19 @@ const OverheadEnable = () => {
                     </View>
             }
             <Text
-
                 style={styles.heading}
             >OVERHEAD SENSOR</Text>
             <Pressable
-                onPress={() => setHeadSensor(!headSensor)}
+                onPress={handleButton}
             >
                 {
-                    headSensor ?
-                        <Text style={styles.offBtnTxt}>
-                            OFF
-                        </Text>
-                        :
+                    headSensor === '@O_0#TL' ?
                         <Text style={styles.onBtnTxt}>
                             ON
+                        </Text>
+                        :
+                        <Text style={styles.offBtnTxt}>
+                            OFF
                         </Text>
                 }
             </Pressable>
@@ -47,43 +76,43 @@ const styles = StyleSheet.create({
     container2: {
         flexDirection: 'column',
         height: '100%',
-        width:wp('22%'),
+        width:wp('30%'),
         alignItems: 'center',
         justifyContent: 'center',
         gap:5,
-        borderWidth:2
+        // borderWidth:2
     },
     heading: {
         fontWeight: 'bold',
-        fontSize: hp('3.3%'),
+        fontSize: hp('3%'),
         fontStyle: 'italic',
     },
     onImgContainer: {},
     boostOnImg: {
         height: hp('19%'),
-        width: wp('11%'),
+        width: wp('11.6%'),
     },
     onBtnTxt: {
-        borderRadius: 7,
-        backgroundColor: '#95d151',
-        fontSize: hp('4%'),
-        fontWeight: 'bold',
-        paddingHorizontal: 12,
-        paddingVertical: 12,
-        color: 'white'
+            borderRadius: 7,
+            backgroundColor: '#95d151',
+            fontSize: hp('3.5%'),
+            fontWeight: 'bold',
+            paddingHorizontal: moderateScale(6),
+            paddingVertical: moderateScale(8),
+            color: 'white'
     },
     offBtnTxt: {
         borderRadius: 7,
         backgroundColor: 'red',
-        fontSize: hp('4%'),
+        fontSize: hp('3.5%'),
         fontWeight: 'bold',
-        paddingHorizontal: 12,
-        paddingVertical: 12,
+        paddingHorizontal: moderateScale(6),
+        paddingVertical: moderateScale(8),
         color: 'white'
     },
     offImgContainer: {},
     boostOffImg: {
         height: hp('19%'),
-        width: wp('11%'),
+        width: wp('11.6%'),
     }
 })

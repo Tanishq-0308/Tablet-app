@@ -34,12 +34,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         gap:5,
-        width:wp('22%'),
+        width:wp('31%'),
         // borderWidth:2
       },
       heading: {
         fontWeight: 'bold',
-        fontSize: hp('3.3%'),
+        fontSize: hp('3%'),
         fontStyle: 'italic'
       },
       imgContainer: {
