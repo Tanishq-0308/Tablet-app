@@ -3,15 +3,23 @@ import React, { useContext, useState } from 'react'
 import greenModeOn from '../../../assets/greenModeOn.png'
 import greenModeOff from '../../../assets/greenModeOff.png'
 import Snackbar from 'react-native-snackbar'
-import { BtnEnableContext } from '../../Context/EnableContext'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
-const GreenMode = () => {
-    const {greenEnabled,setGreenEnabled}=useContext(BtnEnableContext)
-    const toggleSwitch = () =>{
-        setGreenEnabled(!greenEnabled);
 
-        if(!greenEnabled){
+type GreenModeType={
+    context:{
+        enable:boolean,
+        setEnable: (enable:boolean)=>void
+    }
+}
+
+const GreenMode = ({context}:GreenModeType) => {
+    // const {enable,setEnable}=useContext(BtnEnableContext)
+    const {enable, setEnable} = context;
+    const toggleSwitch = () =>{
+        setEnable(!enable);
+
+        if(!enable){
             Snackbar.show({
                 text:'GreenMode is Enabled!',
                 duration:Snackbar.LENGTH_LONG,
@@ -23,7 +31,7 @@ const GreenMode = () => {
     return (
         <View style={styles.container2}>
             {
-                !greenEnabled ?
+                !enable ?
                     <View style={styles.offImgContainer}>
                         <Image source={greenModeOff} style={styles.boostOffImg} />
                     </View>
@@ -39,10 +47,10 @@ const GreenMode = () => {
             <View style={styles.switchContainer}>
                 <Switch
                     trackColor={{ false: '#767577', true: '#81b0ff' }}
-                    thumbColor={greenEnabled ? '#f5dd4b' : '#f4f3f4'}
+                    thumbColor={enable ? '#f5dd4b' : '#f4f3f4'}
                     ios_backgroundColor="#3e3e3e"
                     onValueChange={toggleSwitch}
-                    value={greenEnabled}
+                    value={enable}
                     style={[styles.switchBtn, { transform: [{ scaleX: 1.7 }, { scaleY: 1.7 }] }]}
                 />
             </View>

@@ -6,12 +6,22 @@ import { BtnEnableContext } from '../../Context/EnableContext'
 import Snackbar from 'react-native-snackbar'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
-const RedMode = () => {
-    const {redEnabled, setRedEnabled}= useContext(BtnEnableContext);
-    const toggleSwitch = () => {
-        setRedEnabled(!redEnabled)
 
-        if(!redEnabled){
+type RedModeType={
+    context:{
+        enable:boolean,
+        setEnable: (enable:boolean)=>void
+    }
+}
+
+
+const RedMode = ({context}:RedModeType) => {
+    // const {enable, setEnable}= useContext(BtnEnableContext);
+    const {enable, setEnable}= context;
+    const toggleSwitch = () => {
+        setEnable(!enable)
+
+        if(!enable){
             Snackbar.show({
                 text:'RedMode is Enabled!',
                 duration:Snackbar.LENGTH_LONG,
@@ -23,7 +33,7 @@ const RedMode = () => {
     return (
         <View style={styles.container2}>
             {
-                !redEnabled ?
+                !enable ?
                     <View style={styles.offImgContainer}>
                         <Image source={redModeOff} style={styles.boostOffImg} />
                     </View>
@@ -39,10 +49,10 @@ const RedMode = () => {
             <View style={styles.switchContainer}>
                 <Switch
                     trackColor={{ false: '#767577', true: '#81b0ff' }}
-                    thumbColor={redEnabled ? '#f5dd4b' : '#f4f3f4'}
+                    thumbColor={enable ? '#f5dd4b' : '#f4f3f4'}
                     ios_backgroundColor="#3e3e3e"
                     onValueChange={toggleSwitch}
-                    value={redEnabled}
+                    value={enable}
                     style={[styles.switchBtn, { transform: [{ scaleX: 1.7 }, { scaleY: 1.7 }] }]}
                 />
             </View>

@@ -6,12 +6,21 @@ import { BtnEnableContext } from '../../Context/EnableContext'
 import Snackbar from 'react-native-snackbar'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
-const OverHeadSensor = () => {
-    const { headSensorEnabled, setHeadSensorEnabled } = useContext(BtnEnableContext);
-    const toggleSwitch = () => {
-        setHeadSensorEnabled(!headSensorEnabled)
 
-        if (!headSensorEnabled) {
+type OverHeadModeType={
+    context:{
+        enable:boolean,
+        setEnable: (enable:boolean)=>void
+    }
+}
+
+const OverHeadSensor = ({context}:OverHeadModeType) => {
+    // const { enable, setEnable } = useContext(BtnEnableContext);
+    const {enable, setEnable}= context;
+    const toggleSwitch = () => {
+        setEnable(!enable)
+
+        if (!enable) {
             Snackbar.show({
                 text: 'OverHead sensor is Enabled!',
                 duration: Snackbar.LENGTH_LONG,
@@ -23,7 +32,7 @@ const OverHeadSensor = () => {
     return (
         <View style={styles.container2}>
             {
-                !headSensorEnabled ?
+                !enable ?
                     <View style={styles.offImgContainer}>
                         <Image source={overHdSensorOff} style={styles.boostOffImg} />
                     </View>
@@ -39,10 +48,10 @@ const OverHeadSensor = () => {
             <View style={styles.switchContainer}>
                 <Switch
                     trackColor={{ false: '#767577', true: '#81b0ff' }}
-                    thumbColor={headSensorEnabled ? '#f5dd4b' : '#f4f3f4'}
+                    thumbColor={enable ? '#f5dd4b' : '#f4f3f4'}
                     ios_backgroundColor="#3e3e3e"
                     onValueChange={toggleSwitch}
-                    value={headSensorEnabled}
+                    value={enable}
                     style={[styles.switchBtn, { transform: [{ scaleX: 1.7 }, { scaleY: 1.7 }] }]}
                 />
             </View>

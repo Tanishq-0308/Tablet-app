@@ -1,25 +1,32 @@
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import EndoOn from '../../../assets/endo.png'
-import EndoOff from '../../../assets/endo-off.png'
+import EndoOn from '../../../assets/updatedIcons/endoOff.png'
+import EndoOff from '../../../assets/updatedIcons/endoOn.png'
 import { useWebSocket } from '../../Context/webSocketContext'
 import useStore from '../../Store/stateStore'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-const Endo = () => {
-    const [power, setPower] = useState('@E_0#TL')
-    const {sendMessage}=useWebSocket();
-    const value= useStore((state)=>state.states.stateEL)
+
+
+type EndoInput= {
+    value: string
+    sendMessage:any;
+    code: string
+  }
+  
+
+const Endo = ({value, sendMessage, code}: EndoInput) => {
+    const [power, setPower] = useState(`@E_0#T${code}`)
     console.log("update", value);
     
     useEffect(()=>{
         if(value.length>0){
-            if(value === '@E_1#TL'){
-                setPower('@E_1#TL')
+            if(value === `@E_1#T${code}`){
+                setPower(`@E_1#T${code}`)
                 console.log("====");
                 
-            } else if (value === '@E_0#TL'){
-                setPower('@E_0#TL')
+            } else if (value === `@E_0#T${code}`){
+                setPower(`@E_0#T${code}`)
                 console.log("+++");
                 
             }
@@ -27,25 +34,25 @@ const Endo = () => {
     },[value])
 
     const handleButton=()=>{
-        if(power === '@E_0#TL'){
-            setPower('@E_1#TL');
-            sendMessage('@E_1#TL')
+        if(power === `@E_0#T${code}`){
+            setPower(`@E_1#T${code}`);
+            sendMessage(`@E_1#T${code}`)
         }
         else{
-            setPower('@E_0#TL')
-            sendMessage('@E_0#TL');
+            setPower(`@E_0#T${code}`)
+            sendMessage(`@E_0#T${code}`);
         }
     }
     return (
         <View style={styles.container}>
             {
-                power !== '@E_0#TL' ?
+                power !== `@E_0#T${code}` ?
                     <View style={styles.offImgContainer}>
-                        <Image source={EndoOff} style={styles.endoOffImg} />
+                        <Image source={EndoOff} style={styles.endoOffImg} resizeMode='contain'/>
                     </View>
                     :
                     <View style={styles.onImgContainer}>
-                        <Image source={EndoOn} style={styles.endoOnImg} />
+                        <Image source={EndoOn} style={styles.endoOnImg} resizeMode='contain'/>
                     </View>
             }
             <Text
@@ -57,7 +64,7 @@ const Endo = () => {
                 onPress={handleButton}
             >
                 {
-                    power === '@E_0#TL' ?
+                    power === `@E_0#T${code}` ?
                         <Text style={styles.onBtnTxt}>
                             ON
                         </Text>
@@ -94,6 +101,7 @@ const styles = StyleSheet.create({
         height: hp('19%'),
         width: wp('13%'),
         marginLeft: 2,
+        aspectRatio:1
     },
     offImgContainer: {
         // height: '60%',
@@ -102,6 +110,7 @@ const styles = StyleSheet.create({
     endoOffImg: {
         height: hp('19%'),
         width: wp('14.5%'),
+        aspectRatio:1
     },
     onBtn: {
     },

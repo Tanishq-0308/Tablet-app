@@ -14,11 +14,8 @@ import IntSix from '../../../assets/6.png'
 import IntSeven from '../../../assets/7.png'
 import IntEight from '../../../assets/8.png'
 import IntNine from '../../../assets/9.png'
-import { BtnEnableContext } from '../../Context/EnableContext';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { moderateScale } from 'react-native-size-matters'
-import { useWebSocket } from '../../Context/webSocketContext'
-import useStore from '../../Store/stateStore'
 
 type ImageProps = PropsWithChildren<{
   imageUrl: ImageSourcePropType
@@ -33,23 +30,34 @@ function IntensityImage({ imageUrl }: ImageProps): React.JSX.Element {
   );
 }
 
-const GreenIntensity = () => {
+type GreenInputType= {
+  value: string;
+  sendMessage:any;
+  code: string;
+  context: {
+   color: number; // or the type you expect
+    setColor: (color: number) => void;
+    enable: boolean;
+    setEnable: (enabled: boolean) => void;
+  }
+}
+
+
+const GreenIntensity = ({value, sendMessage, code, context}: GreenInputType) => {
   const [intImage, setIntImage] = useState<ImageSourcePropType>(IntZero)
-  const { greenValue, setGreenValue, greenEnabledValue, setGreenEnabledValue } = useContext(BtnEnableContext)
-  const value= useStore((state)=>state.states.stateGL);
-  const {sendMessage}= useWebSocket();
+  const { color, setColor, enable, setEnable } = context;
 
   useEffect(() => {
-    setimage(greenValue);
-  }, [greenValue])
+    setimage(color);
+  }, [color])
 
   useEffect(()=>{
     if(value.length>0){
-      if(value === '@G_0#TL'){
-        setGreenEnabledValue(false);
+      if(value === `@G_0#T${code}`){
+        setEnable(false);
       }
-      else if( value === '@G_1#TL'){
-        setGreenEnabledValue(true);
+      else if( value === `@G_1#T${code}`){
+        setEnable(true);
       }
       else {
         let number= parseInt(value[3]);
@@ -95,13 +103,13 @@ const GreenIntensity = () => {
   },[value]);
 
   const handleButton=()=>{
-    if(greenEnabledValue){
-      setGreenEnabledValue(false);
-        sendMessage('@G_0#TL')
+    if(enable){
+      setEnable(false);
+        sendMessage(`@G_0#T${code}`)
     }
     else{
-      setGreenEnabledValue(true)
-        sendMessage('@G_1#TL');
+      setEnable(true)
+        sendMessage(`@G_1#T${code}`);
     }
 }
 
@@ -109,43 +117,43 @@ const GreenIntensity = () => {
 
     switch (imageNumber) {
       case 0:
-        sendMessage('@G01#TL')
+        sendMessage(`@G01#T${code}`)
         setIntImage(IntZero)
         break;
       case 1:
-        sendMessage('@G02#TL')
+        sendMessage(`@G02#T${code}`)
         setIntImage(IntOne)
         break;
       case 2:
-        sendMessage('@G03#TL')
+        sendMessage(`@G03#T${code}`)
         setIntImage(IntTwo)
         break;
       case 3:
-        sendMessage('@G04#TL')
+        sendMessage(`@G04#T${code}`)
         setIntImage(IntThree)
         break;
       case 4:
-        sendMessage('@G05#TL')
+        sendMessage(`@G05#T${code}`)
         setIntImage(IntFour)
         break;
       case 5:
-        sendMessage('@G06#TL')
+        sendMessage(`@G06#T${code}`)
         setIntImage(IntFive)
         break;
       case 6:
-        sendMessage('@G07#TL')
+        sendMessage(`@G07#T${code}`)
         setIntImage(IntSix)
         break;
       case 7:
-        sendMessage('@G08#TL')
+        sendMessage(`@G08#T${code}`)
         setIntImage(IntSeven)
         break;
       case 8:
-        sendMessage('@G09#TL')
+        sendMessage(`@G09#T${code}`)
         setIntImage(IntEight)
         break;
       case 9:
-        sendMessage('@G0:#TL')
+        sendMessage(`@G0:#T${code}`)
         setIntImage(IntNine)
         break;
       default:
@@ -157,7 +165,7 @@ const GreenIntensity = () => {
     <View style={styles.container}>
       <View style={styles.container2}>
         {
-          greenEnabledValue ?
+          enable ?
             <View style={styles.onImgContainer}>
               <Image source={greenModeOn} style={styles.boostOnImg} />
             </View>
@@ -174,7 +182,7 @@ const GreenIntensity = () => {
           onPress={handleButton}
         >
           {
-            greenEnabledValue ?
+            enable ?
               <Text style={styles.offBtnTxt}>
                 OFF
               </Text>
@@ -193,12 +201,12 @@ const GreenIntensity = () => {
         <Text style={styles.heading}>INTENSITY</Text>
         <View style={styles.diceContainer}>
           <Pressable
-            disabled={greenEnabledValue ? false : true}
+            disabled={enable ? false : true}
             onPress={() => {
-              if (greenValue > 0) {
-                const newgreenValue = greenValue - 1; // Calculate the new greenValue
-                setGreenValue(newgreenValue);
-                setimage(newgreenValue); // Use the new greenValue value
+              if (color > 0) {
+                const newgreenValue = color - 1; // Calculate the new color
+                setColor(newgreenValue);
+                setimage(newgreenValue); // Use the new color value
               }
             }}
           >
@@ -209,12 +217,12 @@ const GreenIntensity = () => {
             </Text>
           </Pressable>
           <Pressable
-            disabled={greenEnabledValue ? false : true}
+            disabled={enable ? false : true}
             onPress={() => {
-              if (greenValue < 9) {
-                const newgreenValue = greenValue + 1; // Calculate the new greenValue
-                setGreenValue(newgreenValue);
-                setimage(newgreenValue); // Use the new greenValue value
+              if (color < 9) {
+                const newgreenValue = color + 1; // Calculate the new color
+                setColor(newgreenValue);
+                setimage(newgreenValue); // Use the new color value
               }
             }}
           >

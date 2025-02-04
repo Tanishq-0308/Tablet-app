@@ -1,18 +1,32 @@
 import { Image, Pressable, StyleSheet, Switch, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import BackButton from '../components/BackButton';
-import { Dimensions } from 'react-native';
 import { RootParamList } from '../App';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import GreenMode from '../components/SwitchModeComponents/GreenMode';
 import RedMode from '../components/SwitchModeComponents/RedMode';
 import OverHeadSensor from '../components/SwitchModeComponents/OverHeadSensor';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { BtnEnableContext } from '../Context/EnableContext';
 
 
 type ColorModeProps = NativeStackScreenProps<RootParamList, 'ColorMode'>
-const { width, height } = Dimensions.get('screen')
 const ColorMode = ({ navigation }: ColorModeProps) => {
+    const { greenEnabled, setGreenEnabled, redEnabled, setRedEnabled, headSensorEnabled, setHeadSensorEnabled } = useContext(BtnEnableContext)
+    const leftGreenEnable={
+        enable:greenEnabled,
+        setEnable: setGreenEnabled
+    }
+
+    const leftRedEnable={
+        enable: redEnabled,
+        setEnable: setRedEnabled
+    }
+
+    const leftHeadEnable={
+        enable: headSensorEnabled,
+        setEnable: setHeadSensorEnabled
+    }
     return (
         <View style={styles.mainContainer}>
             <View style={styles.container1}>
@@ -25,15 +39,15 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
             <View style={styles.container2}>
                 <View style={styles.blockOne}>
                     <View style={styles.box}>
-                        <GreenMode />
+                        <GreenMode context={leftGreenEnable}/>
                     </View>
                     <View style={styles.box}>
-                        <RedMode />
+                        <RedMode context={leftRedEnable}/>
                     </View>
                 </View>
                 <View style={styles.blockTwo}>
                     <View style={styles.box}>
-                        <OverHeadSensor />
+                        <OverHeadSensor context={leftHeadEnable}/>
                     </View>
                 </View>
             </View>

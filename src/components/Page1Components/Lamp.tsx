@@ -7,20 +7,28 @@ import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { useWebSocket } from '../../Context/webSocketContext';
 import useStore from '../../Store/stateStore';
 
-const Lamp = () => {
 
-    const [power, setPower] = useState('@L_0#TL')
-    const {sendMessage}=useWebSocket();
-    const value= useStore((state)=>state.states.stateLL)
+type LampInput= {
+    value: string
+    sendMessage:any;
+    code: string
+  }
+  
+
+const Lamp = ({value, sendMessage, code}:LampInput) => {
+
+    const [power, setPower] = useState(`@L_0#T${code}`)
+    // const {sendMessage}=useWebSocket();
+    // const value= useStore((state)=>state.states.stateLL)
 
     useEffect(()=>{
             if(value.length>0){
-                if(value === '@L_1#TL'){
-                    setPower('@L_1#TL')
+                if(value === `@L_1#T${code}`){
+                    setPower(`@L_1#T${code}`)
                     console.log("====");
                     
-                } else if (value === '@L_0#TL'){
-                    setPower('@L_0#TL')
+                } else if (value === `@L_0#T${code}`){
+                    setPower(`@L_0#T${code}`)
                     console.log("+++");
                     
                 }
@@ -28,19 +36,19 @@ const Lamp = () => {
         },[value])
     
         const handleButton=()=>{
-            if(power === '@L_0#TL'){
-                setPower('@L_1#TL');
-                sendMessage('@L_1#TL')
+            if(power === `@L_0#T${code}`){
+                setPower(`@L_1#T${code}`);
+                sendMessage(`@L_1#T${code}`)
             }
             else{
-                setPower('@L_0#TL')
-                sendMessage('@L_0#TL');
+                setPower(`@L_0#T${code}`)
+                sendMessage(`@L_0#T${code}`);
             }
         }
     return (
         <View style={styles.container}>
             {
-                power !== '@L_0#TL' ?
+                power !== `@L_0#T${code}` ?
                     <View style={styles.offImgContainer}>
                         <Image source={LampOff} style={styles.lampOffImg} resizeMode='contain'/>
                     </View>
@@ -58,7 +66,7 @@ const Lamp = () => {
                 onPress={handleButton}
             >
                 {
-                    power !== '@L_0#TL' ?
+                    power !== `@L_0#T${code}` ?
                         <Text style={styles.offBtnTxt}>
                             OFF
                         </Text>

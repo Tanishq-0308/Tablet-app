@@ -2,13 +2,17 @@ import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import React from 'react'
 import settingImg from '../../../assets/settings.png'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack'
 import { RootParamList } from '../../App'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { verticalScale, scale } from 'react-native-size-matters'
 
-type HomeProps = NativeStackScreenProps<RootParamList, 'Home'>
-const Settings = ({ navigation }: HomeProps) => {
+type SettingsProps = {
+  navigation: NativeStackNavigationProp<RootParamList>;
+  navigateTo: keyof RootParamList; // This restricts to valid route names
+};
+
+const Settings: React.FC<SettingsProps> = ({ navigation, navigateTo }) => {
   return (
     <View style={styles.container}>
       <View style={styles.imgContainer}>
@@ -18,7 +22,7 @@ const Settings = ({ navigation }: HomeProps) => {
       <Pressable
         style={styles.onBtnTxt}
         onPress={() => {
-          navigation.navigate('FactorySetting')
+          navigation.navigate(navigateTo)
         }}
       >
         <Icon name='play' style={styles.icon} color='#fff' />

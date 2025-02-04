@@ -7,8 +7,6 @@ import colorA from '../../../assets/24.png';
 import colorB from '../../../assets/25.png';
 import colorC from '../../../assets/26.png';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import useStore from '../../Store/stateStore';
-import { useWebSocket } from '../../Context/webSocketContext';
 
 type colorImageProps = PropsWithChildren<{
     imageUrl: ImageSourcePropType
@@ -20,11 +18,16 @@ function ColorImage({ imageUrl }: colorImageProps): React.JSX.Element {
     )
 }
 
-const Color = () => {
+type ColorInput= {
+    value: string
+    sendMessage:any;
+    code: string
+  }
+  
+
+const Color = ({value, sendMessage, code}: ColorInput) => {
     const [colImage, setColImage] = useState<ImageSourcePropType>(colorA);
     const [counter, setCounter] = useState(0);
-    const value = useStore((state) => state.states.stateCL);
-    const { sendMessage } = useWebSocket();
 
     useEffect(() => {
         let number = (value[2]);
@@ -48,15 +51,15 @@ const Color = () => {
         switch (imageNumber) {
             case 0:
                 setColImage(colorA)
-                sendMessage('@C-5#TL')
+                sendMessage(`@C-5#T${code}`)
                 break;
             case 1:
                 setColImage(colorB)
-                sendMessage('@C00#TL')
+                sendMessage(`@C00#T${code}`)
                 break;
             case 2:
                 setColImage(colorC)
-                sendMessage('@C+5#TL')
+                sendMessage(`@C+5#T${code}`)
                 break;
             default:
                 setColImage(colorA)

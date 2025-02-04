@@ -3,12 +3,15 @@ import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import BackButton from '../BackButton'
 import settingImg from '../../../assets/factorySetting.png'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack'
 import { RootParamList } from '../../App'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
-type FactorySettingProps = NativeStackScreenProps<RootParamList, 'FactorySetting'>
-const FactoryBtn = ({navigation}:FactorySettingProps) => {
+type FactorySettingProps = {
+  navigation: NativeStackNavigationProp<RootParamList>;
+  navigateTo: keyof RootParamList; // This restricts to valid route names
+};
+const FactoryBtn:React.FC<FactorySettingProps> = ({navigation, navigateTo}) => {
   return (
       <View style={styles.container}>
         <View style={styles.imgContainer}>
@@ -17,7 +20,7 @@ const FactoryBtn = ({navigation}:FactorySettingProps) => {
         <Text style={styles.heading}>FACTORY SETTINGS</Text>
         <Pressable
           style={styles.onBtnTxt}
-          onPress={() => navigation.navigate('ColorMode')}
+          onPress={() => navigation.navigate(navigateTo)}
         >
           <Icon name='play' style={styles.icon} color='#fff' />
         </Pressable>

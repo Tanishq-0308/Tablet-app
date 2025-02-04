@@ -4,22 +4,25 @@ import BoostOn from '../../../assets/boostMode.png'
 import BoostOff from '../../../assets/boostOff.png'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { verticalScale, scale, moderateScale } from 'react-native-size-matters';
-import { useWebSocket } from '../../Context/webSocketContext';
-import useStore from '../../Store/stateStore';
 
-const BoostMode = () => {
-    const [power, setPower] = useState('@D_0#TL')
-    const {sendMessage}=useWebSocket();
-    const value= useStore((state)=>state.states.stateDL);
+type BoostModeInputType= {
+    value: string
+    sendMessage:any;
+    code: string
+  }
+  
+
+const BoostMode = ({value, sendMessage, code}:BoostModeInputType) => {
+    const [power, setPower] = useState(`@D_0#T${code}`);
 
     useEffect(()=>{
             if(value.length>0){
-                if(value === '@D_1#TL'){
-                    setPower('@D_1#TL')
+                if(value === `@D_1#T${code}`){
+                    setPower(`@D_1#T${code}`)
                     console.log("====");
                     
-                } else if (value === '@D_0#TL'){
-                    setPower('@D_0#TL')
+                } else if (value === `@D_0#T${code}`){
+                    setPower(`@D_0#T${code}`)
                     console.log("+++");
                     
                 }
@@ -27,19 +30,19 @@ const BoostMode = () => {
         },[value])
     
         const handleButton=()=>{
-            if(power === '@D_0#TL'){
-                setPower('@D_1#TL');
-                sendMessage('@D_1#TL')
+            if(power === `@D_0#T${code}`){
+                setPower(`@D_1#T${code}`);
+                sendMessage(`@D_1#T${code}`)
             }
             else{
-                setPower('@D_0#TL')
-                sendMessage('@D_0#TL');
+                setPower(`@D_0#T${code}`)
+                sendMessage(`@D_0#T${code}`);
             }
         }
     return (
         <View style={styles.container}>
             {
-                power !== '@D_0#TL' ?
+                power !== `@D_0#T${code}` ?
                     <View style={styles.offImgContainer}>
                         <Image source={BoostOff} style={styles.boostOffImg} resizeMode='contain'/>
                     </View>
@@ -57,7 +60,7 @@ const BoostMode = () => {
                 onPress={handleButton}
             >
                 {
-                    power !== '@D_0#TL' ?
+                    power !== `@D_0#T${code}` ?
                         <Text style={styles.offBtnTxt}>
                             OFF
                         </Text>

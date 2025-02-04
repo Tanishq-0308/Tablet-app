@@ -8,50 +8,56 @@ import Intensity from '../components/Page1Components/Intensity'
 import Lamp from '../components/Page1Components/Lamp'
 import Settings from '../components/Page1Components/Settings'
 import { Dimensions } from 'react-native'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack'
 import { RootParamList } from '../App'
 import Page2 from './Page2'
 
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import useStore from '../Store/stateStore'
 import { useWebSocket } from '../Context/webSocketContext'
+import Page3 from './Page3'
 
-const { width, height } = Dimensions.get('screen')
+// type HomeProps = NativeStackScreenProps<RootParamList, 'Home'>;
 
-type HomeProps = NativeStackScreenProps<RootParamList, 'Home'>
-
-const Page1 = ({ navigation, route }: HomeProps) => {
-  console.log('width'+ width + 'height' + height);
+type page1Props={
+  navigation:NativeStackNavigationProp<RootParamList>;
+}
+// type HomeTwoProps = NativeStackScreenProps<RootParamList, 'HomeTwo'>;
+const Page1 = ({ navigation }:page1Props) => {
   
   const value= useStore((state)=>state.states.stateIL);
+  const value2= useStore((state)=>state.states.stateEL);
+  const value3 = useStore((state) => state.states.stateCL);
+  const value4= useStore((state)=>state.states.stateLL);
+  const value5= useStore((state)=>state.states.stateDL);
+  const value6= useStore((state)=>state.states.stateFL)
   const {sendMessage} =useWebSocket()
   return (
     <ScrollView horizontal>
-      <Page2 />
       <View style={styles.mainContainer}>
         <View style={styles.blockOne}>
           <View style={styles.box}>
             <Intensity value={value} sendMessage={sendMessage} code='L'/>
           </View>
           <View style={styles.box}>
-            <Color />
+            <Color value={value3} sendMessage={sendMessage} code='L'/>
           </View>
           <View style={styles.box}>
-            <Endo />
+            <Endo  value={value2} sendMessage={sendMessage} code='L'/>
           </View>
           <View style={styles.box}>
-            <Lamp />
+            <Lamp value={value4} sendMessage={sendMessage} code='L'/>
           </View>
         </View>
         <View style={styles.blockTwo}>
           <View style={styles.box}>
-            <BoostMode />
+            <BoostMode value={value5} sendMessage={sendMessage} code='L'/>
           </View>
           <View style={styles.box}>
-            <Settings navigation={navigation} route={route} />
+            <Settings navigation={navigation} navigateTo='FactorySetting' />
           </View>
           <View style={styles.box2}>
-            <Focus />
+            <Focus value={value6} sendMessage={sendMessage} code='L'/>
           </View>
         </View>
       </View>
@@ -65,7 +71,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     gap: 15,
     backgroundColor: 'white',
-    height: hp('85.5%'),
+    height: hp('83.5%'),
     width: wp('100%'),
     // borderWidth:1
   },

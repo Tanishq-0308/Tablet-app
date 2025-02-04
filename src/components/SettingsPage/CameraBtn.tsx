@@ -8,17 +8,24 @@ import { moderateScale } from 'react-native-size-matters';
 import { useWebSocket } from '../../Context/webSocketContext';
 import useStore from '../../Store/stateStore';
 
-const CameraBtn = () => {
+
+type CameraInputType= {
+    value: string
+    sendMessage:any;
+    code: string
+  }
+  
+const CameraBtn = ({value, sendMessage, code}: CameraInputType) => {
     const [power,setPower]= useState(false)
-    const {sendMessage}=useWebSocket();
-    const value= useStore((state)=>state.states.stateEL)
+    // const {sendMessage}=useWebSocket();
+    // const value= useStore((state)=>state.states.stateEL)
     console.log("update", value);
     
     useEffect(()=>{
             if(value.length>0){
-                if(value === '@M_1#TL'){
+                if(value === `@M_1#T${code}`){
                     setPower(true)
-                } else if (value === '@M_0#TL'){
+                } else if (value === `@M_0#T${code}`){
                     setPower(false)
                 }
             }
@@ -27,10 +34,10 @@ const CameraBtn = () => {
     const toggleSwitch = () => {
         if(power){
             setPower(false);          
-            sendMessage('@M_0#TL')
+            sendMessage(`@M_0#T${code}`)
         } else {
             setPower(true);
-            sendMessage('@M_1#TL')
+            sendMessage(`@M_1#T${code}`)
         }
     };
     return (
@@ -51,7 +58,7 @@ const CameraBtn = () => {
             >CAMERA</Text>
             <View style={{flexDirection:'row', gap:15, alignItems:'center', justifyContent:'center',}}>
             { power && 
-            <Pressable onPress={()=> sendMessage('@M_3#TL')}>
+            <Pressable onPress={()=> sendMessage(`@M_3#T${code}`)}>
                 <Text style={styles.zoomOutBtn}>
                             ZOOM OUT
                         </Text>
@@ -72,7 +79,7 @@ const CameraBtn = () => {
                 }
             </Pressable>
             { power && 
-            <Pressable onPress={()=> sendMessage('@M_2#TL')}>
+            <Pressable onPress={()=> sendMessage(`@M_2#T${code}`)}>
                 <Text style={styles.zoomInBtn}>
                             ZOOM  IN
                         </Text>

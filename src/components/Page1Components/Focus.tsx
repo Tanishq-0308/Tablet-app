@@ -6,29 +6,34 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import { useWebSocket } from '../../Context/webSocketContext';
 import useStore from '../../Store/stateStore';
 
-const Focus = () => {
+type FocusInputType= {
+    value: string
+    sendMessage:any;
+    code: string
+  }
+const Focus = ({value, sendMessage, code}: FocusInputType) => {
     const [isEnabled, setIsEnabled] = useState(false);
-    const {sendMessage}=useWebSocket();
-    const valueStore= useStore((state)=>state.states.stateFL)
+    // const {sendMessage}=useWebSocket();
+    // const value= useStore((state)=>state.states.stateFL)
     const toggleSwitch = () => {
         if(isEnabled){
             setIsEnabled(false);          
-            sendMessage('@F_0#TL')
+            sendMessage(`@F_0#T${code}`)
         } else {
             setIsEnabled(true);
-            sendMessage('@F_1#TL')
+            sendMessage(`@F_1#T${code}`)
         }
     };
 
     useEffect(()=>{
-        if(valueStore.length>0){
-            if(valueStore === '@F_1#TL'){
+        if(value.length>0){
+            if(value === `@F_1#T${code}`){
                 setIsEnabled(true)
-            } else if (valueStore === '@F_0#TL'){
+            } else if (value === `@F_0#T${code}`){
                 setIsEnabled(false)
             }
         }
-    },[valueStore])
+    },[value])
 
     return (
         <View style={styles.mainContainer}>
@@ -54,24 +59,24 @@ const Focus = () => {
                         ios_backgroundColor="#3e3e3e"
                         onValueChange={toggleSwitch}
                         value={isEnabled}
-                        style={[styles.switchBtn, { transform: [{ scaleX: 1.7 }, { scaleY: 1.7 }] }]}
+                        style={[styles.switchBtn, { transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }] }]}
                     />
                 </View>
             </View>
             {
                 isEnabled && (
                     <View style={styles.container2}>
-                        <Pressable style={styles.smallBtn} onPress={()=> sendMessage('@F01#TL')}>
+                        <Pressable style={styles.smallBtn} onPress={()=> sendMessage(`@F01#T${code}`)}>
                             <Text style={styles.onBtnTxt}>
                                 S
                             </Text>
                         </Pressable>
-                        <Pressable style={styles.mediumBtn} onPress={()=> sendMessage('@F02#TL')}>
+                        <Pressable style={styles.mediumBtn} onPress={()=> sendMessage(`@F02#T${code}`)}>
                             <Text style={styles.onBtnTxt}>
                                 M
                             </Text>
                         </Pressable>
-                        <Pressable style={styles.largeBtn} onPress={()=> sendMessage('@F03#TL')}>
+                        <Pressable style={styles.largeBtn} onPress={()=> sendMessage(`@F03#T${code}`)}>
                             <Text style={styles.onBtnTxt}>
                                 L
                             </Text>
@@ -126,7 +131,8 @@ const styles = StyleSheet.create({
     switchContainer: {
     },
     switchBtn: {
-        margin: 18
+        margin: 5,
+        padding:6
     },
     smallBtn: {
         backgroundColor: '#95d151',

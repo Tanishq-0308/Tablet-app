@@ -33,22 +33,35 @@ function IntensityImage({ imageUrl }: ImageProps): React.JSX.Element {
   );
 }
 
-const RedIntensity = () => {
+type RedInputType= {
+  value: string;
+  sendMessage:any;
+  code: string;
+  context: {
+    color: number; // or the type you expect
+    setColor: (color: number) => void;
+    enable: boolean;
+    setEnable: (enabled: boolean) => void;
+  }
+}
+
+const RedIntensity = ({value, sendMessage, code, context}: RedInputType) => {
   const [intImage, setIntImage] = useState<ImageSourcePropType>(IntZero)
-  const { redValue, setRedValue, redEnabledValue, setRedEnabledValue } = useContext(BtnEnableContext);
-  
-  const value= useStore((state)=>state.states.stateRL);
-  const {sendMessage}= useWebSocket();
+  // const { color, setColor, enable, setEnable } = context;
+  const { color, setColor, enable, setEnable } = context;
+  // const { greenValue, setGreenEnabledValue, greenEnabledValue, setGreenValue} = context;
+  // const value= useStore((state)=>state.states.stateRL);
+  // const {sendMessage}= useWebSocket();
   useEffect(() => {
-    setimage(redValue)
+    setimage(color)
   }, [])
   useEffect(()=>{
     if(value.length>0){
-      if(value === '@R_0#TL'){
-        setRedEnabledValue(false);
+      if(value === `@R_0#T${code}`){
+        setEnable(false);
       }
-      else if( value === '@R_1#TL'){
-        setRedEnabledValue(true);
+      else if( value === `@R_1#T${code}`){
+        setEnable(true);
       }
       else {
         let number= parseInt(value[3]);
@@ -94,13 +107,13 @@ const RedIntensity = () => {
   },[value]);
 
   const handleButton=()=>{
-    if(redEnabledValue){
-      setRedEnabledValue(false);
-        sendMessage('@G_0#TL')
+    if(enable){
+      setEnable(false);
+        sendMessage(`@R_0#T${code}`)
     }
     else{
-      setRedEnabledValue(true)
-        sendMessage('@G_1#TL');
+      setEnable(true)
+        sendMessage(`@R_1#T${code}`);
     }
 }
 
@@ -108,43 +121,43 @@ const RedIntensity = () => {
 
     switch (imageNumber) {
       case 0:
-        sendMessage('@R01#TL')
+        sendMessage(`@R01#T${code}`)
         setIntImage(IntZero)
         break;
       case 1:
-        sendMessage('@R02#TL')
+        sendMessage(`@R02#T${code}`)
         setIntImage(IntOne)
         break;
       case 2:
-        sendMessage('@R03#TL')
+        sendMessage(`@R03#T${code}`)
         setIntImage(IntTwo)
         break;
       case 3:
-        sendMessage('@R04#TL')
+        sendMessage(`@R04#T${code}`)
         setIntImage(IntThree)
         break;
       case 4:
-        sendMessage('@R05#TL')
+        sendMessage(`@R05#T${code}`)
         setIntImage(IntFour)
         break;
       case 5:
-        sendMessage('@R06#TL')
+        sendMessage(`@R06#T${code}`)
         setIntImage(IntFive)
         break;
       case 6:
-        sendMessage('@R07#TL')
+        sendMessage(`@R07#T${code}`)
         setIntImage(IntSix)
         break;
       case 7:
-        sendMessage('@R08#TL')
+        sendMessage(`@R08#T${code}`)
         setIntImage(IntSeven)
         break;
       case 8:
-        sendMessage('@R09#TL')
+        sendMessage(`@R09#T${code}`)
         setIntImage(IntEight)
         break;
       case 9:
-        sendMessage('@R0:#TL')
+        sendMessage(`@R0:#T${code}`)
         setIntImage(IntNine)
         break;
       default:
@@ -156,7 +169,7 @@ const RedIntensity = () => {
     <View style={styles.container}>
       <View style={styles.container2}>
         {
-          redEnabledValue ?
+          enable ?
             <View style={styles.onImgContainer}>
               <Image source={redModeOn} style={styles.boostOnImg} />
             </View>
@@ -170,10 +183,10 @@ const RedIntensity = () => {
           style={styles.heading}
         >RED MODE</Text>
         <Pressable
-          onPress={() => setRedEnabledValue(!redEnabledValue)}
+          onPress={handleButton}
         >
           {
-            redEnabledValue ?
+            enable ?
               <Text style={styles.offBtnTxt}>
                 OFF
               </Text>
@@ -192,11 +205,11 @@ const RedIntensity = () => {
         <Text style={styles.heading}>INTENSITY</Text>
         <View style={styles.diceContainer}>
           <Pressable
-            disabled={redEnabledValue ? false : true}
+            disabled={enable ? false : true}
             onPress={() => {
-              if (redValue > 0) {
-                const newCounter = redValue - 1; // Calculate the new counter
-                setRedValue(newCounter);
+              if (color > 0) {
+                const newCounter = color - 1; // Calculate the new counter
+                setColor(newCounter);
                 setimage(newCounter); // Use the new counter value
               }
             }}
@@ -208,11 +221,11 @@ const RedIntensity = () => {
             </Text>
           </Pressable>
           <Pressable
-            disabled={redEnabledValue ? false : true}
+            disabled={enable ? false : true}
             onPress={() => {
-              if (redValue < 9) {
-                const newCounter = redValue + 1; // Calculate the new counter
-                setRedValue(newCounter);
+              if (color < 9) {
+                const newCounter = color + 1; // Calculate the new counter
+                setColor(newCounter);
                 setimage(newCounter); // Use the new counter value
               }
             }}
