@@ -13,6 +13,8 @@ import { RootParamList } from '../App'
 import Page2 from './Page2'
 
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import useStore from '../Store/stateStore'
+import { useWebSocket } from '../Context/webSocketContext'
 
 const { width, height } = Dimensions.get('screen')
 
@@ -21,13 +23,15 @@ type HomeProps = NativeStackScreenProps<RootParamList, 'Home'>
 const Page1 = ({ navigation, route }: HomeProps) => {
   console.log('width'+ width + 'height' + height);
   
+  const value= useStore((state)=>state.states.stateIL);
+  const {sendMessage} =useWebSocket()
   return (
     <ScrollView horizontal>
       <Page2 />
       <View style={styles.mainContainer}>
         <View style={styles.blockOne}>
           <View style={styles.box}>
-            <Intensity />
+            <Intensity value={value} sendMessage={sendMessage} code='L'/>
           </View>
           <View style={styles.box}>
             <Color />

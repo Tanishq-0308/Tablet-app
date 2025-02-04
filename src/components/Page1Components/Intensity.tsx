@@ -28,11 +28,17 @@ function IntensityImage({ imageUrl }: ImageProps): React.JSX.Element {
   );
 }
 
-const Intensity = () => {
+type IntensityInput= {
+  value: string
+  sendMessage:any;
+  code: string
+}
+
+const Intensity = ({value, sendMessage, code}:IntensityInput) => {
   const [intImage, setIntImage] = useState<ImageSourcePropType>(IntZero)
   const [counter, setCounter] = useState(0);
-  const value= useStore((state)=>state.states.stateIL);
-  const {sendMessage}= useWebSocket();
+  // const value= useStore((state)=>state.states.stateIL);
+  // const {sendMessage}= useWebSocket();
 
   useEffect(()=>{
     let number= parseInt(value[3]);
@@ -79,43 +85,43 @@ const Intensity = () => {
 
     switch (imageNumber) {
       case 0:
-        sendMessage('@I01#TL')
+        sendMessage(`@I01#T${code}`)
         setIntImage(IntZero)
         break;
       case 1:
-        sendMessage('@I02#TL')
+        sendMessage(`@I02#T${code}`)
         setIntImage(IntOne)
         break;
       case 2:
-        sendMessage('@I03#TL')
+        sendMessage(`@I03#T${code}`)
         setIntImage(IntTwo)
         break;
       case 3:
-        sendMessage('@I04#TL')
+        sendMessage(`@I04#T${code}`)
         setIntImage(IntThree)
         break;
       case 4:
-        sendMessage('@I05#TL')
+        sendMessage(`@I05#T${code}`)
         setIntImage(IntFour)
         break;
       case 5:
-        sendMessage('@I06#TL')
+        sendMessage(`@I06#T${code}`)
         setIntImage(IntFive)
         break;
       case 6:
-        sendMessage('@I07#TL')
+        sendMessage(`@I07#T${code}`)
         setIntImage(IntSix)
         break;
       case 7:
-        sendMessage('@I08#TL')
+        sendMessage(`@I08#T${code}`)
         setIntImage(IntSeven)
         break;
       case 8:
-        sendMessage('@I09#TL')
+        sendMessage(`@I09#T${code}`)
         setIntImage(IntEight)
         break;
       case 9:
-        sendMessage('@I0:#TL')
+        sendMessage(`@I0:#T${code}`)
         setIntImage(IntNine)
         break;
       default:
