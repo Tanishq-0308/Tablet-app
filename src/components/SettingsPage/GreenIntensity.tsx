@@ -1,7 +1,7 @@
 import { Image, ImageSourcePropType, Pressable, StyleSheet, Switch, Text, View } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
-import greenModeOn from '../../../assets/greenModeOn.png'
-import greenModeOff from '../../../assets/greenModeOff.png'
+import greenModeOn from '../../../assets/updatedIcons/greenModeOn.png'
+import greenModeOff from '../../../assets/updatedIcons/greenModeOff.png'
 
 import type { PropsWithChildren } from 'react'
 import IntZero from '../../../assets/0.png'
@@ -25,7 +25,7 @@ function IntensityImage({ imageUrl }: ImageProps): React.JSX.Element {
 
   return (
     <View>
-      <Image style={styles.intImage} source={imageUrl} />
+      <Image style={styles.intImage} source={imageUrl} resizeMode='contain'/>
     </View>
   );
 }
@@ -167,11 +167,11 @@ const GreenIntensity = ({value, sendMessage, code, context}: GreenInputType) => 
         {
           enable ?
             <View style={styles.onImgContainer}>
-              <Image source={greenModeOn} style={styles.boostOnImg} />
+              <Image source={greenModeOn} style={styles.boostOnImg} resizeMode='contain'/>
             </View>
             :
             <View style={styles.offImgContainer}>
-              <Image source={greenModeOff} style={styles.boostOffImg} />
+              <Image source={greenModeOff} style={styles.boostOffImg} resizeMode='contain'/>
             </View>
         }
         <Text
@@ -263,8 +263,9 @@ const styles = StyleSheet.create({
   },
   intImageContainer: {},
   intImage: {
-    height: hp('19%'),
+    height: hp('21%'),
     width: wp('16%'),
+    aspectRatio:3
   },
   heading: {
     fontWeight: 'bold',
@@ -285,14 +286,16 @@ const styles = StyleSheet.create({
   },
   onImgContainer: {},
   boostOnImg: {
-    height: hp('19%'),
+    height: hp('21%'),
     width: wp('11.6%'),
+    aspectRatio:3
   },
 
   offImgContainer: {},
   boostOffImg: {
-    height: hp('19%'),
+    height: hp('21%'),
     width: wp('11.6%'),
+    aspectRatio:3
   },
   switchContainer: {
   },

@@ -23,7 +23,7 @@ function IntensityImage({ imageUrl }: ImageProps): React.JSX.Element {
 
   return (
     <View>
-      <Image style={styles.intImage} source={imageUrl} />
+      <Image style={styles.intImage} source={imageUrl} resizeMode='contain'/>
     </View>
   );
 }
@@ -187,6 +187,7 @@ const styles = StyleSheet.create({
   intImage: {
     height: hp('20%'),
     width: wp('16%'),
+    aspectRatio:3
     // borderWidth:2
   },
   heading: {

@@ -35,11 +35,11 @@ const RedMode = ({context}:RedModeType) => {
             {
                 !enable ?
                     <View style={styles.offImgContainer}>
-                        <Image source={redModeOff} style={styles.boostOffImg} />
+                        <Image source={redModeOff} style={styles.boostOffImg} resizeMode='contain'/>
                     </View>
                     :
                     <View style={styles.onImgContainer}>
-                        <Image source={redModeOn} style={styles.boostOnImg} />
+                        <Image source={redModeOn} style={styles.boostOnImg} resizeMode='contain'/>
                     </View>
             }
             <Text
@@ -53,7 +53,7 @@ const RedMode = ({context}:RedModeType) => {
                     ios_backgroundColor="#3e3e3e"
                     onValueChange={toggleSwitch}
                     value={enable}
-                    style={[styles.switchBtn, { transform: [{ scaleX: 1.7 }, { scaleY: 1.7 }] }]}
+                    style={[styles.switchBtn, { transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }] }]}
                 />
             </View>
         </View>
@@ -78,14 +78,16 @@ const styles = StyleSheet.create({
     },
     onImgContainer: {},
     boostOnImg: {
-        height: hp('19%'),
+        height: hp('21%'),
         width: wp('11.6%'),
+        aspectRatio:1
     },
 
     offImgContainer: {},
     boostOffImg: {
-        height: hp('19%'),
+        height: hp('21%'),
         width: wp('11.6%'),
+        aspectRatio:1
     },
     switchContainer: {
     },

@@ -1,7 +1,7 @@
 import { Image, ImageSourcePropType, Pressable, StyleSheet, Switch, Text, View } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
-import redModeOn from '../../../assets/redmodeOn.png'
-import redModeOff from '../../../assets/redModeOff.png'
+import redModeOn from '../../../assets/updatedIcons/redModeOn.png'
+import redModeOff from '../../../assets/updatedIcons/redModeOff.png'
 
 import type { PropsWithChildren } from 'react'
 import IntZero from '../../../assets/0.png'
@@ -28,7 +28,7 @@ function IntensityImage({ imageUrl }: ImageProps): React.JSX.Element {
 
   return (
     <View>
-      <Image style={styles.intImage} source={imageUrl} />
+      <Image style={styles.intImage} source={imageUrl} resizeMode='contain'/>
     </View>
   );
 }
@@ -171,11 +171,11 @@ const RedIntensity = ({value, sendMessage, code, context}: RedInputType) => {
         {
           enable ?
             <View style={styles.onImgContainer}>
-              <Image source={redModeOn} style={styles.boostOnImg} />
+              <Image source={redModeOn} style={styles.boostOnImg} resizeMode='contain'/>
             </View>
             :
             <View style={styles.offImgContainer}>
-              <Image source={redModeOff} style={styles.boostOffImg} />
+              <Image source={redModeOff} style={styles.boostOffImg} resizeMode='contain'/>
             </View>
         }
         <Text
@@ -266,8 +266,9 @@ const styles = StyleSheet.create({
   },
   intImageContainer: {},
   intImage: {
-    height: hp('19%'),
-    width: wp('16%'),
+    height: hp('21%'),
+    width: wp('11.6%'),
+    aspectRatio:3
   },
   heading: {
     fontWeight: 'bold',
@@ -288,14 +289,16 @@ const styles = StyleSheet.create({
   },
   onImgContainer: {},
   boostOnImg: {
-    height: hp('19%'),
-    width: wp('13.5%'),
+    height: hp('21%'),
+    width: wp('11.6%'),
+    aspectRatio:3
   },
 
   offImgContainer: {},
   boostOffImg: {
-    height: hp('19%'),
-    width: wp('14%'),
+    height: hp('21%'),
+    width: wp('11.6%'),
+    aspectRatio:3
   },
   switchContainer: {
   },

@@ -1,7 +1,7 @@
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import BoostOn from '../../../assets/boostMode.png'
-import BoostOff from '../../../assets/boostOff.png'
+import BoostOn from '../../../assets/updatedIcons/boostOff.png'
+import BoostOff from '../../../assets/updatedIcons/boostOn.png'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { verticalScale, scale, moderateScale } from 'react-native-size-matters';
 

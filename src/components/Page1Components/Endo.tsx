@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     },
     endoOffImg: {
         height: hp('19%'),
-        width: wp('14.5%'),
+        width: wp('13%'),
         aspectRatio:1
     },
     onBtn: {

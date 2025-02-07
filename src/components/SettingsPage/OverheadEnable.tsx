@@ -1,7 +1,7 @@
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import React, { useContext, useEffect, useState, } from 'react'
-import overHdSensorOn from '../../../assets/overheadSensorOn.png'
-import overHdSensorOff from '../../../assets/overheadSensorOff.png'
+import overHdSensorOn from '../../../assets/updatedIcons/overheadSensorOn.png'
+import overHdSensorOff from '../../../assets/updatedIcons/overheadSensorOff.png'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { moderateScale } from 'react-native-size-matters';
 
@@ -47,11 +47,11 @@ const OverheadEnable = ({value, sendMessage, code, context}: OverHeadSensorType)
             {
                 sensor == `@O_0#T${code}` ?
                     <View style={styles.offImgContainer}>
-                        <Image source={overHdSensorOff} style={styles.boostOffImg} />
+                        <Image source={overHdSensorOff} style={styles.boostOffImg} resizeMode='contain'/>
                     </View>
                     :
                     <View style={styles.onImgContainer}>
-                        <Image source={overHdSensorOn} style={styles.boostOnImg} />
+                        <Image source={overHdSensorOn} style={styles.boostOnImg} resizeMode='contain'/>
                     </View>
             }
             <Text
@@ -94,8 +94,9 @@ const styles = StyleSheet.create({
     },
     onImgContainer: {},
     boostOnImg: {
-        height: hp('19%'),
+        height: hp('21%'),
         width: wp('11.6%'),
+        aspectRatio:2
     },
     onBtnTxt: {
             borderRadius: 7,
@@ -117,7 +118,8 @@ const styles = StyleSheet.create({
     },
     offImgContainer: {},
     boostOffImg: {
-        height: hp('19%'),
+        height: hp('21%'),
         width: wp('11.6%'),
+        aspectRatio:1
     }
 })

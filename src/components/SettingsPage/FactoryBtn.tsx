@@ -2,7 +2,7 @@ import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import BackButton from '../BackButton'
-import settingImg from '../../../assets/factorySetting.png'
+import settingImg from '../../../assets/updatedIcons/Factory_Setting.png'
 import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack'
 import { RootParamList } from '../../App'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -15,7 +15,7 @@ const FactoryBtn:React.FC<FactorySettingProps> = ({navigation, navigateTo}) => {
   return (
       <View style={styles.container}>
         <View style={styles.imgContainer}>
-          <Image source={settingImg} style={styles.settingImg} />
+          <Image source={settingImg} style={styles.settingImg} resizeMode='contain'/>
         </View>
         <Text style={styles.heading}>FACTORY SETTINGS</Text>
         <Pressable
@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
       settingImg: {
         height: hp('19%'),
         width: wp('13%'),
+        aspectRatio:1
       },
       onBtnTxt: {
         borderRadius: 7,

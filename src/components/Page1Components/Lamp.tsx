@@ -1,7 +1,7 @@
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import LampOn from '../../../assets/lamp.png';
-import LampOff from '../../../assets/lamp-off.png';
+import LampOn from '../../../assets/updatedIcons/lampOff.png';
+import LampOff from '../../../assets/updatedIcons/lampOn.png';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { useWebSocket } from '../../Context/webSocketContext';

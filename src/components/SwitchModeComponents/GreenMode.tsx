@@ -33,11 +33,11 @@ const GreenMode = ({context}:GreenModeType) => {
             {
                 !enable ?
                     <View style={styles.offImgContainer}>
-                        <Image source={greenModeOff} style={styles.boostOffImg} />
+                        <Image source={greenModeOff} style={styles.boostOffImg} resizeMode='contain'/>
                     </View>
                     :
                     <View style={styles.onImgContainer}>
-                        <Image source={greenModeOn} style={styles.boostOnImg} />
+                        <Image source={greenModeOn} style={styles.boostOnImg} resizeMode='contain'/>
                     </View>
             }
             <Text
@@ -51,7 +51,7 @@ const GreenMode = ({context}:GreenModeType) => {
                     ios_backgroundColor="#3e3e3e"
                     onValueChange={toggleSwitch}
                     value={enable}
-                    style={[styles.switchBtn, { transform: [{ scaleX: 1.7 }, { scaleY: 1.7 }] }]}
+                    style={[styles.switchBtn, { transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }] }]}
                 />
             </View>
         </View>

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import React from 'react'
-import settingImg from '../../../assets/settings.png'
+import settingImg from '../../../assets/updatedIcons/settings.png'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack'
 import { RootParamList } from '../../App'

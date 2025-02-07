@@ -1,7 +1,7 @@
 import { Image, Pressable, StyleSheet, Switch, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import focusOn from '../../../assets/focus.png'
-import focusOff from '../../../assets/focusOff.png'
+import focusOn from '../../../assets/updatedIcons/focusOff.png'
+import focusOff from '../../../assets/updatedIcons/focusOn.png'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { useWebSocket } from '../../Context/webSocketContext';
 import useStore from '../../Store/stateStore';
@@ -119,14 +119,14 @@ const styles = StyleSheet.create({
     boostOnImg: {
         height: hp('19%'),
         width: wp('13%'),
-        aspectRatio:2
+        aspectRatio:1
     },
 
     offImgContainer: {},
     boostOffImg: {
         height: hp('19%'),
-        // width: wp('13%'),
-        aspectRatio:2
+        width: wp('13%'),
+        aspectRatio:1
     },
     switchContainer: {
     },

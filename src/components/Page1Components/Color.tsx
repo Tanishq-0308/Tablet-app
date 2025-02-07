@@ -1,6 +1,6 @@
 import { Image, ImageSourcePropType, Pressable, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import colorImg from '../../../assets/Color.png'
+import colorImg from '../../../assets/updatedIcons/color.png'
 import type { PropsWithChildren } from 'react'
 
 import colorA from '../../../assets/24.png';
@@ -74,7 +74,7 @@ const Color = ({value, sendMessage, code}: ColorInput) => {
                 <Text style={styles.headTxt}>CW</Text>
             </View>
             <View style={styles.intImageContainer}>
-                <Image source={colorImg} style={styles.colorImage} />
+                <Image source={colorImg} style={styles.colorImage} resizeMode='contain'/>
             </View>
             <View style={styles.colImageContainer}>
                 <ColorImage imageUrl={colImage} />
@@ -127,10 +127,13 @@ const styles = StyleSheet.create({
     intImageContainer: {
         // height: '35%',
         // width: '70%',
+        // borderWidth:2
     },
     colorImage: {
         height: hp('12%'),
         width: wp('22%'),
+        aspectRatio:3,
+        // borderWidth:2
     },
     heading: {
         flexDirection: 'row',
