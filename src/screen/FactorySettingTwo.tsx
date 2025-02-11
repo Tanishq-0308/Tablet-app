@@ -75,6 +75,7 @@ const FactorySettingTwo: React.FC<FactorySettingTwoProps> = ({ navigation, route
                         }
                     </View>
                 </View>
+                                <Text style={styles.dome}>Dome 2</Text>
             </View>
         </View>
   )
@@ -83,6 +84,14 @@ const FactorySettingTwo: React.FC<FactorySettingTwoProps> = ({ navigation, route
 export default FactorySettingTwo
 
 const styles = StyleSheet.create({
+    dome: {
+        textAlign: 'right',
+        paddingRight: 30,
+        fontSize: hp('3.2%'),
+        fontStyle: 'italic',
+        color: 'red',
+        fontWeight: 'bold'
+    },
      mainContainer: {
         flexDirection: 'row',
         // margin: 10,

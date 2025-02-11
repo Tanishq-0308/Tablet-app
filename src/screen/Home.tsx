@@ -10,12 +10,12 @@ import { RootParamList } from '../App'
 type HomeProps = NativeStackScreenProps<RootParamList, 'Home'>;
 // type HomeTwoProps= NativeStackScreenProps<RootParamList, 'HomeTwo'>
 
-const Home = ({navigation}:HomeProps) => {
+const Home = ({ navigation }: HomeProps) => {
   return (
     <ScrollView horizontal>
-        {/* <Page2/> */}
-        <Page1 navigation={navigation}/>
-        {/* <Page3 navigation={navigation}/> */}
+      <Page2 />
+      <Page1 navigation={navigation} />
+      <Page3 navigation={navigation} />
     </ScrollView>
   )
 }

@@ -12,54 +12,55 @@ import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-naviga
 import { RootParamList } from '../App'
 import Page2 from './Page2'
 
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import useStore from '../Store/stateStore'
 import { useWebSocket } from '../Context/webSocketContext'
 import Page3 from './Page3'
 
 // type HomeProps = NativeStackScreenProps<RootParamList, 'Home'>;
 
-type page1Props={
-  navigation:NativeStackNavigationProp<RootParamList>;
+type page1Props = {
+  navigation: NativeStackNavigationProp<RootParamList>;
 }
 // type HomeTwoProps = NativeStackScreenProps<RootParamList, 'HomeTwo'>;
-const Page1 = ({ navigation }:page1Props) => {
-  
-  const value= useStore((state)=>state.states.stateIL);
-  const value2= useStore((state)=>state.states.stateEL);
+const Page1 = ({ navigation }: page1Props) => {
+
+  const value = useStore((state) => state.states.stateIL);
+  const value2 = useStore((state) => state.states.stateEL);
   const value3 = useStore((state) => state.states.stateCL);
-  const value4= useStore((state)=>state.states.stateLL);
-  const value5= useStore((state)=>state.states.stateDL);
-  const value6= useStore((state)=>state.states.stateFL)
-  const {sendMessage} =useWebSocket()
+  const value4 = useStore((state) => state.states.stateLL);
+  const value5 = useStore((state) => state.states.stateDL);
+  const value6 = useStore((state) => state.states.stateFL)
+  const { sendMessage } = useWebSocket()
   return (
     <ScrollView horizontal>
       <View style={styles.mainContainer}>
         <View style={styles.blockOne}>
           <View style={styles.box}>
-            <Intensity value={value} sendMessage={sendMessage} code='L'/>
+            <Intensity value={value} sendMessage={sendMessage} code='L' />
           </View>
           <View style={styles.box}>
-            <Color value={value3} sendMessage={sendMessage} code='L'/>
+            <Color value={value3} sendMessage={sendMessage} code='L' />
           </View>
           <View style={styles.box}>
-            <Endo  value={value2} sendMessage={sendMessage} code='L'/>
+            <Endo value={value2} sendMessage={sendMessage} code='L' />
           </View>
           <View style={styles.box}>
-            <Lamp value={value4} sendMessage={sendMessage} code='L'/>
+            <Lamp value={value4} sendMessage={sendMessage} code='L' />
           </View>
         </View>
         <View style={styles.blockTwo}>
           <View style={styles.box}>
-            <BoostMode value={value5} sendMessage={sendMessage} code='L'/>
+            <BoostMode value={value5} sendMessage={sendMessage} code='L' />
           </View>
           <View style={styles.box}>
             <Settings navigation={navigation} navigateTo='FactorySetting' />
           </View>
           <View style={styles.box2}>
-            <Focus value={value6} sendMessage={sendMessage} code='L'/>
+            <Focus value={value6} sendMessage={sendMessage} code='L' />
           </View>
         </View>
+        <Text style={styles.dome}>Dome 1</Text>
       </View>
     </ScrollView>
   )
@@ -68,10 +69,18 @@ const Page1 = ({ navigation }:page1Props) => {
 export default Page1
 
 const styles = StyleSheet.create({
+  dome: {
+    textAlign: 'right',
+    paddingRight: 30,
+    fontSize: hp('3.2%'),
+    fontStyle: 'italic',
+    color: 'red',
+    fontWeight: 'bold'
+  },
   mainContainer: {
     gap: 15,
     backgroundColor: 'white',
-    height: hp('83.5%'),
+    height: hp('85.5%'),
     width: wp('100%'),
     // borderWidth:1
   },

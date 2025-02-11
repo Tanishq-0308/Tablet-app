@@ -61,7 +61,7 @@ const GreenIntensity = ({value, sendMessage, code, context}: GreenInputType) => 
       }
       else {
         let number= parseInt(value[3]);
-        console.log(value, number);
+        // console.log(value, number);
         
         switch (number) {
           case 1:

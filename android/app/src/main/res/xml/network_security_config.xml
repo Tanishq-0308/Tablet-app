@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="false">192.168.4.1</domain> <!-- Allows all 192.168.x.x IPs -->
+        <domain includeSubdomains="false">192.168.4.1</domain>
     </domain-config>
 </network-security-config>
-
-<!-- unable to load script. make sure you're either running metro (run 'npx react-native start') or that your bundle 'index,android.bundle' is packaged correctly for release -->

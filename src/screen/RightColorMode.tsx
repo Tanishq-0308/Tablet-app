@@ -13,19 +13,19 @@ import { RootParamList } from '../App';
 
 
 type RightColorModeProps = NativeStackScreenProps<RootParamList, 'ColorMode'>
-const RightColorMode = ({navigation}:RightColorModeProps) => {
-    const { greenEnabled, setGreenEnabled, redEnabled, setRedEnabled,headSensorEnabled,setHeadSensorEnabled } = useContext(RightBtnEnableContext)
-    const rightGreenEnable={
-        enable:greenEnabled,
+const RightColorMode = ({ navigation }: RightColorModeProps) => {
+    const { greenEnabled, setGreenEnabled, redEnabled, setRedEnabled, headSensorEnabled, setHeadSensorEnabled } = useContext(RightBtnEnableContext)
+    const rightGreenEnable = {
+        enable: greenEnabled,
         setEnable: setGreenEnabled
     }
 
-    const rightRedEnable={
+    const rightRedEnable = {
         enable: redEnabled,
         setEnable: setRedEnabled
     }
 
-    const rightHeadEnable={
+    const rightHeadEnable = {
         enable: headSensorEnabled,
         setEnable: setHeadSensorEnabled
     }
@@ -41,17 +41,18 @@ const RightColorMode = ({navigation}:RightColorModeProps) => {
             <View style={styles.container2}>
                 <View style={styles.blockOne}>
                     <View style={styles.box}>
-                        <GreenMode context={rightGreenEnable}/>
+                        <GreenMode context={rightGreenEnable} />
                     </View>
                     <View style={styles.box}>
-                        <RedMode context={rightRedEnable}/>
+                        <RedMode context={rightRedEnable} />
                     </View>
                 </View>
                 <View style={styles.blockTwo}>
                     <View style={styles.box}>
-                        <OverHeadSensor context={rightHeadEnable}/>
+                        <OverHeadSensor context={rightHeadEnable} />
                     </View>
                 </View>
+                <Text style={styles.dome}>Dome 2</Text>
             </View>
         </View>
     )
@@ -60,33 +61,41 @@ const RightColorMode = ({navigation}:RightColorModeProps) => {
 export default RightColorMode
 
 const styles = StyleSheet.create({
-     mainContainer: {
-            flexDirection: 'row',
-            backgroundColor: 'white',
-            height: hp('85.5%'),
-            width: wp('100%'),
-            // borderWidth:1,
-        },
-        container1: {
-            flexDirection: 'column',
-            marginLeft: 10,
-            marginTop: 10
-        },
-        container2: {
-            flexDirection: 'column',
-            gap: 15
-        },
-        box: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            width: wp('45.61%'),
-            height: hp('37%'),
-            // borderWidth:1,
-        },
-        blockOne: {
-            flexDirection: 'row'
-        },
-        blockTwo: {
-            flexDirection: 'row'
-        }
+    dome: {
+        textAlign: 'right',
+        paddingRight: 30,
+        fontSize: hp('3.2%'),
+        fontStyle: 'italic',
+        color: 'red',
+        fontWeight: 'bold'
+    },
+    mainContainer: {
+        flexDirection: 'row',
+        backgroundColor: 'white',
+        height: hp('85.5%'),
+        width: wp('100%'),
+        // borderWidth:1,
+    },
+    container1: {
+        flexDirection: 'column',
+        marginLeft: 10,
+        marginTop: 10
+    },
+    container2: {
+        flexDirection: 'column',
+        gap: 15
+    },
+    box: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: wp('45.61%'),
+        height: hp('37%'),
+        // borderWidth:1,
+    },
+    blockOne: {
+        flexDirection: 'row'
+    },
+    blockTwo: {
+        flexDirection: 'row'
+    }
 })

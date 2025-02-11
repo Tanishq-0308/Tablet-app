@@ -19,7 +19,7 @@ const CameraBtn = ({ value, sendMessage, code }: CameraInputType) => {
     const [power, setPower] = useState(false)
     // const {sendMessage}=useWebSocket();
     // const value= useStore((state)=>state.states.stateEL)
-    console.log("update", value);
+    // console.log("update", value);
 
     useEffect(() => {
         if (value.length > 0) {

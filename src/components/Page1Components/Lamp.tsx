@@ -25,11 +25,11 @@ const Lamp = ({value, sendMessage, code}:LampInput) => {
             if(value.length>0){
                 if(value === `@L_1#T${code}`){
                     setPower(`@L_1#T${code}`)
-                    console.log("====");
+                    // console.log("====");
                     
                 } else if (value === `@L_0#T${code}`){
                     setPower(`@L_0#T${code}`)
-                    console.log("+++");
+                    // console.log("+++");
                     
                 }
             }

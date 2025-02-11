@@ -19,11 +19,11 @@ const BoostMode = ({value, sendMessage, code}:BoostModeInputType) => {
             if(value.length>0){
                 if(value === `@D_1#T${code}`){
                     setPower(`@D_1#T${code}`)
-                    console.log("====");
+                    // console.log("====");
                     
                 } else if (value === `@D_0#T${code}`){
                     setPower(`@D_0#T${code}`)
-                    console.log("+++");
+                    // console.log("+++");
                     
                 }
             }

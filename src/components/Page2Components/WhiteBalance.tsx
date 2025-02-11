@@ -1,6 +1,9 @@
 import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import whiteBalanceImg from '../../../assets/cameraIcons/whiteBalance.png'
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
+
 
 const WhiteBalance = () => {
     const [redGain, setRedGain] = useState(10);
@@ -34,7 +37,7 @@ const WhiteBalance = () => {
         }
     };
     const chromaDecrease = () => {
-        if (chroma> 10) {
+        if (chroma > 10) {
             setChroma((prev) => prev - 10);
         }
     };
@@ -42,7 +45,7 @@ const WhiteBalance = () => {
         <View style={styles.mainContainer}>
             <View style={{ alignItems: 'center', gap: 10, }}>
                 <View style={styles.container}>
-                    <Image source={whiteBalanceImg} style={styles.Image} />
+                    <Image source={whiteBalanceImg} style={styles.Image} resizeMode='contain' />
                 </View>
                 <Text style={styles.heading}>White Balance</Text>
             </View>
@@ -56,20 +59,20 @@ const WhiteBalance = () => {
                 <Pressable>
                     <Text style={styles.button}>Outdoor</Text>
                 </Pressable>
-                <View style={manualBtn ? { flexDirection: 'column', gap: 25, position: 'relative', right: 89 } : styles.manualContainer}>
+                <View style={!manualBtn ? { flexDirection: 'column', gap: 25, position: 'relative', right: 89 } : styles.manualContainer}>
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity onPress={() => setManualBtn(!manualBtn)}>
                             <Text style={styles.button}>Manual</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={manualBtn ? styles.gainContainer : styles.valueContainerOff}>
+                    <View style={!manualBtn ? styles.gainContainer : styles.valueContainerOff}>
                         <View style={styles.valueMainContainer}>
                             <View>
                                 <Text style={styles.gainHeading}>Red Gain</Text>
                             </View>
                             <View style={styles.valueContainer}>
                                 <TouchableOpacity onPress={redGainDecrease}>
-                                    <Text style={{ fontSize: 30, lineHeight: 30, }}>-</Text>
+                                    <Text style={styles.minus}>-</Text>
                                 </TouchableOpacity>
                                 <View style={styles.length}>
                                     <View
@@ -83,7 +86,7 @@ const WhiteBalance = () => {
                                     ></View>
                                 </View>
                                 <TouchableOpacity onPress={redGainIncrease}>
-                                    <Text style={{ fontSize: 30, lineHeight: 35 }}>+</Text>
+                                    <Text style={styles.plus}>+</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -93,7 +96,7 @@ const WhiteBalance = () => {
                             </View>
                             <View style={styles.valueContainer}>
                                 <TouchableOpacity onPress={blueGainDecrease}>
-                                    <Text style={{ fontSize: 30, lineHeight: 30 }}>-</Text>
+                                    <Text style={styles.minus}>-</Text>
                                 </TouchableOpacity>
                                 <View style={styles.length}>
                                     <View
@@ -107,7 +110,7 @@ const WhiteBalance = () => {
                                     ></View>
                                 </View>
                                 <TouchableOpacity onPress={blueGainIncrease}>
-                                    <Text style={{ fontSize: 30, lineHeight: 35 }}>+</Text>
+                                    <Text style={styles.plus}>+</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -117,7 +120,7 @@ const WhiteBalance = () => {
                             </View>
                             <View style={styles.valueContainer}>
                                 <TouchableOpacity onPress={chromaDecrease}>
-                                    <Text style={{ fontSize: 30, lineHeight: 30 }}>-</Text>
+                                    <Text style={styles.minus}>-</Text>
                                 </TouchableOpacity>
                                 <View style={styles.length}>
                                     <View
@@ -131,7 +134,7 @@ const WhiteBalance = () => {
                                     ></View>
                                 </View>
                                 <TouchableOpacity onPress={chromaIncrease}>
-                                    <Text style={{ fontSize: 30, lineHeight: 35 }}>+</Text>
+                                    <Text style={styles.plus}>+</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -150,38 +153,36 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         alignItems: 'flex-start',
-        padding: 10
+        padding: moderateScale(5)
     },
-    container: {
-        height: '45%',
-        width: '50%',
-    },
+    container: {},
     Image: {
-        height: '100%',
-        width: '100%',
+        height: hp('11.5%'),
+        width: wp('7%'),
+        aspectRatio: 1
     },
     heading: {
-        fontSize: 20,
+        fontSize: hp('2.6%'),
         fontWeight: 'bold',
         borderWidth: 2,
         backgroundColor: '#ced6e0',
-        paddingHorizontal: 24,
+        paddingHorizontal: moderateScale(16),
         borderRadius: 12,
         elevation: 2,
         borderColor: '#747d8c'
     },
     buttons: {
         flexDirection: 'row',
-        paddingVertical: 20,
+        paddingVertical: moderateVerticalScale(10),
         gap: 15
     },
     button: {
-        fontSize: 20,
+        fontSize: hp('2.6%'),
         fontWeight: 'bold',
         borderWidth: 2,
         backgroundColor: '#ced6e0',
-        paddingHorizontal: 13,
-        paddingVertical: 2,
+        paddingHorizontal: moderateScale(7),
+        paddingVertical: moderateVerticalScale(2),
         borderRadius: 12,
         elevation: 2,
         borderColor: '#747d8c'
@@ -189,8 +190,8 @@ const styles = StyleSheet.create({
     length: {
         flexDirection: 'row',
         flexGrow: 1,
-        width: 130,
-        height: 17,
+        width: wp(10),
+        height: hp(2.2),
         borderRadius: 10,
         borderColor: '#747d8c',
         backgroundColor: '#ced6e0',
@@ -214,13 +215,21 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     manualContainer: {},
-    gainHeading: { 
-        fontSize: 20, 
-        fontWeight: 'bold' 
+    gainHeading: {
+        fontSize: hp('2.5%'),
+        fontWeight: 'bold'
     },
-    valueContainer:{
-        flexDirection: 'row', 
+    valueContainer: {
+        flexDirection: 'row',
         alignItems: 'center',
         gap: 10
+    },
+    minus: {
+        fontSize: hp('4%'),
+        lineHeight: 30
+    },
+    plus: {
+        fontSize: hp('4%'),
+        lineHeight: 35
     }
 })

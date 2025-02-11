@@ -13,17 +13,17 @@ import { BtnEnableContext } from '../Context/EnableContext';
 type ColorModeProps = NativeStackScreenProps<RootParamList, 'ColorMode'>
 const ColorMode = ({ navigation }: ColorModeProps) => {
     const { greenEnabled, setGreenEnabled, redEnabled, setRedEnabled, headSensorEnabled, setHeadSensorEnabled } = useContext(BtnEnableContext)
-    const leftGreenEnable={
-        enable:greenEnabled,
+    const leftGreenEnable = {
+        enable: greenEnabled,
         setEnable: setGreenEnabled
     }
 
-    const leftRedEnable={
+    const leftRedEnable = {
         enable: redEnabled,
         setEnable: setRedEnabled
     }
 
-    const leftHeadEnable={
+    const leftHeadEnable = {
         enable: headSensorEnabled,
         setEnable: setHeadSensorEnabled
     }
@@ -39,17 +39,18 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
             <View style={styles.container2}>
                 <View style={styles.blockOne}>
                     <View style={styles.box}>
-                        <GreenMode context={leftGreenEnable}/>
+                        <GreenMode context={leftGreenEnable} />
                     </View>
                     <View style={styles.box}>
-                        <RedMode context={leftRedEnable}/>
+                        <RedMode context={leftRedEnable} />
                     </View>
                 </View>
                 <View style={styles.blockTwo}>
                     <View style={styles.box}>
-                        <OverHeadSensor context={leftHeadEnable}/>
+                        <OverHeadSensor context={leftHeadEnable} />
                     </View>
                 </View>
+                <Text style={styles.dome}>Dome 1</Text>
             </View>
         </View>
     )
@@ -58,12 +59,20 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
 export default ColorMode
 
 const styles = StyleSheet.create({
+    dome: {
+        textAlign: 'right',
+        paddingRight: 30,
+        fontSize: hp('3.2%'),
+        fontStyle: 'italic',
+        color: 'red',
+        fontWeight: 'bold'
+    },
     mainContainer: {
         flexDirection: 'row',
         backgroundColor: 'white',
         height: hp('85.5%'),
         width: wp('100%'),
-        // borderWidth:1,
+        // borderWidth: 1,
     },
     container1: {
         flexDirection: 'column',
@@ -79,7 +88,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: wp('45.61%'),
         height: hp('37%'),
-        // borderWidth:1,
+        // borderWidth: 1,
     },
     blockOne: {
         flexDirection: 'row'

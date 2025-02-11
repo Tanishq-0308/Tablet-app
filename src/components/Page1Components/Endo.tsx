@@ -17,17 +17,17 @@ type EndoInput= {
 
 const Endo = ({value, sendMessage, code}: EndoInput) => {
     const [power, setPower] = useState(`@E_0#T${code}`)
-    console.log("update", value);
+    // console.log("update", value);
     
     useEffect(()=>{
         if(value.length>0){
             if(value === `@E_1#T${code}`){
                 setPower(`@E_1#T${code}`)
-                console.log("====");
+                // console.log("====");
                 
             } else if (value === `@E_0#T${code}`){
                 setPower(`@E_0#T${code}`)
-                console.log("+++");
+                // console.log("+++");
                 
             }
         }

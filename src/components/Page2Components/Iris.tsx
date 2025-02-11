@@ -1,6 +1,8 @@
 import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import IrisImage from '../../../assets/cameraIcons/iris.png'
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
 
 const Iris = () => {
     const [width, setWidth] = useState(10);
@@ -20,7 +22,7 @@ const Iris = () => {
         <View style={styles.mainContainer}>
             <View style={{ alignItems: 'center', gap: 10, }}>
                 <View style={styles.container}>
-                    <Image source={IrisImage} style={styles.Image} />
+                    <Image source={IrisImage} style={styles.Image} resizeMode='contain'/>
                 </View>
                 <Text style={styles.heading}>Iris</Text>
             </View>
@@ -37,7 +39,7 @@ const Iris = () => {
                     <View style={manualBtn ? styles.valueContainer : styles.valueContainerOff}>
                         <View>
                             <TouchableOpacity onPress={decrease}>
-                                <Text style={{ fontSize: 38 }}>-</Text>
+                                <Text style={styles.minus}>-</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.length}>
@@ -53,7 +55,7 @@ const Iris = () => {
                         </View>
                         <View>
                             <TouchableOpacity onPress={increase}>
-                                <Text style={{ fontSize: 38 }}>+</Text>
+                                <Text style={styles.plus}>+</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -73,41 +75,36 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'flex-start',
         // justifyContent:'center',
-        padding: 10
+        padding: moderateScale(5)
     },
-    container: {
-        height: '45%',
-        width: '55.5%',
-        // borderWidth:2,
-    },
+    container: {},
     Image: {
-        height: '100%',
-        width: '100%',
-        // borderWidth:2
+            height: hp('11.5%'),
+            width: wp('7%'),
+            aspectRatio:1
     },
     heading: {
-        fontSize: 20,
+        fontSize: hp('2.6%'),
         fontWeight: 'bold',
         borderWidth: 2,
         backgroundColor: '#ced6e0',
-        paddingHorizontal: 65,
-        // paddingVertical:2,
+        paddingHorizontal: moderateScale(40),
         borderRadius: 12,
         elevation: 2,
         borderColor: '#747d8c'
     },
     buttons: {
         flexDirection: 'row',
-        paddingVertical: 20,
+        paddingVertical: moderateVerticalScale(10),
         gap: 15
     },
     button: {
-        fontSize: 20,
+        fontSize: hp('2.6%'),
         fontWeight: 'bold',
         borderWidth: 2,
         backgroundColor: '#ced6e0',
-        paddingHorizontal: 13,
-        paddingVertical: 5,
+        paddingHorizontal: moderateScale(7),
+        paddingVertical: moderateVerticalScale(2),
         borderRadius: 12,
         elevation: 2,
         borderColor: '#747d8c'
@@ -115,8 +112,8 @@ const styles = StyleSheet.create({
     length: {
         flexDirection: 'row',
         flexGrow: 1,
-        width: 130,
-        height: 17,
+        width: wp(10),
+        height: hp(2.2),
         borderRadius: 10,
         borderColor: '#747d8c',
         backgroundColor: '#ced6e0',
@@ -138,5 +135,13 @@ const styles = StyleSheet.create({
     },
     manualContainer: {
 
+    },
+    minus: { 
+        fontSize: hp('4%'), 
+        lineHeight: 30 
+    },
+    plus: {
+        fontSize: hp('4%'), 
+        lineHeight: 35
     }
 })

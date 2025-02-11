@@ -8,10 +8,9 @@ import ImageRotation from '../components/Page2Components/ImageRotation'
 import ImageFreeze from '../components/Page2Components/ImageFreeze'
 import ImageStablizer from '../components/Page2Components/ImageStablizer'
 import Zoom from '../components/Page2Components/Zoom'
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-const { width, height } = Dimensions.get('screen')
 const Page2 = () => {
-console.log("width", width + "height" + height);
 
   return (
     <View style={styles.mainContainer}>
@@ -58,34 +57,35 @@ export default Page2
 const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: 'white',
-    height: height-170,
-    width: width,
+        height: hp('85.5%'),
+        width: wp('100%'),
     // borderWidth:2
   },
   block: {
-    height: (height - 170) / 3,
-    width: '100%',
+    height: hp('28%'),
+    width: wp('100%'),
     flexDirection: 'row',
-    borderWidth:2
+    // borderWidth:2
   },
   box: {
-    width: '55%',
-    height: '100%',
-    borderWidth:2
+    width: wp('55%'),
+    height: hp('28%'),
+    // borderWidth:2
   },
   box1: {
-    width: '60%',
-    height: '100%',
-    borderWidth:2
+    width: wp('60%'),
+    height: hp('28%'),
+    // borderWidth:2
   },
   box2: {
-    width: '50%',
-    height: '100%',
-    borderWidth:2
+    width: wp('25%'),
+    height: hp('28%'),
+    // borderWidth:2
   },
   innerBlock: {
     flexDirection: 'row',
     width: '50%',
-    height: '100%',
+    // borderWidth:2,
+    height: hp('28%'),
   }
 })

@@ -19,7 +19,7 @@ type OverHeadSensorType= {
 
 const OverheadEnable = ({value, sendMessage, code, context}: OverHeadSensorType) => {
     const {sensor, setSensor}= context;
-    console.log("update", value);
+    // console.log("update", value);
     
     useEffect(()=>{
         if(value.length>0){
