@@ -20,7 +20,7 @@ export default Header
 const styles = StyleSheet.create({
     container:{
         // borderWidth:2,
-        width:'80%',
+        width:'100%',
         alignItems:'center',
         flexDirection:'row',
         justifyContent:'space-between',

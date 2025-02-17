@@ -17,6 +17,8 @@ type RightBtnEnableType = {
     setGreenEnabledValue: (greenEnabled:boolean) => void;
     redEnabledValue: boolean;
     setRedEnabledValue: (redEnabled:boolean) => void;
+    cameraEnabled: boolean;
+    setCameraEnabled: (cameraEnabled: boolean) => void;
 }
 
 export const RightBtnEnableContext = createContext<RightBtnEnableType>({
@@ -36,6 +38,8 @@ export const RightBtnEnableContext = createContext<RightBtnEnableType>({
     setGreenEnabledValue: () => { },
     redEnabledValue: false,
     setRedEnabledValue: () => { },
+    cameraEnabled: false,
+    setCameraEnabled: () => {},
 })
 
 export const RightBtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -47,6 +51,7 @@ export const RightBtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
     const [greenValue, setGreenValue]= useState(0)
     const [redValue, setRedValue] = useState(0)
     const [headSensor, setHeadSensor]= useState('@O_0#TR')
+    const [cameraEnabled, setCameraEnabled]= useState(false)
 
     const defaultValue = {
         greenEnabled,
@@ -65,6 +70,8 @@ export const RightBtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
         setGreenEnabledValue,
         redEnabledValue,
         setRedEnabledValue,
+        cameraEnabled,
+        setCameraEnabled
     }
     return (
         <RightBtnEnableContext.Provider value={defaultValue}>

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
+import { StyleSheet, Text, View, Image, Pressable, TouchableOpacity } from 'react-native'
 import React, { useContext } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
@@ -18,7 +18,7 @@ import { useWebSocket } from '../Context/webSocketContext'
 type FactorySettingProps = NativeStackScreenProps<RootParamList, 'FactorySetting'>
 
 const FactorySetting = ({ navigation, route }: FactorySettingProps) => {
-    const { greenEnabled, redEnabled, headSensorEnabled, greenValue, setGreenValue, greenEnabledValue, setGreenEnabledValue, redValue, setRedValue, redEnabledValue, setRedEnabledValue, headSensor, setHeadSensor } = useContext(BtnEnableContext)
+    const { greenEnabled, redEnabled, headSensorEnabled, greenValue, setGreenValue, greenEnabledValue, setGreenEnabledValue, redValue, setRedValue, redEnabledValue, setRedEnabledValue, headSensor, setHeadSensor, cameraEnabled } = useContext(BtnEnableContext)
 
     const greenLeftObjects = {
         color: greenValue,
@@ -49,15 +49,29 @@ const FactorySetting = ({ navigation, route }: FactorySettingProps) => {
             <View style={styles.container2}>
                 <View style={styles.blockOne}>
                     <View style={styles.container1}>
-                        <Pressable onPress={() => navigation.goBack()}>
+                        <TouchableOpacity onPress={() => navigation.goBack()} 
+                        style={{
+                            // borderColor:'red',
+                            // borderWidth:2,
+                            elevation: 5,
+                            borderRadius:14
+    // // Optional: iOS shadow for consistency
+    // shadowColor: '#000',
+    // shadowOffset: { width: 5, height: 5 },
+    // shadowOpacity: 1.3,
+    // shadowRadius: 4,
+                            }}
+                            >
                             <BackButton />
-                        </Pressable>
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.box}>
                         <FactoryBtn navigation={navigation} route={route} navigateTo='ColorMode' />
                     </View>
                     <View style={styles.box}>
-                        <CameraBtn value={value} sendMessage={sendMessage} code='L' />
+                        {
+                            cameraEnabled && <CameraBtn value={value} sendMessage={sendMessage} code='L' />
+                        }
                     </View>
                     <View style={styles.box}>
                         {

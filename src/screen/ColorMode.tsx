@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, Switch, Text, View } from 'react-native'
+import { Image, Pressable, StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native'
 import React, { useContext, useState } from 'react'
 import BackButton from '../components/BackButton';
 import { RootParamList } from '../App';
@@ -8,11 +8,12 @@ import RedMode from '../components/SwitchModeComponents/RedMode';
 import OverHeadSensor from '../components/SwitchModeComponents/OverHeadSensor';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { BtnEnableContext } from '../Context/EnableContext';
+import CameraMode from '../components/SwitchModeComponents/CameraMode';
 
 
 type ColorModeProps = NativeStackScreenProps<RootParamList, 'ColorMode'>
 const ColorMode = ({ navigation }: ColorModeProps) => {
-    const { greenEnabled, setGreenEnabled, redEnabled, setRedEnabled, headSensorEnabled, setHeadSensorEnabled } = useContext(BtnEnableContext)
+    const { greenEnabled, setGreenEnabled, redEnabled, setRedEnabled, headSensorEnabled, setHeadSensorEnabled, cameraEnabled, setCameraEnabled } = useContext(BtnEnableContext)
     const leftGreenEnable = {
         enable: greenEnabled,
         setEnable: setGreenEnabled
@@ -27,13 +28,21 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
         enable: headSensorEnabled,
         setEnable: setHeadSensorEnabled
     }
+
+    const leftCameraEnable ={
+        enable: cameraEnabled,
+        setEnable: setCameraEnabled
+    }
     return (
         <View style={styles.mainContainer}>
             <View style={styles.container1}>
                 <View>
-                    <Pressable onPress={() => navigation.goBack()}>
+                    <TouchableOpacity onPress={() => navigation.goBack()} style={{
+                            elevation:5,
+                            borderRadius:14
+                            }}>
                         <BackButton />
-                    </Pressable>
+                    </TouchableOpacity>
                 </View>
             </View>
             <View style={styles.container2}>
@@ -48,6 +57,9 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
                 <View style={styles.blockTwo}>
                     <View style={styles.box}>
                         <OverHeadSensor context={leftHeadEnable} />
+                    </View>
+                    <View style={styles.box}>
+                        <CameraMode context={leftCameraEnable}/>
                     </View>
                 </View>
                 <Text style={styles.dome}>Dome 1</Text>

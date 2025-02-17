@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
+import { StyleSheet, Text, View, Image, Pressable, TouchableOpacity } from 'react-native'
 import React, { useContext } from 'react'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { RootParamList } from '../App'
@@ -7,7 +7,7 @@ import FactoryBtn from '../components/SettingsPage/FactoryBtn'
 import GreenIntensity from '../components/SettingsPage/GreenIntensity'
 import RedIntensity from '../components/SettingsPage/RedIntensity'
 import OverheadEnable from '../components/SettingsPage/OverheadEnable'
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import CameraBtn from '../components/SettingsPage/CameraBtn'
 import { RightBtnEnableContext } from '../Context/RightContext'
 import useStore from '../Store/stateStore'
@@ -16,69 +16,71 @@ import { useWebSocket } from '../Context/webSocketContext'
 type FactorySettingTwoProps = NativeStackScreenProps<RootParamList, 'FactorySettingTwo'>
 
 const FactorySettingTwo: React.FC<FactorySettingTwoProps> = ({ navigation, route }) => {
-    const {greenEnabled,redEnabled,headSensorEnabled, greenValue, setGreenValue, greenEnabledValue, setGreenEnabledValue,redValue, setRedValue, redEnabledValue, setRedEnabledValue, headSensor, setHeadSensor }=useContext(RightBtnEnableContext);
+    const { greenEnabled, redEnabled, headSensorEnabled, greenValue, setGreenValue, greenEnabledValue, setGreenEnabledValue, redValue, setRedValue, redEnabledValue, setRedEnabledValue, headSensor, setHeadSensor, cameraEnabled } = useContext(RightBtnEnableContext);
 
-    const greenRightObjects= {
+    const greenRightObjects = {
         color: greenValue,
         setColor: setGreenValue,
         enable: greenEnabledValue,
-        setEnable: setGreenEnabledValue 
+        setEnable: setGreenEnabledValue
     }
 
-    const rightHeadObjects={
-        sensor:headSensor,
+    const rightHeadObjects = {
+        sensor: headSensor,
         setSensor: setHeadSensor
     }
 
-    const redRightObjects={
+    const redRightObjects = {
         color: redValue,
         setColor: setRedValue,
         enable: redEnabledValue,
-        setEnable: setRedEnabledValue 
+        setEnable: setRedEnabledValue
     }
-    
-    const value= useStore((state)=>state.states.stateMR);
-    const value2= useStore((state)=>state.states.stateGR);
-    const value3= useStore((state)=>state.states.stateRR);
-    const value4= useStore((state)=>state.states.stateOR)
-    const {sendMessage}=useWebSocket();
-  return (
-    <View style={styles.mainContainer}>
+
+    const value = useStore((state) => state.states.stateMR);
+    const value2 = useStore((state) => state.states.stateGR);
+    const value3 = useStore((state) => state.states.stateRR);
+    const value4 = useStore((state) => state.states.stateOR)
+    const { sendMessage } = useWebSocket();
+    return (
+        <View style={styles.mainContainer}>
             <View style={styles.container2}>
                 <View style={styles.blockOne}>
-                <View style={styles.container1}>
-                    <Pressable onPress={() => navigation.goBack()}>
-                        <BackButton />
-                    </Pressable>
-                </View>
+                    <View style={styles.container1}>
+                        <TouchableOpacity onPress={() => navigation.goBack()}>
+                            <BackButton />
+                        </TouchableOpacity>
+                    </View>
                     <View style={styles.box}>
                         <FactoryBtn navigation={navigation} navigateTo='RightColorMode' />
                     </View>
                     <View style={styles.box}>
-                        <CameraBtn value={value} sendMessage={sendMessage} code='R'/>
+                    {
+                            cameraEnabled && <CameraBtn value={value} sendMessage={sendMessage} code='L' />
+                        }
                     </View>
                     <View style={styles.box}>
                         {
-                            headSensorEnabled && <OverheadEnable context={rightHeadObjects} value={value4} sendMessage={sendMessage} code='R'/>
+                            headSensorEnabled && <OverheadEnable context={rightHeadObjects} value={value4} sendMessage={sendMessage} code='R' />
                         }
                     </View>
                 </View>
                 <View style={styles.blockTwo}>
-                <View style={styles.box2}>
+                    <View style={styles.box2}>
                         {
-                            greenEnabled && <GreenIntensity context={greenRightObjects} value={value2} sendMessage={sendMessage} code='R'/>
+                            greenEnabled && <GreenIntensity context={greenRightObjects} value={value2} sendMessage={sendMessage} code='R' />
                         }
                     </View>
                     <View style={styles.box2}>
                         {
-                            redEnabled && <RedIntensity context={redRightObjects} value={value3} sendMessage={sendMessage} code='R'/>
+                            redEnabled && <RedIntensity context={redRightObjects} value={value3} sendMessage={sendMessage} code='R' />
                         }
                     </View>
                 </View>
-                                <Text style={styles.dome}>Dome 2</Text>
+                <Text style={styles.dome}>Dome 2</Text>
             </View>
         </View>
-  )
+    )
 }
 
 export default FactorySettingTwo
@@ -92,18 +94,18 @@ const styles = StyleSheet.create({
         color: 'red',
         fontWeight: 'bold'
     },
-     mainContainer: {
+    mainContainer: {
         flexDirection: 'row',
         // margin: 10,
-        backgroundColor:'white',
+        backgroundColor: 'white',
         // borderWidth:1,
         height: hp('87%'),
         width: wp('100%'),
     },
     container1: {
         flexDirection: 'column',
-        marginLeft:10,
-        marginTop:10,
+        marginLeft: 10,
+        marginTop: 10,
         // borderWidth:2
     },
     container2: {
@@ -117,7 +119,7 @@ const styles = StyleSheet.create({
         height: hp('37%'),
         // borderWidth:1,
     },
-    box2:{
+    box2: {
         flexDirection: 'row',
         alignItems: 'center',
         width: wp('50%'),

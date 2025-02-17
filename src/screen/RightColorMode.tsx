@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, Switch, Text, View } from 'react-native'
+import { Image, Pressable, StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native'
 import React, { useContext } from 'react'
 import { RightBtnEnableContext } from '../Context/RightContext'
 
@@ -10,11 +10,12 @@ import RedMode from '../components/SwitchModeComponents/RedMode';
 import OverHeadSensor from '../components/SwitchModeComponents/OverHeadSensor';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootParamList } from '../App';
+import CameraMode from '../components/SwitchModeComponents/CameraMode';
 
 
 type RightColorModeProps = NativeStackScreenProps<RootParamList, 'ColorMode'>
 const RightColorMode = ({ navigation }: RightColorModeProps) => {
-    const { greenEnabled, setGreenEnabled, redEnabled, setRedEnabled, headSensorEnabled, setHeadSensorEnabled } = useContext(RightBtnEnableContext)
+    const { cameraEnabled, setCameraEnabled, greenEnabled, setGreenEnabled, redEnabled, setRedEnabled, headSensorEnabled, setHeadSensorEnabled } = useContext(RightBtnEnableContext)
     const rightGreenEnable = {
         enable: greenEnabled,
         setEnable: setGreenEnabled
@@ -29,13 +30,18 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
         enable: headSensorEnabled,
         setEnable: setHeadSensorEnabled
     }
+
+    const rightCameraEnable ={
+        enable: cameraEnabled,
+        setEnable: setCameraEnabled
+    }
     return (
         <View style={styles.mainContainer}>
             <View style={styles.container1}>
                 <View>
-                    <Pressable onPress={() => navigation.goBack()}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
                         <BackButton />
-                    </Pressable>
+                    </TouchableOpacity>
                 </View>
             </View>
             <View style={styles.container2}>
@@ -50,6 +56,9 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
                 <View style={styles.blockTwo}>
                     <View style={styles.box}>
                         <OverHeadSensor context={rightHeadEnable} />
+                    </View>
+                    <View style={styles.box}>
+                        <CameraMode context={rightCameraEnable}/>
                     </View>
                 </View>
                 <Text style={styles.dome}>Dome 2</Text>
