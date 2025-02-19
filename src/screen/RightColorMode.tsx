@@ -1,5 +1,5 @@
-import { Image, Pressable, StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native'
-import React, { useContext } from 'react'
+import { Alert, Button, Image, Modal, Pressable, StyleSheet, Switch, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import React, { useContext, useEffect, useState } from 'react'
 import { RightBtnEnableContext } from '../Context/RightContext'
 
 
@@ -11,9 +11,10 @@ import OverHeadSensor from '../components/SwitchModeComponents/OverHeadSensor';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootParamList } from '../App';
 import CameraMode from '../components/SwitchModeComponents/CameraMode';
+import RNFS from 'react-native-fs';
 
 
-type RightColorModeProps = NativeStackScreenProps<RootParamList, 'ColorMode'>
+type RightColorModeProps = NativeStackScreenProps<RootParamList, 'RightColorMode'>
 const RightColorMode = ({ navigation }: RightColorModeProps) => {
     const { cameraEnabled, setCameraEnabled, greenEnabled, setGreenEnabled, redEnabled, setRedEnabled, headSensorEnabled, setHeadSensorEnabled } = useContext(RightBtnEnableContext)
     const rightGreenEnable = {
@@ -35,8 +36,101 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
         enable: cameraEnabled,
         setEnable: setCameraEnabled
     }
+
+    const [enterPassword, setEnterPassword]= useState('');
+            const [createPassword, setCreatePassword] = useState('');
+            const [storePassword, setStorePassword] = useState('');
+            const [firstModal, setFirstModal] = useState(false);
+            const [isModalVisible, setModalVisible] = useState(false);
+        
+            useEffect(()=>{
+                setFirstModal(true);
+                readPasswordFromFile();
+            },[]);
+        
+            const savePasswordToFile = async (password: string) => {
+                try {
+                    const filePath = `${RNFS.DocumentDirectoryPath}/password.txt`;
+                    await RNFS.writeFile(filePath, password, 'utf8');
+                } catch (error) {
+                    console.error('Error saving password to file: ', error);
+                }
+            }
+        
+            const readPasswordFromFile = async () => {
+                try {
+                    const filePath = `${RNFS.DocumentDirectoryPath}/password.txt`;
+                    const password = await RNFS.readFile(filePath, 'utf8');
+                    const checkPass = password;
+                    setStorePassword(checkPass);
+                } catch (error) {
+                    setFirstModal(false);
+                    setModalVisible(true);
+                }
+            }
+        
+            const handleCheckPassword= async()=>{
+                if(storePassword === enterPassword){
+                    setFirstModal(false);
+                    console.log('truee');
+                }else if(enterPassword === 'masterkey@1234'){
+                    setFirstModal(false);
+                    setModalVisible(true);
+                }else {
+                    console.log('false');
+                    Alert.alert('Wrong password');
+                    setEnterPassword('');
+                }
+            }
+        
+            const handlePasswordSave = async () => {
+                await savePasswordToFile(createPassword);
+                await readPasswordFromFile();
+                setModalVisible(false);
+            }
     return (
         <View style={styles.mainContainer}>
+             <Modal
+                                        animationType='slide'
+                                        transparent={true}
+                                        visible={firstModal}
+                                        onRequestClose={()=> navigation.goBack()}
+                                    >
+                                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                                            <View style={{ width: 300, padding: 20, backgroundColor: 'white', borderRadius: 10 }}>
+                                                <Text style={{ marginBottom: 10 }}>Insert Password</Text>
+                                                <TextInput
+                                                    secureTextEntry
+                                                    onChangeText={setEnterPassword}
+                                                    value={enterPassword}
+                                                    placeholder="Enter your password"
+                                                    style={{ borderWidth: 1, borderColor: '#ccc', marginBottom: 10, padding: 10 }}
+                                                />
+                                                <Button title="Save Password" onPress={handleCheckPassword}/>
+                                            </View>
+                                        </View>
+                                    </Modal>
+                        
+                                    <Modal
+                                        animationType='slide'
+                                        transparent={true}
+                                        visible={isModalVisible}
+                                        onRequestClose={() => navigation.goBack()}
+                                    >
+                                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                                            <View style={{ width: 300, padding: 20, backgroundColor: 'white', borderRadius: 10 }}>
+                                                <Text style={{ marginBottom: 10 }}>Create new Password</Text>
+                                                <TextInput
+                                                    secureTextEntry
+                                                    onChangeText={setCreatePassword}
+                                                    value={createPassword}
+                                                    placeholder='Enter new Password'
+                                                    style={{ borderWidth: 1, borderColor: '#ccc', marginBottom: 10, padding: 10 }}
+                                                />
+                                                <Button title='Save Password' onPress={handlePasswordSave} />
+                                            </View>
+                                        </View>
+                                    </Modal>
             <View style={styles.container1}>
                 <View>
                     <TouchableOpacity onPress={() => navigation.goBack()}>

@@ -16,7 +16,7 @@ const Home = ({ navigation }: HomeProps) => {
       showsHorizontalScrollIndicator={false}
       style={styles.scrollView}
     >
-        <Page2 />
+        {/* <Page2 /> */}
         <Page1 navigation={navigation} />
         <Page3 navigation={navigation} />
     </ScrollView>
