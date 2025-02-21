@@ -1,13 +1,9 @@
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
-import React, { useContext, useEffect, useState } from 'react'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { BtnEnableContext } from '../../Context/EnableContext';
 import cameraOnImage from '../../../assets/cameraOn.png'
 import cameraOffImage from '../../../assets/cameraOff.png'
 import { moderateScale } from 'react-native-size-matters';
-import { useWebSocket } from '../../Context/webSocketContext';
-import useStore from '../../Store/stateStore';
-
 
 type CameraInputType = {
     value: string
@@ -17,9 +13,6 @@ type CameraInputType = {
 
 const CameraBtn = ({ value, sendMessage, code }: CameraInputType) => {
     const [power, setPower] = useState(false)
-    // const {sendMessage}=useWebSocket();
-    // const value= useStore((state)=>state.states.stateEL)
-    // console.log("update", value);
 
     useEffect(() => {
         if (value.length > 0) {
@@ -58,13 +51,13 @@ const CameraBtn = ({ value, sendMessage, code }: CameraInputType) => {
             >CAMERA</Text>
             <View style={{ flexDirection: 'row', gap: 15, alignItems: 'center', justifyContent: 'center', }}>
                 {power &&
-                    <Pressable onPress={() => sendMessage(`@M_3#T${code}`)}>
+                    <TouchableOpacity onPress={() => sendMessage(`@M_3#T${code}`)}>
                         <Text style={styles.zoomOutBtn}>
                             ZOOM OUT
                         </Text>
-                    </Pressable>
+                    </TouchableOpacity>
                 }
-                <Pressable
+                <TouchableOpacity
                     onPress={toggleSwitch}
                 >
                     {
@@ -77,13 +70,13 @@ const CameraBtn = ({ value, sendMessage, code }: CameraInputType) => {
                                 ON
                             </Text>
                     }
-                </Pressable>
+                </TouchableOpacity>
                 {power &&
-                    <Pressable onPress={() => sendMessage(`@M_2#T${code}`)}>
+                    <TouchableOpacity onPress={() => sendMessage(`@M_2#T${code}`)}>
                         <Text style={styles.zoomInBtn}>
                             ZOOM  IN
                         </Text>
-                    </Pressable>
+                    </TouchableOpacity>
                 }
             </View>
         </View>
@@ -100,7 +93,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         gap: 5,
-        // borderWidth:2
     },
     heading: {
         fontWeight: 'bold',

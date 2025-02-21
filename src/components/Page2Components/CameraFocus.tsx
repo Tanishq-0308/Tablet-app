@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import cameraFocusImg from '../../../assets/cameraIcons/cameraFocus.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -27,13 +27,13 @@ const CameraFocus = () => {
                 <Text style={styles.heading}>Focus</Text>
             </View>
             <View style={styles.buttons}>
-                <Pressable>
+                <TouchableOpacity>
                     <Text style={styles.button}>Auto</Text>
-                </Pressable>
-                <Pressable>
+                </TouchableOpacity>
+                <TouchableOpacity>
                     <Text style={styles.button}>One Push</Text>
-                </Pressable>
-                <View style={manualBtn ? { flexDirection: 'column', gap: 27, position: 'relative', right: 43 } : styles.manualContainer}>
+                </TouchableOpacity>
+                <View style={manualBtn ? { flexDirection: 'column', position: 'relative', right: 48 } : styles.manualContainer}>
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity onPress={() => setManualBtn(!manualBtn)}>
                             <Text style={styles.button}>Manual</Text>
@@ -127,7 +127,10 @@ const styles = StyleSheet.create({
     valueContainer: {
         flexDirection: "row",
         alignItems: "center",
+        justifyContent:'center',
         gap: 10,
+        // paddingTop:moderateScale(15),
+        // borderWidth:2
     },
     valueContainerOff: {
         display: 'none'
@@ -137,11 +140,11 @@ const styles = StyleSheet.create({
     },
     manualContainer: {},
     minus: { 
-        fontSize: hp('4%'), 
-        lineHeight: 30 
+        fontSize: hp('8%'),
+        paddingBottom:moderateScale(5)
     },
     plus: {
-        fontSize: hp('4%'), 
-        lineHeight: 35
+        fontSize: hp('5%'),
+        paddingBottom:moderateScale(5)
     }
 })

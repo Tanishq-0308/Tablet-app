@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import settingImg from '../../../assets/updatedIcons/settings.png'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootParamList } from '../../App'
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { verticalScale, scale } from 'react-native-size-matters'
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 
 type SettingsProps = {
   navigation: NativeStackNavigationProp<RootParamList>;
@@ -16,17 +16,17 @@ const Settings: React.FC<SettingsProps> = ({ navigation, navigateTo }) => {
   return (
     <View style={styles.container}>
       <View style={styles.imgContainer}>
-        <Image source={settingImg} style={styles.settingImg} resizeMode='contain'/>
+        <Image source={settingImg} style={styles.settingImg} resizeMode='contain' />
       </View>
       <Text style={styles.heading}>SETTINGS</Text>
-      <Pressable
+      <TouchableOpacity
         style={styles.onBtnTxt}
         onPress={() => {
           navigation.navigate(navigateTo)
         }}
       >
         <Icon name='play' style={styles.icon} color='#fff' />
-      </Pressable>
+      </TouchableOpacity>
     </View>
   )
 }
@@ -48,13 +48,11 @@ const styles = StyleSheet.create({
     fontStyle: 'italic'
   },
   imgContainer: {
-    // height: '60%',
-    // width: '55%',
   },
   settingImg: {
     height: hp('19%'),
     width: wp('13%'),
-    aspectRatio:1
+    aspectRatio: 1
   },
   onBtnTxt: {
     borderRadius: 7,
@@ -65,7 +63,7 @@ const styles = StyleSheet.create({
     paddingVertical: 11,
     color: 'white',
   },
-  icon:{
+  icon: {
     fontSize: hp('5%'),
   }
 })

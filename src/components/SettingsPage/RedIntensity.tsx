@@ -1,5 +1,5 @@
-import { Image, ImageSourcePropType, Pressable, StyleSheet, Switch, Text, View } from 'react-native'
-import React, { useContext, useEffect, useState } from 'react'
+import { Image, ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import redModeOn from '../../../assets/updatedIcons/redModeOn.png'
 import redModeOff from '../../../assets/updatedIcons/redModeOff.png'
 
@@ -14,10 +14,8 @@ import IntSix from '../../../assets/6.png'
 import IntSeven from '../../../assets/7.png'
 import IntEight from '../../../assets/8.png'
 import IntNine from '../../../assets/9.png'
-import { BtnEnableContext } from '../../Context/EnableContext';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import useStore from '../../Store/stateStore'
-import { useWebSocket } from '../../Context/webSocketContext'
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 import { moderateScale } from 'react-native-size-matters'
 
 type ImageProps = PropsWithChildren<{
@@ -28,14 +26,14 @@ function IntensityImage({ imageUrl }: ImageProps): React.JSX.Element {
 
   return (
     <View>
-      <Image style={styles.intImage} source={imageUrl} resizeMode='contain'/>
+      <Image style={styles.intImage} source={imageUrl} resizeMode='contain' />
     </View>
   );
 }
 
-type RedInputType= {
+type RedInputType = {
   value: string;
-  sendMessage:any;
+  sendMessage: any;
   code: string;
   context: {
     color: number; // or the type you expect
@@ -45,28 +43,23 @@ type RedInputType= {
   }
 }
 
-const RedIntensity = ({value, sendMessage, code, context}: RedInputType) => {
+const RedIntensity = ({ value, sendMessage, code, context }: RedInputType) => {
   const [intImage, setIntImage] = useState<ImageSourcePropType>(IntZero)
-  // const { color, setColor, enable, setEnable } = context;
   const { color, setColor, enable, setEnable } = context;
-  // const { greenValue, setGreenEnabledValue, greenEnabledValue, setGreenValue} = context;
-  // const value= useStore((state)=>state.states.stateRL);
-  // const {sendMessage}= useWebSocket();
   useEffect(() => {
     setimage(color)
   }, [])
-  useEffect(()=>{
-    if(value.length>0){
-      if(value === `@R_0#T${code}`){
+  useEffect(() => {
+    if (value.length > 0) {
+      if (value === `@R_0#T${code}`) {
         setEnable(false);
       }
-      else if( value === `@R_1#T${code}`){
+      else if (value === `@R_1#T${code}`) {
         setEnable(true);
       }
       else {
-        let number= parseInt(value[3]);
-        // console.log(value, number);
-        
+        let number = parseInt(value[3]);
+
         switch (number) {
           case 1:
             setIntImage(IntZero)
@@ -104,18 +97,18 @@ const RedIntensity = ({value, sendMessage, code, context}: RedInputType) => {
         }
       }
     }
-  },[value]);
+  }, [value]);
 
-  const handleButton=()=>{
-    if(enable){
+  const handleButton = () => {
+    if (enable) {
       setEnable(false);
-        sendMessage(`@R_0#T${code}`)
+      sendMessage(`@R_0#T${code}`)
     }
-    else{
+    else {
       setEnable(true)
-        sendMessage(`@R_1#T${code}`);
+      sendMessage(`@R_1#T${code}`);
     }
-}
+  }
 
   const setimage = (imageNumber: number) => {
 
@@ -171,18 +164,18 @@ const RedIntensity = ({value, sendMessage, code, context}: RedInputType) => {
         {
           enable ?
             <View style={styles.onImgContainer}>
-              <Image source={redModeOn} style={styles.boostOnImg} resizeMode='contain'/>
+              <Image source={redModeOn} style={styles.boostOnImg} resizeMode='contain' />
             </View>
             :
             <View style={styles.offImgContainer}>
-              <Image source={redModeOff} style={styles.boostOffImg} resizeMode='contain'/>
+              <Image source={redModeOff} style={styles.boostOffImg} resizeMode='contain' />
             </View>
         }
         <Text
 
           style={styles.heading}
         >RED MODE</Text>
-        <Pressable
+        <TouchableOpacity
           onPress={handleButton}
         >
           {
@@ -195,7 +188,7 @@ const RedIntensity = ({value, sendMessage, code, context}: RedInputType) => {
                 ON
               </Text>
           }
-        </Pressable>
+        </TouchableOpacity>
       </View>
       <View style={styles.container3}>
 
@@ -204,7 +197,7 @@ const RedIntensity = ({value, sendMessage, code, context}: RedInputType) => {
         </View>
         <Text style={styles.heading}>INTENSITY</Text>
         <View style={styles.diceContainer}>
-          <Pressable
+          <TouchableOpacity
             disabled={enable ? false : true}
             onPress={() => {
               if (color > 0) {
@@ -219,8 +212,8 @@ const RedIntensity = ({value, sendMessage, code, context}: RedInputType) => {
             >
               ⬅️
             </Text>
-          </Pressable>
-          <Pressable
+          </TouchableOpacity>
+          <TouchableOpacity
             disabled={enable ? false : true}
             onPress={() => {
               if (color < 9) {
@@ -235,7 +228,7 @@ const RedIntensity = ({value, sendMessage, code, context}: RedInputType) => {
             >
               ➡️
             </Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -247,28 +240,27 @@ export default RedIntensity
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    height:'100%'
+    height: '100%'
   },
   container2: {
     flexDirection: 'column',
-    // height: '100%',
-    width:wp('22%'),
+    width: wp('22%'),
     alignItems: 'center',
     justifyContent: 'center',
-    gap:5,
+    gap: 5,
   },
   container3: {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     height: '100%',
-    width:wp('22%'),
+    width: wp('22%'),
   },
   intImageContainer: {},
   intImage: {
     height: hp('21%'),
     width: wp('11.6%'),
-    aspectRatio:3
+    aspectRatio: 3
   },
   heading: {
     fontWeight: 'bold',
@@ -291,14 +283,14 @@ const styles = StyleSheet.create({
   boostOnImg: {
     height: hp('21%'),
     width: wp('11.6%'),
-    aspectRatio:3
+    aspectRatio: 3
   },
 
   offImgContainer: {},
   boostOffImg: {
     height: hp('21%'),
     width: wp('11.6%'),
-    aspectRatio:3
+    aspectRatio: 3
   },
   switchContainer: {
   },
@@ -306,13 +298,13 @@ const styles = StyleSheet.create({
     margin: 18
   },
   onBtnTxt: {
-      borderRadius: 7,
-      backgroundColor: '#95d151',
-      fontSize: hp('3.5%'),
-      fontWeight: 'bold',
-      paddingHorizontal: moderateScale(6),
-      paddingVertical: moderateScale(8),
-      color: 'white'
+    borderRadius: 7,
+    backgroundColor: '#95d151',
+    fontSize: hp('3.5%'),
+    fontWeight: 'bold',
+    paddingHorizontal: moderateScale(6),
+    paddingVertical: moderateScale(8),
+    color: 'white'
   },
   offBtnTxt: {
     borderRadius: 7,

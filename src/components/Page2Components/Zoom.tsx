@@ -94,11 +94,11 @@ const styles = StyleSheet.create({
         height: hp('15%')
     },
     minus: {
-        fontSize: hp('4%'),
-        lineHeight: 30
+        fontSize: hp('8%'),
+        paddingBottom:moderateScale(6)
     },
     plus: {
-        fontSize: hp('4%'),
-        lineHeight: 35
+        fontSize: hp('5%'),
+        paddingBottom:moderateScale(5)
     }
 })

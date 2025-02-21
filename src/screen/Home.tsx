@@ -1,6 +1,5 @@
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import React from 'react';
-import Page2 from './Page2';
 import Page1 from './Page1';
 import Page3 from './Page3';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -16,9 +15,8 @@ const Home = ({ navigation }: HomeProps) => {
       showsHorizontalScrollIndicator={false}
       style={styles.scrollView}
     >
-        {/* <Page2 /> */}
-        <Page1 navigation={navigation} />
-        <Page3 navigation={navigation} />
+      <Page1 navigation={navigation} />
+      <Page3 navigation={navigation} />
     </ScrollView>
   );
 };

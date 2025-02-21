@@ -1,22 +1,20 @@
 import { Image, StyleSheet, Switch, Text, View } from 'react-native'
-import React, { useContext, useState } from 'react'
+import React from 'react'
 import overHdSensorOn from '../../../assets/updatedIcons/overheadSensorOn.png'
 import overHdSensorOff from '../../../assets/updatedIcons/overheadSensorOff.png'
-import { BtnEnableContext } from '../../Context/EnableContext'
 import Snackbar from 'react-native-snackbar'
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 
-type OverHeadModeType={
-    context:{
-        enable:boolean,
-        setEnable: (enable:boolean)=>void
+type OverHeadModeType = {
+    context: {
+        enable: boolean,
+        setEnable: (enable: boolean) => void
     }
 }
 
-const OverHeadSensor = ({context}:OverHeadModeType) => {
-    // const { enable, setEnable } = useContext(BtnEnableContext);
-    const {enable, setEnable}= context;
+const OverHeadSensor = ({ context }: OverHeadModeType) => {
+    const { enable, setEnable } = context;
     const toggleSwitch = () => {
         setEnable(!enable)
 
@@ -34,11 +32,11 @@ const OverHeadSensor = ({context}:OverHeadModeType) => {
             {
                 !enable ?
                     <View style={styles.offImgContainer}>
-                        <Image source={overHdSensorOff} style={styles.boostOffImg} resizeMode='contain'/>
+                        <Image source={overHdSensorOff} style={styles.boostOffImg} resizeMode='contain' />
                     </View>
                     :
                     <View style={styles.onImgContainer}>
-                        <Image source={overHdSensorOn} style={styles.boostOnImg} resizeMode='contain'/>
+                        <Image source={overHdSensorOn} style={styles.boostOnImg} resizeMode='contain' />
                     </View>
             }
             <Text
@@ -65,10 +63,10 @@ const styles = StyleSheet.create({
     container2: {
         flexDirection: 'column',
         height: '100%',
-        width:wp('22%'),
+        width: wp('22%'),
         alignItems: 'center',
         justifyContent: 'center',
-        gap:5,
+        gap: 5,
     },
     heading: {
         fontWeight: 'bold',
@@ -79,14 +77,14 @@ const styles = StyleSheet.create({
     boostOnImg: {
         height: hp('21%'),
         width: wp('11.6%'),
-        aspectRatio:1
+        aspectRatio: 1
     },
 
     offImgContainer: {},
     boostOffImg: {
         height: hp('21%'),
         width: wp('11.6%'),
-        aspectRatio:1
+        aspectRatio: 1
     },
     switchContainer: {
     },

@@ -1,4 +1,4 @@
-import { Image, ImageSourcePropType, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Image, ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import type { PropsWithChildren } from 'react'
 import IntZero from '../../../assets/0.png'
@@ -11,9 +11,7 @@ import IntSix from '../../../assets/6.png'
 import IntSeven from '../../../assets/7.png'
 import IntEight from '../../../assets/8.png'
 import IntNine from '../../../assets/9.png'
-import useStore from '../../Store/stateStore'
-import { useWebSocket } from '../../Context/webSocketContext'
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 type ImageProps = PropsWithChildren<{
   imageUrl: ImageSourcePropType
 }>
@@ -23,27 +21,23 @@ function IntensityImage({ imageUrl }: ImageProps): React.JSX.Element {
 
   return (
     <View>
-      <Image style={styles.intImage} source={imageUrl} resizeMode='contain'/>
+      <Image style={styles.intImage} source={imageUrl} resizeMode='contain' />
     </View>
   );
 }
 
-type IntensityInput= {
+type IntensityInput = {
   value: string
-  sendMessage:any;
+  sendMessage: any;
   code: string
 }
 
-const Intensity = ({value, sendMessage, code}:IntensityInput) => {
+const Intensity = ({ value, sendMessage, code }: IntensityInput) => {
   const [intImage, setIntImage] = useState<ImageSourcePropType>(IntZero)
   const [counter, setCounter] = useState(0);
-  // const value= useStore((state)=>state.states.stateIL);
-  // const {sendMessage}= useWebSocket();
+  useEffect(() => {
+    let number = parseInt(value[3]);
 
-  useEffect(()=>{
-    let number= parseInt(value[3]);
-    // console.log(value, number);
-    
     switch (number) {
       case 1:
         setIntImage(IntZero)
@@ -79,7 +73,7 @@ const Intensity = ({value, sendMessage, code}:IntensityInput) => {
         setIntImage(IntNine)
         break;
     }
-  },[value]);
+  }, [value]);
 
   const setimage = (imageNumber: number) => {
 
@@ -136,7 +130,7 @@ const Intensity = ({value, sendMessage, code}:IntensityInput) => {
       </View>
       <Text style={styles.heading}>INTENSITY</Text>
       <View style={styles.diceContainer}>
-        <Pressable>
+        <TouchableOpacity>
           <Text
             style={styles.rollDiceBtnText}
             onPress={() => {
@@ -149,8 +143,8 @@ const Intensity = ({value, sendMessage, code}:IntensityInput) => {
           >
             ⬅️
           </Text>
-        </Pressable>
-        <Pressable>
+        </TouchableOpacity>
+        <TouchableOpacity>
           <Text
             style={styles.rollDiceBtnText}
             onPress={() => {
@@ -163,7 +157,7 @@ const Intensity = ({value, sendMessage, code}:IntensityInput) => {
           >
             ➡️
           </Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </View>
   )
@@ -176,19 +170,14 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    // borderWidth:2,
-    height:'100%'
+    height: '100%'
   },
   intImageContainer: {
-    // height: '60%',
-    // width: '60%',
-    // borderWidth:2
   },
   intImage: {
     height: hp('20%'),
     width: wp('16%'),
-    aspectRatio:3
-    // borderWidth:2
+    aspectRatio: 3
   },
   heading: {
     fontWeight: 'bold',

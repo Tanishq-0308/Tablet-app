@@ -1,23 +1,19 @@
-import { Image, Pressable, StyleSheet, Switch, Text, View } from 'react-native'
+import { Image, StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import focusOn from '../../../assets/updatedIcons/focusOff.png'
 import focusOff from '../../../assets/updatedIcons/focusOn.png'
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { useWebSocket } from '../../Context/webSocketContext';
-import useStore from '../../Store/stateStore';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-type FocusInputType= {
+type FocusInputType = {
     value: string
-    sendMessage:any;
+    sendMessage: any;
     code: string
-  }
-const Focus = ({value, sendMessage, code}: FocusInputType) => {
+}
+const Focus = ({ value, sendMessage, code }: FocusInputType) => {
     const [isEnabled, setIsEnabled] = useState(false);
-    // const {sendMessage}=useWebSocket();
-    // const value= useStore((state)=>state.states.stateFL)
     const toggleSwitch = () => {
-        if(isEnabled){
-            setIsEnabled(false);          
+        if (isEnabled) {
+            setIsEnabled(false);
             sendMessage(`@F_0#T${code}`)
         } else {
             setIsEnabled(true);
@@ -25,15 +21,15 @@ const Focus = ({value, sendMessage, code}: FocusInputType) => {
         }
     };
 
-    useEffect(()=>{
-        if(value.length>0){
-            if(value === `@F_1#T${code}`){
+    useEffect(() => {
+        if (value.length > 0) {
+            if (value === `@F_1#T${code}`) {
                 setIsEnabled(true)
-            } else if (value === `@F_0#T${code}`){
+            } else if (value === `@F_0#T${code}`) {
                 setIsEnabled(false)
             }
         }
-    },[value])
+    }, [value])
 
     return (
         <View style={styles.mainContainer}>
@@ -41,11 +37,11 @@ const Focus = ({value, sendMessage, code}: FocusInputType) => {
                 {
                     isEnabled ?
                         <View style={styles.offImgContainer}>
-                            <Image source={focusOff} style={styles.boostOffImg} resizeMode='contain'/>
+                            <Image source={focusOff} style={styles.boostOffImg} resizeMode='contain' />
                         </View>
                         :
                         <View style={styles.onImgContainer}>
-                            <Image source={focusOn} style={styles.boostOnImg} resizeMode='contain'/>
+                            <Image source={focusOn} style={styles.boostOnImg} resizeMode='contain' />
                         </View>
                 }
                 <Text
@@ -66,21 +62,21 @@ const Focus = ({value, sendMessage, code}: FocusInputType) => {
             {
                 isEnabled && (
                     <View style={styles.container2}>
-                        <Pressable style={styles.smallBtn} onPress={()=> sendMessage(`@F01#T${code}`)}>
+                        <TouchableOpacity style={styles.smallBtn} onPress={() => sendMessage(`@F01#T${code}`)}>
                             <Text style={styles.onBtnTxt}>
                                 S
                             </Text>
-                        </Pressable>
-                        <Pressable style={styles.mediumBtn} onPress={()=> sendMessage(`@F02#T${code}`)}>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.mediumBtn} onPress={() => sendMessage(`@F02#T${code}`)}>
                             <Text style={styles.onBtnTxt}>
                                 M
                             </Text>
-                        </Pressable>
-                        <Pressable style={styles.largeBtn} onPress={()=> sendMessage(`@F03#T${code}`)}>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.largeBtn} onPress={() => sendMessage(`@F03#T${code}`)}>
                             <Text style={styles.onBtnTxt}>
                                 L
                             </Text>
-                        </Pressable>
+                        </TouchableOpacity>
                     </View>
                 )
             }
@@ -119,20 +115,20 @@ const styles = StyleSheet.create({
     boostOnImg: {
         height: hp('19%'),
         width: wp('13%'),
-        aspectRatio:1
+        aspectRatio: 1
     },
 
     offImgContainer: {},
     boostOffImg: {
         height: hp('19%'),
         width: wp('13%'),
-        aspectRatio:1
+        aspectRatio: 1
     },
     switchContainer: {
     },
     switchBtn: {
         margin: 5,
-        padding:6
+        padding: 6
     },
     smallBtn: {
         backgroundColor: '#95d151',

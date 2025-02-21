@@ -7,22 +7,17 @@ import Focus from '../components/Page1Components/Focus'
 import Intensity from '../components/Page1Components/Intensity'
 import Lamp from '../components/Page1Components/Lamp'
 import Settings from '../components/Page1Components/Settings'
-import { Dimensions } from 'react-native'
-import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootParamList } from '../App'
-import Page2 from './Page2'
 
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import useStore from '../Store/stateStore'
 import { useWebSocket } from '../Context/webSocketContext'
-import Page3 from './Page3'
 
-// type HomeProps = NativeStackScreenProps<RootParamList, 'Home'>;
 
 type page1Props = {
   navigation: NativeStackNavigationProp<RootParamList>;
 }
-// type HomeTwoProps = NativeStackScreenProps<RootParamList, 'HomeTwo'>;
 const Page1 = ({ navigation }: page1Props) => {
 
   const value = useStore((state) => state.states.stateIL);
@@ -82,7 +77,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     height: hp('85.5%'),
     width: wp('100%'),
-    // borderWidth:1
   },
   blockOne: {
     flexDirection: 'row',
@@ -96,11 +90,9 @@ const styles = StyleSheet.create({
   box: {
     width: wp('25%'),
     height: hp('37%'),
-    // borderWidth:1
   },
   box2: {
     width: wp('50%'),
     height: hp('37%'),
-    // borderWidth:1
   }
 })

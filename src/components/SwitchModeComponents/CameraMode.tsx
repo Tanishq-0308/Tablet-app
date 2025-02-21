@@ -3,40 +3,40 @@ import React from 'react'
 import Snackbar from 'react-native-snackbar'
 import cameraModeOff from '../../../assets/cameraOff.png'
 import cameraModeOn from '../../../assets/cameraOn.png'
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-type CameraModeType={
-    context:{
-        enable:boolean,
-        setEnable: (enable:boolean)=>void
+type CameraModeType = {
+    context: {
+        enable: boolean,
+        setEnable: (enable: boolean) => void
     }
 }
 
-const CameraMode = ({context}:CameraModeType) => {
+const CameraMode = ({ context }: CameraModeType) => {
 
-    const {enable, setEnable} = context;
-    const toggleSwitch = () =>{
+    const { enable, setEnable } = context;
+    const toggleSwitch = () => {
         setEnable(!enable);
 
-        if(!enable){
+        if (!enable) {
             Snackbar.show({
-                text:'CameraMode is Enabled!',
-                duration:Snackbar.LENGTH_LONG,
-                backgroundColor:'#5BBD17',
-                textColor:'white'
+                text: 'CameraMode is Enabled!',
+                duration: Snackbar.LENGTH_LONG,
+                backgroundColor: '#5BBD17',
+                textColor: 'white'
             })
         }
-    } 
-  return (
-    <View style={styles.container2}>
+    }
+    return (
+        <View style={styles.container2}>
             {
                 !enable ?
                     <View style={styles.offImgContainer}>
-                        <Image source={cameraModeOff} style={styles.boostOffImg} resizeMode='contain'/>
+                        <Image source={cameraModeOff} style={styles.boostOffImg} resizeMode='contain' />
                     </View>
                     :
                     <View style={styles.onImgContainer}>
-                        <Image source={cameraModeOn} style={styles.boostOnImg} resizeMode='contain'/>
+                        <Image source={cameraModeOn} style={styles.boostOnImg} resizeMode='contain' />
                     </View>
             }
             <Text
@@ -54,39 +54,39 @@ const CameraMode = ({context}:CameraModeType) => {
                 />
             </View>
         </View>
-  )
+    )
 }
 
 export default CameraMode
 
 const styles = StyleSheet.create({
-       container2: {
-            flexDirection: 'column',
-            height: '100%',
-            width:wp('22%'),
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap:5,
-        },
-        heading: {
-            fontWeight: 'bold',
-            fontSize: hp('3%'),
-            fontStyle: 'italic',
-        },
-        onImgContainer: {},
-        boostOnImg: {
-            height: hp('19%'),
-            width: wp('11.6%'),
-        },
-    
-        offImgContainer: {},
-        boostOffImg: {
-            height: hp('19%'),
-            width: wp('11.6%'),
-        },
-        switchContainer: {
-        },
-        switchBtn: {
-            margin: 18
-        },
+    container2: {
+        flexDirection: 'column',
+        height: '100%',
+        width: wp('22%'),
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 5,
+    },
+    heading: {
+        fontWeight: 'bold',
+        fontSize: hp('3%'),
+        fontStyle: 'italic',
+    },
+    onImgContainer: {},
+    boostOnImg: {
+        height: hp('19%'),
+        width: wp('11.6%'),
+    },
+
+    offImgContainer: {},
+    boostOffImg: {
+        height: hp('19%'),
+        width: wp('11.6%'),
+    },
+    switchContainer: {
+    },
+    switchBtn: {
+        margin: 18
+    },
 })

@@ -1,4 +1,4 @@
-import { Image, ImageSourcePropType, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Image, ImageSourcePropType, TouchableOpacity, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import colorImg from '../../../assets/updatedIcons/color.png'
 import type { PropsWithChildren } from 'react'
@@ -18,14 +18,14 @@ function ColorImage({ imageUrl }: colorImageProps): React.JSX.Element {
     )
 }
 
-type ColorInput= {
+type ColorInput = {
     value: string
-    sendMessage:any;
+    sendMessage: any;
     code: string
-  }
-  
+}
 
-const Color = ({value, sendMessage, code}: ColorInput) => {
+
+const Color = ({ value, sendMessage, code }: ColorInput) => {
     const [colImage, setColImage] = useState<ImageSourcePropType>(colorA);
     const [counter, setCounter] = useState(0);
 
@@ -74,14 +74,14 @@ const Color = ({value, sendMessage, code}: ColorInput) => {
                 <Text style={styles.headTxt}>CW</Text>
             </View>
             <View style={styles.intImageContainer}>
-                <Image source={colorImg} style={styles.colorImage} resizeMode='contain'/>
+                <Image source={colorImg} style={styles.colorImage} resizeMode='contain' />
             </View>
             <View style={styles.colImageContainer}>
                 <ColorImage imageUrl={colImage} />
             </View>
             <Text style={styles.title}>COLOR</Text>
             <View style={styles.counterBtn}>
-                <Pressable>
+                <TouchableOpacity>
                     <Text
                         style={styles.rollDiceBtnText}
                         onPress={() => {
@@ -94,8 +94,8 @@ const Color = ({value, sendMessage, code}: ColorInput) => {
                     >
                         ⬅️
                     </Text>
-                </Pressable>
-                <Pressable>
+                </TouchableOpacity>
+                <TouchableOpacity>
                     <Text
                         style={styles.rollDiceBtnText}
                         onPress={() => {
@@ -108,7 +108,7 @@ const Color = ({value, sendMessage, code}: ColorInput) => {
                     >
                         ➡️
                     </Text>
-                </Pressable>
+                </TouchableOpacity>
             </View>
         </View>
     )
@@ -124,16 +124,11 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%'
     },
-    intImageContainer: {
-        // height: '35%',
-        // width: '70%',
-        // borderWidth:2
-    },
+    intImageContainer: {},
     colorImage: {
         height: hp('12%'),
         width: wp('22%'),
-        aspectRatio:3,
-        // borderWidth:2
+        aspectRatio: 3,
     },
     heading: {
         flexDirection: 'row',
@@ -161,10 +156,7 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         textTransform: 'uppercase'
     },
-    colImageContainer: {
-        // height: '10%',
-        // width: '65%'
-    },
+    colImageContainer: {},
     colImage: {
         height: hp('4%'),
         width: wp('19%')

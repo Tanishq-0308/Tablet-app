@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import cameraSettingImg from '../../../assets/cameraIcons/factorySetting.png'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -11,7 +11,9 @@ const CameraSetting = () => {
                    <View style={styles.container}>
                        <Image source={cameraSettingImg} style={styles.Image} resizeMode='contain'/>
                    </View>
+                   <TouchableOpacity>
                        <Text style={styles.heading}>Factory Setting</Text>
+                   </TouchableOpacity>
                    </View>
                </View>
   )

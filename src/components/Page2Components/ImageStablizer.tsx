@@ -107,11 +107,11 @@ const styles = StyleSheet.create({
 
     },
     minus: { 
-        fontSize: hp('4%'), 
-        lineHeight: 30 
+        fontSize: hp('7%'),
+        paddingBottom:moderateScale(5)
     },
     plus: {
-        fontSize: hp('4%'), 
-        lineHeight: 35
+        fontSize: hp('5%'),
+        paddingBottom:moderateScale(5)
     }
 })

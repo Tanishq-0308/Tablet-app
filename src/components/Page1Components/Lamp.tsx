@@ -1,67 +1,61 @@
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import LampOn from '../../../assets/updatedIcons/lampOff.png';
 import LampOff from '../../../assets/updatedIcons/lampOn.png';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
-import { useWebSocket } from '../../Context/webSocketContext';
-import useStore from '../../Store/stateStore';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { moderateScale } from 'react-native-size-matters';
 
 
-type LampInput= {
+type LampInput = {
     value: string
-    sendMessage:any;
+    sendMessage: any;
     code: string
-  }
-  
+}
 
-const Lamp = ({value, sendMessage, code}:LampInput) => {
+
+const Lamp = ({ value, sendMessage, code }: LampInput) => {
 
     const [power, setPower] = useState(`@L_0#T${code}`)
-    // const {sendMessage}=useWebSocket();
-    // const value= useStore((state)=>state.states.stateLL)
 
-    useEffect(()=>{
-            if(value.length>0){
-                if(value === `@L_1#T${code}`){
-                    setPower(`@L_1#T${code}`)
-                    // console.log("====");
-                    
-                } else if (value === `@L_0#T${code}`){
-                    setPower(`@L_0#T${code}`)
-                    // console.log("+++");
-                    
-                }
-            }
-        },[value])
-    
-        const handleButton=()=>{
-            if(power === `@L_0#T${code}`){
-                setPower(`@L_1#T${code}`);
-                sendMessage(`@L_1#T${code}`)
-            }
-            else{
+    useEffect(() => {
+        if (value.length > 0) {
+            if (value === `@L_1#T${code}`) {
+                setPower(`@L_1#T${code}`)
+
+            } else if (value === `@L_0#T${code}`) {
                 setPower(`@L_0#T${code}`)
-                sendMessage(`@L_0#T${code}`);
+
             }
         }
+    }, [value])
+
+    const handleButton = () => {
+        if (power === `@L_0#T${code}`) {
+            setPower(`@L_1#T${code}`);
+            sendMessage(`@L_1#T${code}`)
+        }
+        else {
+            setPower(`@L_0#T${code}`)
+            sendMessage(`@L_0#T${code}`);
+        }
+    }
     return (
         <View style={styles.container}>
             {
                 power !== `@L_0#T${code}` ?
                     <View style={styles.offImgContainer}>
-                        <Image source={LampOff} style={styles.lampOffImg} resizeMode='contain'/>
+                        <Image source={LampOff} style={styles.lampOffImg} resizeMode='contain' />
                     </View>
                     :
                     <View style={styles.onImgContainer}>
-                        <Image source={LampOn} style={styles.lampOnImg} resizeMode='contain'/>
+                        <Image source={LampOn} style={styles.lampOnImg} resizeMode='contain' />
                     </View>
             }
             <Text
 
                 style={styles.heading}
             >LAMP</Text>
-            <Pressable
+            <TouchableOpacity
                 style={styles.onBtn}
                 onPress={handleButton}
             >
@@ -75,7 +69,7 @@ const Lamp = ({value, sendMessage, code}:LampInput) => {
                             ON
                         </Text>
                 }
-            </Pressable>
+            </TouchableOpacity>
         </View>
     )
 }
@@ -96,34 +90,30 @@ const styles = StyleSheet.create({
         fontStyle: 'italic'
     },
     onImgContainer: {
-        // height: '60%',
-        // width: '54%',
     },
     lampOnImg: {
         height: hp('19%'),
         width: wp('13%'),
-        aspectRatio:1
+        aspectRatio: 1
     },
 
     offImgContainer: {
-        // height: '60%',
-        // width: '54%',
     },
     lampOffImg: {
         height: hp('19%'),
         width: wp('13%'),
-        aspectRatio:1
+        aspectRatio: 1
     },
     onBtn: {
     },
     onBtnTxt: {
-            borderRadius: 7,
-            backgroundColor: '#95d151',
-            fontSize: hp('3.5%'),
-            fontWeight: 'bold',
-            paddingHorizontal: moderateScale(6),
-            paddingVertical: moderateScale(8),
-            color: 'white'
+        borderRadius: 7,
+        backgroundColor: '#95d151',
+        fontSize: hp('3.5%'),
+        fontWeight: 'bold',
+        paddingHorizontal: moderateScale(6),
+        paddingVertical: moderateScale(8),
+        color: 'white'
     },
     offBtnTxt: {
         borderRadius: 7,

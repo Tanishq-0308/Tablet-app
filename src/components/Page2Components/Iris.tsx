@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import IrisImage from '../../../assets/cameraIcons/iris.png'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -27,10 +27,10 @@ const Iris = () => {
                 <Text style={styles.heading}>Iris</Text>
             </View>
             <View style={styles.buttons}>
-                <Pressable>
+                <TouchableOpacity>
                     <Text style={styles.button}>Auto</Text>
-                </Pressable>
-                <View style={manualBtn ? { flexDirection: 'column', gap: 27, position: 'relative', right: 43 } : styles.manualContainer}>
+                </TouchableOpacity>
+                <View style={manualBtn ? { flexDirection: 'column', position: 'relative', right: 48 } : styles.manualContainer}>
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity onPress={() => setManualBtn(!manualBtn)}>
                             <Text style={styles.button}>Manual</Text>
@@ -137,11 +137,11 @@ const styles = StyleSheet.create({
 
     },
     minus: { 
-        fontSize: hp('4%'), 
-        lineHeight: 30 
+        fontSize: hp('8%'),
+        paddingBottom:moderateScale(5)
     },
     plus: {
-        fontSize: hp('4%'), 
-        lineHeight: 35
+        fontSize: hp('5%'),
+        paddingBottom:moderateScale(5)
     }
 })

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Pressable, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React, { useContext } from 'react'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { RootParamList } from '../App'
@@ -55,7 +55,7 @@ const FactorySettingTwo: React.FC<FactorySettingTwoProps> = ({ navigation, route
                         <FactoryBtn navigation={navigation} navigateTo='RightColorMode' />
                     </View>
                     <View style={styles.box}>
-                    {
+                        {
                             cameraEnabled && <CameraBtn value={value} sendMessage={sendMessage} code='L' />
                         }
                     </View>
@@ -96,9 +96,7 @@ const styles = StyleSheet.create({
     },
     mainContainer: {
         flexDirection: 'row',
-        // margin: 10,
         backgroundColor: 'white',
-        // borderWidth:1,
         height: hp('87%'),
         width: wp('100%'),
     },
@@ -106,7 +104,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         marginLeft: 10,
         marginTop: 10,
-        // borderWidth:2
     },
     container2: {
         flexDirection: 'column',
@@ -117,14 +114,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: wp('30.6%'),
         height: hp('37%'),
-        // borderWidth:1,
     },
     box2: {
         flexDirection: 'row',
         alignItems: 'center',
         width: wp('50%'),
         height: hp('37%'),
-        // borderWidth:1,
     },
     blockOne: {
         flexDirection: 'row',

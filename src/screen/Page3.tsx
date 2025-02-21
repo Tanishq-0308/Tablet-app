@@ -10,7 +10,7 @@ import Color from '../components/Page1Components/Color'
 import Endo from '../components/Page1Components/Endo'
 import Focus from '../components/Page1Components/Focus'
 import Intensity from '../components/Page1Components/Intensity'
-import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootParamList } from '../App';
 
 type page3Props = {

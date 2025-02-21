@@ -1,32 +1,30 @@
 import { Image, StyleSheet, Switch, Text, View } from 'react-native'
-import React, { useContext, useState } from 'react'
+import React from 'react'
 import redModeOn from '../../../assets/redmodeOn.png'
 import redModeOff from '../../../assets/redModeOff.png'
-import { BtnEnableContext } from '../../Context/EnableContext'
 import Snackbar from 'react-native-snackbar'
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 
-type RedModeType={
-    context:{
-        enable:boolean,
-        setEnable: (enable:boolean)=>void
+type RedModeType = {
+    context: {
+        enable: boolean,
+        setEnable: (enable: boolean) => void
     }
 }
 
 
-const RedMode = ({context}:RedModeType) => {
-    // const {enable, setEnable}= useContext(BtnEnableContext);
-    const {enable, setEnable}= context;
+const RedMode = ({ context }: RedModeType) => {
+    const { enable, setEnable } = context;
     const toggleSwitch = () => {
         setEnable(!enable)
 
-        if(!enable){
+        if (!enable) {
             Snackbar.show({
-                text:'RedMode is Enabled!',
-                duration:Snackbar.LENGTH_LONG,
-                backgroundColor:'#5BBD17',
-                textColor:'white'
+                text: 'RedMode is Enabled!',
+                duration: Snackbar.LENGTH_LONG,
+                backgroundColor: '#5BBD17',
+                textColor: 'white'
             })
         }
     }
@@ -35,11 +33,11 @@ const RedMode = ({context}:RedModeType) => {
             {
                 !enable ?
                     <View style={styles.offImgContainer}>
-                        <Image source={redModeOff} style={styles.boostOffImg} resizeMode='contain'/>
+                        <Image source={redModeOff} style={styles.boostOffImg} resizeMode='contain' />
                     </View>
                     :
                     <View style={styles.onImgContainer}>
-                        <Image source={redModeOn} style={styles.boostOnImg} resizeMode='contain'/>
+                        <Image source={redModeOn} style={styles.boostOnImg} resizeMode='contain' />
                     </View>
             }
             <Text
@@ -66,10 +64,10 @@ const styles = StyleSheet.create({
     container2: {
         flexDirection: 'column',
         height: '100%',
-        width:wp('22%'),
+        width: wp('22%'),
         alignItems: 'center',
         justifyContent: 'center',
-        gap:5,
+        gap: 5,
     },
     heading: {
         fontWeight: 'bold',
@@ -80,14 +78,14 @@ const styles = StyleSheet.create({
     boostOnImg: {
         height: hp('21%'),
         width: wp('11.6%'),
-        aspectRatio:1
+        aspectRatio: 1
     },
 
     offImgContainer: {},
     boostOffImg: {
         height: hp('21%'),
         width: wp('11.6%'),
-        aspectRatio:1
+        aspectRatio: 1
     },
     switchContainer: {
     },

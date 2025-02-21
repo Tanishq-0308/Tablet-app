@@ -1,4 +1,4 @@
-import { Dimensions, Settings, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import WhiteBalance from '../components/Page2Components/WhiteBalance'
 import Iris from '../components/Page2Components/Iris'
@@ -57,35 +57,29 @@ export default Page2
 const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: 'white',
-        height: hp('85.5%'),
-        width: wp('100%'),
-    // borderWidth:2
+    height: hp('85.5%'),
+    width: wp('100%'),
   },
   block: {
     height: hp('28%'),
     width: wp('100%'),
     flexDirection: 'row',
-    // borderWidth:2
   },
   box: {
     width: wp('55%'),
     height: hp('28%'),
-    // borderWidth:2
   },
   box1: {
     width: wp('60%'),
     height: hp('28%'),
-    // borderWidth:2
   },
   box2: {
     width: wp('25%'),
     height: hp('28%'),
-    // borderWidth:2
   },
   innerBlock: {
     flexDirection: 'row',
     width: '50%',
-    // borderWidth:2,
     height: hp('28%'),
   }
 })

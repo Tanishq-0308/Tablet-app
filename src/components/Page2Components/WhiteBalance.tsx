@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import whiteBalanceImg from '../../../assets/cameraIcons/whiteBalance.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -50,15 +50,15 @@ const WhiteBalance = () => {
                 <Text style={styles.heading}>White Balance</Text>
             </View>
             <View style={styles.buttons}>
-                <Pressable>
+                <TouchableOpacity>
                     <Text style={styles.button}>Auto</Text>
-                </Pressable>
-                <Pressable>
+                </TouchableOpacity>
+                <TouchableOpacity>
                     <Text style={styles.button}>Indoor</Text>
-                </Pressable>
-                <Pressable>
+                </TouchableOpacity>
+                <TouchableOpacity>
                     <Text style={styles.button}>Outdoor</Text>
-                </Pressable>
+                </TouchableOpacity>
                 <View style={!manualBtn ? { flexDirection: 'column', gap: 25, position: 'relative', right: 89 } : styles.manualContainer}>
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity onPress={() => setManualBtn(!manualBtn)}>
@@ -221,15 +221,16 @@ const styles = StyleSheet.create({
     },
     valueContainer: {
         flexDirection: 'row',
-        alignItems: 'center',
+        // alignItems: 'center',
         gap: 10
     },
     minus: {
-        fontSize: hp('4%'),
-        lineHeight: 30
+        fontSize: hp('7%'),
+        lineHeight: 40
     },
     plus: {
-        fontSize: hp('4%'),
-        lineHeight: 35
+        fontSize: hp('4.5%'),
+        lineHeight: 28,
+        paddingBottom:moderateScale(5)
     }
 })

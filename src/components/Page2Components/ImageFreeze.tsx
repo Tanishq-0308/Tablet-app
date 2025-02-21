@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, TouchableOpacity, Text, View } from 'react-native'
 import React from 'react'
 import freezeImage from '../../../assets/cameraIcons/imageFreeze.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -13,12 +13,12 @@ const ImageFreeze = () => {
                 </View>
                 <Text style={styles.heading}>Image Freeze</Text>
             <View style={styles.buttons}>
-                <Pressable>
+                <TouchableOpacity>
                     <Text style={styles.button}>ON</Text>
-                </Pressable>
-                <Pressable>
+                </TouchableOpacity>
+                <TouchableOpacity>
                     <Text style={styles.button}>OFF</Text>
-                </Pressable>
+                </TouchableOpacity>
             </View>
             </View>
         </View>
