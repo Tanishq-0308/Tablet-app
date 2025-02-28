@@ -11,8 +11,14 @@ import Zoom from '../components/Page2Components/Zoom'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { cameraStore } from '../Store/cameraStore'
 import { useWebSocket } from '../Context/webSocketContext'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootParamList } from '../App'
 
-const Page2 = () => {
+type page2Prop={
+  navigation:NativeStackNavigationProp<RootParamList>
+}
+
+const Page2 = ({navigation}:page2Prop) => {
   const {sendMessage}= useWebSocket();
   const value= cameraStore((state)=> state.cameraStates.stateW);
   const value1= cameraStore((state)=> state.cameraStates.stateI);
@@ -54,7 +60,7 @@ const Page2 = () => {
             <ImageRotation value={value6} sendMessage={sendMessage}/>
           </View>
           <View style={styles.box2}>
-            <CameraSetting />
+            <CameraSetting navigation={navigation}/>
           </View>
         </View>
       </View>

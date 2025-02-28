@@ -2,15 +2,24 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import cameraSettingImg from '../../../assets/cameraIcons/factorySetting.png'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
+import { moderateScale } from 'react-native-size-matters';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootParamList } from '../../App';
 
-const CameraSetting = () => {
+type cameraSettingProp={
+  navigation:NativeStackNavigationProp<RootParamList>
+}
+
+
+const CameraSetting = ({navigation}:cameraSettingProp) => {
   return (
     <View style={styles.mainContainer}>
                    <View style={{alignItems:'center', gap:10,}}>
+                    <TouchableOpacity onPress={()=>navigation.navigate('Controller')}>
                    <View style={styles.container}>
                        <Image source={cameraSettingImg} style={styles.Image} resizeMode='contain'/>
                    </View>
+                    </TouchableOpacity>
                    <TouchableOpacity>
                        <Text style={styles.heading}>Factory Setting</Text>
                    </TouchableOpacity>

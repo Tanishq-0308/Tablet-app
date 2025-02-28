@@ -6,7 +6,7 @@ import { RootParamList } from '../App';
 import Page2 from './Page2';
 import { BtnEnableContext } from '../Context/EnableContext';
 
-type HomeProps = NativeStackScreenProps<RootParamList, 'Home'>;
+type HomeProps = NativeStackScreenProps<RootParamList>;
 
 const Home = ({ navigation }: HomeProps) => {
   const {cameraEnabled}= useContext(BtnEnableContext);
@@ -19,7 +19,7 @@ const Home = ({ navigation }: HomeProps) => {
     >
       <Page1 navigation={navigation} />
       {
-       cameraEnabled && <Page2/>
+       cameraEnabled && <Page2 navigation={navigation}/>
       }
     </ScrollView>
   );

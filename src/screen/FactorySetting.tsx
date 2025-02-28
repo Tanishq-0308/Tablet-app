@@ -14,9 +14,9 @@ import useStore from '../Store/stateStore'
 import { useWebSocket } from '../Context/webSocketContext'
 import Page2 from './Page2'
 
-type FactorySettingProps = NativeStackScreenProps<RootParamList, 'FactorySetting'>
+type FactorySettingProps = NativeStackScreenProps<RootParamList>
 
-const FactorySetting = ({ navigation, route }: FactorySettingProps) => {
+const FactorySetting = ({ navigation }: FactorySettingProps) => {
     const { greenEnabled, redEnabled, headSensorEnabled, greenValue, setGreenValue, greenEnabledValue, setGreenEnabledValue, redValue, setRedValue, redEnabledValue, setRedEnabledValue, headSensor, setHeadSensor, cameraEnabled } = useContext(BtnEnableContext)
 
     const greenLeftObjects = {
@@ -45,12 +45,6 @@ const FactorySetting = ({ navigation, route }: FactorySettingProps) => {
     const { sendMessage } = useWebSocket();
 
     return (
-        <ScrollView
-            horizontal
-            pagingEnabled
-            showsHorizontalScrollIndicator={false}
-            style={styles.scrollView}
-        >
             <View style={styles.mainContainer}>
                 <View style={styles.container2}>
                     <View style={styles.blockOne}>
@@ -65,7 +59,7 @@ const FactorySetting = ({ navigation, route }: FactorySettingProps) => {
                             </TouchableOpacity>
                         </View>
                         <View style={styles.box}>
-                            <FactoryBtn navigation={navigation} route={route} navigateTo='ColorMode' />
+                            <FactoryBtn navigation={navigation} navigateTo='ColorMode' />
                         </View>
                         <View style={styles.box}>
                             {
@@ -93,16 +87,12 @@ const FactorySetting = ({ navigation, route }: FactorySettingProps) => {
                     <Text style={styles.dome}>Dome 1</Text>
                 </View>
             </View>
-        </ScrollView>
     )
 }
 
 export default FactorySetting
 
 const styles = StyleSheet.create({
-    scrollView: {
-        flex: 1
-    },
     dome: {
         textAlign: 'right',
         paddingRight: 30,

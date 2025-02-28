@@ -13,15 +13,16 @@ import { RightBtnEnableProvider } from './Context/RightContext'
 import RightColorMode from './screen/RightColorMode'
 import { PermissionsAndroid, Platform } from 'react-native'
 import WifiManager from 'react-native-wifi-reborn';
+import Controller from './components/Controller/Controller'
 
 export type RootParamList = {
-  Header:undefined;
   Home: undefined;
   FactorySetting: undefined;
   ColorMode: undefined;
   HomeTwo: undefined;
   FactorySettingTwo:undefined;
-  RightColorMode:undefined
+  RightColorMode:undefined;
+  Controller:undefined;
 }
 
 const Stack = createNativeStackNavigator<RootParamList>()
@@ -106,6 +107,13 @@ const App = () => {
         <Stack.Screen
           component={RightColorMode}
           name='RightColorMode'
+          options={{
+            headerShown:false
+          }}
+        />
+        <Stack.Screen
+          component={Controller}
+          name='Controller'
           options={{
             headerShown:false
           }}
