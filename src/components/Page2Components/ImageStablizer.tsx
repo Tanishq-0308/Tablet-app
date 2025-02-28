@@ -1,21 +1,31 @@
 import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import stabilizerImage from '../../../assets/cameraIcons/imageStablizer.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
+import { moderateScale } from 'react-native-size-matters';
 
-const ImageStablizer = () => {
+type stabilizerProps={
+    value:string;
+    sendMessage:any;
+}
+const ImageStablizer = ({value,sendMessage}:stabilizerProps) => {
+
+    useEffect(()=>{
+
+    },[value])
     const [width, setWidth] = useState(10);
     const [manualBtn, setManualBtn] = useState(false);
 
     const increase = () => {
         if (width < 100) {
             setWidth((prev) => prev + 10);
+            sendMessage('$S_P#');
         }
     };
     const decrease = () => {
         if (width > 10) {
             setWidth((prev) => prev - 10);
+            sendMessage('$S_N#');
         }
     };
     return (

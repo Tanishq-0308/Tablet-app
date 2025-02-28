@@ -1,17 +1,54 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { Animated, Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useRef } from 'react'
 import rotationImg from '../../../assets/cameraIcons/imageRotation.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
+import { moderateScale } from 'react-native-size-matters';
 
-const ImageRotation = () => {
+type rotationProps={
+    value:string;
+    sendMessage:any;
+}
+
+const ImageRotation = ({value,sendMessage}:rotationProps) => {
+
+    useEffect(()=>{
+        if(value == '$R_1#'){
+            rotateImage();
+        }
+    },[value])
+    const rotation= useRef(new Animated.Value(0)).current;
+
+    const rotateImage=()=>{
+        rotation.setValue(0);
+        Animated.timing(rotation,{
+            toValue:1,
+            duration:500,
+            useNativeDriver:true,
+        }).start();
+        sendMessage('$R_1#');
+    }
+
+    const rotateInterpolate= rotation.interpolate({
+        inputRange:[0,1],
+        outputRange:['0deg', '180deg'],
+    });
+
+    const animatedStyle={
+        transform:[{rotate: rotateInterpolate}],
+    };
   return (
      <View style={styles.mainContainer}>
                        <View style={{alignItems:'center', gap:10,}}>
                        <View style={styles.container}>
-                           <Image source={rotationImg} style={styles.Image} resizeMode='contain'/>
+                        <Pressable onPress={rotateImage}>
+                        <Animated.Image
+                            source={rotationImg}
+                            style={[styles.Image, animatedStyle]}
+                            resizeMode='contain'
+                        />
+                        </Pressable>
                        </View>
-                       <TouchableOpacity>
+                       <TouchableOpacity onPress={rotateImage}>
                            <Text style={styles.heading}>Image Rotation</Text>
                        </TouchableOpacity>
                        </View>

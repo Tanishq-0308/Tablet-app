@@ -51,7 +51,6 @@ const FactorySetting = ({ navigation, route }: FactorySettingProps) => {
             showsHorizontalScrollIndicator={false}
             style={styles.scrollView}
         >
-
             <View style={styles.mainContainer}>
                 <View style={styles.container2}>
                     <View style={styles.blockOne}>
@@ -94,7 +93,6 @@ const FactorySetting = ({ navigation, route }: FactorySettingProps) => {
                     <Text style={styles.dome}>Dome 1</Text>
                 </View>
             </View>
-            {cameraEnabled && <Page2 />}
         </ScrollView>
     )
 }

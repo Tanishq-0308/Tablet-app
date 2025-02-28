@@ -12,6 +12,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootParamList } from '../App';
 import CameraMode from '../components/SwitchModeComponents/CameraMode';
 import RNFS from 'react-native-fs';
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 
 type RightColorModeProps = NativeStackScreenProps<RootParamList, 'RightColorMode'>
@@ -96,17 +97,18 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
                 visible={firstModal}
                 onRequestClose={() => navigation.goBack()}
             >
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-                    <View style={{ width: 300, padding: 20, backgroundColor: 'white', borderRadius: 10 }}>
-                        <Text style={{ marginBottom: 10 }}>Insert Password</Text>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.9)' }}>
+                    <View style={{ width: 350, padding: 20, backgroundColor: 'black', borderRadius: 10, flexDirection: 'column', gap: 10 }}>
+                        <Icon name='lock' color='#fff' style={{fontSize:hp('5.6%'), textAlign:'center'}} />
+                        {/* <Text style={{ marginBottom: 10, color: 'white', fontSize: hp('2.2%') }}>Enter to Login</Text> */}
                         <TextInput
                             secureTextEntry
                             onChangeText={setEnterPassword}
                             value={enterPassword}
                             placeholder="Enter your password"
-                            style={{ borderWidth: 1, borderColor: '#ccc', marginBottom: 10, padding: 10 }}
+                            style={{ borderWidth: 1, borderColor: '#ccc', marginBottom: 10, padding: 10, backgroundColor: 'white' }}
                         />
-                        <Button title="Save Password" onPress={handleCheckPassword} />
+                        <Button title="Login" onPress={handleCheckPassword} />
                     </View>
                 </View>
             </Modal>
@@ -117,15 +119,15 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
                 visible={isModalVisible}
                 onRequestClose={() => navigation.goBack()}
             >
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-                    <View style={{ width: 300, padding: 20, backgroundColor: 'white', borderRadius: 10 }}>
-                        <Text style={{ marginBottom: 10 }}>Create new Password</Text>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.9)' }}>
+                    <View style={{ width: 300, padding: 20, backgroundColor: 'black', borderRadius: 10, flexDirection: 'column', gap: 10 }}>
+                        <Text style={{ marginBottom: 10, color: 'white', fontSize: hp('2.2%') }}>Create new Password</Text>
                         <TextInput
                             secureTextEntry
                             onChangeText={setCreatePassword}
                             value={createPassword}
                             placeholder='Enter new Password'
-                            style={{ borderWidth: 1, borderColor: '#ccc', marginBottom: 10, padding: 10 }}
+                            style={{ borderWidth: 1, borderColor: '#ccc', marginBottom: 10, padding: 10, backgroundColor: 'white' }}
                         />
                         <Button title='Save Password' onPress={handlePasswordSave} />
                     </View>

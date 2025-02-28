@@ -1,5 +1,8 @@
 import React, { createContext, FC, useContext, useEffect, useState } from "react";
 import useStore from "../Store/stateStore";
+import { Alert } from "react-native";
+import Snackbar from "react-native-snackbar";
+import { cameraStore } from "../Store/cameraStore";
 
 type webSocketContextType = {
     message: string;
@@ -13,8 +16,10 @@ export const WebSocketContextProvider: FC<{ children: React.ReactNode }> = ({ ch
     const [message, setMessage] = useState<string>('');
     const [isConnected, setIsConnected] = useState<boolean>(false);
     const setState = useStore((state) => state.setState);
+    const setCameraState= cameraStore((state)=>state.setCameraState)
 
     useEffect(() => {
+        const connect=()=>{
         const ws = new WebSocket('ws://192.168.4.1:80');
 
         ws.onopen = () => {
@@ -30,6 +35,8 @@ export const WebSocketContextProvider: FC<{ children: React.ReactNode }> = ({ ch
 
             ws.onclose = () => {
                 clearInterval(pingInterval);
+                setIsConnected(false);
+
             };
         };
 
@@ -39,29 +46,41 @@ export const WebSocketContextProvider: FC<{ children: React.ReactNode }> = ({ ch
                 // Ignore pong messages
                 return;
             }
-            let newStrArray: string[] = message.split("");
-            newStrArray[5] = 'T';
-            let newStr: string = newStrArray.join('');
-            console.log('Received message:', message);
-            const component = message[1];
-            const dome = message[6];
-            let key = `state${component + dome}`;
-            setState(key, newStr);
+            if(message[0]==='@'){
+                let newStrArray: string[] = message.split("");
+                newStrArray[5] = 'T';
+                let newStr: string = newStrArray.join('');
+                console.log('Received message:', message);
+                const component = message[1];
+                const dome = message[6];
+                let key = `state${component + dome}`;
+                setState(key, newStr);
+            }
+            else if(message[0]==='$'){
+                const component= message[1];
+                let key= `state${component}`
+                setCameraState(key, message);
+            }
         };
 
         ws.onerror = (error) => {
-            console.error('WebSocket error:', error);
+            console.log('WebSocket error:', error);
         };
 
         ws.onclose = (event) => {
             console.log('WebSocket connection closed:', event);
             setIsConnected(false);
+            console.log('WebSocket connection closed. Trying to reconnect...');
         };
 
         setSocket(ws);
+    }
+        connect();
 
         return () => {
-            ws.close();
+            if(socket){
+                socket.close();
+            }
         };
     }, [setState]);
 

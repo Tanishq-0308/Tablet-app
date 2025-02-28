@@ -1,13 +1,15 @@
 import { ScrollView, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import Page1 from './Page1';
-import Page3 from './Page3';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootParamList } from '../App';
+import Page2 from './Page2';
+import { BtnEnableContext } from '../Context/EnableContext';
 
 type HomeProps = NativeStackScreenProps<RootParamList, 'Home'>;
 
 const Home = ({ navigation }: HomeProps) => {
+  const {cameraEnabled}= useContext(BtnEnableContext);
   return (
     <ScrollView
       horizontal
@@ -16,7 +18,9 @@ const Home = ({ navigation }: HomeProps) => {
       style={styles.scrollView}
     >
       <Page1 navigation={navigation} />
-      <Page3 navigation={navigation} />
+      {
+       cameraEnabled && <Page2/>
+      }
     </ScrollView>
   );
 };

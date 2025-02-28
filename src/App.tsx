@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import FactorySetting from './screen/FactorySetting'
@@ -11,9 +11,11 @@ import FactorySettingTwo from './screen/FactorySettingTwo'
 import Home from './screen/Home'
 import { RightBtnEnableProvider } from './Context/RightContext'
 import RightColorMode from './screen/RightColorMode'
-
+import { PermissionsAndroid, Platform } from 'react-native'
+import WifiManager from 'react-native-wifi-reborn';
 
 export type RootParamList = {
+  Header:undefined;
   Home: undefined;
   FactorySetting: undefined;
   ColorMode: undefined;
@@ -24,6 +26,41 @@ export type RootParamList = {
 
 const Stack = createNativeStackNavigator<RootParamList>()
 const App = () => {
+  const requestWifiPermission= async()=>{
+    if(Platform.OS === 'android'){
+      const granted= await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'Location Permission',
+          message: 'This app needs access to your location to enable Wi-Fi.',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        }
+      );
+
+      if(granted === PermissionsAndroid.RESULTS.GRANTED){
+        console.log('Location permission granted. You can now access Wi-Fi.');
+        connectToWifi(granted);
+      }else{
+        console.log('Location permission denied');
+      }
+    }
+  };
+
+  const connectToWifi=(granted:any)=>{
+    if(granted){
+      WifiManager.setEnabled(true)
+      console.log('Wifi enabled');
+    }else{
+      console.log('location permission denied');
+    }
+    
+  }
+
+  useEffect(()=>{
+    requestWifiPermission();
+  },[]);
   return (
     <WebSocketContextProvider>
       <RightBtnEnableProvider>

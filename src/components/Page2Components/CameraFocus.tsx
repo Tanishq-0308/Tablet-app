@@ -1,12 +1,24 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import cameraFocusImg from '../../../assets/cameraIcons/cameraFocus.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
 
-const CameraFocus = () => {
+    type focusProps={
+        value:string;
+        sendMessage:any;
+    }
+
+const CameraFocus = ({value,sendMessage}:focusProps) => {
+    const [autoBtn, setAutoBtn]= useState(true);
+    const [manualBtn, setManualBtn]= useState(false);
+    const [pushBtn, setPushBtn]= useState(false);
+
+    useEffect(()=>{
+
+    },[value])
+
     const [width, setWidth] = useState(10);
-    const [manualBtn, setManualBtn] = useState(false);
 
     const increase = () => {
         if (width < 100) {
@@ -18,6 +30,30 @@ const CameraFocus = () => {
             setWidth((prev) => prev - 10);
         }
     };
+
+    
+    const handleMode=(mode:string)=>{
+        const commands:any={
+            auto:'$F_A#',
+            push:'$F_P#',
+            manual:'$F_M#'
+        };
+
+        const setButtonStates:any={
+            auto:setAutoBtn,
+            push:setPushBtn,
+            manual:setManualBtn
+        }
+
+        setAutoBtn(false);
+        setPushBtn(false);
+        setManualBtn(false);
+
+        if(setButtonStates[mode]){
+            setButtonStates[mode](true);
+            sendMessage(commands[mode])
+        }
+    }
     return (
         <View style={styles.mainContainer}>
             <View style={{ alignItems: 'center', gap: 10, }}>
@@ -27,16 +63,16 @@ const CameraFocus = () => {
                 <Text style={styles.heading}>Focus</Text>
             </View>
             <View style={styles.buttons}>
-                <TouchableOpacity>
-                    <Text style={styles.button}>Auto</Text>
+                <TouchableOpacity style={styles.pressable} onPress={()=> handleMode('auto')}>
+                    <Text style={autoBtn ? styles.onbutton : styles.button}>Auto</Text>
                 </TouchableOpacity>
-                <TouchableOpacity>
-                    <Text style={styles.button}>One Push</Text>
+                <TouchableOpacity style={styles.pressable} onPress={()=> handleMode('push')}>
+                    <Text style={pushBtn ? styles.onbutton : styles.button}>One Push</Text>
                 </TouchableOpacity>
                 <View style={manualBtn ? { flexDirection: 'column', position: 'relative', right: 48 } : styles.manualContainer}>
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity onPress={() => setManualBtn(!manualBtn)}>
-                            <Text style={styles.button}>Manual</Text>
+                        <TouchableOpacity onPress={()=> handleMode('manual')}>
+                            <Text style={manualBtn ? styles.onbutton : styles.button}>Manual</Text>
                         </TouchableOpacity>
                     </View>
 
@@ -75,10 +111,8 @@ const styles = StyleSheet.create({
     mainContainer: {
         height: '100%',
         width: '100%',
-        // borderWidth:2,
         flexDirection: 'row',
         alignItems: 'flex-start',
-        // justifyContent:'center',
         padding: moderateScale(5)
     },
     container: {},
@@ -113,6 +147,18 @@ const styles = StyleSheet.create({
         elevation: 2,
         borderColor: '#747d8c'
     },
+    onbutton:{
+        fontSize: hp('2.6%'),
+        fontWeight: 'bold',
+        borderWidth: 2,
+        backgroundColor: '#8c8c8c',
+        paddingHorizontal: moderateScale(7),
+        paddingVertical: moderateVerticalScale(2),
+        borderRadius: 12,
+        elevation: 2,
+        borderColor: '#000',
+        color:'#fff'
+    },
     length: {
         flexDirection: 'row',
         flexGrow: 1,
@@ -129,8 +175,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent:'center',
         gap: 10,
-        // paddingTop:moderateScale(15),
-        // borderWidth:2
+        zIndex:10
     },
     valueContainerOff: {
         display: 'none'
@@ -146,5 +191,8 @@ const styles = StyleSheet.create({
     plus: {
         fontSize: hp('5%'),
         paddingBottom:moderateScale(5)
+    },
+    pressable:{
+        height:hp('5%')
     }
 })

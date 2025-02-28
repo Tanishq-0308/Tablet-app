@@ -26,7 +26,7 @@ type ColorInput = {
 
 
 const Color = ({ value, sendMessage, code }: ColorInput) => {
-    const [colImage, setColImage] = useState<ImageSourcePropType>(colorA);
+    const [colImage, setColImage] = useState<ImageSourcePropType>(colorB);
     const [counter, setCounter] = useState(0);
 
     useEffect(() => {

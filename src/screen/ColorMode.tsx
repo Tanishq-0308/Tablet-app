@@ -10,6 +10,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { BtnEnableContext } from '../Context/EnableContext';
 import CameraMode from '../components/SwitchModeComponents/CameraMode';
 import RNFS from 'react-native-fs';
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 
 type ColorModeProps = NativeStackScreenProps<RootParamList, 'ColorMode'>
@@ -97,7 +98,8 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
             >
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.9)' }}>
                     <View style={{ width: 350, padding: 20, backgroundColor: 'black', borderRadius: 10, flexDirection: 'column', gap: 10 }}>
-                        <Text style={{ marginBottom: 10, color: 'white', fontSize: hp('2.2%') }}>Enter to Login</Text>
+                        <Icon name='lock' color='#fff' style={{fontSize:hp('5.6%'), textAlign:'center'}} />
+                        {/* <Text style={{ marginBottom: 10, color: 'white', fontSize: hp('2.2%') }}>Enter to Login</Text> */}
                         <TextInput
                             secureTextEntry
                             onChangeText={setEnterPassword}
