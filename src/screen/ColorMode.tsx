@@ -37,16 +37,26 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
     }
 
     const [enterPassword, setEnterPassword] = useState('');
+    const [enterCode, setEnterCode]= useState('');
     const [createPassword, setCreatePassword] = useState('');
     const [storePassword, setStorePassword] = useState('');
     const [firstModal, setFirstModal] = useState(false);
     const [isModalVisible, setModalVisible] = useState(false);
+    const [newModal, setNewModal]= useState(false);
 
     useEffect(() => {
         setFirstModal(true);
         readPasswordFromFile();
     }, []);
 
+    const handleCheckCode =()=>{
+        if(enterCode == 'Cognate'){
+            setNewModal(false);
+            setModalVisible(true);
+        }else{
+            Alert.alert('Wrong Code');
+        }
+    }
     const savePasswordToFile = async (password: string) => {
         try {
             const filePath = `${RNFS.DocumentDirectoryPath}/password.txt`;
@@ -64,7 +74,7 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
             setStorePassword(checkPass);
         } catch (error) {
             setFirstModal(false);
-            setModalVisible(true);
+            setNewModal(true);
         }
     }
 
@@ -72,7 +82,7 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
         if (storePassword === enterPassword) {
             setFirstModal(false);
             console.log('truee');
-        } else if (enterPassword === 'masterkey@1234') {
+        } else if (enterPassword === 'Brainwave@1234') {
             setFirstModal(false);
             setModalVisible(true);
         } else {
@@ -108,6 +118,28 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
                             style={{ borderWidth: 1, borderColor: '#ccc', marginBottom: 10, padding: 10, backgroundColor: 'white' }}
                         />
                         <Button title="Login" onPress={handleCheckPassword} />
+                    </View>
+                </View>
+            </Modal>
+
+            <Modal
+                animationType='slide'
+                transparent={true}
+                visible={newModal}
+                onRequestClose={() => navigation.goBack()}
+            >
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.9)' }}>
+                    <View style={{ width: 350, padding: 20, backgroundColor: 'black', borderRadius: 10, flexDirection: 'column', gap: 10 }}>
+                        {/* <Icon name='lock' color='#fff' style={{fontSize:hp('5.6%'), textAlign:'center'}} /> */}
+                        <Text style={{ marginBottom: 10, color: 'white', fontSize: hp('2.2%') }}>Enter Code </Text>
+                        <TextInput
+                            secureTextEntry
+                            onChangeText={setEnterCode}
+                            value={enterCode}
+                            placeholder="Enter your Code"
+                            style={{ borderWidth: 1, borderColor: '#ccc', marginBottom: 10, padding: 10, backgroundColor: 'white' }}
+                        />
+                        <Button title="Check" onPress={handleCheckCode} />
                     </View>
                 </View>
             </Modal>

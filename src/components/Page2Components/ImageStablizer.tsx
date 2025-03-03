@@ -13,20 +13,20 @@ const ImageStablizer = ({value,sendMessage}:stabilizerProps) => {
     useEffect(()=>{
 
     },[value])
-    const [width, setWidth] = useState(10);
+    // const [width, setWidth] = useState(10);
     const [manualBtn, setManualBtn] = useState(false);
 
     const increase = () => {
-        if (width < 100) {
-            setWidth((prev) => prev + 10);
-            sendMessage('$S_P#');
-        }
+        // if (width < 100) {
+        //     setWidth((prev) => prev + 10);
+        // }
+        sendMessage('$S_P#');
     };
     const decrease = () => {
-        if (width > 10) {
-            setWidth((prev) => prev - 10);
-            sendMessage('$S_N#');
-        }
+        // if (width > 10) {
+        //     setWidth((prev) => prev - 10);
+        // }
+        sendMessage('$S_N#');
     };
     return (
         <View style={styles.mainContainer}>
@@ -48,7 +48,7 @@ const ImageStablizer = ({value,sendMessage}:stabilizerProps) => {
                             style={{
                                 height: "100%",
                                 backgroundColor: "black",
-                                width: `${width}%`,
+                                width: `100%`,
                                 borderTopLeftRadius: 10,
                                 borderBottomLeftRadius: 10,
                             }}

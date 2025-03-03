@@ -17,17 +17,19 @@ const Iris = ({value,sendMessage}:irisProps) => {
     useEffect(()=>{
 
     },[value])
-    const [width, setWidth] = useState(10);
+    // const [width, setWidth] = useState(10);
 
     const increase = () => {
-        if (width < 100) {
-            setWidth((prev) => prev + 10);
-        }
+        sendMessage('$IMP#')
+        // if (width < 100) {
+        //     setWidth((prev) => prev + 10);
+        // }
     };
     const decrease = () => {
-        if (width > 10) {
-            setWidth((prev) => prev - 10);
-        }
+        sendMessage('$IMM#')
+        // if (width > 10) {
+        //     setWidth((prev) => prev - 10);
+        // }
     };
 
     const handleMode=(mode:string)=>{
@@ -79,7 +81,7 @@ const Iris = ({value,sendMessage}:irisProps) => {
                                 style={{
                                     height: "100%",
                                     backgroundColor: "black",
-                                    width: `${width}%`,
+                                    width: `100%`,
                                     borderTopLeftRadius: 10,
                                     borderBottomLeftRadius: 10,
                                 }}

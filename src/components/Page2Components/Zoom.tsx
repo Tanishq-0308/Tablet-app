@@ -14,19 +14,19 @@ const Zoom = ({value,sendMessage}:zoomProps) => {
     useEffect(()=>{
 
     },[value])
-    const [width, setWidth] = useState(10);
+    // const [width, setWidth] = useState(10);
 
     const increase = () => {
-        if (width < 100) {
-            setWidth((prev) => prev + 10);
-            sendMessage('$Z_P#')
-        }
+        // if (width < 100) {
+        //     setWidth((prev) => prev + 10);
+        // }
+        sendMessage('$Z_P#')
     };
     const decrease = () => {
-        if (width > 10) {
-            setWidth((prev) => prev - 10);
-            sendMessage('$Z_M#')
-        }
+        // if (width > 10) {
+        //     setWidth((prev) => prev - 10);
+        // }
+        sendMessage('$Z_M#')
     };
     return (
         <View style={styles.mainContainer}>
@@ -45,7 +45,7 @@ const Zoom = ({value,sendMessage}:zoomProps) => {
                         style={{
                             height: "100%",
                             backgroundColor: "black",
-                            width: `${width}%`,
+                            width: `100%`,
                             borderTopLeftRadius: 10,
                             borderBottomLeftRadius: 10,
                         }}

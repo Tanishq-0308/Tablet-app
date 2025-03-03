@@ -19,39 +19,45 @@ const WhiteBalance = ({value,sendMessage}:balanceProps) => {
         
     },[value])
 
-    const [redGain, setRedGain] = useState(10);
-    const [blueGain, setBlueGain] = useState(10);
-    const [chroma, setChroma] = useState(10);
+    // const [redGain, setRedGain] = useState(10);
+    // const [blueGain, setBlueGain] = useState(10);
+    // const [chroma, setChroma] = useState(10);
 
     const redGainIncrease = () => {
-        if (redGain < 100) {
-            setRedGain((prev) => prev + 10);
-        }
+        sendMessage('$WRP#')
+        // if (redGain < 100) {
+        //     setRedGain((prev) => prev + 10);
+        // }
     };
     const redGainDecrease = () => {
-        if (redGain > 10) {
-            setRedGain((prev) => prev - 10);
-        }
+        sendMessage('$WRM#')
+        // if (redGain > 10) {
+        //     setRedGain((prev) => prev - 10);
+        // }
     };
     const blueGainIncrease = () => {
-        if (blueGain < 100) {
-            setBlueGain((prev) => prev + 10);
-        }
+        sendMessage('$WBP#')
+        // if (blueGain < 100) {
+        //     setBlueGain((prev) => prev + 10);
+        // }
     };
     const blueGainDecrease = () => {
-        if (blueGain > 10) {
-            setBlueGain((prev) => prev - 10);
-        }
+        sendMessage('$WBM#')
+        // if (blueGain > 10) {
+        //     setBlueGain((prev) => prev - 10);
+        // }
     };
     const chromaIncrease = () => {
-        if (chroma < 100) {
-            setChroma((prev) => prev + 10);
-        }
+        sendMessage('$WCP#')
+        // if (chroma < 100) {
+        //     setChroma((prev) => prev + 10);
+        // }
     };
     const chromaDecrease = () => {
-        if (chroma > 10) {
-            setChroma((prev) => prev - 10);
-        }
+        sendMessage('$WCM#')
+        // if (chroma > 10) {
+        //     setChroma((prev) => prev - 10);
+        // }
     };
 
     const handleModeChange = (mode:string) => {
@@ -121,7 +127,7 @@ const WhiteBalance = ({value,sendMessage}:balanceProps) => {
                                         style={{
                                             height: "100%",
                                             backgroundColor: "black",
-                                            width: `${redGain}%`,
+                                            width: `100%`,
                                             borderTopLeftRadius: 10,
                                             borderBottomLeftRadius: 10,
                                         }}
@@ -145,7 +151,7 @@ const WhiteBalance = ({value,sendMessage}:balanceProps) => {
                                         style={{
                                             height: "100%",
                                             backgroundColor: "black",
-                                            width: `${blueGain}%`,
+                                            width: `100%`,
                                             borderTopLeftRadius: 10,
                                             borderBottomLeftRadius: 10,
                                         }}
@@ -169,7 +175,7 @@ const WhiteBalance = ({value,sendMessage}:balanceProps) => {
                                         style={{
                                             height: "100%",
                                             backgroundColor: "black",
-                                            width: `${chroma}%`,
+                                            width: `100%`,
                                             borderTopLeftRadius: 10,
                                             borderBottomLeftRadius: 10,
                                         }}

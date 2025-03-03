@@ -12,7 +12,6 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import CameraBtn from '../components/SettingsPage/CameraBtn'
 import useStore from '../Store/stateStore'
 import { useWebSocket } from '../Context/webSocketContext'
-import Page2 from './Page2'
 
 type FactorySettingProps = NativeStackScreenProps<RootParamList>
 
@@ -63,24 +62,24 @@ const FactorySetting = ({ navigation }: FactorySettingProps) => {
                         </View>
                         <View style={styles.box}>
                             {
-                                cameraEnabled && <CameraBtn value={value} sendMessage={sendMessage} code='L' />
+                                cameraEnabled && <CameraBtn value={value} sendMessage={sendMessage} code='L1' />
                             }
                         </View>
                         <View style={styles.box}>
                             {
-                                headSensorEnabled && <OverheadEnable context={leftHeadObjects} value={value4} sendMessage={sendMessage} code='L' />
+                                headSensorEnabled && <OverheadEnable context={leftHeadObjects} value={value4} sendMessage={sendMessage} code='L1' />
                             }
                         </View>
                     </View>
                     <View style={styles.blockTwo}>
                         <View style={styles.box2}>
                             {
-                                greenEnabled && <GreenIntensity context={greenLeftObjects} value={value2} sendMessage={sendMessage} code='L' />
+                                greenEnabled && <GreenIntensity context={greenLeftObjects} value={value2} sendMessage={sendMessage} code='L1' />
                             }
                         </View>
                         <View style={styles.box2}>
                             {
-                                redEnabled && <RedIntensity context={redLeftObjects} value={value3} sendMessage={sendMessage} code='L' />
+                                redEnabled && <RedIntensity context={redLeftObjects} value={value3} sendMessage={sendMessage} code='L1' />
                             }
                         </View>
                     </View>

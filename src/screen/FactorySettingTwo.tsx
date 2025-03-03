@@ -13,9 +13,9 @@ import { RightBtnEnableContext } from '../Context/RightContext'
 import useStore from '../Store/stateStore'
 import { useWebSocket } from '../Context/webSocketContext'
 
-type FactorySettingTwoProps = NativeStackScreenProps<RootParamList, 'FactorySettingTwo'>
+type FactorySettingTwoProps = NativeStackScreenProps<RootParamList>
 
-const FactorySettingTwo: React.FC<FactorySettingTwoProps> = ({ navigation, route }) => {
+const FactorySettingTwo= ({ navigation }:FactorySettingTwoProps) => {
     const { greenEnabled, redEnabled, headSensorEnabled, greenValue, setGreenValue, greenEnabledValue, setGreenEnabledValue, redValue, setRedValue, redEnabledValue, setRedEnabledValue, headSensor, setHeadSensor, cameraEnabled } = useContext(RightBtnEnableContext);
 
     const greenRightObjects = {
@@ -56,24 +56,24 @@ const FactorySettingTwo: React.FC<FactorySettingTwoProps> = ({ navigation, route
                     </View>
                     <View style={styles.box}>
                         {
-                            cameraEnabled && <CameraBtn value={value} sendMessage={sendMessage} code='L' />
+                            cameraEnabled && <CameraBtn value={value} sendMessage={sendMessage} code='R1' />
                         }
                     </View>
                     <View style={styles.box}>
                         {
-                            headSensorEnabled && <OverheadEnable context={rightHeadObjects} value={value4} sendMessage={sendMessage} code='R' />
+                            headSensorEnabled && <OverheadEnable context={rightHeadObjects} value={value4} sendMessage={sendMessage} code='R1' />
                         }
                     </View>
                 </View>
                 <View style={styles.blockTwo}>
                     <View style={styles.box2}>
                         {
-                            greenEnabled && <GreenIntensity context={greenRightObjects} value={value2} sendMessage={sendMessage} code='R' />
+                            greenEnabled && <GreenIntensity context={greenRightObjects} value={value2} sendMessage={sendMessage} code='R1' />
                         }
                     </View>
                     <View style={styles.box2}>
                         {
-                            redEnabled && <RedIntensity context={redRightObjects} value={value3} sendMessage={sendMessage} code='R' />
+                            redEnabled && <RedIntensity context={redRightObjects} value={value3} sendMessage={sendMessage} code='R1' />
                         }
                     </View>
                 </View>

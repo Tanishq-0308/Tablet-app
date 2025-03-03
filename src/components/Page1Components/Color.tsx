@@ -55,7 +55,7 @@ const Color = ({ value, sendMessage, code }: ColorInput) => {
                 break;
             case 1:
                 setColImage(colorB)
-                sendMessage(`@C00#T${code}`)
+                sendMessage(`@C05#T${code}`)
                 break;
             case 2:
                 setColImage(colorC)

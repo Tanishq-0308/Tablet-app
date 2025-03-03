@@ -48,11 +48,16 @@ export const WebSocketContextProvider: FC<{ children: React.ReactNode }> = ({ ch
             }
             if(message[0]==='@'){
                 let newStrArray: string[] = message.split("");
+                // if( newStrArray.length > 6){
+                //     let temp= newStrArray[5];
+                //     newStrArray[5]= newStrArray[6];
+                //     newStrArray[6]=temp;
+                // }
                 newStrArray[5] = 'T';
                 let newStr: string = newStrArray.join('');
                 console.log('Received message:', message);
-                const component = message[1];
-                const dome = message[6];
+                const component = newStr[1];
+                const dome = newStr[6];
                 let key = `state${component + dome}`;
                 setState(key, newStr);
             }

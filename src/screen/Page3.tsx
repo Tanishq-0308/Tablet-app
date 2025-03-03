@@ -14,7 +14,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootParamList } from '../App';
 
 type page3Props = {
-  navigation: NativeStackNavigationProp<RootParamList, 'HomeTwo'>;
+  navigation: NativeStackNavigationProp<RootParamList>;
 }
 const Page3 = ({ navigation }: page3Props) => {
 
@@ -29,27 +29,27 @@ const Page3 = ({ navigation }: page3Props) => {
     <View style={styles.mainContainer}>
       <View style={styles.blockOne}>
         <View style={styles.box}>
-          <Intensity value={value} sendMessage={sendMessage} code='R' />
+          <Intensity value={value} sendMessage={sendMessage} code='R1' />
         </View>
         <View style={styles.box}>
-          <Color value={value3} sendMessage={sendMessage} code='R' />
+          <Color value={value3} sendMessage={sendMessage} code='R1' />
         </View>
         <View style={styles.box}>
-          <Endo value={value2} sendMessage={sendMessage} code='R' />
+          <Endo value={value2} sendMessage={sendMessage} code='R1' />
         </View>
         <View style={styles.box}>
-          <Lamp value={value4} sendMessage={sendMessage} code='R' />
+          <Lamp value={value4} sendMessage={sendMessage} code='R1' />
         </View>
       </View>
       <View style={styles.blockTwo}>
         <View style={styles.box}>
-          <BoostMode value={value5} sendMessage={sendMessage} code='R' />
+          <BoostMode value={value5} sendMessage={sendMessage} code='R1' />
         </View>
         <View style={styles.box}>
           <Settings navigation={navigation} navigateTo="FactorySettingTwo" />
         </View>
         <View style={styles.box2}>
-          <Focus value={value6} sendMessage={sendMessage} code='R' />
+          <Focus value={value6} sendMessage={sendMessage} code='R1' />
         </View>
       </View>
       <Text style={styles.dome}>Dome 2</Text>

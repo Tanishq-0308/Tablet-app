@@ -18,17 +18,19 @@ const CameraFocus = ({value,sendMessage}:focusProps) => {
 
     },[value])
 
-    const [width, setWidth] = useState(10);
+    // const [width, setWidth] = useState(10);
 
     const increase = () => {
-        if (width < 100) {
-            setWidth((prev) => prev + 10);
-        }
+        sendMessage('$FMP#')
+        // if (width < 100) {
+        //     setWidth((prev) => prev + 10);
+        // }
     };
     const decrease = () => {
-        if (width > 10) {
-            setWidth((prev) => prev - 10);
-        }
+        sendMessage('$FMM#')
+        // if (width > 10) {
+        //     setWidth((prev) => prev - 10);
+        // }
     };
 
     
@@ -87,7 +89,7 @@ const CameraFocus = ({value,sendMessage}:focusProps) => {
                                 style={{
                                     height: "100%",
                                     backgroundColor: "black",
-                                    width: `${width}%`,
+                                    width: `100%`,
                                     borderTopLeftRadius: 10,
                                     borderBottomLeftRadius: 10,
                                 }}
