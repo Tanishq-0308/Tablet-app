@@ -51,15 +51,15 @@ const CameraBtn = ({ value, sendMessage, code }: CameraInputType) => {
             >CAMERA</Text>
             <View style={{ flexDirection: 'row', gap: 15, alignItems: 'center', justifyContent: 'center', }}>
                 {power &&
-                    <TouchableOpacity onPress={() => sendMessage(`@M_3#T${code}`)}>
-                        <Text style={styles.zoomOutBtn}>
-                            ZOOM OUT
+                    <TouchableOpacity onPress={() => sendMessage(`@M_2#T${code}`)}>
+                        <Text style={styles.zoomInBtn}>
+                            ZOOM  IN
                         </Text>
                     </TouchableOpacity>
                 }
                 <TouchableOpacity
                     onPress={toggleSwitch}
-                >
+                    >
                     {
                         power ?
                             <Text style={styles.offBtnTxt}>
@@ -71,13 +71,13 @@ const CameraBtn = ({ value, sendMessage, code }: CameraInputType) => {
                             </Text>
                     }
                 </TouchableOpacity>
-                {power &&
-                    <TouchableOpacity onPress={() => sendMessage(`@M_2#T${code}`)}>
-                        <Text style={styles.zoomInBtn}>
-                            ZOOM  IN
-                        </Text>
-                    </TouchableOpacity>
-                }
+                    {power &&
+                        <TouchableOpacity onPress={() => sendMessage(`@M_3#T${code}`)}>
+                            <Text style={styles.zoomOutBtn}>
+                                ZOOM OUT
+                            </Text>
+                        </TouchableOpacity>
+                    }
             </View>
         </View>
     )

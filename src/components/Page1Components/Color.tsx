@@ -35,12 +35,15 @@ const Color = ({ value, sendMessage, code }: ColorInput) => {
         switch (number) {
             case '-':
                 setimage(0)
+                setCounter(0);
                 break;
             case '0':
                 setimage(1)
+                setCounter(1);
                 break;
             case '+':
                 setimage(2)
+                setCounter(2);
                 break;
             default:
                 break;

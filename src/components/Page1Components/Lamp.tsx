@@ -15,7 +15,7 @@ type LampInput = {
 
 const Lamp = ({ value, sendMessage, code }: LampInput) => {
 
-    const [power, setPower] = useState(`@L_0#T${code}`)
+    const [power, setPower] = useState(`@L_1#T${code}`)
 
     useEffect(() => {
         if (value.length > 0) {

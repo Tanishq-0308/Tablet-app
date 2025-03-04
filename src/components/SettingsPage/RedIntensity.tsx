@@ -63,36 +63,43 @@ const RedIntensity = ({ value, sendMessage, code, context }: RedInputType) => {
         switch (number) {
           case 1:
             setIntImage(IntZero)
+            setColor(0);
             break;
           case 2:
             setIntImage(IntOne)
+            setColor(1);
             break;
           case 3:
             setIntImage(IntTwo)
+            setColor(2);
             break;
           case 4:
             setIntImage(IntThree)
+            setColor(3);
             break;
           case 5:
             setIntImage(IntFour)
+            setColor(4);
             break;
           case 6:
             setIntImage(IntFive)
+            setColor(5);
             break;
           case 7:
             setIntImage(IntSix)
+            setColor(6);
             break;
           case 8:
             setIntImage(IntSeven)
+            setColor(7);
             break;
           case 9:
             setIntImage(IntEight)
-            break;
-          case NaN:
-            setIntImage(IntNine)
+            setColor(8);
             break;
           default:
             setIntImage(IntNine)
+            setColor(9)
             break;
         }
       }

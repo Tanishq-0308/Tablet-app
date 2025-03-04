@@ -14,18 +14,11 @@ const Zoom = ({value,sendMessage}:zoomProps) => {
     useEffect(()=>{
 
     },[value])
-    // const [width, setWidth] = useState(10);
 
     const increase = () => {
-        // if (width < 100) {
-        //     setWidth((prev) => prev + 10);
-        // }
         sendMessage('$Z_P#')
     };
     const decrease = () => {
-        // if (width > 10) {
-        //     setWidth((prev) => prev - 10);
-        // }
         sendMessage('$Z_M#')
     };
     return (

@@ -41,36 +41,49 @@ const Intensity = ({ value, sendMessage, code }: IntensityInput) => {
     switch (number) {
       case 1:
         setIntImage(IntZero)
+        setCounter(0);
         break;
       case 2:
         setIntImage(IntOne)
+        setCounter(1);
         break;
       case 3:
         setIntImage(IntTwo)
+        setCounter(2);
         break;
       case 4:
         setIntImage(IntThree)
+        setCounter(3);
         break;
       case 5:
         setIntImage(IntFour)
+        setCounter(4);
         break;
       case 6:
         setIntImage(IntFive)
+        setCounter(5);
         break;
       case 7:
         setIntImage(IntSix)
+        setCounter(6);
         break;
       case 8:
         setIntImage(IntSeven)
+        setCounter(7);
         break;
       case 9:
         setIntImage(IntEight)
+        setCounter(8);
+        console.log(counter+1);
         break;
-      case NaN:
-        setIntImage(IntNine)
-        break;
-      default:
-        setIntImage(IntNine)
+      // case NaN:
+      //   setIntImage(IntNine)
+        
+      //   break;
+        default:
+          setIntImage(IntNine)
+          setCounter(9);
+          console.log(counter+1);
         break;
     }
   }, [value]);
