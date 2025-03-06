@@ -43,7 +43,9 @@ export const WebSocketContextProvider: FC<{ children: React.ReactNode }> = ({ ch
             setIsConnected(true);
             reconnectAttemptRef.current = 0;
             Snackbar.show({
-                text: 'WebSocket connected', duration: Snackbar.LENGTH_SHORT, backgroundColor: '#5BBD17',
+                text: 'Connected', 
+                duration: Snackbar.LENGTH_SHORT,
+                backgroundColor: '#5BBD17',
                 textColor: 'white'
             });
 
@@ -116,7 +118,7 @@ export const WebSocketContextProvider: FC<{ children: React.ReactNode }> = ({ ch
         if (reconnectAttemptRef.current >= MAX_RECONNECT_ATTEMPTS) {
             console.log('Max reconnect attempts reached');
             Snackbar.show({
-                text: 'Websocket connection failed after max attempts',
+                text: 'Connection failed after max attempts',
                 duration: Snackbar.LENGTH_LONG,
             });
             return;
@@ -143,7 +145,7 @@ export const WebSocketContextProvider: FC<{ children: React.ReactNode }> = ({ ch
         } else {
             console.error('WebSocket is not open. Unable to send message');
             Snackbar.show({
-                text: 'No websocket connection. Retrying...',
+                text: 'No connection',
                 duration: Snackbar.LENGTH_SHORT,
             });
         }
