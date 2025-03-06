@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { RootParamList } from '../App'
 import BackButton from '../components/BackButton'
@@ -12,11 +12,12 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import CameraBtn from '../components/SettingsPage/CameraBtn'
 import useStore from '../Store/stateStore'
 import { useWebSocket } from '../Context/webSocketContext'
+import RNFS from 'react-native-fs';
 
 type FactorySettingProps = NativeStackScreenProps<RootParamList>
 
 const FactorySetting = ({ navigation }: FactorySettingProps) => {
-    const { greenEnabled, redEnabled, headSensorEnabled, greenValue, setGreenValue, greenEnabledValue, setGreenEnabledValue, redValue, setRedValue, redEnabledValue, setRedEnabledValue, headSensor, setHeadSensor, cameraEnabled } = useContext(BtnEnableContext)
+    const { cameraEnabledValue, setCameraEnabledValue , greenValue, setGreenValue, greenEnabledValue, setGreenEnabledValue, redValue, setRedValue, redEnabledValue, setRedEnabledValue, headSensor, setHeadSensor } = useContext(BtnEnableContext)
 
     const greenLeftObjects = {
         color: greenValue,
@@ -37,18 +38,75 @@ const FactorySetting = ({ navigation }: FactorySettingProps) => {
         setEnable: setRedEnabledValue
     }
 
+    const cameraLeftObject ={
+        enable: cameraEnabledValue,
+        setEnable: setCameraEnabledValue
+    }
+
+    const [greenPass, setGreenPass]=useState(''); 
+    const [redPass, setRedPass]= useState('');
+    const [cameraPass, setCameraPass]= useState('');
+    const [sensorPass, setSensorPass]= useState('');
     const value = useStore((state) => state.states.stateML);
     const value2 = useStore((state) => state.states.stateGL);
     const value3 = useStore((state) => state.states.stateRL);
     const value4 = useStore((state) => state.states.stateOL)
     const { sendMessage } = useWebSocket();
 
+    const readGreenEnable=async()=>{
+        try {
+            const filePath= `${RNFS.DocumentDirectoryPath}/green.txt`;
+            const pass= await RNFS.readFile(filePath, 'utf8');
+            const checkpass= pass;
+            setGreenPass(checkpass);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    const readRedEnbale= async()=>{
+        try {
+            const filePath=`${RNFS.DocumentDirectoryPath}/red.txt`;
+            const pass = await RNFS.readFile(filePath,'utf8');
+            const checkpass= pass;
+            setRedPass(checkpass);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    const readCameraEnbale= async()=>{
+        try {
+            const filePath=`${RNFS.DocumentDirectoryPath}/camera.txt`;
+            const pass = await RNFS.readFile(filePath,'utf8');
+            const checkpass= pass;
+            setCameraPass(checkpass);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    const readSensorEnbale= async()=>{
+        try {
+            const filePath=`${RNFS.DocumentDirectoryPath}/sensor.txt`;
+            const pass = await RNFS.readFile(filePath,'utf8');
+            const checkpass= pass;
+            setSensorPass(checkpass);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+    useEffect(()=>{
+        readGreenEnable();
+        readRedEnbale();
+        readCameraEnbale();
+        readSensorEnbale();
+    },[]);
     return (
             <View style={styles.mainContainer}>
                 <View style={styles.container2}>
                     <View style={styles.blockOne}>
                         <View style={styles.container1}>
-                            <TouchableOpacity onPress={() => navigation.goBack()}
+                            <TouchableOpacity onPress={() => navigation.navigate('Home')}
                                 style={{
                                     elevation: 5,
                                     borderRadius: 14
@@ -62,24 +120,24 @@ const FactorySetting = ({ navigation }: FactorySettingProps) => {
                         </View>
                         <View style={styles.box}>
                             {
-                                cameraEnabled && <CameraBtn value={value} sendMessage={sendMessage} code='L1' />
+                                cameraPass == 'on' && <CameraBtn context={cameraLeftObject} value={value} sendMessage={sendMessage} code='L1' />
                             }
                         </View>
                         <View style={styles.box}>
                             {
-                                headSensorEnabled && <OverheadEnable context={leftHeadObjects} value={value4} sendMessage={sendMessage} code='L1' />
+                                sensorPass == 'on' && <OverheadEnable context={leftHeadObjects} value={value4} sendMessage={sendMessage} code='L1' />
                             }
                         </View>
                     </View>
                     <View style={styles.blockTwo}>
                         <View style={styles.box2}>
                             {
-                                greenEnabled && <GreenIntensity context={greenLeftObjects} value={value2} sendMessage={sendMessage} code='L1' />
+                                greenPass == 'on' && <GreenIntensity context={greenLeftObjects} value={value2} sendMessage={sendMessage} code='L1' />
                             }
                         </View>
                         <View style={styles.box2}>
                             {
-                                redEnabled && <RedIntensity context={redLeftObjects} value={value3} sendMessage={sendMessage} code='L1' />
+                                redPass == 'on' && <RedIntensity context={redLeftObjects} value={value3} sendMessage={sendMessage} code='L1' />
                             }
                         </View>
                     </View>

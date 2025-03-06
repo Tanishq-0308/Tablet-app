@@ -47,6 +47,10 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
     useEffect(() => {
         setFirstModal(true);
         readPasswordFromFile();
+        readGreenEnable();
+        readCameraEnable();
+        readRedEnable();
+        readSensorEnable();
     }, []);
 
     const savePasswordToFile = async (password: string) => {
@@ -89,6 +93,66 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
         await readPasswordFromFile();
         setModalVisible(false);
     }
+
+    const readGreenEnable = async () => {
+        try {
+            const filePath = `${RNFS.DocumentDirectoryPath}/green.txt`;
+            const pass = await RNFS.readFile(filePath, 'utf8');
+            const checkpass = pass;
+            if (checkpass == 'on') {
+                rightGreenEnable.setEnable(true);
+            } else if (checkpass == 'off') {
+                rightGreenEnable.setEnable(false);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const readRedEnable = async () => {
+        try {
+            const filePath = `${RNFS.DocumentDirectoryPath}/red.txt`;
+            const pass = await RNFS.readFile(filePath, 'utf8');
+            const checkpass = pass;
+            if (checkpass == 'on') {
+                rightRedEnable.setEnable(true);
+            } else if (checkpass == 'off') {
+                rightRedEnable.setEnable(false);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const readCameraEnable = async () => {
+        try {
+            const filePath = `${RNFS.DocumentDirectoryPath}/camera.txt`;
+            const pass = await RNFS.readFile(filePath, 'utf8');
+            const checkpass = pass;
+            if (checkpass == 'on') {
+                rightCameraEnable.setEnable(true);
+            } else if (checkpass == 'off') {
+                rightCameraEnable.setEnable(false);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const readSensorEnable = async () => {
+        try {
+            const filePath = `${RNFS.DocumentDirectoryPath}/sensor.txt`;
+            const pass = await RNFS.readFile(filePath, 'utf8');
+            const checkpass = pass;
+            if (checkpass == 'on') {
+                rightHeadEnable.setEnable(true);
+            } else if (checkpass == 'off') {
+                rightHeadEnable.setEnable(false);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
     return (
         <View style={styles.mainContainer}>
             <Modal
@@ -99,7 +163,7 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
             >
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.9)' }}>
                     <View style={{ width: 350, padding: 20, backgroundColor: 'black', borderRadius: 10, flexDirection: 'column', gap: 10 }}>
-                        <Icon name='lock' color='#fff' style={{fontSize:hp('5.6%'), textAlign:'center'}} />
+                        <Icon name='lock' color='#fff' style={{ fontSize: hp('5.6%'), textAlign: 'center' }} />
                         {/* <Text style={{ marginBottom: 10, color: 'white', fontSize: hp('2.2%') }}>Enter to Login</Text> */}
                         <TextInput
                             secureTextEntry
@@ -135,7 +199,7 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
             </Modal>
             <View style={styles.container1}>
                 <View>
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <TouchableOpacity onPress={() => navigation.navigate('FactorySettingTwo')}>
                         <BackButton />
                     </TouchableOpacity>
                 </View>

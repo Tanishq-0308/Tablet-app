@@ -4,6 +4,7 @@ import Snackbar from 'react-native-snackbar'
 import cameraModeOff from '../../../assets/cameraOff.png'
 import cameraModeOn from '../../../assets/cameraOn.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import RNFS from 'react-native-fs';
 
 type CameraModeType = {
     context: {
@@ -15,16 +16,29 @@ type CameraModeType = {
 const CameraMode = ({ context }: CameraModeType) => {
 
     const { enable, setEnable } = context;
+
+        const saveCameraEnable=async(value:string)=>{
+            try{
+                const filePath=`${RNFS.DocumentDirectoryPath}/camera.txt`;
+                await RNFS.writeFile(filePath, value, 'utf8');
+            }catch(error){
+                console.error('Error saving value to file:', error);
+            }
+        }
+
     const toggleSwitch = () => {
         setEnable(!enable);
 
         if (!enable) {
+            saveCameraEnable('on');
             Snackbar.show({
                 text: 'CameraMode is Enabled!',
                 duration: Snackbar.LENGTH_LONG,
                 backgroundColor: '#5BBD17',
                 textColor: 'white'
             })
+        }else{
+            saveCameraEnable('off');
         }
     }
     return (

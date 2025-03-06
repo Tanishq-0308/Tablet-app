@@ -31,7 +31,6 @@ const Color = ({ value, sendMessage, code }: ColorInput) => {
 
     useEffect(() => {
         let number = (value[2]);
-        // console.log(value, number);
         switch (number) {
             case '-':
                 setimage(0)

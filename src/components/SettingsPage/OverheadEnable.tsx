@@ -4,6 +4,8 @@ import overHdSensorOn from '../../../assets/updatedIcons/overheadSensorOn.png'
 import overHdSensorOff from '../../../assets/updatedIcons/overheadSensorOff.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { moderateScale } from 'react-native-size-matters';
+import useStore from '../../Store/stateStore';
+import { enableFreeze } from 'react-native-screens';
 
 
 type OverHeadSensorType = {
@@ -19,9 +21,22 @@ type OverHeadSensorType = {
 
 const OverheadEnable = ({ value, sendMessage, code, context }: OverHeadSensorType) => {
     const { sensor, setSensor } = context;
+    const setState = useStore((state) => state.setState);
+    const component = 'O';
+    const dome = code == 'R1'? 'R': 'L';
+    const key = `state${component + dome}`;
 
     useEffect(() => {
         if (value.length > 0) {
+            // const shouldEnable= value === `@O_1#T${code}`;
+            // const shouldDisable = value === `@O_0#T${code}`;
+            // if(shouldEnable && sensor == `@O_0#T${code}`){
+            //     setSensor(`@O_1#T${code}`)
+            //     setState(key,`@O_1#T${code}`)
+            // }else if(shouldDisable && sensor == `@O_1#T${code}`){
+            //     setSensor(`@O_0#T${code}`)
+            //     setState(key, `@O_0#T${code}`);
+            // }
             if (value === `@O_1#T${code}`) {
                 setSensor(`@O_1#T${code}`)
 
@@ -32,13 +47,15 @@ const OverheadEnable = ({ value, sendMessage, code, context }: OverHeadSensorTyp
     }, [value])
 
     const handleButton = () => {
-        if (sensor === `@O_0#T${code}`) {
+        if (sensor == `@O_0#T${code}`) {
             setSensor(`@O_1#T${code}`);
             sendMessage(`@O_1#T${code}`)
+            setState(key,`@O_1#T${code}`);
         }
         else {
             setSensor(`@O_0#T${code}`)
             sendMessage(`@O_0#T${code}`);
+            setState(key,`@O_0#T${code}`);
         }
     }
     return (

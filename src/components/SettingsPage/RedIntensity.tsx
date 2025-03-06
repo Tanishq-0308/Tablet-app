@@ -17,6 +17,7 @@ import IntNine from '../../../assets/9.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 import { moderateScale } from 'react-native-size-matters'
+import useStore from '../../Store/stateStore'
 
 type ImageProps = PropsWithChildren<{
   imageUrl: ImageSourcePropType
@@ -38,24 +39,29 @@ type RedInputType = {
   context: {
     color: number; // or the type you expect
     setColor: (color: number) => void;
-    enable: boolean;
-    setEnable: (enabled: boolean) => void;
+    enable: string;
+    setEnable: (enabled: string) => void;
   }
 }
 
 const RedIntensity = ({ value, sendMessage, code, context }: RedInputType) => {
   const [intImage, setIntImage] = useState<ImageSourcePropType>(IntZero)
   const { color, setColor, enable, setEnable } = context;
+  const setState = useStore((state) => state.setState);
+  const component = 'R';
+  const dome = code == 'R1'? 'R': 'L';
+  const key = `state${component + dome}`;
+
   useEffect(() => {
     setimage(color)
   }, [])
   useEffect(() => {
     if (value.length > 0) {
       if (value === `@R_0#T${code}`) {
-        setEnable(false);
+        setEnable(`@R_0#T${code}`);
       }
       else if (value === `@R_1#T${code}`) {
-        setEnable(true);
+        setEnable(`@R_1#T${code}`);
       }
       else {
         let number = parseInt(value[3]);
@@ -107,13 +113,15 @@ const RedIntensity = ({ value, sendMessage, code, context }: RedInputType) => {
   }, [value]);
 
   const handleButton = () => {
-    if (enable) {
-      setEnable(false);
-      sendMessage(`@R_0#T${code}`)
+    if (enable == `@R_0#T${code}`) {
+      setEnable(`@R_1#T${code}`);
+      sendMessage(`@R_1#T${code}`)
+      setState(key, `@R_1#T${code}`);
     }
     else {
-      setEnable(true)
-      sendMessage(`@R_1#T${code}`);
+      setEnable(`@R_0#T${code}`)
+      sendMessage(`@R_0#T${code}`);
+      setState(key, `@R_0#T${code}`);
     }
   }
 
@@ -123,42 +131,52 @@ const RedIntensity = ({ value, sendMessage, code, context }: RedInputType) => {
       case 0:
         sendMessage(`@R01#T${code}`)
         setIntImage(IntZero)
+        setState(key, `@R01#T${code}`);
         break;
       case 1:
         sendMessage(`@R02#T${code}`)
         setIntImage(IntOne)
+        setState(key, `@R02#T${code}`);
         break;
       case 2:
         sendMessage(`@R03#T${code}`)
         setIntImage(IntTwo)
+        setState(key, `@R03#T${code}`);
         break;
       case 3:
         sendMessage(`@R04#T${code}`)
         setIntImage(IntThree)
+        setState(key, `@R04#T${code}`);
         break;
       case 4:
         sendMessage(`@R05#T${code}`)
         setIntImage(IntFour)
+        setState(key, `@R05#T${code}`);
         break;
       case 5:
         sendMessage(`@R06#T${code}`)
         setIntImage(IntFive)
+        setState(key, `@R06#T${code}`);
         break;
       case 6:
         sendMessage(`@R07#T${code}`)
         setIntImage(IntSix)
+        setState(key, `@R07#T${code}`);
         break;
       case 7:
         sendMessage(`@R08#T${code}`)
         setIntImage(IntSeven)
+        setState(key, `@R08#T${code}`);
         break;
       case 8:
         sendMessage(`@R09#T${code}`)
         setIntImage(IntEight)
+        setState(key, `@R09#T${code}`);
         break;
       case 9:
         sendMessage(`@R0:#T${code}`)
         setIntImage(IntNine)
+        setState(key, `@R0:#T${code}`);
         break;
       default:
         setIntImage(IntZero)
@@ -169,7 +187,7 @@ const RedIntensity = ({ value, sendMessage, code, context }: RedInputType) => {
     <View style={styles.container}>
       <View style={styles.container2}>
         {
-          enable ?
+          enable == `@R_1#T${code}` ?
             <View style={styles.onImgContainer}>
               <Image source={redModeOn} style={styles.boostOnImg} resizeMode='contain' />
             </View>
@@ -186,7 +204,7 @@ const RedIntensity = ({ value, sendMessage, code, context }: RedInputType) => {
           onPress={handleButton}
         >
           {
-            enable ?
+            enable == `@R_1#T${code}` ?
               <Text style={styles.offBtnTxt}>
                 OFF
               </Text>

@@ -4,7 +4,7 @@ import redModeOn from '../../../assets/redmodeOn.png'
 import redModeOff from '../../../assets/redModeOff.png'
 import Snackbar from 'react-native-snackbar'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
+import RNFS from 'react-native-fs';
 
 type RedModeType = {
     context: {
@@ -16,16 +16,29 @@ type RedModeType = {
 
 const RedMode = ({ context }: RedModeType) => {
     const { enable, setEnable } = context;
+
+    const saveRedEnable= async(value:string)=>{
+        try {
+            const filePath=`${RNFS.DocumentDirectoryPath}/red.txt`;
+            await RNFS.writeFile(filePath, value, 'utf8');
+        } catch (error) {
+            console.error('Error saving value to file:', error);
+        }
+    }
+
     const toggleSwitch = () => {
         setEnable(!enable)
 
         if (!enable) {
+            saveRedEnable('on');
             Snackbar.show({
                 text: 'RedMode is Enabled!',
                 duration: Snackbar.LENGTH_LONG,
                 backgroundColor: '#5BBD17',
                 textColor: 'white'
             })
+        }else{
+            saveRedEnable('off');
         }
     }
     return (

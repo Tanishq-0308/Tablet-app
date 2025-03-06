@@ -4,39 +4,70 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import cameraOnImage from '../../../assets/cameraOn.png'
 import cameraOffImage from '../../../assets/cameraOff.png'
 import { moderateScale } from 'react-native-size-matters';
+import useStore from '../../Store/stateStore';
 
 type CameraInputType = {
     value: string
-    sendMessage: any;
-    code: string
+    sendMessage: (message: string)=>void;
+    code: string;
+    context: {
+        enable: boolean,
+        setEnable: (enable: boolean) => void;
+    };
+    
 }
 
-const CameraBtn = ({ value, sendMessage, code }: CameraInputType) => {
-    const [power, setPower] = useState(false)
-
+const CameraBtn = ({ value, sendMessage, code, context }: CameraInputType) => {
+    // const [enable, setEnable] = useState(false)
+    const { enable, setEnable } = context;
+    const setState = useStore((state) => state.setState);
+    const component = 'M';
+    const dome = code == 'R1'? 'R': 'L';
+    const key = `state${component + dome}`;
+    // useEffect(() => {
+    //     const storedValue = useStore.getState()[key]; // Get the current Zustand state
+    //     if (storedValue) {
+    //         if (storedValue === `@M_1#T${code}` && enable) {
+    //             setEnable(true);
+    //         } else if (storedValue === `@M_0#T${code}` && !enable) {
+    //             setEnable(false);
+    //         }
+    //     }
+    // }, [code, enable, setEnable]);
     useEffect(() => {
         if (value.length > 0) {
+            // const shouldEnable= value === `@M_1#T${code}`;
+            // const shouldDisable = value === `@M_0#T${code}`;
+            // if (shouldEnable && !enable) {
+            //     setEnable(true); // Update context
+            //     setState(key, `@M_1#T${code}`); // Sync Zustand
+            // } else if (shouldDisable && enable) {
+            //     setEnable(false); // Update context
+            //     setState(key, `@M_0#T${code}`); // Sync Zustand
+            // }
             if (value === `@M_1#T${code}`) {
-                setPower(true)
+                setEnable(true);
             } else if (value === `@M_0#T${code}`) {
-                setPower(false)
+                setEnable(false);
             }
         }
-    }, [value])
+    }, [value]);
 
     const toggleSwitch = () => {
-        if (power) {
-            setPower(false);
+        if (enable) {
+            setEnable(false);
             sendMessage(`@M_0#T${code}`)
+            setState(key, `@M_0#T${code}`);
         } else {
-            setPower(true);
+            setEnable(true);
             sendMessage(`@M_1#T${code}`)
+            setState(key, `@M_1#T${code}`);
         }
     };
     return (
         <View style={styles.container2}>
             {
-                !power ?
+                !enable ?
                     <View style={styles.offImgContainer}>
                         <Image source={cameraOffImage} style={styles.boostOffImg} resizeMode='contain' />
                     </View>
@@ -50,7 +81,7 @@ const CameraBtn = ({ value, sendMessage, code }: CameraInputType) => {
                 style={styles.heading}
             >CAMERA</Text>
             <View style={{ flexDirection: 'row', gap: 15, alignItems: 'center', justifyContent: 'center', }}>
-                {power &&
+                {enable &&
                     <TouchableOpacity onPress={() => sendMessage(`@M_2#T${code}`)}>
                         <Text style={styles.zoomInBtn}>
                             ZOOM  IN
@@ -59,9 +90,9 @@ const CameraBtn = ({ value, sendMessage, code }: CameraInputType) => {
                 }
                 <TouchableOpacity
                     onPress={toggleSwitch}
-                    >
+                >
                     {
-                        power ?
+                        enable ?
                             <Text style={styles.offBtnTxt}>
                                 OFF
                             </Text>
@@ -71,13 +102,13 @@ const CameraBtn = ({ value, sendMessage, code }: CameraInputType) => {
                             </Text>
                     }
                 </TouchableOpacity>
-                    {power &&
-                        <TouchableOpacity onPress={() => sendMessage(`@M_3#T${code}`)}>
-                            <Text style={styles.zoomOutBtn}>
-                                ZOOM OUT
-                            </Text>
-                        </TouchableOpacity>
-                    }
+                {enable &&
+                    <TouchableOpacity onPress={() => sendMessage(`@M_3#T${code}`)}>
+                        <Text style={styles.zoomOutBtn}>
+                            ZOOM OUT
+                        </Text>
+                    </TouchableOpacity>
+                }
             </View>
         </View>
     )

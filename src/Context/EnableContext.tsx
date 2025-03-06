@@ -7,18 +7,20 @@ type BtnEnableType = {
     setRedEnabled: (redEnabled:boolean) => void;
     headSensorEnabled: boolean;
     setHeadSensorEnabled: (headSensorEnabled:boolean) => void;
+    cameraEnabled: boolean;
+    setCameraEnabled: (cameraEnabled: boolean) => void;
     greenValue: number;
     setGreenValue: (greenValue: number) => void;
     redValue: number;
     setRedValue: (greenValue: number) => void;
     headSensor: string;
     setHeadSensor: (headSensor: string)=> void;
-    greenEnabledValue: boolean;
-    setGreenEnabledValue: (greenEnabled:boolean) => void;
-    redEnabledValue: boolean;
-    setRedEnabledValue: (redEnabled:boolean) => void;
-    cameraEnabled: boolean;
-    setCameraEnabled: (cameraEnabled: boolean) => void;
+    greenEnabledValue: string;
+    setGreenEnabledValue: (greenEnabled:string) => void;
+    redEnabledValue: string;
+    setRedEnabledValue: (redEnabled:string) => void;
+    cameraEnabledValue: boolean;
+    setCameraEnabledValue: (cameraEnabledValue: boolean) => void;
 }
 
 export const BtnEnableContext = createContext<BtnEnableType>({
@@ -28,30 +30,33 @@ export const BtnEnableContext = createContext<BtnEnableType>({
     setRedEnabled: () => { },
     headSensorEnabled: false,
     setHeadSensorEnabled: () => { },
+    cameraEnabled: false,
+    setCameraEnabled: () => {},
     greenValue: 0,
     setGreenValue: ()=> {},
     redValue: 0,
     setRedValue: ()=>{},
     headSensor: '@O_0#TL1',
     setHeadSensor: ()=>{},
-    greenEnabledValue: false,
+    greenEnabledValue: '@G_0#TL1',
     setGreenEnabledValue: () => { },
-    redEnabledValue: false,
+    redEnabledValue: '@R_0#TL1',
     setRedEnabledValue: () => { },
-    cameraEnabled: false,
-    setCameraEnabled: () => {},
+    cameraEnabledValue: false,
+    setCameraEnabledValue: () => {}
 })
 
 export const BtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
     const [greenEnabled,setGreenEnabled]= useState(false)
-    const [greenEnabledValue,setGreenEnabledValue]= useState(false)
     const [redEnabled,setRedEnabled] = useState(false)
-    const [redEnabledValue,setRedEnabledValue] = useState(false)
     const [headSensorEnabled,setHeadSensorEnabled]= useState(false)
+    const [cameraEnabled, setCameraEnabled]= useState(false)
     const [greenValue, setGreenValue]= useState(0)
     const [redValue, setRedValue] = useState(0)
     const [headSensor, setHeadSensor]= useState('@O_0#TL1')
-    const [cameraEnabled, setCameraEnabled]= useState(false)
+    const [greenEnabledValue,setGreenEnabledValue]= useState('@G_0#TL1')
+    const [redEnabledValue,setRedEnabledValue] = useState('@R_0#TL1')
+    const [cameraEnabledValue, setCameraEnabledValue]= useState(false);
 
     const defaultValue = {
         greenEnabled,
@@ -71,7 +76,9 @@ export const BtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
         redEnabledValue,
         setRedEnabledValue,
         cameraEnabled,
-        setCameraEnabled
+        setCameraEnabled,
+        cameraEnabledValue,
+        setCameraEnabledValue
     }
     return (
         <BtnEnableContext.Provider value={defaultValue}>

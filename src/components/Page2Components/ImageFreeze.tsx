@@ -22,11 +22,9 @@ const ImageFreeze = ({value,sendMessage}:freezeProps) => {
     const switching=()=>{
         setFreeze(prev=>!prev);
         if(freeze == true){
-            console.log('$H_0#');
             sendMessage('$H_0#');
         }
         else {
-            console.log('$H_1#');
             sendMessage('$H_1#');
         }
     }

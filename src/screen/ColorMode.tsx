@@ -47,6 +47,10 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
     useEffect(() => {
         setFirstModal(true);
         readPasswordFromFile();
+        readGreenEnable();
+        readCameraEnable();
+        readRedEnable();
+        readSensorEnable();
     }, []);
 
     const handleCheckCode =()=>{
@@ -81,12 +85,10 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
     const handleCheckPassword = async () => {
         if (storePassword === enterPassword) {
             setFirstModal(false);
-            console.log('truee');
         } else if (enterPassword === 'Brainwave@1234') {
             setFirstModal(false);
             setModalVisible(true);
         } else {
-            console.log('false');
             Alert.alert('Wrong password');
             setEnterPassword('');
         }
@@ -98,6 +100,66 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
         setModalVisible(false);
     }
 
+        const readGreenEnable=async()=>{
+              try {
+                  const filePath= `${RNFS.DocumentDirectoryPath}/green.txt`;
+                  const pass= await RNFS.readFile(filePath, 'utf8');
+                  const checkpass= pass;
+                  if(checkpass == 'on'){
+                      leftGreenEnable.setEnable(true);
+                  } else if (checkpass == 'off'){
+                      leftGreenEnable.setEnable(false);
+                  }
+              } catch (error) {
+                  console.log(error);
+              }
+          }
+
+          
+                  const readRedEnable=async()=>{
+                      try {
+                          const filePath= `${RNFS.DocumentDirectoryPath}/red.txt`;
+                          const pass= await RNFS.readFile(filePath, 'utf8');
+                          const checkpass= pass;
+                          if(checkpass == 'on'){
+                              leftRedEnable.setEnable(true);
+                          } else if (checkpass == 'off'){
+                              leftRedEnable.setEnable(false);
+                          }
+                      } catch (error) {
+                          console.log(error);
+                      }
+                  }
+          
+                  const readCameraEnable=async()=>{
+                      try {
+                          const filePath= `${RNFS.DocumentDirectoryPath}/camera.txt`;
+                          const pass= await RNFS.readFile(filePath, 'utf8');
+                          const checkpass= pass;
+                          if(checkpass == 'on'){
+                              leftCameraEnable.setEnable(true);
+                          } else if (checkpass == 'off'){
+                              leftCameraEnable.setEnable(false);
+                          }
+                      } catch (error) {
+                          console.log(error);
+                      }
+                  }
+          
+                  const readSensorEnable=async()=>{
+                      try {
+                          const filePath= `${RNFS.DocumentDirectoryPath}/sensor.txt`;
+                          const pass= await RNFS.readFile(filePath, 'utf8');
+                          const checkpass= pass;
+                          if(checkpass == 'on'){
+                              leftHeadEnable.setEnable(true);
+                          } else if (checkpass == 'off'){
+                              leftHeadEnable.setEnable(false);
+                          }
+                      } catch (error) {
+                          console.log(error);
+                      }
+                  }
     return (
         <View style={styles.mainContainer}>
             <Modal
@@ -166,7 +228,7 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
             </Modal>
             <View style={styles.container1}>
                 <View>
-                    <TouchableOpacity onPress={() => navigation.goBack()} style={{
+                    <TouchableOpacity onPress={() => navigation.navigate('FactorySetting')} style={{
                         elevation: 5,
                         borderRadius: 14
                     }}>
@@ -177,7 +239,7 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
             <View style={styles.container2}>
                 <View style={styles.blockOne}>
                     <View style={styles.box}>
-                        <GreenMode context={leftGreenEnable} />
+                        <GreenMode context={leftGreenEnable}/>
                     </View>
                     <View style={styles.box}>
                         <RedMode context={leftRedEnable} />

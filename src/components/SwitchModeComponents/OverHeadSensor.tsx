@@ -4,7 +4,7 @@ import overHdSensorOn from '../../../assets/updatedIcons/overheadSensorOn.png'
 import overHdSensorOff from '../../../assets/updatedIcons/overheadSensorOff.png'
 import Snackbar from 'react-native-snackbar'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
+import RNFS from 'react-native-fs';
 
 type OverHeadModeType = {
     context: {
@@ -15,16 +15,29 @@ type OverHeadModeType = {
 
 const OverHeadSensor = ({ context }: OverHeadModeType) => {
     const { enable, setEnable } = context;
+
+     const saveSensorEnable=async(value:string)=>{
+            try{
+                const filePath=`${RNFS.DocumentDirectoryPath}/sensor.txt`;
+                await RNFS.writeFile(filePath, value, 'utf8');
+            }catch(error){
+                console.error('Error saving value to file:', error);
+            }
+        }
+
     const toggleSwitch = () => {
         setEnable(!enable)
 
         if (!enable) {
+            saveSensorEnable('on');
             Snackbar.show({
                 text: 'OverHead sensor is Enabled!',
                 duration: Snackbar.LENGTH_LONG,
                 backgroundColor: '#5BBD17',
                 textColor: 'white'
             })
+        }else{
+            saveSensorEnable('off');
         }
     }
     return (

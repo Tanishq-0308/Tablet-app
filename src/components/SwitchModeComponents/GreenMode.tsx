@@ -1,10 +1,10 @@
 import { Image, StyleSheet, Switch, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import greenModeOn from '../../../assets/greenModeOn.png'
 import greenModeOff from '../../../assets/greenModeOff.png'
 import Snackbar from 'react-native-snackbar'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
+import RNFS from 'react-native-fs';
 
 type GreenModeType = {
     context: {
@@ -15,16 +15,29 @@ type GreenModeType = {
 
 const GreenMode = ({ context }: GreenModeType) => {
     const { enable, setEnable } = context;
+
+    const saveGreenEnable=async(value:string)=>{
+        try{
+            const filePath=`${RNFS.DocumentDirectoryPath}/green.txt`;
+            await RNFS.writeFile(filePath, value, 'utf8');
+        }catch(error){
+            console.error('Error saving value to file:', error);
+        }
+    }
+
     const toggleSwitch = () => {
         setEnable(!enable);
 
         if (!enable) {
+            saveGreenEnable('on');
             Snackbar.show({
                 text: 'GreenMode is Enabled!',
                 duration: Snackbar.LENGTH_LONG,
                 backgroundColor: '#5BBD17',
                 textColor: 'white'
             })
+        }else {
+            saveGreenEnable('off');
         }
     }
     return (

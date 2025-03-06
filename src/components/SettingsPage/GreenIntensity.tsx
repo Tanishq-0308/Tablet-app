@@ -16,6 +16,7 @@ import IntEight from '../../../assets/8.png'
 import IntNine from '../../../assets/9.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { moderateScale } from 'react-native-size-matters'
+import useStore from '../../Store/stateStore'
 
 type ImageProps = PropsWithChildren<{
   imageUrl: ImageSourcePropType
@@ -37,8 +38,8 @@ type GreenInputType = {
   context: {
     color: number; // or the type you expect
     setColor: (color: number) => void;
-    enable: boolean;
-    setEnable: (enabled: boolean) => void;
+    enable: string;
+    setEnable: (enabled: string) => void;
   }
 }
 
@@ -46,18 +47,27 @@ type GreenInputType = {
 const GreenIntensity = ({ value, sendMessage, code, context }: GreenInputType) => {
   const [intImage, setIntImage] = useState<ImageSourcePropType>(IntZero)
   const { color, setColor, enable, setEnable } = context;
+  const setState = useStore((state) => state.setState);
+  const component = 'G';
+  const dome = code == 'R1' ? 'R' : 'L';
+  const key = `state${component + dome}`;
 
   useEffect(() => {
     setimage(color);
+
   }, [color])
 
   useEffect(() => {
+    setEnable(enable);
+  }, [enable])
+  useEffect(() => {
     if (value.length > 0) {
+
       if (value === `@G_0#T${code}`) {
-        setEnable(false);
+        setEnable(`@G_0#T${code}`);
       }
       else if (value === `@G_1#T${code}`) {
-        setEnable(true);
+        setEnable(`@G_1#T${code}`);
       }
       else {
         let number = parseInt(value[3]);
@@ -109,13 +119,17 @@ const GreenIntensity = ({ value, sendMessage, code, context }: GreenInputType) =
   }, [value]);
 
   const handleButton = () => {
-    if (enable) {
-      setEnable(false);
-      sendMessage(`@G_0#T${code}`)
+    if (enable == `@G_0#T${code}`) {
+      setEnable(`@G_1#T${code}`);
+      sendMessage(`@G_1#T${code}`)
+      setState(key, `@G_1#T${code}`);
+
     }
     else {
-      setEnable(true)
-      sendMessage(`@G_1#T${code}`);
+      setEnable(`@G_0#T${code}`)
+      sendMessage(`@G_0#T${code}`);
+      setState(key, `@G_0#T${code}`);
+
     }
   }
 
@@ -125,42 +139,52 @@ const GreenIntensity = ({ value, sendMessage, code, context }: GreenInputType) =
       case 0:
         sendMessage(`@G01#T${code}`)
         setIntImage(IntZero)
+        setState(key, `@G01#T${code}`);
         break;
       case 1:
         sendMessage(`@G02#T${code}`)
         setIntImage(IntOne)
+        setState(key, `@G02#T${code}`);
         break;
       case 2:
         sendMessage(`@G03#T${code}`)
         setIntImage(IntTwo)
+        setState(key, `@G03#T${code}`);
         break;
       case 3:
         sendMessage(`@G04#T${code}`)
         setIntImage(IntThree)
+        setState(key, `@G04#T${code}`);
         break;
       case 4:
         sendMessage(`@G05#T${code}`)
         setIntImage(IntFour)
+        setState(key, `@G05#T${code}`);
         break;
       case 5:
         sendMessage(`@G06#T${code}`)
         setIntImage(IntFive)
+        setState(key, `@G06#T${code}`);
         break;
       case 6:
         sendMessage(`@G07#T${code}`)
         setIntImage(IntSix)
+        setState(key, `@G07#T${code}`);
         break;
       case 7:
         sendMessage(`@G08#T${code}`)
         setIntImage(IntSeven)
+        setState(key, `@G08#T${code}`);
         break;
       case 8:
         sendMessage(`@G09#T${code}`)
         setIntImage(IntEight)
+        setState(key, `@G09#T${code}`);
         break;
       case 9:
         sendMessage(`@G0:#T${code}`)
         setIntImage(IntNine)
+        setState(key, `@G0:#T${code}`);
         break;
       default:
         setIntImage(IntZero)
@@ -171,7 +195,7 @@ const GreenIntensity = ({ value, sendMessage, code, context }: GreenInputType) =
     <View style={styles.container}>
       <View style={styles.container2}>
         {
-          enable ?
+          enable == `@G_1#T${code}` ?
             <View style={styles.onImgContainer}>
               <Image source={greenModeOn} style={styles.boostOnImg} resizeMode='contain' />
             </View>
@@ -188,7 +212,7 @@ const GreenIntensity = ({ value, sendMessage, code, context }: GreenInputType) =
           onPress={handleButton}
         >
           {
-            enable ?
+            enable == `@G_1#T${code}` ?
               <Text style={styles.offBtnTxt}>
                 OFF
               </Text>

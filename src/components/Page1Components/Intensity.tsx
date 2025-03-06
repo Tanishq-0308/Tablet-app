@@ -74,16 +74,10 @@ const Intensity = ({ value, sendMessage, code }: IntensityInput) => {
       case 9:
         setIntImage(IntEight)
         setCounter(8);
-        console.log(counter+1);
         break;
-      // case NaN:
-      //   setIntImage(IntNine)
-        
-      //   break;
         default:
           setIntImage(IntNine)
           setCounter(9);
-          console.log(counter+1);
         break;
     }
   }, [value]);
