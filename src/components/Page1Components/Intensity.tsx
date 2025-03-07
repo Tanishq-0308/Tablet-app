@@ -12,6 +12,7 @@ import IntSeven from '../../../assets/7.png'
 import IntEight from '../../../assets/8.png'
 import IntNine from '../../../assets/9.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import useStore from '../../Store/stateStore'
 type ImageProps = PropsWithChildren<{
   imageUrl: ImageSourcePropType
 }>
@@ -35,6 +36,11 @@ type IntensityInput = {
 const Intensity = ({ value, sendMessage, code }: IntensityInput) => {
   const [intImage, setIntImage] = useState<ImageSourcePropType>(IntZero)
   const [counter, setCounter] = useState(0);
+  const setState = useStore((state) => state.setState);
+  const component = 'I';
+  const dome = code == 'R1' ? 'R' : 'L';
+  const key = `state${component + dome}`;
+
   useEffect(() => {
     let number = parseInt(value[3]);
 
@@ -88,42 +94,52 @@ const Intensity = ({ value, sendMessage, code }: IntensityInput) => {
       case 0:
         sendMessage(`@I01#T${code}`)
         setIntImage(IntZero)
+        setState(key,`@I01#T${code}`)
         break;
       case 1:
         sendMessage(`@I02#T${code}`)
         setIntImage(IntOne)
+        setState(key,`@I02#T${code}`)
         break;
       case 2:
         sendMessage(`@I03#T${code}`)
         setIntImage(IntTwo)
+        setState(key,`@I03#T${code}`)
         break;
       case 3:
         sendMessage(`@I04#T${code}`)
         setIntImage(IntThree)
+        setState(key,`@I04#T${code}`)
         break;
       case 4:
         sendMessage(`@I05#T${code}`)
         setIntImage(IntFour)
+        setState(key,`@I05#T${code}`)
         break;
       case 5:
         sendMessage(`@I06#T${code}`)
         setIntImage(IntFive)
+        setState(key,`@I06#T${code}`)
         break;
       case 6:
         sendMessage(`@I07#T${code}`)
         setIntImage(IntSix)
+        setState(key,`@I07#T${code}`)
         break;
       case 7:
         sendMessage(`@I08#T${code}`)
         setIntImage(IntSeven)
+        setState(key,`@I08#T${code}`)
         break;
       case 8:
         sendMessage(`@I09#T${code}`)
         setIntImage(IntEight)
+        setState(key,`@I09#T${code}`)
         break;
       case 9:
         sendMessage(`@I0:#T${code}`)
         setIntImage(IntNine)
+        setState(key,`@I0:#T${code}`)
         break;
       default:
         setIntImage(IntZero)

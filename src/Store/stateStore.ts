@@ -9,8 +9,8 @@ type StateType={
 
 const useStore= create<StateType>((set)=>({
     states:{
-        stateIL:'',
-        stateIR:'',
+        stateIL:'@I01#TL',
+        stateIR:'@I01#RL',
         stateCL:'',
         stateCR:'',
         stateEL:'',

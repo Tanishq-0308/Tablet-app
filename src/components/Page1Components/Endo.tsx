@@ -4,6 +4,7 @@ import EndoOn from '../../../assets/updatedIcons/endoOff.png'
 import EndoOff from '../../../assets/updatedIcons/endoOn.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { moderateScale } from 'react-native-size-matters';
+import useStore from '../../Store/stateStore';
 
 
 type EndoInput = {
@@ -15,6 +16,10 @@ type EndoInput = {
 
 const Endo = ({ value, sendMessage, code }: EndoInput) => {
     const [power, setPower] = useState(`@E_0#T${code}`)
+    const setState= useStore((state)=>state.setState);
+    const component = 'E';
+    const dome = code == 'R1' ? 'R' : 'L';
+    const key = `state${component + dome}`;
 
     useEffect(() => {
         if (value.length > 0) {
@@ -32,10 +37,12 @@ const Endo = ({ value, sendMessage, code }: EndoInput) => {
         if (power === `@E_0#T${code}`) {
             setPower(`@E_1#T${code}`);
             sendMessage(`@E_1#T${code}`)
+            setState(key,`@E_1#T${code}`);
         }
         else {
             setPower(`@E_0#T${code}`)
             sendMessage(`@E_0#T${code}`);
+            setState(key,`@E_0#T${code}`);
         }
     }
     return (

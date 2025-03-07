@@ -7,6 +7,7 @@ import colorA from '../../../assets/24.png';
 import colorB from '../../../assets/25.png';
 import colorC from '../../../assets/26.png';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import useStore from '../../Store/stateStore';
 
 type colorImageProps = PropsWithChildren<{
     imageUrl: ImageSourcePropType
@@ -28,6 +29,10 @@ type ColorInput = {
 const Color = ({ value, sendMessage, code }: ColorInput) => {
     const [colImage, setColImage] = useState<ImageSourcePropType>(colorB);
     const [counter, setCounter] = useState(0);
+    const setState= useStore((state)=>state.setState);
+    const component = 'C';
+    const dome = code == 'R1' ? 'R' : 'L';
+    const key = `state${component + dome}`;
 
     useEffect(() => {
         let number = (value[2]);
@@ -54,14 +59,17 @@ const Color = ({ value, sendMessage, code }: ColorInput) => {
             case 0:
                 setColImage(colorA)
                 sendMessage(`@C-5#T${code}`)
+                setState(key,`@C-5#T${code}`);
                 break;
             case 1:
                 setColImage(colorB)
                 sendMessage(`@C05#T${code}`)
+                setState(key,`@C05#T${code}`)
                 break;
             case 2:
                 setColImage(colorC)
                 sendMessage(`@C+5#T${code}`)
+                setState(key,`@C+5#T${code}`)
                 break;
             default:
                 setColImage(colorA)

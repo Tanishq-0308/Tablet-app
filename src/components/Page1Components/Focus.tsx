@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import focusOn from '../../../assets/updatedIcons/focusOff.png'
 import focusOff from '../../../assets/updatedIcons/focusOn.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import useStore from '../../Store/stateStore';
 
 type FocusInputType = {
     value: string
@@ -11,13 +12,20 @@ type FocusInputType = {
 }
 const Focus = ({ value, sendMessage, code }: FocusInputType) => {
     const [isEnabled, setIsEnabled] = useState(false);
+    const setState= useStore((state)=>state.setState);
+    const component = 'F';
+    const dome = code == 'R1' ? 'R' : 'L';
+    const key = `state${component + dome}`;
+
     const toggleSwitch = () => {
         if (isEnabled) {
             setIsEnabled(false);
             sendMessage(`@F_0#T${code}`)
+            setState(key,`@F_0#T${code}`);
         } else {
             setIsEnabled(true);
             sendMessage(`@F_1#T${code}`)
+            setState(key,`@F_1#T${code}`);
         }
     };
 

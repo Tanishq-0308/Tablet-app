@@ -4,6 +4,7 @@ import LampOn from '../../../assets/updatedIcons/lampOff.png';
 import LampOff from '../../../assets/updatedIcons/lampOn.png';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { moderateScale } from 'react-native-size-matters';
+import useStore from '../../Store/stateStore';
 
 
 type LampInput = {
@@ -16,6 +17,10 @@ type LampInput = {
 const Lamp = ({ value, sendMessage, code }: LampInput) => {
 
     const [power, setPower] = useState(`@L_1#T${code}`)
+    const setState= useStore((state)=>state.setState);
+    const component = 'F';
+    const dome = code == 'R1' ? 'R' : 'L';
+    const key = `state${component + dome}`;
 
     useEffect(() => {
         if (value.length > 0) {
@@ -33,10 +38,12 @@ const Lamp = ({ value, sendMessage, code }: LampInput) => {
         if (power === `@L_0#T${code}`) {
             setPower(`@L_1#T${code}`);
             sendMessage(`@L_1#T${code}`)
+            setState(key,`@L_1#T${code}`);
         }
         else {
             setPower(`@L_0#T${code}`)
             sendMessage(`@L_0#T${code}`);
+            setState(key,`@L_0#T${code}`);
         }
     }
     return (

@@ -4,6 +4,7 @@ import BoostOn from '../../../assets/updatedIcons/boostOff.png'
 import BoostOff from '../../../assets/updatedIcons/boostOn.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { verticalScale, scale, moderateScale } from 'react-native-size-matters';
+import useStore from '../../Store/stateStore';
 
 type BoostModeInputType = {
     value: string
@@ -14,6 +15,10 @@ type BoostModeInputType = {
 
 const BoostMode = ({ value, sendMessage, code }: BoostModeInputType) => {
     const [power, setPower] = useState(`@D_0#T${code}`);
+    const setState= useStore((state)=>state.setState);
+    const component = 'D';
+    const dome = code == 'R1' ? 'R' : 'L';
+    const key = `state${component + dome}`;
 
     useEffect(() => {
         if (value.length > 0) {
@@ -30,10 +35,12 @@ const BoostMode = ({ value, sendMessage, code }: BoostModeInputType) => {
         if (power === `@D_0#T${code}`) {
             setPower(`@D_1#T${code}`);
             sendMessage(`@D_1#T${code}`)
+            setState(key,`@D_1#T${code}`);
         }
         else {
             setPower(`@D_0#T${code}`)
             sendMessage(`@D_0#T${code}`);
+            setState(key,`@D_0#T${code}`);
         }
     }
     return (
