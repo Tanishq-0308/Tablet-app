@@ -11,9 +11,9 @@ type zoomProps={
 
 const Zoom = ({value,sendMessage}:zoomProps) => {
 
-    useEffect(()=>{
+    // useEffect(()=>{
 
-    },[value])
+    // },[value])
 
     const increase = () => {
         sendMessage('$Z_P#')

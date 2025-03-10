@@ -1,21 +1,26 @@
 import { Image, StyleSheet, Switch, Text, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Snackbar from 'react-native-snackbar'
 import cameraModeOff from '../../../assets/cameraOff.png'
 import cameraModeOn from '../../../assets/cameraOn.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import RNFS from 'react-native-fs';
+import { moderateVerticalScale } from 'react-native-size-matters'
 
 type CameraModeType = {
     context: {
         enable: boolean,
-        setEnable: (enable: boolean) => void
+        setEnable: (enable: boolean) => void,
+        sdiEnable: boolean,
+        setSdiEnable: (sdiEnable: boolean)=> void
     }
 }
 
 const CameraMode = ({ context }: CameraModeType) => {
 
-    const { enable, setEnable } = context;
+    const { enable, setEnable, sdiEnable, setSdiEnable } = context;
+    // const [sdiEnable,setSdiEnable]= useState(false);
+    const [analogEnable,setAnalogEnable]= useState(false);
 
         const saveCameraEnable=async(value:string)=>{
             try{
@@ -39,9 +44,44 @@ const CameraMode = ({ context }: CameraModeType) => {
             })
         }else{
             saveCameraEnable('off');
+            saveSdiEnable('off')
+            setAnalogEnable(false);
+            setSdiEnable(false);
         }
     }
+
+    const saveSdiEnable=async(value:string)=>{
+        try {
+            const filePath= `${RNFS.DocumentDirectoryPath}/sdiEnable.txt`;
+            await RNFS.writeFile(filePath, value, 'utf8');
+        } catch (error) {
+            
+        }
+    }
+
+    const sdiEnableFunction=()=>{
+        if(sdiEnable){
+            setSdiEnable(false);
+            saveSdiEnable('off');
+        }else{
+            setSdiEnable(true);
+            saveSdiEnable('on');
+        }
+        // setSdiEnable(prev=>!prev);
+        setAnalogEnable(false);
+    }
+
+    const sdiAnalogFunction=()=>{
+        if(analogEnable){
+            setAnalogEnable(false);
+        }else{
+            setAnalogEnable(true);
+        }
+        // setAnalogEnable(prev=>!prev);
+        setSdiEnable(false);
+    }
     return (
+        <View style={{flexDirection:'row'}}>
         <View style={styles.container2}>
             {
                 !enable ?
@@ -68,6 +108,15 @@ const CameraMode = ({ context }: CameraModeType) => {
                 />
             </View>
         </View>
+        {
+            enable && 
+        <View style={styles.container}>
+            <Text style={[styles.button, sdiEnable == true ? { backgroundColor:'green'}: {backgroundColor:'#ced6e0'}]} onPress={sdiEnableFunction}>SDI</Text>
+            <Text style={[styles.button, analogEnable == true ? { backgroundColor:'green'}: {backgroundColor:'#ced6e0'}]} onPress={sdiAnalogFunction}>Analog</Text>
+            
+        </View>
+        }
+        </View>
     )
 }
 
@@ -81,6 +130,21 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         gap: 5,
+    },
+    container:{
+        width:wp('22%'),
+        alignItems:'center',
+        justifyContent:'center',
+        gap:35
+    },
+    button:{
+        fontSize:hp('3%'),
+        width:wp('10%'),
+        textAlign:'center',
+        padding:moderateVerticalScale(10),
+        color:'#fff',
+        borderRadius:12,
+        elevation:4
     },
     heading: {
         fontWeight: 'bold',

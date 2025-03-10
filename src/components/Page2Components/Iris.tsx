@@ -62,15 +62,15 @@ const Iris = ({value,sendMessage}:irisProps) => {
             </View>
             <View style={styles.buttons}>
                 <TouchableOpacity style={styles.pressable} onPress={()=> handleMode('auto')}>
-                    <Text style={autoBtn ? styles.onbutton : styles.button}>Auto</Text>
+                    <Text style={autoBtn ? styles.onbutton : styles.button}>On</Text>
                 </TouchableOpacity>
-                <View style={manualBtn ? { flexDirection: 'column', position: 'relative', right: 48 } : styles.manualContainer}>
+                <View style={manualBtn ? { flexDirection: 'column'} : styles.manualContainer}>
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity onPress={()=> handleMode('manual')}>
-                            <Text style={manualBtn ? styles.onbutton : styles.button}>Manual</Text>
+                            <Text style={manualBtn ? styles.onbutton : styles.button}>OFF</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={manualBtn ? styles.valueContainer : styles.valueContainerOff}>
+                    {/* <View style={manualBtn ? styles.valueContainer : styles.valueContainerOff}>
                         <View>
                             <TouchableOpacity onPress={decrease}>
                                 <Text style={styles.minus}>-</Text>
@@ -92,7 +92,7 @@ const Iris = ({value,sendMessage}:irisProps) => {
                                 <Text style={styles.plus}>+</Text>
                             </TouchableOpacity>
                         </View>
-                    </View>
+                    </View> */}
                 </View>
             </View>
         </View>

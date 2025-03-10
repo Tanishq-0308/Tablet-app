@@ -11,18 +11,18 @@ type HomeProps = NativeStackScreenProps<RootParamList>;
 const Home = ({ navigation }: HomeProps) => {
   const [cameraPass, setCameraPass]= useState('');
 
-      const readCameraEnbale= async()=>{
-          try {
-              const filePath=`${RNFS.DocumentDirectoryPath}/camera.txt`;
-              const pass = await RNFS.readFile(filePath,'utf8');
-              const checkpass= pass;
-              setCameraPass(checkpass);
-          } catch (error) {
-              console.log(error);
-          }
+      const readSDIEnable=async()=>{
+        try {
+          const filePath=`${RNFS.DocumentDirectoryPath}/sdiEnable.txt`;
+          const pass =await RNFS.readFile(filePath,'utf8');
+          const checkpass= pass;
+          setCameraPass(checkpass)
+        } catch (error) {
+          
+        }
       }
 useEffect(()=>{
-  readCameraEnbale();
+  readSDIEnable();
 })
   return (
     <ScrollView

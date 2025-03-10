@@ -71,7 +71,7 @@ const CameraFocus = ({value,sendMessage}:focusProps) => {
                 <TouchableOpacity style={styles.pressable} onPress={()=> handleMode('push')}>
                     <Text style={pushBtn ? styles.onbutton : styles.button}>One Push</Text>
                 </TouchableOpacity>
-                <View style={manualBtn ? { flexDirection: 'column', position: 'relative', right: 48 } : styles.manualContainer}>
+                {/* <View style={manualBtn ? { flexDirection: 'column', position: 'relative', right: 48 } : styles.manualContainer}>
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity onPress={()=> handleMode('manual')}>
                             <Text style={manualBtn ? styles.onbutton : styles.button}>Manual</Text>
@@ -101,7 +101,7 @@ const CameraFocus = ({value,sendMessage}:focusProps) => {
                             </TouchableOpacity>
                         </View>
                     </View>
-                </View>
+                </View> */}
             </View>
         </View>
     )

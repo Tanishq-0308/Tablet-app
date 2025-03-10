@@ -15,7 +15,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 type ColorModeProps = NativeStackScreenProps<RootParamList, 'ColorMode'>
 const ColorMode = ({ navigation }: ColorModeProps) => {
-    const { greenEnabled, setGreenEnabled, redEnabled, setRedEnabled, headSensorEnabled, setHeadSensorEnabled, cameraEnabled, setCameraEnabled } = useContext(BtnEnableContext)
+    const { greenEnabled, setGreenEnabled, redEnabled, setRedEnabled, headSensorEnabled, setHeadSensorEnabled, cameraEnabled, setCameraEnabled, sdiEnable, setSdiEnable } = useContext(BtnEnableContext)
     const leftGreenEnable = {
         enable: greenEnabled,
         setEnable: setGreenEnabled
@@ -33,7 +33,9 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
 
     const leftCameraEnable = {
         enable: cameraEnabled,
-        setEnable: setCameraEnabled
+        setEnable: setCameraEnabled,
+        sdiEnable: sdiEnable,
+        setSdiEnable: setSdiEnable
     }
 
     const [enterPassword, setEnterPassword] = useState('');
