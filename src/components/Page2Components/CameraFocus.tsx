@@ -3,57 +3,63 @@ import React, { useEffect, useState } from 'react'
 import cameraFocusImg from '../../../assets/cameraIcons/cameraFocus.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
+import { cameraStore } from '../../Store/cameraStore';
 
     type focusProps={
         value:string;
         sendMessage:any;
+        context:{
+            autoBtn: boolean,
+            setAutoBtn:(autoBtn:boolean)=> void,
+            pushBtn: boolean,
+            setPushBtn: (pushBtn: boolean)=> void,
+            stablizerEnable:boolean
+            setStablizerEnable:(stablizerEnable:boolean)=>void,
+        }
     }
 
-const CameraFocus = ({value,sendMessage}:focusProps) => {
-    const [autoBtn, setAutoBtn]= useState(true);
-    const [manualBtn, setManualBtn]= useState(false);
-    const [pushBtn, setPushBtn]= useState(false);
-
+const CameraFocus = ({value,context,sendMessage}:focusProps) => {
+    const {autoBtn, pushBtn, setAutoBtn, setPushBtn, setStablizerEnable}= context;
+    const setState= cameraStore((state)=>state.setCameraState);
+    const key='stateF';
     useEffect(()=>{
-
+        if(value.length >0){
+            if(value == '$F_A#'){
+                setAutoBtn(true);
+                setPushBtn(false);
+                setStablizerEnable(false);
+            }else if(value == '$F_P#'){
+                setAutoBtn(false);
+                setPushBtn(true);
+                setStablizerEnable(false);
+            }else if(value == '$F_M#'){
+                setAutoBtn(false);
+                setPushBtn(false);
+                setStablizerEnable(true);
+            }
+        }
     },[value])
-
-    // const [width, setWidth] = useState(10);
-
-    const increase = () => {
-        sendMessage('$FMP#')
-        // if (width < 100) {
-        //     setWidth((prev) => prev + 10);
-        // }
-    };
-    const decrease = () => {
-        sendMessage('$FMM#')
-        // if (width > 10) {
-        //     setWidth((prev) => prev - 10);
-        // }
-    };
 
     
     const handleMode=(mode:string)=>{
         const commands:any={
             auto:'$F_A#',
             push:'$F_P#',
-            manual:'$F_M#'
         };
 
         const setButtonStates:any={
             auto:setAutoBtn,
             push:setPushBtn,
-            manual:setManualBtn
         }
 
         setAutoBtn(false);
         setPushBtn(false);
-        setManualBtn(false);
+        setStablizerEnable(false);
 
         if(setButtonStates[mode]){
             setButtonStates[mode](true);
             sendMessage(commands[mode])
+            setState(key, commands[mode]);
         }
     }
     return (

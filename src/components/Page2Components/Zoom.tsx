@@ -1,19 +1,15 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import zoomImg from '../../../assets/cameraIcons/zoom.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
+import { moderateScale } from 'react-native-size-matters';
 
 type zoomProps={
     value:string;
     sendMessage:any;
 }
 
-const Zoom = ({value,sendMessage}:zoomProps) => {
-
-    // useEffect(()=>{
-
-    // },[value])
+const Zoom = ({sendMessage}:zoomProps) => {
 
     const increase = () => {
         sendMessage('$Z_P#')
@@ -82,7 +78,7 @@ const styles = StyleSheet.create({
 
     length: {
         flexDirection: 'row',
-        width: wp('32%'),
+        width: wp('25%'),
         height: hp(2.2),
         borderRadius: 10,
         borderColor: '#747d8c',
@@ -99,7 +95,7 @@ const styles = StyleSheet.create({
         height: hp('15%')
     },
     minus: {
-        fontSize: hp('8%'),
+        fontSize: hp('10%'),
         paddingBottom:moderateScale(6)
     },
     plus: {

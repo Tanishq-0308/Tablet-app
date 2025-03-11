@@ -3,61 +3,71 @@ import React, { useEffect, useState } from 'react'
 import whiteBalanceImg from '../../../assets/cameraIcons/whiteBalance.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
+import { cameraStore } from '../../Store/cameraStore';
 
 type balanceProps={
     value:string;
     sendMessage:any;
+    context:{
+        autoBtn:boolean,
+        indoorBtn:boolean,
+        outdoorBtn:boolean,
+        manualBtn:boolean,
+        setAutoBtn:(autoBtn:boolean)=>void,
+        setIndoorBtn:(indoorBtn:boolean)=>void,
+        setOutdoorBtn:(outdoorBtn:boolean)=>void,
+        setManualBtn: (manualBtn: boolean)=>void
+    }
 }
 
-const WhiteBalance = ({value,sendMessage}:balanceProps) => {
-    const [autoBtn,setAutoBtn]= useState(true);
-    const [indoorBtn,setIndoorBtn]= useState(false);
-    const [outdoorBtn,setOutdoorBtn]= useState(false);
-    const [manualBtn, setManualBtn] = useState(false);
-
+const WhiteBalance = ({value,sendMessage, context}:balanceProps) => {
+    const {autoBtn,setAutoBtn, indoorBtn, outdoorBtn, manualBtn, setIndoorBtn, setOutdoorBtn, setManualBtn}=context;
+    const setState= cameraStore((state)=>state.setCameraState);
+    const key='stateW';
     useEffect(()=>{
-        
+        if(value.length >0){
+            if(value == '$WA1#'){
+                setAutoBtn(true);
+                setIndoorBtn(false);
+                setOutdoorBtn(false);
+                setManualBtn(false);
+            }else if( value == '$WI1#'){
+                setAutoBtn(false);
+                setIndoorBtn(true);
+                setOutdoorBtn(false);
+                setManualBtn(false);
+            }else if(value == '$WO1#'){     
+                setAutoBtn(false);
+                setIndoorBtn(false);
+                setOutdoorBtn(true);
+                setManualBtn(false);
+            }else if(value == '$WM1#'){
+                setAutoBtn(false);
+                setIndoorBtn(false);
+                setOutdoorBtn(false);
+                setManualBtn(true);
+            }
+        }
     },[value])
 
-    // const [redGain, setRedGain] = useState(10);
-    // const [blueGain, setBlueGain] = useState(10);
-    // const [chroma, setChroma] = useState(10);
 
     const redGainIncrease = () => {
         sendMessage('$WRP#')
-        // if (redGain < 100) {
-        //     setRedGain((prev) => prev + 10);
-        // }
     };
     const redGainDecrease = () => {
         sendMessage('$WRM#')
-        // if (redGain > 10) {
-        //     setRedGain((prev) => prev - 10);
-        // }
     };
     const blueGainIncrease = () => {
         sendMessage('$WBP#')
-        // if (blueGain < 100) {
-        //     setBlueGain((prev) => prev + 10);
-        // }
     };
     const blueGainDecrease = () => {
         sendMessage('$WBM#')
-        // if (blueGain > 10) {
-        //     setBlueGain((prev) => prev - 10);
-        // }
     };
     const chromaIncrease = () => {
         sendMessage('$WCP#')
-        // if (chroma < 100) {
-        //     setChroma((prev) => prev + 10);
-        // }
     };
     const chromaDecrease = () => {
         sendMessage('$WCM#')
-        // if (chroma > 10) {
-        //     setChroma((prev) => prev - 10);
-        // }
     };
 
     const handleModeChange = (mode:string) => {
@@ -85,6 +95,7 @@ const WhiteBalance = ({value,sendMessage}:balanceProps) => {
         if (setButtonStates[mode]) {
             setButtonStates[mode](true);
             sendMessage(commands[mode]);
+            setState(key,commands[mode])
         }
     }
 

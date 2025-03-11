@@ -3,14 +3,21 @@ import React, { useEffect, useState } from 'react'
 import freezeImage from '../../../assets/cameraIcons/imageFreeze.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
+import { cameraStore } from '../../Store/cameraStore';
 
 type freezeProps={
     value:string;
     sendMessage:any;
+    context:{
+        freeze: boolean,
+        setFreeze: (freeze: boolean)=> void;
+    }
 }
 
-const ImageFreeze = ({value,sendMessage}:freezeProps) => {
-
+const ImageFreeze = ({value,sendMessage, context}:freezeProps) => {
+    const {freeze, setFreeze}= context;
+    const setState= cameraStore((state)=>state.setCameraState);
+    const key= 'stateH';
     useEffect(()=>{
         if(value == '$H_0#'){
             setFreeze(false);
@@ -18,14 +25,16 @@ const ImageFreeze = ({value,sendMessage}:freezeProps) => {
             setFreeze(true);
         }
     },[value])
-    const [freeze, setFreeze] = useState(false);
     const switching=()=>{
-        setFreeze(prev=>!prev);
         if(freeze == true){
+            setFreeze(false);
             sendMessage('$H_0#');
+            setState(key,'$H_0#')
         }
         else {
+            setFreeze(true);
             sendMessage('$H_1#');
+            setState(key,'$H_1#')
         }
     }
     return (

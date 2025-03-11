@@ -10,7 +10,7 @@ type StateType={
 export const cameraStore= create<StateType>((set)=>({
     cameraStates:{
         stateW:'$WA1#',
-        stateI:'$IA1#',
+        stateI:'$IB0#',
         stateZ:'',
         stateF:'$F_A#',
         stateS:'',

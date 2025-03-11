@@ -14,6 +14,7 @@ import RightColorMode from './screen/RightColorMode'
 import { PermissionsAndroid, Platform } from 'react-native'
 import WifiManager from 'react-native-wifi-reborn';
 import Controller from './components/Controller/Controller'
+import { CameraContextProvider } from './Context/CameraContext'
 
 export type RootParamList = {
   Home: undefined;
@@ -64,6 +65,7 @@ const App = () => {
   },[]);
   return (
     <WebSocketContextProvider>
+      <CameraContextProvider>
       <RightBtnEnableProvider>
     <BtnEnableProvider>
     <NavigationContainer>
@@ -122,6 +124,7 @@ const App = () => {
     </NavigationContainer>
     </BtnEnableProvider>
     </RightBtnEnableProvider>
+    </CameraContextProvider>
     </WebSocketContextProvider>
   )
 }

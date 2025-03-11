@@ -1,43 +1,55 @@
-import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import stabilizerImage from '../../../assets/cameraIcons/imageStablizer.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { moderateScale } from 'react-native-size-matters';
+import { cameraStore } from '../../Store/cameraStore';
 
-type stabilizerProps={
-    value:string;
-    sendMessage:any;
+type stabilizerProps = {
+    value: string;
+    sendMessage: any;
+    context: {
+        stablizerEnable: boolean,
+        setStablizerEnable: (stablizerEnable: boolean) => void;
+        fAutoEnable: boolean,
+        setFAutoEnbale: (fAutoEnable: boolean) => void,
+        fOnePushEnable: boolean,
+        setFOnePushEnbale: (fOnePushEnable: boolean) => void,
+    }
 }
-const ImageStablizer = ({value,sendMessage}:stabilizerProps) => {
+const ImageStablizer = ({ value, context, sendMessage }: stabilizerProps) => {
+    const { stablizerEnable, setStablizerEnable, fAutoEnable, setFAutoEnbale, fOnePushEnable, setFOnePushEnbale } = context;
+    const setState = cameraStore((state) => state.setCameraState);
+    const key = 'stateF'
 
-    useEffect(()=>{
-
-    },[value])
-    // const [width, setWidth] = useState(10);
-    const [manualBtn, setManualBtn] = useState(false);
+    useEffect(() => {
+    }, [value])
 
     const increase = () => {
-        // if (width < 100) {
-        //     setWidth((prev) => prev + 10);
-        // }
-        sendMessage('$S_P#');
+        sendMessage('$FMP#');
     };
     const decrease = () => {
-        // if (width > 10) {
-        //     setWidth((prev) => prev - 10);
-        // }
-        sendMessage('$S_N#');
+        sendMessage('$FMM#');
     };
+    const handleBtn = () => {
+        if (!stablizerEnable) {
+            setStablizerEnable(true);
+            setFAutoEnbale(false);
+            setFOnePushEnbale(false);
+            sendMessage('$F_M#');
+            setState(key, '$F_M#');
+        }
+    }
     return (
         <View style={styles.mainContainer}>
             <View style={{ alignItems: 'center', gap: 10, }}>
                 <View style={styles.container}>
-                    <Image source={stabilizerImage} style={styles.Image} resizeMode='contain'/>
+                    <Image source={stabilizerImage} style={styles.Image} resizeMode='contain' />
                 </View>
-                <TouchableOpacity onPress={() => setManualBtn(!manualBtn)}>
-                    <Text style={styles.heading}>Image Stabilizer</Text>
+                <TouchableOpacity onPress={handleBtn}>
+                    <Text style={stablizerEnable ? styles.onheading: styles.heading}>Image Stabilizer</Text>
                 </TouchableOpacity>
-                <View style={manualBtn ? styles.valueContainer : styles.valueContainerOff}>
+                <View style={stablizerEnable ? styles.valueContainer : styles.valueContainerOff}>
                     <View>
                         <TouchableOpacity onPress={decrease}>
                             <Text style={styles.minus}>-</Text>
@@ -91,6 +103,17 @@ const styles = StyleSheet.create({
         elevation: 2,
         borderColor: '#747d8c'
     },
+    onheading: {
+        fontSize: hp('2.6%'),
+        fontWeight: 'bold',
+        borderWidth: 2,
+        backgroundColor: '#8c8c8c',
+        paddingHorizontal: moderateScale(7),
+        borderRadius: 12,
+        elevation: 2,
+        borderColor: '#000',
+        color: '#fff'
+    },
     length: {
         flexDirection: 'row',
         flexGrow: 1,
@@ -116,12 +139,12 @@ const styles = StyleSheet.create({
     manualContainer: {
 
     },
-    minus: { 
+    minus: {
         fontSize: hp('7%'),
-        paddingBottom:moderateScale(5)
+        paddingBottom: moderateScale(5)
     },
     plus: {
         fontSize: hp('5%'),
-        paddingBottom:moderateScale(5)
+        paddingBottom: moderateScale(5)
     }
 })

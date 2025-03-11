@@ -3,52 +3,41 @@ import React, { useEffect, useState } from 'react'
 import IrisImage from '../../../assets/cameraIcons/iris.png'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
+import { cameraStore } from '../../Store/cameraStore';
 
 type irisProps={
     value:string;
     sendMessage:any;
+    context:{
+        irisEnable:boolean,
+        setIrisEnable:(irisEnable:boolean)=>void
+    }
 }
 
-const Iris = ({value,sendMessage}:irisProps) => {
-
-    const [autoBtn, setAutoBtn]= useState(true);
-    const [manualBtn, setManualBtn]= useState(false);
-
+const Iris = ({value,context,sendMessage}:irisProps) => {
+    const {irisEnable, setIrisEnable}= context
+    const setState= cameraStore((state)=>state.setCameraState);
+    const key='stateI';
     useEffect(()=>{
-
-    },[value])
-    // const [width, setWidth] = useState(10);
-
-    const increase = () => {
-        sendMessage('$IMP#')
-        // if (width < 100) {
-        //     setWidth((prev) => prev + 10);
-        // }
-    };
-    const decrease = () => {
-        sendMessage('$IMM#')
-        // if (width > 10) {
-        //     setWidth((prev) => prev - 10);
-        // }
-    };
-
-    const handleMode=(mode:string)=>{
-        const commands:any={
-            auto:'$A1#',
-            manual:'$M1#'
-        };
-
-        const setButtonStates:any={
-            auto:setAutoBtn,
-            manual:setManualBtn
+        if(value.length >0){
+            if(value == '$IB0#'){
+                setIrisEnable(false);
+            }else if(value == '$IB1#'){
+                setIrisEnable(true);
+            }
         }
+    },[value])
 
-        setAutoBtn(false);
-        setManualBtn(false);
 
-        if(setButtonStates[mode]){
-            setButtonStates[mode](true);
-            sendMessage(commands[mode])
+    const handleIris=()=>{
+        if(irisEnable){
+            setIrisEnable(false);
+            sendMessage('$IB0#')
+            setState(key,'$IB0#');
+        }else{
+            setIrisEnable(true);
+            sendMessage('$IB1#')
+            setState(key,'$IB1#');
         }
     }
 
@@ -61,16 +50,21 @@ const Iris = ({value,sendMessage}:irisProps) => {
                 <Text style={styles.heading}>Iris</Text>
             </View>
             <View style={styles.buttons}>
-                <TouchableOpacity style={styles.pressable} onPress={()=> handleMode('auto')}>
-                    <Text style={autoBtn ? styles.onbutton : styles.button}>On</Text>
+                <TouchableOpacity style={styles.pressable} >
+                    {
+                        irisEnable ?
+                        <Text style={styles.onbutton}onPress={handleIris}>On</Text>
+                        :
+                    <Text style={styles.button} onPress={handleIris}>Off</Text>
+                    }
                 </TouchableOpacity>
-                <View style={manualBtn ? { flexDirection: 'column'} : styles.manualContainer}>
+                {/* <View style={manualBtn ? { flexDirection: 'column'} : styles.manualContainer}>
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity onPress={()=> handleMode('manual')}>
+                        <TouchableOpacity >
                             <Text style={manualBtn ? styles.onbutton : styles.button}>OFF</Text>
                         </TouchableOpacity>
                     </View>
-                    {/* <View style={manualBtn ? styles.valueContainer : styles.valueContainerOff}>
+                    <View style={manualBtn ? styles.valueContainer : styles.valueContainerOff}>
                         <View>
                             <TouchableOpacity onPress={decrease}>
                                 <Text style={styles.minus}>-</Text>
@@ -92,8 +86,8 @@ const Iris = ({value,sendMessage}:irisProps) => {
                                 <Text style={styles.plus}>+</Text>
                             </TouchableOpacity>
                         </View>
-                    </View> */}
-                </View>
+                    </View>
+                </View> */}
             </View>
         </View>
     )
@@ -191,6 +185,8 @@ const styles = StyleSheet.create({
         paddingBottom:moderateScale(5)
     },
     pressable:{
-        height:hp('5%')
+        height:hp('5%'),
+        flexDirection:'row',
+        gap:15
     }
 })
