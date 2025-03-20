@@ -52,7 +52,7 @@ export const WebSocketContextProvider: FC<{ children: React.ReactNode }> = ({ ch
             // Send a ping message every 30 seconds to keep the connection alive
             pingIntervalRef.current = setInterval(() => {
                 if (ws.readyState === WebSocket.OPEN) {
-                    ws.send('ping');
+                    ws.send('TAB');
                 }
             }, 30000);
             // const pingInterval = setInterval(() => {
