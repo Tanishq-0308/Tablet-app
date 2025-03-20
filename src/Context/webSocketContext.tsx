@@ -41,6 +41,7 @@ export const WebSocketContextProvider: FC<{ children: React.ReactNode }> = ({ ch
         ws.onopen = () => {
             console.log('WebSocket connection opened');
             setIsConnected(true);
+            ws.send('TAB');
             reconnectAttemptRef.current = 0;
             Snackbar.show({
                 text: 'Connected', 
