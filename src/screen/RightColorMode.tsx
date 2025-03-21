@@ -17,7 +17,20 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 type RightColorModeProps = NativeStackScreenProps<RootParamList, 'RightColorMode'>
 const RightColorMode = ({ navigation }: RightColorModeProps) => {
-    const { cameraEnabled, setCameraEnabled, greenEnabled, setGreenEnabled, redEnabled, setRedEnabled, headSensorEnabled, setHeadSensorEnabled } = useContext(RightBtnEnableContext)
+    const { 
+        cameraEnabled, 
+        setCameraEnabled, 
+        greenEnabled, 
+        setGreenEnabled, 
+        redEnabled, 
+        setRedEnabled, 
+        headSensorEnabled, 
+        setHeadSensorEnabled, 
+        sdiEnable, 
+        setSdiEnable, 
+        analogEnable, 
+        setAnalogEnable 
+    } = useContext(RightBtnEnableContext)
     const rightGreenEnable = {
         enable: greenEnabled,
         setEnable: setGreenEnabled
@@ -35,7 +48,11 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
 
     const rightCameraEnable = {
         enable: cameraEnabled,
-        setEnable: setCameraEnabled
+        setEnable: setCameraEnabled,
+        sdiEnable: sdiEnable,
+        setSdiEnable: setSdiEnable,
+        analogEnable,
+        setAnalogEnable
     }
 
     const [enterPassword, setEnterPassword] = useState('');
@@ -51,6 +68,8 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
         readCameraEnable();
         readRedEnable();
         readSensorEnable();
+        readSdiEnable();
+        readAnalogEnable();
     }, []);
 
     const savePasswordToFile = async (password: string) => {
@@ -153,6 +172,36 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
             console.log(error);
         }
     }
+
+        const readSdiEnable = async () => {
+            try {
+                const filePath= `${RNFS.DocumentDirectoryPath}/sdiEnable.txt`;
+                const pass = await RNFS.readFile(filePath, 'utf8');
+                const checkpass= pass;
+                if(checkpass == 'on') {
+                    rightCameraEnable.setSdiEnable(true);
+                } else if(checkpass == 'off'){
+                    rightCameraEnable.setSdiEnable(false);
+                }
+            } catch (error) {
+                
+            }
+        }
+    
+        const readAnalogEnable = async () => {
+            try {
+                const filePath= `${RNFS.DocumentDirectoryPath}/analogEnable.txt`;
+                const pass = await RNFS.readFile(filePath, 'utf8');
+                const checkpass= pass;
+                if(checkpass == 'on') {
+                    rightCameraEnable.setAnalogEnable(true);
+                } else if(checkpass == 'off'){
+                    rightCameraEnable.setAnalogEnable(false);
+                }
+            } catch (error) {
+                
+            }
+        }
     return (
         <View style={styles.mainContainer}>
             <Modal

@@ -15,7 +15,20 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 type ColorModeProps = NativeStackScreenProps<RootParamList, 'ColorMode'>
 const ColorMode = ({ navigation }: ColorModeProps) => {
-    const { greenEnabled, setGreenEnabled, redEnabled, setRedEnabled, headSensorEnabled, setHeadSensorEnabled, cameraEnabled, setCameraEnabled, sdiEnable, setSdiEnable } = useContext(BtnEnableContext)
+    const { 
+        greenEnabled, 
+        setGreenEnabled, 
+        redEnabled, 
+        setRedEnabled, 
+        headSensorEnabled, 
+        setHeadSensorEnabled, 
+        cameraEnabled, 
+        setCameraEnabled, 
+        sdiEnable, 
+        setSdiEnable, 
+        analogEnable, 
+        setAnalogEnable 
+    } = useContext(BtnEnableContext)
     const leftGreenEnable = {
         enable: greenEnabled,
         setEnable: setGreenEnabled
@@ -35,16 +48,18 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
         enable: cameraEnabled,
         setEnable: setCameraEnabled,
         sdiEnable: sdiEnable,
-        setSdiEnable: setSdiEnable
+        setSdiEnable: setSdiEnable,
+        analogEnable,
+        setAnalogEnable
     }
 
     const [enterPassword, setEnterPassword] = useState('');
-    const [enterCode, setEnterCode]= useState('');
+    const [enterCode, setEnterCode] = useState('');
     const [createPassword, setCreatePassword] = useState('');
     const [storePassword, setStorePassword] = useState('');
     const [firstModal, setFirstModal] = useState(false);
     const [isModalVisible, setModalVisible] = useState(false);
-    const [newModal, setNewModal]= useState(false);
+    const [newModal, setNewModal] = useState(false);
 
     useEffect(() => {
         setFirstModal(true);
@@ -53,13 +68,15 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
         readCameraEnable();
         readRedEnable();
         readSensorEnable();
+        readSdiEnable();
+        readAnalogEnable();
     }, []);
 
-    const handleCheckCode =()=>{
-        if(enterCode == 'Cognate'){
+    const handleCheckCode = () => {
+        if (enterCode == 'Cognate') {
             setNewModal(false);
             setModalVisible(true);
-        }else{
+        } else {
             Alert.alert('Wrong Code');
         }
     }
@@ -102,66 +119,96 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
         setModalVisible(false);
     }
 
-        const readGreenEnable=async()=>{
-              try {
-                  const filePath= `${RNFS.DocumentDirectoryPath}/green.txt`;
-                  const pass= await RNFS.readFile(filePath, 'utf8');
-                  const checkpass= pass;
-                  if(checkpass == 'on'){
-                      leftGreenEnable.setEnable(true);
-                  } else if (checkpass == 'off'){
-                      leftGreenEnable.setEnable(false);
-                  }
-              } catch (error) {
-                  console.log(error);
-              }
-          }
+    const readGreenEnable = async () => {
+        try {
+            const filePath = `${RNFS.DocumentDirectoryPath}/green.txt`;
+            const pass = await RNFS.readFile(filePath, 'utf8');
+            const checkpass = pass;
+            if (checkpass == 'on') {
+                leftGreenEnable.setEnable(true);
+            } else if (checkpass == 'off') {
+                leftGreenEnable.setEnable(false);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
-          
-                  const readRedEnable=async()=>{
-                      try {
-                          const filePath= `${RNFS.DocumentDirectoryPath}/red.txt`;
-                          const pass= await RNFS.readFile(filePath, 'utf8');
-                          const checkpass= pass;
-                          if(checkpass == 'on'){
-                              leftRedEnable.setEnable(true);
-                          } else if (checkpass == 'off'){
-                              leftRedEnable.setEnable(false);
-                          }
-                      } catch (error) {
-                          console.log(error);
-                      }
-                  }
-          
-                  const readCameraEnable=async()=>{
-                      try {
-                          const filePath= `${RNFS.DocumentDirectoryPath}/camera.txt`;
-                          const pass= await RNFS.readFile(filePath, 'utf8');
-                          const checkpass= pass;
-                          if(checkpass == 'on'){
-                              leftCameraEnable.setEnable(true);
-                          } else if (checkpass == 'off'){
-                              leftCameraEnable.setEnable(false);
-                          }
-                      } catch (error) {
-                          console.log(error);
-                      }
-                  }
-          
-                  const readSensorEnable=async()=>{
-                      try {
-                          const filePath= `${RNFS.DocumentDirectoryPath}/sensor.txt`;
-                          const pass= await RNFS.readFile(filePath, 'utf8');
-                          const checkpass= pass;
-                          if(checkpass == 'on'){
-                              leftHeadEnable.setEnable(true);
-                          } else if (checkpass == 'off'){
-                              leftHeadEnable.setEnable(false);
-                          }
-                      } catch (error) {
-                          console.log(error);
-                      }
-                  }
+
+    const readRedEnable = async () => {
+        try {
+            const filePath = `${RNFS.DocumentDirectoryPath}/red.txt`;
+            const pass = await RNFS.readFile(filePath, 'utf8');
+            const checkpass = pass;
+            if (checkpass == 'on') {
+                leftRedEnable.setEnable(true);
+            } else if (checkpass == 'off') {
+                leftRedEnable.setEnable(false);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const readCameraEnable = async () => {
+        try {
+            const filePath = `${RNFS.DocumentDirectoryPath}/camera.txt`;
+            const pass = await RNFS.readFile(filePath, 'utf8');
+            const checkpass = pass;
+            if (checkpass == 'on') {
+                leftCameraEnable.setEnable(true);
+            } else if (checkpass == 'off') {
+                leftCameraEnable.setEnable(false);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const readSensorEnable = async () => {
+        try {
+            const filePath = `${RNFS.DocumentDirectoryPath}/sensor.txt`;
+            const pass = await RNFS.readFile(filePath, 'utf8');
+            const checkpass = pass;
+            if (checkpass == 'on') {
+                leftHeadEnable.setEnable(true);
+            } else if (checkpass == 'off') {
+                leftHeadEnable.setEnable(false);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const readSdiEnable = async () => {
+        try {
+            const filePath= `${RNFS.DocumentDirectoryPath}/sdiEnable.txt`;
+            const pass = await RNFS.readFile(filePath, 'utf8');
+            const checkpass= pass;
+            if(checkpass == 'on') {
+                leftCameraEnable.setSdiEnable(true);
+            } else if(checkpass == 'off'){
+                leftCameraEnable.setSdiEnable(false);
+            }
+        } catch (error) {
+            
+        }
+    }
+
+    const readAnalogEnable = async () => {
+        try {
+            const filePath= `${RNFS.DocumentDirectoryPath}/analogEnable.txt`;
+            const pass = await RNFS.readFile(filePath, 'utf8');
+            const checkpass= pass;
+            if(checkpass == 'on') {
+                leftCameraEnable.setAnalogEnable(true);
+            } else if(checkpass == 'off'){
+                leftCameraEnable.setAnalogEnable(false);
+            }
+        } catch (error) {
+            
+        }
+    }
     return (
         <View style={styles.mainContainer}>
             <Modal
@@ -172,7 +219,7 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
             >
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.9)' }}>
                     <View style={{ width: 350, padding: 20, backgroundColor: 'black', borderRadius: 10, flexDirection: 'column', gap: 10 }}>
-                        <Icon name='lock' color='#fff' style={{fontSize:hp('5.6%'), textAlign:'center'}} />
+                        <Icon name='lock' color='#fff' style={{ fontSize: hp('5.6%'), textAlign: 'center' }} />
                         {/* <Text style={{ marginBottom: 10, color: 'white', fontSize: hp('2.2%') }}>Enter to Login</Text> */}
                         <TextInput
                             secureTextEntry
@@ -241,7 +288,7 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
             <View style={styles.container2}>
                 <View style={styles.blockOne}>
                     <View style={styles.box}>
-                        <GreenMode context={leftGreenEnable}/>
+                        <GreenMode context={leftGreenEnable} />
                     </View>
                     <View style={styles.box}>
                         <RedMode context={leftRedEnable} />

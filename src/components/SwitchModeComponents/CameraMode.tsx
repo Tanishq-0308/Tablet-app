@@ -13,14 +13,16 @@ type CameraModeType = {
         setEnable: (enable: boolean) => void,
         sdiEnable: boolean,
         setSdiEnable: (sdiEnable: boolean)=> void
+        analogEnable: boolean,
+        setAnalogEnable: (analogEnable: boolean)=> void;
     }
 }
 
 const CameraMode = ({ context }: CameraModeType) => {
 
-    const { enable, setEnable, sdiEnable, setSdiEnable } = context;
+    const { enable, setEnable, sdiEnable, setSdiEnable, analogEnable, setAnalogEnable } = context;
     // const [sdiEnable,setSdiEnable]= useState(false);
-    const [analogEnable,setAnalogEnable]= useState(false);
+    // const [analogEnable,setAnalogEnable]= useState(false);
 
         const saveCameraEnable=async(value:string)=>{
             try{
@@ -36,6 +38,8 @@ const CameraMode = ({ context }: CameraModeType) => {
 
         if (!enable) {
             saveCameraEnable('on');
+            saveSdiEnable('on')
+            setSdiEnable(true);
             Snackbar.show({
                 text: 'CameraMode is Enabled!',
                 duration: Snackbar.LENGTH_LONG,
@@ -45,6 +49,7 @@ const CameraMode = ({ context }: CameraModeType) => {
         }else{
             saveCameraEnable('off');
             saveSdiEnable('off')
+            saveAnalogEnable('off')
             setAnalogEnable(false);
             setSdiEnable(false);
         }
@@ -53,6 +58,15 @@ const CameraMode = ({ context }: CameraModeType) => {
     const saveSdiEnable=async(value:string)=>{
         try {
             const filePath= `${RNFS.DocumentDirectoryPath}/sdiEnable.txt`;
+            await RNFS.writeFile(filePath, value, 'utf8');
+        } catch (error) {
+            
+        }
+    }
+
+    const saveAnalogEnable= async (value: string)=>{
+        try {
+            const filePath= `${RNFS.DocumentDirectoryPath}/analogEnable.txt`;
             await RNFS.writeFile(filePath, value, 'utf8');
         } catch (error) {
             
@@ -68,16 +82,20 @@ const CameraMode = ({ context }: CameraModeType) => {
             saveSdiEnable('on');
         }
         // setSdiEnable(prev=>!prev);
+        saveAnalogEnable('off')
         setAnalogEnable(false);
     }
 
     const sdiAnalogFunction=()=>{
         if(analogEnable){
             setAnalogEnable(false);
+            saveAnalogEnable('off');
         }else{
             setAnalogEnable(true);
+            saveAnalogEnable('on');
         }
         // setAnalogEnable(prev=>!prev);
+        saveSdiEnable('off');
         setSdiEnable(false);
     }
     return (

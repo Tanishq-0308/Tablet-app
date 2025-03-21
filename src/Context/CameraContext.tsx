@@ -19,6 +19,8 @@ type CameraType={
     setFreezeEnable:(freezeEnable: boolean)=> void;
     stablizerEnable:boolean;
     setStablizerEnable:(stablizerEnable: boolean)=> void;
+    powerEnable:boolean;
+    setPowerEnable:(powerEnbale: boolean)=> void;
 }
 
 export const CameraContext= createContext<CameraType>({
@@ -39,7 +41,9 @@ export const CameraContext= createContext<CameraType>({
     freezeEnable:false,
     setFreezeEnable:()=>{},
     stablizerEnable: false,
-    setStablizerEnable:()=>{}
+    setStablizerEnable:()=>{},
+    powerEnable: false,
+    setPowerEnable: ()=>{}
 })
 
 export const CameraContextProvider:FC<PropsWithChildren>=({children})=>{
@@ -52,6 +56,7 @@ export const CameraContextProvider:FC<PropsWithChildren>=({children})=>{
     const [fOnePushEnable, setFOnePushEnbale]= useState(false);
     const [freezeEnable, setFreezeEnable]= useState(false);
     const [stablizerEnable, setStablizerEnable]= useState(false);
+    const [powerEnable, setPowerEnable]= useState(false);
 
     const defaultValue={
         wAutoEnable,
@@ -71,7 +76,9 @@ export const CameraContextProvider:FC<PropsWithChildren>=({children})=>{
         freezeEnable,
         setFreezeEnable,
         stablizerEnable,
-        setStablizerEnable
+        setStablizerEnable,
+        powerEnable,
+        setPowerEnable
     }
     return(
         <CameraContext.Provider value={defaultValue}>

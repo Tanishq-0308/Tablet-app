@@ -1,61 +1,55 @@
-import { Image, StyleSheet, TouchableOpacity, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import freezeImage from '../../../assets/cameraIcons/imageFreeze.png'
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import powerImage from '../../../assets/cameraIcons/power-button.png'
+import React from 'react'
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
-import { cameraStore } from '../../Store/cameraStore';
 
-type freezeProps={
-    value:string;
-    sendMessage:any;
+
+type PowerProps={
     context:{
-        freeze: boolean,
-        setFreeze: (freeze: boolean)=> void;
+        powerEnable: boolean,
+        setPowerEnable: (powenEnable:boolean)=> void,
     };
+    sendMessage:any;
     loading:any;
 }
 
-const ImageFreeze = ({value,sendMessage, context, loading}:freezeProps) => {
-    const {freeze, setFreeze}= context;
-    const setState= cameraStore((state)=>state.setCameraState);
-    const key= 'stateH';
-    useEffect(()=>{
-        if(value == '$H_0#'){
-            setFreeze(false);
-        }else if(value == '$H_1#'){
-            setFreeze(true);
-        }
-    },[value])
-    const switching=()=>{
-        loading(7);
-        if(freeze == true){
-            setFreeze(false);
-            sendMessage('$H_0#');
-            setState(key,'$H_0#')
-        }
-        else {
-            setFreeze(true);
-            sendMessage('$H_1#');
-            setState(key,'$H_1#')
+const PowerButton = ({context,sendMessage,loading}: PowerProps) => {
+    const {powerEnable, setPowerEnable}= context;
+    const handlePower =() =>{
+        if(powerEnable){
+            loading(5);
+            setPowerEnable(false);
+            sendMessage('$PW1#')
+            console.log('$PW1#');
+        }else{
+            setPowerEnable(true);
+            sendMessage('$PW0#')
+            console.log('$PW0#');
         }
     }
-    return (
+  return (
         <View style={styles.mainContainer}>
             <View style={{ alignItems: 'center', gap: 10, }}>
-                <View>
+                <View >
                 <View style={styles.container}>
-                    <Image source={freezeImage} style={styles.Image} resizeMode='contain'/>
+                    <Image source={powerImage} style={styles.Image} resizeMode='contain'/>
                 </View>
                 </View>
-                <TouchableOpacity onPress={switching}>
-                <Text style={freeze ? styles.onheading : styles.heading}>Image Freeze</Text>
+                <TouchableOpacity>
+                    {
+                        powerEnable ?
+                <Text style={styles.onheading} onPress={handlePower}>On</Text>
+                :
+                <Text style={styles.heading} onPress={handlePower}>Off</Text>
+                    }
                 </TouchableOpacity>
             </View>
         </View>
-    )
+  )
 }
 
-export default ImageFreeze
+export default PowerButton
 
 const styles = StyleSheet.create({
     mainContainer: {

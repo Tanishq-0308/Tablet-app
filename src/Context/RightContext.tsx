@@ -21,6 +21,10 @@ type RightBtnEnableType = {
     setRedEnabledValue: (redEnabled:string) => void;
     cameraEnabledValue: boolean;
     setCameraEnabledValue: (cameraEnabledValue: boolean) => void;
+    sdiEnable:boolean;
+    setSdiEnable:(sdiEnable:boolean)=>void;
+    analogEnable:boolean;
+    setAnalogEnable:(analogEnable:boolean)=>void;
 }
 
 export const RightBtnEnableContext = createContext<RightBtnEnableType>({
@@ -43,7 +47,11 @@ export const RightBtnEnableContext = createContext<RightBtnEnableType>({
     redEnabledValue: '@R_0#TL1',
     setRedEnabledValue: () => { },
     cameraEnabledValue: false,
-    setCameraEnabledValue: () => {}
+    setCameraEnabledValue: () => {},
+    sdiEnable:false,
+    setSdiEnable:()=>{},
+    analogEnable:false,
+    setAnalogEnable:()=>{},
 })
 
 export const RightBtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -57,6 +65,8 @@ export const RightBtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
     const [greenEnabledValue,setGreenEnabledValue]= useState('@G_0#TR1')
     const [redEnabledValue,setRedEnabledValue] = useState('@R_0#TR1')
     const [cameraEnabledValue, setCameraEnabledValue]= useState(false);
+    const [sdiEnable, setSdiEnable]= useState(false);
+    const [analogEnable, setAnalogEnable]= useState(false);
 
     const defaultValue = {
         greenEnabled,
@@ -78,7 +88,11 @@ export const RightBtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
         cameraEnabled,
         setCameraEnabled,
         cameraEnabledValue,
-        setCameraEnabledValue
+        setCameraEnabledValue,
+        sdiEnable,
+        setSdiEnable,
+        analogEnable,
+        setAnalogEnable
     }
     return (
         <RightBtnEnableContext.Provider value={defaultValue}>

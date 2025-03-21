@@ -23,6 +23,8 @@ type BtnEnableType = {
     setCameraEnabledValue: (cameraEnabledValue: boolean) => void;
     sdiEnable:boolean;
     setSdiEnable:(sdiEnable:boolean)=>void;
+    analogEnable:boolean;
+    setAnalogEnable:(analogEnable:boolean)=>void;
 }
 
 export const BtnEnableContext = createContext<BtnEnableType>({
@@ -47,7 +49,9 @@ export const BtnEnableContext = createContext<BtnEnableType>({
     cameraEnabledValue: false,
     setCameraEnabledValue: () => {},
     sdiEnable:false,
-    setSdiEnable:()=>{}
+    setSdiEnable:()=>{},
+    analogEnable:false,
+    setAnalogEnable:()=>{},
 })
 
 export const BtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -62,6 +66,7 @@ export const BtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
     const [redEnabledValue,setRedEnabledValue] = useState('@R_0#TL1')
     const [cameraEnabledValue, setCameraEnabledValue]= useState(false);
     const [sdiEnable, setSdiEnable]= useState(false);
+    const [analogEnable, setAnalogEnable]= useState(false);
 
     const defaultValue = {
         greenEnabled,
@@ -85,7 +90,9 @@ export const BtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
         cameraEnabledValue,
         setCameraEnabledValue,
         sdiEnable,
-        setSdiEnable
+        setSdiEnable,
+        analogEnable,
+        setAnalogEnable
     }
     return (
         <BtnEnableContext.Provider value={defaultValue}>

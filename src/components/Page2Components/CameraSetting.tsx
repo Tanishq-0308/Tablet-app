@@ -20,7 +20,7 @@ const CameraSetting = ({navigation}:cameraSettingProp) => {
                        <Image source={cameraSettingImg} style={styles.Image} resizeMode='contain'/>
                    </View>
                     </TouchableOpacity>
-                   <TouchableOpacity>
+                   <TouchableOpacity onPress={()=>navigation.navigate('Controller')}>
                        <Text style={styles.heading}>Factory Setting</Text>
                    </TouchableOpacity>
                    </View>
@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
         borderWidth:2,
         backgroundColor:'#ced6e0',
         paddingHorizontal: moderateScale(20),
-        borderRadius:12,
-        elevation:2,
+        borderRadius:22,
+        elevation:5,
         borderColor:'#747d8c'
     },
 })

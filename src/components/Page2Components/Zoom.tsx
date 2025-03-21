@@ -26,21 +26,10 @@ const Zoom = ({sendMessage}:zoomProps) => {
                 <Text style={styles.heading}>Zoom</Text>
             </View>
             <View style={styles.valueContainer}>
-                <TouchableOpacity onPress={decrease}>
+                <TouchableOpacity onPress={decrease} style={styles.button}>
                     <Text style={styles.minus}>-</Text>
                 </TouchableOpacity>
-                <View style={styles.length}>
-                    <View
-                        style={{
-                            height: "100%",
-                            backgroundColor: "black",
-                            width: `100%`,
-                            borderTopLeftRadius: 10,
-                            borderBottomLeftRadius: 10,
-                        }}
-                    ></View>
-                </View>
-                <TouchableOpacity onPress={increase}>
+                <TouchableOpacity onPress={increase} style={styles.button}>
                     <Text style={styles.plus}>+</Text>
                 </TouchableOpacity>
             </View>
@@ -68,14 +57,20 @@ const styles = StyleSheet.create({
     heading: {
         fontSize: hp('2.6%'),
         fontWeight: 'bold',
-        borderWidth: 2,
-        backgroundColor: '#ced6e0',
+        color:'black',
+        // borderWidth: 2,
+        // backgroundColor: '#ced6e0',
         paddingHorizontal: moderateScale(40),
-        borderRadius: 12,
-        elevation: 2,
-        borderColor: '#747d8c'
+        // borderRadius: 12,
+        // elevation: 2,
+        // borderColor: '#747d8c'
     },
-
+    button: {
+        paddingHorizontal:moderateScale(12),
+        backgroundColor:'grey',
+        borderRadius:55,
+        elevation:8
+    },
     length: {
         flexDirection: 'row',
         width: wp('25%'),
@@ -90,16 +85,24 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        gap: 10,
-        width: wp('38%'),
-        height: hp('15%')
+        gap: 50,
+        width: wp('20%'),
+        height: hp('15%'),
+        borderWidth:2,
+        borderBlockColor:'#747d8c',
+        marginLeft:moderateScale(25),
+        borderRadius:55
     },
     minus: {
-        fontSize: hp('10%'),
-        paddingBottom:moderateScale(6)
+        fontSize: hp('8%'),
+        paddingBottom:moderateScale(5),
+        paddingHorizontal:moderateScale(10),
+        color:'white'
     },
     plus: {
-        fontSize: hp('5%'),
-        paddingBottom:moderateScale(5)
+        fontSize: hp('8%'),
+        paddingBottom:moderateScale(5),
+        paddingHorizontal:moderateScale(5),
+        color:"white"
     }
 })

@@ -18,9 +18,10 @@ type balanceProps={
         setOutdoorBtn:(outdoorBtn:boolean)=>void,
         setManualBtn: (manualBtn: boolean)=>void
     }
+    loading:any;
 }
 
-const WhiteBalance = ({value,sendMessage, context}:balanceProps) => {
+const WhiteBalance = ({value,sendMessage, context, loading}:balanceProps) => {
     const {autoBtn,setAutoBtn, indoorBtn, outdoorBtn, manualBtn, setIndoorBtn, setOutdoorBtn, setManualBtn}=context;
     const setState= cameraStore((state)=>state.setCameraState);
     const key='stateW';
@@ -52,25 +53,32 @@ const WhiteBalance = ({value,sendMessage, context}:balanceProps) => {
 
 
     const redGainIncrease = () => {
+        loading(7);
         sendMessage('$WRP#')
     };
     const redGainDecrease = () => {
+        loading(7);
         sendMessage('$WRM#')
     };
     const blueGainIncrease = () => {
+        loading(7);
         sendMessage('$WBP#')
     };
     const blueGainDecrease = () => {
+        loading(7);
         sendMessage('$WBM#')
     };
     const chromaIncrease = () => {
+        loading(7);
         sendMessage('$WCP#')
     };
     const chromaDecrease = () => {
+        loading(7);
         sendMessage('$WCM#')
     };
 
     const handleModeChange = (mode:string) => {
+        loading(7);
         const commands:any = {
             auto: '$WA1#',
             indoor: '$WI1#',
@@ -118,7 +126,7 @@ const WhiteBalance = ({value,sendMessage, context}:balanceProps) => {
                 <TouchableOpacity style={styles.pressable} onPress={() => handleModeChange('outdoor')}>
                     <Text style={outdoorBtn ? styles.onbutton : styles.button}>Outdoor</Text>
                 </TouchableOpacity>
-                <View style={manualBtn ? { flexDirection: 'column', gap: 25, position: 'relative', right: 89 } : styles.manualContainer}>
+                {/* <View style={manualBtn ? { flexDirection: 'column', gap: 20, position: 'relative', right: 70 } : styles.manualContainer}>
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity onPress={() => handleModeChange('manual')}>
                             <Text style={manualBtn ? styles.onbutton : styles.button}>Manual</Text>
@@ -130,21 +138,10 @@ const WhiteBalance = ({value,sendMessage, context}:balanceProps) => {
                                 <Text style={styles.gainHeading}>Red Gain</Text>
                             </View>
                             <View style={styles.valueContainer}>
-                                <TouchableOpacity onPress={redGainDecrease}>
+                                <TouchableOpacity onPress={redGainDecrease} style={styles.minusButton}>
                                     <Text style={styles.minus}>-</Text>
                                 </TouchableOpacity>
-                                <View style={styles.length}>
-                                    <View
-                                        style={{
-                                            height: "100%",
-                                            backgroundColor: "black",
-                                            width: `100%`,
-                                            borderTopLeftRadius: 10,
-                                            borderBottomLeftRadius: 10,
-                                        }}
-                                    ></View>
-                                </View>
-                                <TouchableOpacity onPress={redGainIncrease}>
+                                <TouchableOpacity onPress={redGainIncrease} style={styles.plusButton}>
                                     <Text style={styles.plus}>+</Text>
                                 </TouchableOpacity>
                             </View>
@@ -154,21 +151,10 @@ const WhiteBalance = ({value,sendMessage, context}:balanceProps) => {
                                 <Text style={styles.gainHeading}>Blue Gain</Text>
                             </View>
                             <View style={styles.valueContainer}>
-                                <TouchableOpacity onPress={blueGainDecrease}>
+                                <TouchableOpacity onPress={blueGainDecrease} style={styles.minusButton}>
                                     <Text style={styles.minus}>-</Text>
                                 </TouchableOpacity>
-                                <View style={styles.length}>
-                                    <View
-                                        style={{
-                                            height: "100%",
-                                            backgroundColor: "black",
-                                            width: `100%`,
-                                            borderTopLeftRadius: 10,
-                                            borderBottomLeftRadius: 10,
-                                        }}
-                                    ></View>
-                                </View>
-                                <TouchableOpacity onPress={blueGainIncrease}>
+                                <TouchableOpacity onPress={blueGainIncrease} style={styles.plusButton}>
                                     <Text style={styles.plus}>+</Text>
                                 </TouchableOpacity>
                             </View>
@@ -178,27 +164,16 @@ const WhiteBalance = ({value,sendMessage, context}:balanceProps) => {
                                 <Text style={styles.gainHeading}>Chroma</Text>
                             </View>
                             <View style={styles.valueContainer}>
-                                <TouchableOpacity onPress={chromaDecrease}>
+                                <TouchableOpacity onPress={chromaDecrease} style={styles.minusButton}>
                                     <Text style={styles.minus}>-</Text>
                                 </TouchableOpacity>
-                                <View style={styles.length}>
-                                    <View
-                                        style={{
-                                            height: "100%",
-                                            backgroundColor: "black",
-                                            width: `100%`,
-                                            borderTopLeftRadius: 10,
-                                            borderBottomLeftRadius: 10,
-                                        }}
-                                    ></View>
-                                </View>
-                                <TouchableOpacity onPress={chromaIncrease}>
+                                <TouchableOpacity onPress={chromaIncrease} style={styles.plusButton}>
                                     <Text style={styles.plus}>+</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
                     </View>
-                </View>
+                </View> */}
             </View>
         </View>
     )
@@ -223,11 +198,12 @@ const styles = StyleSheet.create({
     heading: {
         fontSize: hp('2.6%'),
         fontWeight: 'bold',
-        borderWidth: 2,
-        backgroundColor: '#ced6e0',
+        color:'black',
+        // borderWidth: 2,
+        // backgroundColor: '#ced6e0',
         paddingHorizontal: moderateScale(16),
-        borderRadius: 12,
-        elevation: 2,
+        // borderRadius: 12,
+        // elevation: 2,
         borderColor: '#747d8c'
     },
     buttons: {
@@ -242,20 +218,20 @@ const styles = StyleSheet.create({
         backgroundColor: '#ced6e0',
         paddingHorizontal: moderateScale(7),
         paddingVertical: moderateVerticalScale(2),
-        borderRadius: 12,
-        elevation: 2,
+        borderRadius: 22,
+        elevation: 5,
         borderColor: '#747d8c'
     },
     onbutton:{
-        fontSize: hp('2.6%'),
+        fontSize: hp('2.7%'),
         fontWeight: 'bold',
         borderWidth: 2,
         backgroundColor: '#8c8c8c',
         paddingHorizontal: moderateScale(7),
         paddingVertical: moderateVerticalScale(2),
-        borderRadius: 12,
-        elevation: 2,
-        borderColor: '#000',
+        borderRadius: 22,
+        elevation: 9,
+        borderColor: '#747d8c',
         color:'#fff'
     },
     length: {
@@ -287,23 +263,41 @@ const styles = StyleSheet.create({
     },
     manualContainer: {},
     gainHeading: {
-        fontSize: hp('2.5%'),
+        fontSize: hp('3%'),
         fontWeight: 'bold'
     },
     valueContainer: {
         flexDirection: 'row',
-        gap: 10
+        gap: 20,
+        marginLeft:moderateVerticalScale(10)
+        // borderWidth:2
     },
     minus: {
-        fontSize: hp('7%'),
-        lineHeight: 40
+        fontSize: hp('3.5%'),
+        // backgroundColor:'grey', 
+        color:'white',
+        // margin:moderateScale(2)
     },
     plus: {
-        fontSize: hp('4.5%'),
-        lineHeight: 28,
-        paddingBottom:moderateScale(5)
+        fontSize: hp('3%'),
+        // paddingBottom:moderateScale(5)
+        color:'white'
     },
     pressable:{
         height:hp('5%')
+    },
+    plusButton:{
+        paddingHorizontal:moderateScale(10),
+        backgroundColor:'grey',
+        borderRadius:25,
+        elevation:8,
+        marginBottom:7
+    },
+    minusButton:{
+        paddingHorizontal:moderateScale(10),
+        backgroundColor:'grey',
+        borderRadius:25,
+        elevation:8,
+        marginBottom:7
     }
 })

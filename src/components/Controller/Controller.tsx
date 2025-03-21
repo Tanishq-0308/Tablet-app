@@ -1,5 +1,5 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { Alert, Button, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootParamList } from '../../App'
 import BackButton from '../BackButton'
@@ -7,15 +7,68 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { moderateScale, moderateVerticalScale } from 'react-native-size-matters'
 import { useWebSocket } from '../../Context/webSocketContext'
+import RNFS from 'react-native-fs';
 
 type controllerProp = {
     navigation: NativeStackNavigationProp<RootParamList>;
 }
 
 const Controller = ({ navigation }: controllerProp) => {
+
+    const [enterPassword, setEnterPassword] = useState('');
+    const [storePassword, setStorePassword] = useState('');
+    const [firstModal, setFirstModal] = useState(false);
     const { sendMessage } = useWebSocket();
+
+    const readPasswordFromFile = async () => {
+        try {
+            const filePath = `${RNFS.DocumentDirectoryPath}/password.txt`;
+            const password = await RNFS.readFile(filePath, 'utf8');
+            const checkPass = password;
+            setStorePassword(checkPass);
+        } catch (error) {
+            setFirstModal(false);
+            navigation.goBack();
+            // setNewModal(true);
+        }
+    }
+
+    const handleCheckPassword = async () => {
+        if (storePassword === enterPassword) {
+            setFirstModal(false);
+        } else {
+            Alert.alert('Wrong password');
+            setEnterPassword('');
+        }
+    }
+
+    useEffect(()=>{
+        // setFirstModal(true);
+        // readPasswordFromFile();
+    },[])
     return (
         <View style={styles.mainContainer}>
+            <Modal
+                animationType='slide'
+                transparent={true}
+                visible={firstModal}
+                onRequestClose={() => navigation.goBack()}
+            >
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.9)' }}>
+                    <View style={{ width: 350, padding: 20, backgroundColor: 'black', borderRadius: 10, flexDirection: 'column', gap: 10 }}>
+                        <Icon name='lock' color='#fff' style={{ fontSize: hp('5.6%'), textAlign: 'center' }} />
+                        {/* <Text style={{ marginBottom: 10, color: 'white', fontSize: hp('2.2%') }}>Enter to Login</Text> */}
+                        <TextInput
+                            secureTextEntry
+                            onChangeText={setEnterPassword}
+                            value={enterPassword}
+                            placeholder="Enter your password"
+                            style={{ borderWidth: 1, borderColor: '#ccc', marginBottom: 10, padding: 10, backgroundColor: 'white' }}
+                        />
+                        <Button title="Login" onPress={handleCheckPassword} />
+                    </View>
+                </View>
+            </Modal>
             <View style={styles.container2}>
                 <View style={styles.container1}>
                     <TouchableOpacity onPress={() => navigation.goBack()}
@@ -30,17 +83,17 @@ const Controller = ({ navigation }: controllerProp) => {
             </View>
             <View style={styles.container3}>
                 <View style={styles.box1}>
-                    <TouchableOpacity onPress={() => sendMessage('$J_U#')}>
-                        <Icon name='caret-up' style={[styles.upIcon, styles.icon]} />
+                    <TouchableOpacity >
+                        <Icon name='caret-up' style={[styles.upIcon, styles.icon]} onPress={() => sendMessage('$J_U#')} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => sendMessage('$J_R#')}>
-                        <Icon name='caret-right' style={[styles.rightIcon, styles.icon]} />
+                    <TouchableOpacity>
+                        <Icon name='caret-right' style={[styles.rightIcon, styles.icon]} onPress={() => sendMessage('$J_R#')} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => sendMessage('$J_D#')}>
-                        <Icon name='caret-down' style={[styles.downIcon, styles.icon]} />
+                    <TouchableOpacity >
+                        <Icon name='caret-down' style={[styles.downIcon, styles.icon]} onPress={() => sendMessage('$J_D#')} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => sendMessage('$J_L#')}>
-                        <Icon name='caret-left' style={[styles.leftIcon, styles.icon]} />
+                    <TouchableOpacity >
+                        <Icon name='caret-left' style={[styles.leftIcon, styles.icon]} onPress={() => sendMessage('$J_L#')} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.box2}>

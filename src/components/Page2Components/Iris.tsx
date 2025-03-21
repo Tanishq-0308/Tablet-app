@@ -11,10 +11,11 @@ type irisProps={
     context:{
         irisEnable:boolean,
         setIrisEnable:(irisEnable:boolean)=>void
-    }
+    };
+    loading: any;
 }
 
-const Iris = ({value,context,sendMessage}:irisProps) => {
+const Iris = ({value,context,sendMessage, loading}:irisProps) => {
     const {irisEnable, setIrisEnable}= context
     const setState= cameraStore((state)=>state.setCameraState);
     const key='stateI';
@@ -30,6 +31,7 @@ const Iris = ({value,context,sendMessage}:irisProps) => {
 
 
     const handleIris=()=>{
+        loading(7);
         if(irisEnable){
             setIrisEnable(false);
             sendMessage('$IB0#')
@@ -53,9 +55,9 @@ const Iris = ({value,context,sendMessage}:irisProps) => {
                 <TouchableOpacity style={styles.pressable} >
                     {
                         irisEnable ?
-                        <Text style={styles.onbutton}onPress={handleIris}>On</Text>
+                        <Text style={styles.onbutton}onPress={handleIris}>Off</Text>
                         :
-                    <Text style={styles.button} onPress={handleIris}>Off</Text>
+                    <Text style={styles.button} onPress={handleIris}>On</Text>
                     }
                 </TouchableOpacity>
                 {/* <View style={manualBtn ? { flexDirection: 'column'} : styles.manualContainer}>
@@ -114,12 +116,13 @@ const styles = StyleSheet.create({
     heading: {
         fontSize: hp('2.6%'),
         fontWeight: 'bold',
-        borderWidth: 2,
-        backgroundColor: '#ced6e0',
+        color:'black',
+        // borderWidth: 2,
+        // backgroundColor: '#ced6e0',
         paddingHorizontal: moderateScale(40),
-        borderRadius: 12,
-        elevation: 2,
-        borderColor: '#747d8c'
+        // borderRadius: 12,
+        // elevation: 2,
+        // borderColor: '#747d8c'
     },
     buttons: {
         flexDirection: 'row',
@@ -133,8 +136,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#ced6e0',
         paddingHorizontal: moderateScale(7),
         paddingVertical: moderateVerticalScale(2),
-        borderRadius: 12,
-        elevation: 2,
+        borderRadius: 22,
+        elevation: 5,
         borderColor: '#747d8c'
     },
     onbutton:{
@@ -144,9 +147,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#8c8c8c',
         paddingHorizontal: moderateScale(7),
         paddingVertical: moderateVerticalScale(2),
-        borderRadius: 12,
-        elevation: 2,
-        borderColor: '#000',
+        borderRadius: 22,
+        elevation: 5,
+        borderColor: '#747d8c',
         color:'#fff'
     },
     length: {

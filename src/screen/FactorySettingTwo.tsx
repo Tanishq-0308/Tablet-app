@@ -71,16 +71,16 @@ const FactorySettingTwo= ({ navigation }:FactorySettingTwoProps) => {
                 console.log(error);
             }
         }
-        const readCameraEnbale= async()=>{
-            try {
-                const filePath=`${RNFS.DocumentDirectoryPath}/camera.txt`;
-                const pass = await RNFS.readFile(filePath,'utf8');
-                const checkpass= pass;
-                setCameraPass(checkpass);
-            } catch (error) {
-                console.log(error);
-            }
-        }
+        // const readCameraEnbale= async()=>{
+        //     try {
+        //         const filePath=`${RNFS.DocumentDirectoryPath}/camera.txt`;
+        //         const pass = await RNFS.readFile(filePath,'utf8');
+        //         const checkpass= pass;
+        //         setCameraPass(checkpass);
+        //     } catch (error) {
+        //         console.log(error);
+        //     }
+        // }
         const readSensorEnbale= async()=>{
             try {
                 const filePath=`${RNFS.DocumentDirectoryPath}/sensor.txt`;
@@ -91,11 +91,22 @@ const FactorySettingTwo= ({ navigation }:FactorySettingTwoProps) => {
                 console.log(error);
             }
         }
+                const readAnalogEnable = async () => {
+                    try {
+                        const filePath= `${RNFS.DocumentDirectoryPath}/analogEnable.txt`;
+                        const pass = await RNFS.readFile(filePath, 'utf8');
+                        const checkpass= pass;
+                        setCameraPass(checkpass);
+                    } catch (error) {
+                        
+                    }
+                }
 
             useEffect(()=>{
                 readGreenEnable();
                 readRedEnbale();
-                readCameraEnbale();
+                // readCameraEnbale();
+                readAnalogEnable();
                 readSensorEnbale();
             },[]);
     return (

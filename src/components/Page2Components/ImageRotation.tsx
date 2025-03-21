@@ -7,9 +7,10 @@ import { moderateScale } from 'react-native-size-matters';
 type rotationProps={
     value:string;
     sendMessage:any;
+    loading:any;
 }
 
-const ImageRotation = ({value,sendMessage}:rotationProps) => {
+const ImageRotation = ({value,sendMessage, loading}:rotationProps) => {
 
     useEffect(()=>{
         if(value == '$R_1#'){
@@ -19,6 +20,7 @@ const ImageRotation = ({value,sendMessage}:rotationProps) => {
     const rotation= useRef(new Animated.Value(0)).current;
 
     const rotateImage=()=>{
+        loading(7);
         rotation.setValue(0);
         Animated.timing(rotation,{
             toValue:1,
@@ -65,7 +67,7 @@ const styles = StyleSheet.create({
         // borderWidth:2,
         flexDirection:'row',
         alignItems:'flex-start',
-        justifyContent:'center',
+        // justifyContent:'center',
         // padding:10
     },
     container:{},
@@ -79,10 +81,10 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         borderWidth:2,
         backgroundColor:'#ced6e0',
-        paddingHorizontal: moderateScale(20),
+        paddingHorizontal: moderateScale(9),
         // paddingVertical:2,
-        borderRadius:12,
-        elevation:2,
+        borderRadius:22,
+        elevation:5,
         borderColor:'#747d8c'
     },
 })

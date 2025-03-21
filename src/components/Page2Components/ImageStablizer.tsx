@@ -15,9 +15,10 @@ type stabilizerProps = {
         setFAutoEnbale: (fAutoEnable: boolean) => void,
         fOnePushEnable: boolean,
         setFOnePushEnbale: (fOnePushEnable: boolean) => void,
-    }
+    };
+    loading:any;
 }
-const ImageStablizer = ({ value, context, sendMessage }: stabilizerProps) => {
+const ImageStablizer = ({ value, context, sendMessage ,loading}: stabilizerProps) => {
     const { stablizerEnable, setStablizerEnable, fAutoEnable, setFAutoEnbale, fOnePushEnable, setFOnePushEnbale } = context;
     const setState = cameraStore((state) => state.setCameraState);
     const key = 'stateF'
@@ -32,6 +33,7 @@ const ImageStablizer = ({ value, context, sendMessage }: stabilizerProps) => {
         sendMessage('$FMM#');
     };
     const handleBtn = () => {
+        loading(7);
         if (!stablizerEnable) {
             setStablizerEnable(true);
             setFAutoEnbale(false);
@@ -51,11 +53,11 @@ const ImageStablizer = ({ value, context, sendMessage }: stabilizerProps) => {
                 </TouchableOpacity>
                 <View style={stablizerEnable ? styles.valueContainer : styles.valueContainerOff}>
                     <View>
-                        <TouchableOpacity onPress={decrease}>
+                        <TouchableOpacity onPress={decrease} style={styles.button}>
                             <Text style={styles.minus}>-</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.length}>
+                    {/* <View style={styles.length}>
                         <View
                             style={{
                                 height: "100%",
@@ -65,9 +67,9 @@ const ImageStablizer = ({ value, context, sendMessage }: stabilizerProps) => {
                                 borderBottomLeftRadius: 10,
                             }}
                         ></View>
-                    </View>
+                    </View> */}
                     <View>
-                        <TouchableOpacity onPress={increase}>
+                        <TouchableOpacity onPress={increase} style={styles.button}>
                             <Text style={styles.plus}>+</Text>
                         </TouchableOpacity>
                     </View>
@@ -85,7 +87,7 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         alignItems: 'flex-start',
-        padding: moderateScale(5)
+        padding: moderateScale(6)
     },
     container: {},
     Image: {
@@ -99,8 +101,8 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         backgroundColor: '#ced6e0',
         paddingHorizontal: moderateScale(10),
-        borderRadius: 12,
-        elevation: 2,
+        borderRadius: 22,
+        elevation: 5,
         borderColor: '#747d8c'
     },
     onheading: {
@@ -108,10 +110,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         borderWidth: 2,
         backgroundColor: '#8c8c8c',
-        paddingHorizontal: moderateScale(7),
-        borderRadius: 12,
+        paddingHorizontal: moderateScale(10),
+        borderRadius: 22,
         elevation: 2,
-        borderColor: '#000',
+        borderColor: '#747d8c',
         color: '#fff'
     },
     length: {
@@ -140,11 +142,18 @@ const styles = StyleSheet.create({
 
     },
     minus: {
-        fontSize: hp('7%'),
-        paddingBottom: moderateScale(5)
+        fontSize: hp('5%'),
+        paddingHorizontal:moderateScale(3),
+        color:'white'
     },
     plus: {
         fontSize: hp('5%'),
-        paddingBottom: moderateScale(5)
-    }
+        color:'white'        
+    },
+    button: {
+        paddingHorizontal:moderateScale(10),
+        backgroundColor:'grey',
+        borderRadius:55,
+        elevation:8
+    },
 })
