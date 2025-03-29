@@ -7,13 +7,15 @@ import { moderateScale, moderateVerticalScale } from 'react-native-size-matters'
 type ResetProps={
     sendMessage:any;
     loading:any;
+    reset:()=>void;
 }
 
-const Reset = ({sendMessage, loading}:ResetProps) => {
+const Reset = ({sendMessage, loading, reset}:ResetProps) => {
 
     const handleReset =() =>{
         loading(5);
         sendMessage('$RST#');
+        reset();
     }
   return (
       <View style={styles.mainContainer}>

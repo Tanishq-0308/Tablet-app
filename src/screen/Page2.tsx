@@ -131,6 +131,20 @@ const Page2 = ({navigation}:page2Prop) => {
       });
     }, 1000);
   }
+
+
+  const reset=()=>{
+      setIrisEnable(false);
+      setFOnePushEnbale(false);
+      setStablizerEnable(false);
+      setFreezeEnable(false);
+      setWIndoorEnbale(false);
+      setWOutdoorEnbale(false);
+      setWAutoEnable(true);
+      setFAutoEnbale(true);
+  }
+
+
   return (
     <View style={styles.mainContainer}>
       <Modal
@@ -156,7 +170,7 @@ const Page2 = ({navigation}:page2Prop) => {
           <Iris value={value1} context={irisValues} sendMessage={sendMessage} loading={handleButtonPress}/>
         </View>
         <View style={styles.box1}>
-          <Reset sendMessage={sendMessage} loading={handleButtonPress}/>
+          <Reset sendMessage={sendMessage} loading={handleButtonPress} reset={reset}/>
         </View>
       {/* <View style={styles.inputContainer}>
         <TextInput
@@ -177,7 +191,7 @@ const Page2 = ({navigation}:page2Prop) => {
           <CameraFocus value={value3} context={focusValues} sendMessage={sendMessage} loading={handleButtonPress}/>
         </View>
         <View style={styles.box1}>
-          <PowerButton context={powerValues} sendMessage={sendMessage} loading={handleButtonPress}/>
+          <PowerButton context={powerValues} sendMessage={sendMessage} loading={handleButtonPress} reset={reset}/>
         </View>
       </View>
       <View style={styles.block}>

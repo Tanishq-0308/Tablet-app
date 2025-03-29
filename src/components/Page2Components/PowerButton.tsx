@@ -12,9 +12,10 @@ type PowerProps={
     };
     sendMessage:any;
     loading:any;
+    reset:()=> void;
 }
 
-const PowerButton = ({context,sendMessage,loading}: PowerProps) => {
+const PowerButton = ({context,sendMessage,loading, reset}: PowerProps) => {
     const {powerEnable, setPowerEnable}= context;
     const handlePower =() =>{
         if(powerEnable){
@@ -26,6 +27,7 @@ const PowerButton = ({context,sendMessage,loading}: PowerProps) => {
             setPowerEnable(true);
             sendMessage('$PW0#')
             console.log('$PW0#');
+            reset();
         }
     }
   return (
