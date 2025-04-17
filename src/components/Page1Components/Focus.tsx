@@ -4,6 +4,7 @@ import focusOn from '../../../assets/updatedIcons/focusOff.png'
 import focusOff from '../../../assets/updatedIcons/focusOn.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import useStore from '../../Store/stateStore';
+import { moderateScale } from 'react-native-size-matters';
 
 type FocusInputType = {
     value: string
@@ -105,11 +106,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         gap: 5,
         height: '100%',
-        width: wp('25%'),
+        width: wp('15%'),
     },
     container2: {
         flexDirection: 'column',
-        width: wp('25%'),
+        width: wp('20%'),
         alignItems: 'center',
         justifyContent: 'center',
         gap: 30
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
     },
     switchBtn: {
         margin: 5,
-        padding: 6
+        padding: moderateScale(7)
     },
     smallBtn: {
         backgroundColor: '#95d151',

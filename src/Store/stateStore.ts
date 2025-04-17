@@ -29,6 +29,8 @@ const useStore= create<StateType>((set)=>({
         stateGR:'',
         stateRL:'',
         stateRR:'',
+        stateNL:'',
+        stateNR:''
     },
     setState:(key, value)=>
             {

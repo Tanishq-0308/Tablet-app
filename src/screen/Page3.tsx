@@ -12,6 +12,7 @@ import Focus from '../components/Page1Components/Focus'
 import Intensity from '../components/Page1Components/Intensity'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootParamList } from '../App';
+import Syn from '../components/Page1Components/Syn';
 
 type page3Props = {
   navigation: NativeStackNavigationProp<RootParamList>;
@@ -23,7 +24,8 @@ const Page3 = ({ navigation }: page3Props) => {
   const value3 = useStore((state) => state.states.stateCR);
   const value4 = useStore((state) => state.states.stateLR);
   const value5 = useStore((state) => state.states.stateDR);
-  const value6 = useStore((state) => state.states.stateFR)
+  const value6 = useStore((state) => state.states.stateFR);
+  const value7 = useStore((state)=> state.states.stateNR);
   const { sendMessage } = useWebSocket()
   return (
     <View style={styles.mainContainer}>
@@ -48,7 +50,11 @@ const Page3 = ({ navigation }: page3Props) => {
         <View style={styles.box}>
           <Settings navigation={navigation} navigateTo="FactorySettingTwo" />
         </View>
-        <View style={styles.box2}>
+        <View style={styles.box}>
+          <Syn value={value7} sendMessage={sendMessage} code='R1'/>
+        </View>
+
+        <View style={styles.box}>
           <Focus value={value6} sendMessage={sendMessage} code='R1' />
         </View>
       </View>
@@ -85,7 +91,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   box: {
-    width: wp('25%'),
+    width: wp('22%'),
     height: hp('37%'),
     // borderWidth:1
   },

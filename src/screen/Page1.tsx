@@ -13,6 +13,7 @@ import { RootParamList } from '../App'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import useStore from '../Store/stateStore'
 import { useWebSocket } from '../Context/webSocketContext'
+import Syn from '../components/Page1Components/Syn'
 
 
 type page1Props = {
@@ -25,7 +26,8 @@ const Page1 = ({ navigation }: page1Props) => {
   const value3 = useStore((state) => state.states.stateCL);
   const value4 = useStore((state) => state.states.stateLL);
   const value5 = useStore((state) => state.states.stateDL);
-  const value6 = useStore((state) => state.states.stateFL)
+  const value6 = useStore((state) => state.states.stateFL);
+  const value7 = useStore((state) => state.states.stateNL);
   const { sendMessage } = useWebSocket()
   return (
     <ScrollView horizontal>
@@ -51,7 +53,10 @@ const Page1 = ({ navigation }: page1Props) => {
           <View style={styles.box}>
             <Settings navigation={navigation} navigateTo='FactorySetting' />
           </View>
-          <View style={styles.box2}>
+          <View style={styles.box}>
+            <Syn value={value7} sendMessage={sendMessage} code='L1' />
+          </View>
+          <View style={styles.box}>
             <Focus value={value6} sendMessage={sendMessage} code='L1' />
           </View>
         </View>
@@ -88,7 +93,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   box: {
-    width: wp('25%'),
+    width: wp('22%'),
     height: hp('37%'),
   },
   box2: {
