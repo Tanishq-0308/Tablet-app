@@ -2,7 +2,8 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { verticalScale, scale, moderateScale } from 'react-native-size-matters';
-import Sync from '../../../assets/sync-circular-arrows-svgrepo-com.png';
+import Sync from '../../../assets/sync-off.png';
+import SyncOn from '../../../assets/sync-on.png';
 import useStore from '../../Store/stateStore';
 
 type SynctModeInputType ={
@@ -43,9 +44,16 @@ const Syn = ({ value, sendMessage, code }: SynctModeInputType) => {
   }
   return (
     <View style={styles.container}>
-      <View style={styles.imgContainer}>
-        <Image source={Sync} style={styles.settingImg} resizeMode='contain' />
-      </View>
+            {
+                power !== `@N_0#T${code}` ?
+                    <View style={styles.offImgContainer}>
+                      <Image source={SyncOn} style={styles.settingImg} resizeMode='contain' />
+                    </View>
+                    :
+                    <View style={styles.onImgContainer}>
+                      <Image source={Sync} style={styles.settingImg} resizeMode='contain' />
+                    </View>
+            }
       <Text style={styles.heading}>SYNC</Text>
             <TouchableOpacity
                 style={styles.onBtn}
@@ -112,5 +120,7 @@ const styles = StyleSheet.create({
       },
       icon: {
         fontSize: hp('5%'),
-      }
+      },
+      offImgContainer: {},
+      onImgContainer:{}
 })
