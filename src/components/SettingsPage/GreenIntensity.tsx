@@ -55,7 +55,7 @@ const GreenIntensity = ({ value, sendMessage, code, context }: GreenInputType) =
   useEffect(() => {
     setimage(color);
 
-  }, [color])
+  }, [])
 
   useEffect(() => {
     setEnable(enable);

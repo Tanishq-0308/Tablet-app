@@ -18,7 +18,7 @@ const Endo = ({ value, sendMessage, code }: EndoInput) => {
     const [power, setPower] = useState(`@E_0#T${code}`)
     const setState= useStore((state)=>state.setState);
     const component = 'E';
-    const dome = code == 'R1' ? 'R' : 'L';
+    const dome = code == 'R0' ? 'R' : 'L';
     const key = `state${component + dome}`;
 
     useEffect(() => {

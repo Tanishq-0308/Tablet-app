@@ -31,22 +31,22 @@ const Color = ({ value, sendMessage, code }: ColorInput) => {
     const [counter, setCounter] = useState(0);
     const setState= useStore((state)=>state.setState);
     const component = 'C';
-    const dome = code == 'R1' ? 'R' : 'L';
+    const dome = code == 'R0' ? 'R' : 'L';
     const key = `state${component + dome}`;
 
     useEffect(() => {
         let number = (value[2]);
         switch (number) {
             case '-':
-                setimage(0)
+                setColImage(colorA)
                 setCounter(0);
                 break;
             case '0':
-                setimage(1)
+                setColImage(colorB)
                 setCounter(1);
                 break;
             case '+':
-                setimage(2)
+                setColImage(colorC)
                 setCounter(2);
                 break;
             default:
@@ -58,18 +58,18 @@ const Color = ({ value, sendMessage, code }: ColorInput) => {
         switch (imageNumber) {
             case 0:
                 setColImage(colorA)
-                sendMessage(`@C-5#T${code}`)
                 setState(key,`@C-5#T${code}`);
+                sendMessage(`@C-5#T${code}`)
                 break;
             case 1:
                 setColImage(colorB)
-                sendMessage(`@C05#T${code}`)
                 setState(key,`@C05#T${code}`)
+                sendMessage(`@C05#T${code}`)
                 break;
             case 2:
                 setColImage(colorC)
-                sendMessage(`@C+5#T${code}`)
                 setState(key,`@C+5#T${code}`)
+                sendMessage(`@C+5#T${code}`)
                 break;
             default:
                 setColImage(colorA)

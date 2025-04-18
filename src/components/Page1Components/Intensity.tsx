@@ -38,7 +38,7 @@ const Intensity = ({ value, sendMessage, code }: IntensityInput) => {
   const [counter, setCounter] = useState(0);
   const setState = useStore((state) => state.setState);
   const component = 'I';
-  const dome = code == 'R1' ? 'R' : 'L';
+  const dome = code == 'R0' ? 'R' : 'L';
   const key = `state${component + dome}`;
 
   useEffect(() => {

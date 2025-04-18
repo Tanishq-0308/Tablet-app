@@ -17,7 +17,7 @@ const BoostMode = ({ value, sendMessage, code }: BoostModeInputType) => {
     const [power, setPower] = useState(`@D_0#T${code}`);
     const setState= useStore((state)=>state.setState);
     const component = 'D';
-    const dome = code == 'R1' ? 'R' : 'L';
+    const dome = code == 'R0' ? 'R' : 'L';
     const key = `state${component + dome}`;
 
     useEffect(() => {

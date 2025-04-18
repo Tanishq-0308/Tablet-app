@@ -9,35 +9,41 @@ import useStore from '../../Store/stateStore';
 type SynctModeInputType ={
   value: string
   sendMessage: any;
-  code: string
+  context: {
+    syncEnable:boolean,
+    setSyncEnable:(syncEnable: boolean)=>void;
+  }
 }
 
-const Syn = ({ value, sendMessage, code }: SynctModeInputType) => {
-  const [power, setPower] = useState(`@N_0#T${code}`);
+const Syn = ({ value, sendMessage, context}: SynctModeInputType) => {
+  const {syncEnable, setSyncEnable}= context;
   const setState= useStore((state)=>state.setState);
   const component = 'N';
-  const dome = code == 'R1' ? 'R' : 'L';
+  let code= 'L0';
+  const dome = code == 'R0' ? 'R' : 'L';
   const key = `state${component + dome}`;
 
   useEffect(() => {
       if (value.length > 0) {
           if (value === `@N_1#T${code}`) {
-              setPower(`@N_1#T${code}`)
+            setSyncEnable(true)
 
           } else if (value === `@N_0#T${code}`) {
-              setPower(`@N_0#T${code}`)
+            setSyncEnable(false);
           }
       }
   }, [value])
 
   const handleButton = () => {
-      if (power === `@N_0#T${code}`) {
-          setPower(`@N_1#T${code}`);
-          sendMessage(`@N_1#T${code}`)
-          setState(key,`@N_1#T${code}`);
+      if (syncEnable === false) {
+        setSyncEnable(true);
+        // console.log('true');
+        sendMessage(`@N_1#T${code}`)
+        setState(key,`@N_1#T${code}`);
       }
       else {
-          setPower(`@N_0#T${code}`)
+        setSyncEnable(false);
+        // console.log('false');
           sendMessage(`@N_0#T${code}`);
           setState(key,`@N_0#T${code}`);
       }
@@ -45,7 +51,7 @@ const Syn = ({ value, sendMessage, code }: SynctModeInputType) => {
   return (
     <View style={styles.container}>
             {
-                power !== `@N_0#T${code}` ?
+                syncEnable !== false ?
                     <View style={styles.offImgContainer}>
                       <Image source={SyncOn} style={styles.settingImg} resizeMode='contain' />
                     </View>
@@ -60,7 +66,7 @@ const Syn = ({ value, sendMessage, code }: SynctModeInputType) => {
                 onPress={handleButton}
             >
                 {
-                    power !== `@N_0#T${code}` ?
+                    syncEnable !== false ?
                         <Text style={styles.offBtnTxt}>
                             OFF
                         </Text>

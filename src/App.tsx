@@ -66,8 +66,8 @@ const App = () => {
   return (
     <WebSocketContextProvider>
       <CameraContextProvider>
+      <BtnEnableProvider>
       <RightBtnEnableProvider>
-    <BtnEnableProvider>
     <NavigationContainer>
       <Header/>
       <Stack.Navigator>
@@ -122,8 +122,8 @@ const App = () => {
         />
       </Stack.Navigator>
     </NavigationContainer>
-    </BtnEnableProvider>
     </RightBtnEnableProvider>
+    </BtnEnableProvider>
     </CameraContextProvider>
     </WebSocketContextProvider>
   )

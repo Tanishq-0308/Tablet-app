@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import BoostMode from '../components/Page1Components/BoostMode'
 import Color from '../components/Page1Components/Color'
 import Endo from '../components/Page1Components/Endo'
@@ -14,13 +14,14 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import useStore from '../Store/stateStore'
 import { useWebSocket } from '../Context/webSocketContext'
 import Syn from '../components/Page1Components/Syn'
+import { BtnEnableContext } from '../Context/EnableContext'
 
 
 type page1Props = {
   navigation: NativeStackNavigationProp<RootParamList>;
 }
 const Page1 = ({ navigation }: page1Props) => {
-
+  const [code, setCode]=useState('');
   const value = useStore((state) => state.states.stateIL);
   const value2 = useStore((state) => state.states.stateEL);
   const value3 = useStore((state) => state.states.stateCL);
@@ -28,36 +29,48 @@ const Page1 = ({ navigation }: page1Props) => {
   const value5 = useStore((state) => state.states.stateDL);
   const value6 = useStore((state) => state.states.stateFL);
   const value7 = useStore((state) => state.states.stateNL);
+  const {syncEnable, setSyncEnable}= useContext(BtnEnableContext)
+  const syncValue= {
+    syncEnable,
+    setSyncEnable
+  }
+  useEffect(()=>{
+    if(syncEnable){
+      setCode('L1');
+    }else{
+      setCode('L0');
+    }
+  },[syncEnable]);
   const { sendMessage } = useWebSocket()
   return (
     <ScrollView horizontal>
       <View style={styles.mainContainer}>
         <View style={styles.blockOne}>
           <View style={styles.box}>
-            <Intensity value={value} sendMessage={sendMessage} code='L1' />
+            <Intensity value={value} sendMessage={sendMessage} code={code} />
           </View>
           <View style={styles.box}>
-            <Color value={value3} sendMessage={sendMessage} code='L1' />
+            <Color value={value3} sendMessage={sendMessage} code={code} />
           </View>
           <View style={styles.box}>
-            <Endo value={value2} sendMessage={sendMessage} code='L1' />
+            <Endo value={value2} sendMessage={sendMessage} code={code} />
           </View>
           <View style={styles.box}>
-            <Lamp value={value4} sendMessage={sendMessage} code='L1' />
+            <Lamp value={value4} sendMessage={sendMessage} code={code} />
           </View>
         </View>
         <View style={styles.blockTwo}>
           <View style={styles.box}>
-            <BoostMode value={value5} sendMessage={sendMessage} code='L1' />
+            <BoostMode value={value5} sendMessage={sendMessage} code={code} />
           </View>
           <View style={styles.box}>
             <Settings navigation={navigation} navigateTo='FactorySetting' />
           </View>
           <View style={styles.box}>
-            <Syn value={value7} sendMessage={sendMessage} code='L1' />
+            <Syn value={value7} sendMessage={sendMessage} context={syncValue}/>
           </View>
           <View style={styles.box}>
-            <Focus value={value6} sendMessage={sendMessage} code='L1' />
+            <Focus value={value6} sendMessage={sendMessage} code={code} />
           </View>
         </View>
         <Text style={styles.dome}>Dome 1</Text>

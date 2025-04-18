@@ -15,7 +15,7 @@ const Focus = ({ value, sendMessage, code }: FocusInputType) => {
     const [isEnabled, setIsEnabled] = useState(false);
     const setState= useStore((state)=>state.setState);
     const component = 'F';
-    const dome = code == 'R1' ? 'R' : 'L';
+    const dome = code == 'R0' ? 'R' : 'L';
     const key = `state${component + dome}`;
 
     const toggleSwitch = () => {

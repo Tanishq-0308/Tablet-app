@@ -40,11 +40,11 @@ export const RightBtnEnableContext = createContext<RightBtnEnableType>({
     setGreenValue: ()=> {},
     redValue: 0,
     setRedValue: ()=>{},
-    headSensor: '@O_0#TR1',
+    headSensor: '@O_0#TR0',
     setHeadSensor: ()=>{},
-    greenEnabledValue: '@G_0#TR1',
+    greenEnabledValue: '@G_0#TR0',
     setGreenEnabledValue: () => { },
-    redEnabledValue: '@R_0#TL1',
+    redEnabledValue: '@R_0#TL0',
     setRedEnabledValue: () => { },
     cameraEnabledValue: false,
     setCameraEnabledValue: () => {},
@@ -61,9 +61,9 @@ export const RightBtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
     const [cameraEnabled, setCameraEnabled]= useState(false)
     const [greenValue, setGreenValue]= useState(0)
     const [redValue, setRedValue] = useState(0)
-    const [headSensor, setHeadSensor]= useState('@O_0#TR1')
-    const [greenEnabledValue,setGreenEnabledValue]= useState('@G_0#TR1')
-    const [redEnabledValue,setRedEnabledValue] = useState('@R_0#TR1')
+    const [headSensor, setHeadSensor]= useState('@O_0#TR0')
+    const [greenEnabledValue,setGreenEnabledValue]= useState('@G_0#TR0')
+    const [redEnabledValue,setRedEnabledValue] = useState('@R_0#TR0')
     const [cameraEnabledValue, setCameraEnabledValue]= useState(false);
     const [sdiEnable, setSdiEnable]= useState(false);
     const [analogEnable, setAnalogEnable]= useState(false);

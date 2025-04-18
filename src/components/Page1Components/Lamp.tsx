@@ -19,7 +19,7 @@ const Lamp = ({ value, sendMessage, code }: LampInput) => {
     const [power, setPower] = useState(`@L_1#T${code}`)
     const setState= useStore((state)=>state.setState);
     const component = 'F';
-    const dome = code == 'R1' ? 'R' : 'L';
+    const dome = code == 'R0' ? 'R' : 'L';
     const key = `state${component + dome}`;
 
     useEffect(() => {
