@@ -27,6 +27,10 @@ type BtnEnableType = {
     setAnalogEnable:(analogEnable:boolean)=>void;
     syncEnable: boolean;
     setSyncEnable: (syncEnable: boolean)=>void;
+    lampEnable: boolean;
+    setlampEnable: (lampEnable: boolean)=> void;
+    focusEnable: boolean;
+    setFocusEnable: (focusEnable: boolean)=> void;
 }
 
 export const BtnEnableContext = createContext<BtnEnableType>({
@@ -55,7 +59,11 @@ export const BtnEnableContext = createContext<BtnEnableType>({
     analogEnable:false,
     setAnalogEnable:()=>{},
     syncEnable:false,
-    setSyncEnable:()=>{}
+    setSyncEnable:()=>{},
+    lampEnable: true,
+    setlampEnable:()=>{},
+    focusEnable: false,
+    setFocusEnable: ()=>{}
 })
 
 export const BtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -72,6 +80,8 @@ export const BtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
     const [sdiEnable, setSdiEnable]= useState(false);
     const [analogEnable, setAnalogEnable]= useState(false);
     const [syncEnable, setSyncEnable]= useState(false);
+    const [lampEnable, setlampEnable]= useState(true);
+    const [focusEnable, setFocusEnable]= useState(false);
 
     const defaultValue = {
         greenEnabled,
@@ -99,7 +109,11 @@ export const BtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
         analogEnable,
         setAnalogEnable,
         syncEnable,
-        setSyncEnable
+        setSyncEnable,
+        lampEnable, 
+        setlampEnable,
+        focusEnable,
+        setFocusEnable
     }
     return (
         <BtnEnableContext.Provider value={defaultValue}>

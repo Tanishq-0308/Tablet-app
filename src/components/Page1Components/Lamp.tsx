@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import LampOn from '../../../assets/updatedIcons/lampOff.png';
-import LampOff from '../../../assets/updatedIcons/lampOn.png';
+import LampOff from '../../../assets/updatedIcons/lampOff.png';
+import LampOn from '../../../assets/updatedIcons/lampOn.png';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { moderateScale } from 'react-native-size-matters';
 import useStore from '../../Store/stateStore';
@@ -10,38 +10,40 @@ import useStore from '../../Store/stateStore';
 type LampInput = {
     value: string
     sendMessage: any;
-    code: string
+    code: string;
+    toggle: {
+        lampEnable: boolean,
+        setlampEnable:(lampEnable: boolean)=> void;
+    }
 }
 
 
-const Lamp = ({ value, sendMessage, code }: LampInput) => {
-
-    const [power, setPower] = useState(`@L_1#T${code}`)
+const Lamp = ({ value, sendMessage, code, toggle }: LampInput) => {
+    const {lampEnable, setlampEnable}= toggle;
+    // const [power, setPower] = useState(`@L_1#T${code}`)
     const setState= useStore((state)=>state.setState);
-    const component = 'F';
+    const component = 'L';
     const dome = code == 'R0' ? 'R' : 'L';
     const key = `state${component + dome}`;
 
     useEffect(() => {
         if (value.length > 0) {
             if (value === `@L_1#T${code}`) {
-                setPower(`@L_1#T${code}`)
-
+                setlampEnable(true)
             } else if (value === `@L_0#T${code}`) {
-                setPower(`@L_0#T${code}`)
-
+                setlampEnable(false)
             }
         }
     }, [value])
 
     const handleButton = () => {
-        if (power === `@L_0#T${code}`) {
-            setPower(`@L_1#T${code}`);
+        if (lampEnable == false) {
+            setlampEnable(true)
             sendMessage(`@L_1#T${code}`)
             setState(key,`@L_1#T${code}`);
         }
         else {
-            setPower(`@L_0#T${code}`)
+            setlampEnable(false)
             sendMessage(`@L_0#T${code}`);
             setState(key,`@L_0#T${code}`);
         }
@@ -49,13 +51,13 @@ const Lamp = ({ value, sendMessage, code }: LampInput) => {
     return (
         <View style={styles.container}>
             {
-                power !== `@L_0#T${code}` ?
-                    <View style={styles.offImgContainer}>
-                        <Image source={LampOff} style={styles.lampOffImg} resizeMode='contain' />
-                    </View>
-                    :
+                lampEnable ?
                     <View style={styles.onImgContainer}>
                         <Image source={LampOn} style={styles.lampOnImg} resizeMode='contain' />
+                    </View>
+                    :
+                    <View style={styles.offImgContainer}>
+                        <Image source={LampOff} style={styles.lampOffImg} resizeMode='contain' />
                     </View>
             }
             <Text
@@ -67,7 +69,7 @@ const Lamp = ({ value, sendMessage, code }: LampInput) => {
                 onPress={handleButton}
             >
                 {
-                    power !== `@L_0#T${code}` ?
+                    lampEnable ?
                         <Text style={styles.offBtnTxt}>
                             OFF
                         </Text>

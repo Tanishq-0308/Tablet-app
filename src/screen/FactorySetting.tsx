@@ -106,16 +106,6 @@ const FactorySetting = ({ navigation }: FactorySettingProps) => {
         }
     }
 
-    const [code, setCode] = useState('');
-    const { syncEnable } = useContext(BtnEnableContext);
-    useEffect(() => {
-        if (syncEnable) {
-            setCode('L1');
-        } else {
-            setCode('L0');
-        }
-    }, [syncEnable]);
-
     useEffect(() => {
         readGreenEnable();
         readRedEnbale();
@@ -142,24 +132,24 @@ const FactorySetting = ({ navigation }: FactorySettingProps) => {
                     </View>
                     <View style={styles.box}>
                         {
-                            cameraPass == 'on' && <CameraBtn context={cameraLeftObject} value={value} sendMessage={sendMessage} code={code} />
+                            cameraPass == 'on' && <CameraBtn context={cameraLeftObject} value={value} sendMessage={sendMessage} code="L0" />
                         }
                     </View>
                     <View style={styles.box}>
                         {
-                            sensorPass == 'on' && <OverheadEnable context={leftHeadObjects} value={value4} sendMessage={sendMessage} code={code} />
+                            sensorPass == 'on' && <OverheadEnable context={leftHeadObjects} value={value4} sendMessage={sendMessage} code="L0" />
                         }
                     </View>
                 </View>
                 <View style={styles.blockTwo}>
                     <View style={styles.box2}>
                         {
-                            greenPass == 'on' && <GreenIntensity context={greenLeftObjects} value={value2} sendMessage={sendMessage} code={code} />
+                            greenPass == 'on' && <GreenIntensity context={greenLeftObjects} value={value2} sendMessage={sendMessage} code="L0" />
                         }
                     </View>
                     <View style={styles.box2}>
                         {
-                            redPass == 'on' && <RedIntensity context={redLeftObjects} value={value3} sendMessage={sendMessage} code={code} />
+                            redPass == 'on' && <RedIntensity context={redLeftObjects} value={value3} sendMessage={sendMessage} code="L0" />
                         }
                     </View>
                 </View>

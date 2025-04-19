@@ -64,9 +64,9 @@ const App = () => {
     requestWifiPermission();
   },[]);
   return (
+      <BtnEnableProvider>
     <WebSocketContextProvider>
       <CameraContextProvider>
-      <BtnEnableProvider>
       <RightBtnEnableProvider>
     <NavigationContainer>
       <Header/>
@@ -123,9 +123,9 @@ const App = () => {
       </Stack.Navigator>
     </NavigationContainer>
     </RightBtnEnableProvider>
-    </BtnEnableProvider>
     </CameraContextProvider>
     </WebSocketContextProvider>
+    </BtnEnableProvider>
   )
 }
 

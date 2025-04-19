@@ -1,18 +1,31 @@
 import React, { createContext, FC, useContext, useEffect, useRef, useState } from "react";
 import useStore from "../Store/stateStore";
-import { Alert } from "react-native";
 import Snackbar from "react-native-snackbar";
 import { cameraStore } from "../Store/cameraStore";
 import NetInfo from '@react-native-community/netinfo';
+import { BtnEnableContext } from "./EnableContext";
 
 type webSocketContextType = {
-    // message: string;
     sendMessage: (message: string) => void;
 };
 
 export const webSocketContext = createContext<webSocketContextType | undefined>(undefined);
 
 export const WebSocketContextProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
+
+    const {syncEnable}= useContext(BtnEnableContext);
+    const [syncing, setSyncing]= useState<boolean>();
+    const syncRef= useRef<boolean>();
+    useEffect(()=>{
+        if(syncEnable){
+            syncRef.current=true;
+            setSyncing(true);
+        }else{
+            syncRef.current=false;
+            setSyncing(false);
+        }
+    },[syncEnable])
+
     const [socket, setSocket] = useState<WebSocket | null>(null);
     const [message, setMessage] = useState<string>('');
     const [isConnected, setIsConnected] = useState<boolean>(false);
@@ -74,20 +87,48 @@ export const WebSocketContextProvider: FC<{ children: React.ReactNode }> = ({ ch
             if (message === 'pong') return;
 
             setMessage(message);
-            if (message[0] === '@') {
-                let newStrArray: string[] = message.split("");
-                newStrArray[5] = 'T';
-                const newStr: string = newStrArray.join('');
-                console.log('Received message:', message);
-                const component = newStr[1];
-                const dome = newStr[6];
-                let key = `state${component + dome}`;
-                setState(key, newStr);
-            }
-            else if (message[0] === '$') {
-                const component = message[1];
-                let key = `state${component}`
-                setCameraState(key, message);
+            if(syncRef.current){
+                if (message[0] === '@') {
+                    let newStrArray1: string[] = message.split("");
+                    let newStrArray2: string[] = message.split("");
+                    newStrArray1[5] = 'T';
+                    newStrArray1[6] = 'L';
+                    newStrArray1[7] = '0';
+                    newStrArray2[5] = 'T';
+                    newStrArray2[6] = 'R';
+                    newStrArray2[7] = '0';
+                    const newStr1: string = newStrArray1.join('');
+                    const newStr2: string = newStrArray2.join('');
+                    console.log('Received message: on', message);
+                    const component = newStr1[1];
+                    const dome1 = 'L';
+                    const dome2 = 'R';
+                    let key1 = `state${component + dome1}`;
+                    let key2 = `state${component + dome2}`;
+                    setState(key1, newStr1);
+                    setState(key2, newStr2);
+                }
+                else if (message[0] === '$') {
+                    const component = message[1];
+                    let key = `state${component}`
+                    setCameraState(key, message);
+                }
+            }else {
+                if (message[0] === '@') {                    
+                    let newStrArray: string[] = message.split("");
+                    newStrArray[5] = 'T';
+                    const newStr: string = newStrArray.join('');
+                    console.log('Received message:', message);
+                    const component = newStr[1];
+                    const dome = newStr[6];
+                    let key = `state${component + dome}`;
+                    setState(key, newStr);
+                }
+                else if (message[0] === '$') {
+                    const component = message[1];
+                    let key = `state${component}`
+                    setCameraState(key, message);
+                }
             }
         };
 
@@ -142,7 +183,15 @@ export const WebSocketContextProvider: FC<{ children: React.ReactNode }> = ({ ch
 
     const sendMessage = (message: string) => {
         if (socket && socket.readyState === WebSocket.OPEN) {
-            socket.send(message);
+            if(syncing){
+                console.log(syncing);
+                message= message.substring(0,7)+'1';
+                socket.send(message);
+                console.log(message);
+            }else{
+                socket.send(message);
+                console.log(message);
+            }
         } else {
             console.error('WebSocket is not open. Unable to send message');
             Snackbar.show({

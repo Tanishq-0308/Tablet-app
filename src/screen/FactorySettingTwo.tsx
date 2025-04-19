@@ -51,7 +51,6 @@ const FactorySettingTwo = ({ navigation }: FactorySettingTwoProps) => {
     const value3 = useStore((state) => state.states.stateRR);
     const value4 = useStore((state) => state.states.stateOR)
     const { sendMessage } = useWebSocket();
-    const [code, setCode] = useState('');
 
     const readGreenEnable = async () => {
         try {
@@ -112,14 +111,6 @@ const FactorySettingTwo = ({ navigation }: FactorySettingTwoProps) => {
         readSensorEnbale();
     }, []);
 
-    const { syncEnable} = useContext(BtnEnableContext);
-    useEffect(() => {
-        if (syncEnable) {
-            setCode('R1');
-        } else {
-            setCode('R0');
-        }
-    }, [syncEnable]);
     return (
         <View style={styles.mainContainer}>
             <View style={styles.container2}>
@@ -134,24 +125,24 @@ const FactorySettingTwo = ({ navigation }: FactorySettingTwoProps) => {
                     </View>
                     <View style={styles.box}>
                         {
-                            cameraPass == 'on' && <CameraBtn context={cameraRightObject} value={value} sendMessage={sendMessage} code={code} />
+                            cameraPass == 'on' && <CameraBtn context={cameraRightObject} value={value} sendMessage={sendMessage} code="R0" />
                         }
                     </View>
                     <View style={styles.box}>
                         {
-                            sensorPass == 'on' && <OverheadEnable context={rightHeadObjects} value={value4} sendMessage={sendMessage} code={code} />
+                            sensorPass == 'on' && <OverheadEnable context={rightHeadObjects} value={value4} sendMessage={sendMessage} code="R0" />
                         }
                     </View>
                 </View>
                 <View style={styles.blockTwo}>
                     <View style={styles.box2}>
                         {
-                            greenPass == 'on' && <GreenIntensity context={greenRightObjects} value={value2} sendMessage={sendMessage} code={code} />
+                            greenPass == 'on' && <GreenIntensity context={greenRightObjects} value={value2} sendMessage={sendMessage} code="R0" />
                         }
                     </View>
                     <View style={styles.box2}>
                         {
-                            redPass == 'on' && <RedIntensity context={redRightObjects} value={value3} sendMessage={sendMessage} code={code} />
+                            redPass == 'on' && <RedIntensity context={redRightObjects} value={value3} sendMessage={sendMessage} code="R0" />
                         }
                     </View>
                 </View>

@@ -21,7 +21,14 @@ type page1Props = {
   navigation: NativeStackNavigationProp<RootParamList>;
 }
 const Page1 = ({ navigation }: page1Props) => {
-  const [code, setCode]=useState('');
+  const {lampEnable, setlampEnable, focusEnable, setFocusEnable} = useContext(BtnEnableContext);
+  const lampValue={
+    lampEnable,
+    setlampEnable
+  }
+  const focusValue={
+    focusEnable, setFocusEnable
+  }
   const value = useStore((state) => state.states.stateIL);
   const value2 = useStore((state) => state.states.stateEL);
   const value3 = useStore((state) => state.states.stateCL);
@@ -34,34 +41,27 @@ const Page1 = ({ navigation }: page1Props) => {
     syncEnable,
     setSyncEnable
   }
-  useEffect(()=>{
-    if(syncEnable){
-      setCode('L1');
-    }else{
-      setCode('L0');
-    }
-  },[syncEnable]);
   const { sendMessage } = useWebSocket()
   return (
     <ScrollView horizontal>
       <View style={styles.mainContainer}>
         <View style={styles.blockOne}>
           <View style={styles.box}>
-            <Intensity value={value} sendMessage={sendMessage} code={code} />
+            <Intensity value={value} sendMessage={sendMessage} code="L0" />
           </View>
           <View style={styles.box}>
-            <Color value={value3} sendMessage={sendMessage} code={code} />
+            <Color value={value3} sendMessage={sendMessage} code="L0" />
           </View>
           <View style={styles.box}>
-            <Endo value={value2} sendMessage={sendMessage} code={code} />
+            <Endo value={value2} sendMessage={sendMessage} code="L0" />
           </View>
           <View style={styles.box}>
-            <Lamp value={value4} sendMessage={sendMessage} code={code} />
+            <Lamp value={value4} sendMessage={sendMessage} code="L0" toggle={lampValue}/>
           </View>
         </View>
         <View style={styles.blockTwo}>
           <View style={styles.box}>
-            <BoostMode value={value5} sendMessage={sendMessage} code={code} />
+            <BoostMode value={value5} sendMessage={sendMessage} code="L0" />
           </View>
           <View style={styles.box}>
             <Settings navigation={navigation} navigateTo='FactorySetting' />
@@ -70,7 +70,7 @@ const Page1 = ({ navigation }: page1Props) => {
             <Syn value={value7} sendMessage={sendMessage} context={syncValue}/>
           </View>
           <View style={styles.box}>
-            <Focus value={value6} sendMessage={sendMessage} code={code} />
+            <Focus value={value6} sendMessage={sendMessage} code="L0" toggle={focusValue}/>
           </View>
         </View>
         <Text style={styles.dome}>Dome 1</Text>

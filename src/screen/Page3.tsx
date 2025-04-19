@@ -14,12 +14,20 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootParamList } from '../App';
 import Syn from '../components/Page1Components/Syn';
 import { BtnEnableContext } from '../Context/EnableContext';
+import { RightBtnEnableContext } from '../Context/RightContext';
 
 type page3Props = {
   navigation: NativeStackNavigationProp<RootParamList>;
 }
 const Page3 = ({ navigation }: page3Props) => {
-  const [code, setCode]=useState('');
+    const {lampEnable, setlampEnable, focusEnable, setFocusEnable} = useContext(RightBtnEnableContext);
+    const lampValue={
+      lampEnable,
+      setlampEnable
+    }
+    const focusValue={
+      focusEnable, setFocusEnable
+    }
   const value = useStore((state) => state.states.stateIR);
   const value2 = useStore((state) => state.states.stateER);
   const value3 = useStore((state) => state.states.stateCR);
@@ -32,33 +40,26 @@ const Page3 = ({ navigation }: page3Props) => {
     syncEnable,
     setSyncEnable
   }
-    useEffect(()=>{
-      if(syncEnable){
-        setCode('R1');
-      }else{
-        setCode('R0');
-      }
-    },[syncEnable]);
   const { sendMessage } = useWebSocket()
   return (
     <View style={styles.mainContainer}>
       <View style={styles.blockOne}>
         <View style={styles.box}>
-          <Intensity value={value} sendMessage={sendMessage} code={code} />
+          <Intensity value={value} sendMessage={sendMessage} code="R0"/>
         </View>
         <View style={styles.box}>
-          <Color value={value3} sendMessage={sendMessage} code={code} />
+          <Color value={value3} sendMessage={sendMessage} code="R0"/>
         </View>
         <View style={styles.box}>
-          <Endo value={value2} sendMessage={sendMessage} code={code} />
+          <Endo value={value2} sendMessage={sendMessage} code="R0"/>
         </View>
         <View style={styles.box}>
-          <Lamp value={value4} sendMessage={sendMessage} code={code} />
+          <Lamp value={value4} sendMessage={sendMessage} code="R0" toggle={lampValue}/>
         </View>
       </View>
       <View style={styles.blockTwo}>
         <View style={styles.box}>
-          <BoostMode value={value5} sendMessage={sendMessage} code={code} />
+          <BoostMode value={value5} sendMessage={sendMessage} code="R0"/>
         </View>
         <View style={styles.box}>
           <Settings navigation={navigation} navigateTo="FactorySettingTwo" />
@@ -68,7 +69,7 @@ const Page3 = ({ navigation }: page3Props) => {
         </View>
 
         <View style={styles.box}>
-          <Focus value={value6} sendMessage={sendMessage} code={code} />
+          <Focus value={value6} sendMessage={sendMessage} code="R0" toggle={focusValue}/>
         </View>
       </View>
       <Text style={styles.dome}>Dome 2</Text>

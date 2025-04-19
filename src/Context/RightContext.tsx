@@ -25,6 +25,10 @@ type RightBtnEnableType = {
     setSdiEnable:(sdiEnable:boolean)=>void;
     analogEnable:boolean;
     setAnalogEnable:(analogEnable:boolean)=>void;
+    lampEnable: boolean;
+    setlampEnable: (lampEnable: boolean)=> void;
+    focusEnable: boolean;
+    setFocusEnable: (focusEnable: boolean)=> void;
 }
 
 export const RightBtnEnableContext = createContext<RightBtnEnableType>({
@@ -52,6 +56,10 @@ export const RightBtnEnableContext = createContext<RightBtnEnableType>({
     setSdiEnable:()=>{},
     analogEnable:false,
     setAnalogEnable:()=>{},
+    lampEnable: true,
+    setlampEnable:()=>{},
+    focusEnable: false,
+    setFocusEnable: ()=>{}
 })
 
 export const RightBtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -67,6 +75,8 @@ export const RightBtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
     const [cameraEnabledValue, setCameraEnabledValue]= useState(false);
     const [sdiEnable, setSdiEnable]= useState(false);
     const [analogEnable, setAnalogEnable]= useState(false);
+    const [lampEnable, setlampEnable]= useState(true);
+    const [focusEnable, setFocusEnable]= useState(false);
 
     const defaultValue = {
         greenEnabled,
@@ -92,7 +102,11 @@ export const RightBtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
         sdiEnable,
         setSdiEnable,
         analogEnable,
-        setAnalogEnable
+        setAnalogEnable,
+        lampEnable, 
+        setlampEnable,
+        focusEnable,
+        setFocusEnable
     }
     return (
         <RightBtnEnableContext.Provider value={defaultValue}>
