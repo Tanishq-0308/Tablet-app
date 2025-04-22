@@ -5,11 +5,13 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootParamList } from '../App';
 import Page2 from './Page2';
 import RNFS from 'react-native-fs';
+import Page4 from './Page4';
 
 type HomeProps = NativeStackScreenProps<RootParamList>;
 
 const Home = ({ navigation }: HomeProps) => {
   const [cameraPass, setCameraPass]= useState('');
+  const [analogEnable, setAnalogEnbale]= useState('');
 
       const readSDIEnable=async()=>{
         try {
@@ -21,8 +23,19 @@ const Home = ({ navigation }: HomeProps) => {
           
         }
       }
+          const readAnalogEnable = async () => {
+              try {
+                  const filePath = `${RNFS.DocumentDirectoryPath}/analogEnable.txt`;
+                  const pass = await RNFS.readFile(filePath, 'utf8');
+                  const checkpass = pass;
+                  setAnalogEnbale(checkpass);
+              } catch (error) {
+                console.log(error);
+              }
+          }
 useEffect(()=>{
   readSDIEnable();
+  readAnalogEnable();
 })
   return (
     <ScrollView
@@ -34,6 +47,9 @@ useEffect(()=>{
       <Page1 navigation={navigation} />
       {
        cameraPass == 'on' && <Page2 navigation={navigation}/>
+      }
+      {
+        analogEnable == 'on' && <Page4/>
       }
     </ScrollView>
   );

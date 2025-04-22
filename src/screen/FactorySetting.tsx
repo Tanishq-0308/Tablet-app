@@ -102,7 +102,7 @@ const FactorySetting = ({ navigation }: FactorySettingProps) => {
             const checkpass = pass;
             setCameraPass(checkpass);
         } catch (error) {
-
+            console.log(error);
         }
     }
 
