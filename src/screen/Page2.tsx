@@ -210,7 +210,6 @@ const Page2 = ({navigation}:page2Prop) => {
           <View style={styles.box2}>
             <CameraSetting navigation={navigation}/>
           </View>
-
         </View>
       </View>
     </View>

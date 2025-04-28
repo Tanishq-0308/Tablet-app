@@ -15,6 +15,7 @@ import { PermissionsAndroid, Platform } from 'react-native'
 import WifiManager from 'react-native-wifi-reborn';
 import Controller from './components/Controller/Controller'
 import { CameraContextProvider } from './Context/CameraContext'
+import Controller2 from './components/Controller/Controller2'
 
 export type RootParamList = {
   Home: undefined;
@@ -24,6 +25,7 @@ export type RootParamList = {
   FactorySettingTwo:undefined;
   RightColorMode:undefined;
   Controller:undefined;
+  Controller2: undefined;
 }
 
 const Stack = createNativeStackNavigator<RootParamList>()
@@ -116,6 +118,13 @@ const App = () => {
         <Stack.Screen
           component={Controller}
           name='Controller'
+          options={{
+            headerShown:false
+          }}
+        />
+        <Stack.Screen
+          component={Controller2}
+          name='Controller2'
           options={{
             headerShown:false
           }}

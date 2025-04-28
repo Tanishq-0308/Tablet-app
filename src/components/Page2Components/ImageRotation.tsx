@@ -4,87 +4,88 @@ import rotationImg from '../../../assets/cameraIcons/imageRotation.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { moderateScale } from 'react-native-size-matters';
 
-type rotationProps={
-    value:string;
-    sendMessage:any;
-    loading:any;
+type rotationProps = {
+    value: string;
+    sendMessage: any;
+    loading: any;
 }
 
-const ImageRotation = ({value,sendMessage, loading}:rotationProps) => {
+const ImageRotation = ({ value, sendMessage, loading }: rotationProps) => {
 
-    useEffect(()=>{
-        if(value == '$R_1#'){
+    useEffect(() => {
+        if (value == '$R_1#') {
             rotateImage();
         }
-    },[value])
-    const rotation= useRef(new Animated.Value(0)).current;
+    }, [value])
+    const rotation = useRef(new Animated.Value(0)).current;
 
-    const rotateImage=()=>{
+    const rotateImage = () => {
         loading(7);
         rotation.setValue(0);
-        Animated.timing(rotation,{
-            toValue:1,
-            duration:500,
-            useNativeDriver:true,
+        Animated.timing(rotation, {
+            toValue: 1,
+            duration: 500,
+            useNativeDriver: true,
         }).start();
         sendMessage('$R_1#');
     }
 
-    const rotateInterpolate= rotation.interpolate({
-        inputRange:[0,1],
-        outputRange:['0deg', '180deg'],
+    const rotateInterpolate = rotation.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['0deg', '180deg'],
     });
 
-    const animatedStyle={
-        transform:[{rotate: rotateInterpolate}],
+    const animatedStyle = {
+        transform: [{ rotate: rotateInterpolate }],
     };
-  return (
-     <View style={styles.mainContainer}>
-                       <View style={{alignItems:'center', gap:10,}}>
-                       <View style={styles.container}>
-                        <Pressable onPress={rotateImage}>
+    return (
+        <View style={styles.mainContainer}>
+            <View style={{ alignItems: 'center', gap: 10, }}>
+                <View style={styles.container}>
+                    <Pressable onPress={rotateImage}>
                         <Animated.Image
                             source={rotationImg}
                             style={[styles.Image, animatedStyle]}
                             resizeMode='contain'
                         />
-                        </Pressable>
-                       </View>
-                       <TouchableOpacity onPress={rotateImage}>
-                           <Text style={styles.heading}>Image Rotation</Text>
-                       </TouchableOpacity>
-                       </View>
-                   </View>
-  )
+                    </Pressable>
+                </View>
+                <TouchableOpacity onPress={rotateImage}>
+                    <Text style={styles.heading}>Image Rotation</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+    )
 }
 
 export default ImageRotation
 
 const styles = StyleSheet.create({
-    mainContainer:{
-        height:'100%',
-        width:'100%',
+    mainContainer: {
+        height: '100%',
+        width: '100%',
         // borderWidth:2,
-        flexDirection:'row',
-        alignItems:'flex-start',
+        flexDirection: 'row',
+        alignItems: 'flex-start',
         // justifyContent:'center',
         // padding:10
+        padding: moderateScale(5)
     },
-    container:{},
-    Image:{
+    container: {},
+    Image: {
         height: hp('11.5%'),
         width: wp('7%'),
         aspectRatio: 1
     },
-    heading:{
+    heading: {
         fontSize: hp('2.6%'),
-        fontWeight:'bold',
-        borderWidth:2,
-        backgroundColor:'#ced6e0',
+        fontWeight: 'bold',
+        borderWidth: 2,
+        backgroundColor: '#ced6e0',
         paddingHorizontal: moderateScale(9),
         // paddingVertical:2,
-        borderRadius:22,
-        elevation:5,
-        borderColor:'#747d8c'
+        borderRadius: 22,
+        elevation: 5,
+        borderColor: '#747d8c'
     },
 })

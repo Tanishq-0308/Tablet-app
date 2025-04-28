@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
         alignItems:'flex-start',
         justifyContent:'center',
         // padding:10
+        padding: moderateScale(5)
     },
     container:{},
     Image:{

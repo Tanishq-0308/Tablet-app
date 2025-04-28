@@ -130,7 +130,7 @@ const CameraMode = ({ context }: CameraModeType) => {
             enable && 
         <View style={styles.container}>
             <Text style={[styles.button, sdiEnable == true ? { backgroundColor:'green'}: {backgroundColor:'#ced6e0'}]} onPress={sdiEnableFunction}>SDI</Text>
-            <Text style={[styles.button, analogEnable == true ? { backgroundColor:'green'}: {backgroundColor:'#ced6e0'}]} onPress={sdiAnalogFunction}>Analog</Text>
+            <Text style={[styles.button, analogEnable == true ? { backgroundColor:'green'}: {backgroundColor:'#ced6e0'}]} onPress={sdiAnalogFunction}>AHD</Text>
             
         </View>
         }

@@ -49,7 +49,7 @@ useEffect(()=>{
        cameraPass == 'on' && <Page2 navigation={navigation}/>
       }
       {
-        analogEnable == 'on' && <Page4/>
+        analogEnable == 'on' && <Page4 navigation={navigation}/>
       }
     </ScrollView>
   );

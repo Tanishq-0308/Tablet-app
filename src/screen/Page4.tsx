@@ -9,8 +9,15 @@ import PowerButton from '../components/Page4Components/PowerButton';
 import AntiFlicker from '../components/Page4Components/AntiFlicker';
 import { CameraContext } from '../Context/CameraContext';
 import { useWebSocket } from '../Context/webSocketContext';
+import CameraSetting from '../components/Page4Components/CameraSetting';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootParamList } from '../App';
 
-const Page4 = () => {
+type page4Prop={
+  navigation:NativeStackNavigationProp<RootParamList>
+}
+
+const Page4 = ({navigation}:page4Prop) => {
   const {sendMessage}= useWebSocket();
   const {
     analogIrisEnable,
@@ -47,21 +54,24 @@ const Page4 = () => {
           <Zoom sendMessage={sendMessage}/>
         </View>
         <View style={styles.box2}>
-          <Iris context={irisValue} sendMessage={sendMessage}/>
+          <PowerButton context={powerValue} sendMessage={sendMessage} reset={reset}/>
         </View>
         <View style={styles.box2}>
-          <PowerButton context={powerValue} sendMessage={sendMessage} reset={reset}/>
+          {/* <Iris context={irisValue} sendMessage={sendMessage}/> */}
         </View>
       </View>
       <View style={styles.blockTwo}>
         <View style={styles.box3}>
           <Focus sendMessage={sendMessage}/>
         </View>
-        <View style={styles.box2}>
+        {/* <View style={styles.box2}>
           <ImageRotation sendMessage={sendMessage}/>
-        </View>
+        </View> */}
         <View style={styles.box2}>
           <AntiFlicker context={flickerValue}/>
+        </View>
+        <View style={styles.box2}>
+          <CameraSetting navigation={navigation}/>
         </View>
       </View>
     </View>
