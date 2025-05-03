@@ -16,6 +16,56 @@ const Zoom = ({sendMessage}:zoomProps) => {
     const decrease = () => {
         sendMessage('$ZAM#')
     };
+
+    const handleZoomIN=async()=>{
+        try {
+            const response= await fetch('http://192.168.4.4:8000/api/camera_zoom/move/',{
+                method:'POST',
+                headers:{
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2MzYwMTE0LCJpYXQiOjE3NDYyNzM3MTQsImp0aSI6IjFhN2Q4NjYxNmFiMDRlMmU5MzBiYzZiZDBlODgxYjAzIiwidXNlcl9pZCI6ImJyYWluIn0.c91FrX67zAG6JgtTeOZ7y_EhWmoV80tUVY8Z9PG6GdI'
+                },
+                body:JSON.stringify({
+                    direction:'zoom_in',
+                    speed: 0.1,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to zoom camera');
+              }
+        
+              const result = await response.json();
+              console.log('Zoom result:', result);
+        } catch (error) {
+                console.error('Zoom error:', error);
+        }
+    }
+
+    const handleZoomOut=async()=>{
+        try {
+            const response= await fetch('http://192.168.4.4:8000/api/camera_zoom/move/',{
+                method:'POST',
+                headers:{
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ2MzYwMTE0LCJpYXQiOjE3NDYyNzM3MTQsImp0aSI6IjFhN2Q4NjYxNmFiMDRlMmU5MzBiYzZiZDBlODgxYjAzIiwidXNlcl9pZCI6ImJyYWluIn0.c91FrX67zAG6JgtTeOZ7y_EhWmoV80tUVY8Z9PG6GdI'
+                },
+                body:JSON.stringify({
+                    direction:'zoom_out',
+                    speed: 0.1,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to zoom camera');
+              }
+        
+              const result = await response.json();
+              console.log('Zoom result:', result);
+        } catch (error) {
+                console.error('Zoom error:', error);
+        }
+    }
   return (
         <View style={styles.mainContainer}>
             <View style={{ alignItems: 'center', gap: 10, }}>

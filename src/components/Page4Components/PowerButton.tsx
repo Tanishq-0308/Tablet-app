@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
           // borderWidth:2,
           flexDirection: 'row',
           alignItems: 'center',
-          // justifyContent: 'center',
+          justifyContent: 'center',
           padding: moderateScale(5)
       },
       container: {},

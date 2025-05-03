@@ -53,23 +53,23 @@ const Page4 = ({navigation}:page4Prop) => {
         <View style={styles.box3}>
           <Zoom sendMessage={sendMessage}/>
         </View>
-        <View style={styles.box2}>
-          <PowerButton context={powerValue} sendMessage={sendMessage} reset={reset}/>
-        </View>
-        <View style={styles.box2}>
-          {/* <Iris context={irisValue} sendMessage={sendMessage}/> */}
-        </View>
-      </View>
-      <View style={styles.blockTwo}>
         <View style={styles.box3}>
           <Focus sendMessage={sendMessage}/>
         </View>
         {/* <View style={styles.box2}>
-          <ImageRotation sendMessage={sendMessage}/>
+          <Iris context={irisValue} sendMessage={sendMessage}/>
         </View> */}
+      </View>
+      <View style={styles.blockTwo}>
+        {/* <View style={styles.box2}>
+          <ImageRotation sendMessage={sendMessage}/>
+          </View> */}
         <View style={styles.box2}>
           <AntiFlicker context={flickerValue}/>
         </View>
+          <View style={styles.box2}>
+            <PowerButton context={powerValue} sendMessage={sendMessage} reset={reset}/>
+          </View>
         <View style={styles.box2}>
           <CameraSetting navigation={navigation}/>
         </View>
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     height: hp('37%'),
   },
   box2: {
-    width: wp('30%'),
+    width: wp('33%'),
     height: hp('37%'),
   },
   box3: {
