@@ -15,12 +15,14 @@ type CameraModeType = {
         setSdiEnable: (sdiEnable: boolean)=> void
         analogEnable: boolean,
         setAnalogEnable: (analogEnable: boolean)=> void;
+        ipEnable: boolean,
+        setIpEnable:(ipEnable: boolean)=> void;
     }
 }
 
 const CameraMode = ({ context }: CameraModeType) => {
 
-    const { enable, setEnable, sdiEnable, setSdiEnable, analogEnable, setAnalogEnable } = context;
+    const { enable, setEnable, sdiEnable, setSdiEnable, analogEnable, setAnalogEnable, ipEnable, setIpEnable } = context;
     // const [sdiEnable,setSdiEnable]= useState(false);
     // const [analogEnable,setAnalogEnable]= useState(false);
 
@@ -50,8 +52,10 @@ const CameraMode = ({ context }: CameraModeType) => {
             saveCameraEnable('off');
             saveSdiEnable('off')
             saveAnalogEnable('off')
+            saveIpEnable('off');
             setAnalogEnable(false);
             setSdiEnable(false);
+            setIpEnable(false);
         }
     }
 
@@ -73,6 +77,15 @@ const CameraMode = ({ context }: CameraModeType) => {
         }
     }
 
+    const saveIpEnable= async (value: string)=>{
+        try {
+            const filePath= `${RNFS.DocumentDirectoryPath}/ipEnable.txt`;
+            await RNFS.writeFile(filePath, value, 'utf8');
+        } catch (error) {
+            
+        }
+    }
+
     const sdiEnableFunction=()=>{
         if(sdiEnable){
             setSdiEnable(false);
@@ -84,6 +97,8 @@ const CameraMode = ({ context }: CameraModeType) => {
         // setSdiEnable(prev=>!prev);
         saveAnalogEnable('off')
         setAnalogEnable(false);
+        setIpEnable(false);
+        saveIpEnable('off');
     }
 
     const sdiAnalogFunction=()=>{
@@ -96,6 +111,22 @@ const CameraMode = ({ context }: CameraModeType) => {
         }
         // setAnalogEnable(prev=>!prev);
         saveSdiEnable('off');
+        setSdiEnable(false);
+        setIpEnable(false);
+        saveIpEnable('off');
+    }
+    const ipFunction=()=>{
+        if(ipEnable){
+            setIpEnable(false);
+            saveIpEnable('off');
+        }else{            
+            setIpEnable(true);
+            saveIpEnable('on');
+        }
+
+        saveAnalogEnable('off');
+        saveSdiEnable('off');
+        setAnalogEnable(false);
         setSdiEnable(false);
     }
     return (
@@ -131,6 +162,7 @@ const CameraMode = ({ context }: CameraModeType) => {
         <View style={styles.container}>
             <Text style={[styles.button, sdiEnable == true ? { backgroundColor:'green'}: {backgroundColor:'#ced6e0'}]} onPress={sdiEnableFunction}>SDI</Text>
             <Text style={[styles.button, analogEnable == true ? { backgroundColor:'green'}: {backgroundColor:'#ced6e0'}]} onPress={sdiAnalogFunction}>AHD</Text>
+            <Text style={[styles.button, ipEnable == true ? { backgroundColor:'green'}: {backgroundColor:'#ced6e0'}]} onPress={ipFunction}>IP</Text>
             
         </View>
         }

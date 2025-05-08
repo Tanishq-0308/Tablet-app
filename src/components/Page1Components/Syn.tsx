@@ -40,12 +40,36 @@ const Syn = ({ value, sendMessage, context}: SynctModeInputType) => {
         // console.log('true');
         sendMessage(`@N_1#T${code}`)
         setState(key,`@N_1#T${code}`);
+        sendMessage(`@I01#T${code}`);
+        setState(`stateI${dome}`,`@I01#T${code}`);
+        sendMessage(`@C05#T${code}`);
+        setState(`stateC${dome}`,`@C05#T${code}`);
+        sendMessage(`@E_0#T${code}`);
+        setState(`stateE${dome}`,`@E_0#T${code}`);
+        sendMessage(`@L_1#T${code}`);
+        setState(`stateL${dome}`,`@L_1#T${code}`);
+        sendMessage(`@D_0#T${code}`);
+        setState(`stateD${dome}`,`@D_0#T${code}`);
+        sendMessage(`@F_0#T${code}`)
+        setState(`stateF${dome}`,`@F_0#T${code}`);
       }
       else {
         setSyncEnable(false);
         // console.log('false');
-          sendMessage(`@N_0#T${code}`);
-          setState(key,`@N_0#T${code}`);
+        sendMessage(`@N_0#T${code}`);
+        setState(key,`@N_0#T${code}`);
+        sendMessage(`@I01#T${code}`);
+        setState(`stateI${dome}`,`@I01#T${code}`);
+        sendMessage(`@C05#T${code}`);
+        setState(`stateC${dome}`,`@C05#T${code}`);
+        sendMessage(`@E_0#T${code}`);
+        setState(`stateE${dome}`,`@E_0#T${code}`);
+        sendMessage(`@L_1#T${code}`);
+        setState(`stateL${dome}`,`@L_1#T${code}`);
+        sendMessage(`@D_0#T${code}`);
+        setState(`stateD${dome}`,`@D_0#T${code}`);
+        sendMessage(`@F_0#T${code}`)
+        setState(`stateF${dome}`,`@F_0#T${code}`);
       }
   }
   return (

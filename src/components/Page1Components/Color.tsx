@@ -28,7 +28,7 @@ type ColorInput = {
 
 const Color = ({ value, sendMessage, code }: ColorInput) => {
     const [colImage, setColImage] = useState<ImageSourcePropType>(colorB);
-    const [counter, setCounter] = useState(0);
+    const [counter, setCounter] = useState(1);
     const setState= useStore((state)=>state.setState);
     const component = 'C';
     const dome = code == 'R0' ? 'R' : 'L';
@@ -50,6 +50,8 @@ const Color = ({ value, sendMessage, code }: ColorInput) => {
                 setCounter(2);
                 break;
             default:
+                setColImage(colorB)
+                setCounter(1);
                 break;
         }
     }, [value]);

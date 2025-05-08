@@ -29,7 +29,9 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
         sdiEnable, 
         setSdiEnable, 
         analogEnable, 
-        setAnalogEnable 
+        setAnalogEnable,
+        ipEnable,
+        setIpEnable
     } = useContext(RightBtnEnableContext)
     const rightGreenEnable = {
         enable: greenEnabled,
@@ -52,7 +54,9 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
         sdiEnable: sdiEnable,
         setSdiEnable: setSdiEnable,
         analogEnable,
-        setAnalogEnable
+        setAnalogEnable,
+        ipEnable,
+        setIpEnable
     }
 
     const [enterPassword, setEnterPassword] = useState('');
@@ -70,6 +74,7 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
         readSensorEnable();
         readSdiEnable();
         readAnalogEnable();
+        readIpEnable();
     }, []);
 
     const savePasswordToFile = async (password: string) => {
@@ -202,6 +207,22 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
                 
             }
         }
+
+        
+        const readIpEnable= async()=>{
+            try {
+              const filePath = `${RNFS.DocumentDirectoryPath}/ipEnable.txt`;
+              const pass = await RNFS.readFile(filePath, 'utf8');
+              const checkpass = pass;
+              if(checkpass == 'on'){
+                rightCameraEnable.setIpEnable(true);
+              }else if(checkpass == 'off'){
+                rightCameraEnable.setIpEnable(false);
+              }
+            } catch (error) {
+              console.log(error);
+            }
+          }
     return (
         <View style={styles.mainContainer}>
             <Modal

@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useContext, useState } from 'react'
+import { ActivityIndicator, Modal, StyleSheet, Text, View } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Zoom from '../components/Page4Components/Zoom';
 import Focus from '../components/Page4Components/Focus';
@@ -13,12 +13,14 @@ import CameraSetting from '../components/Page4Components/CameraSetting';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootParamList } from '../App';
 
-type page4Prop={
-  navigation:NativeStackNavigationProp<RootParamList>
+type page4Prop = {
+  navigation: NativeStackNavigationProp<RootParamList>
 }
 
-const Page4 = ({navigation}:page4Prop) => {
-  const {sendMessage}= useWebSocket();
+const Page4 = ({ navigation }: page4Prop) => {
+  const { sendMessage } = useWebSocket();
+  const [isLoading, setIsLoading] = useState(false);
+  const [countdown, setCountdown] = useState(0);
   const {
     analogIrisEnable,
     analogPowerEnable,
@@ -26,54 +28,100 @@ const Page4 = ({navigation}:page4Prop) => {
     setAnalogIrisEnable,
     setAnalogPowerEnable,
     setFlickerEnable
-  }= useContext(CameraContext);
+  } = useContext(CameraContext);
 
-  const irisValue={
+  const irisValue = {
     analogIrisEnable,
     setAnalogIrisEnable
   };
 
-  const powerValue={
+  const powerValue = {
     analogPowerEnable,
     setAnalogPowerEnable
   };
 
-  const flickerValue={
+  const flickerValue = {
     flickerEnable,
     setFlickerEnable
   };
 
-  const reset=()=>{
+  const reset = () => {
     setAnalogIrisEnable(false);
     setFlickerEnable(false);
   }
+
+  const handleButtonPress = (time: any) => {
+    // const time= parseInt(loadingTime) || 5; 
+    setIsLoading(true);
+    setCountdown(time);
+
+    // if (timer) clearInterval (timer)
+
+    // timer = setInterval(() => {
+    //   setCountdown((prevCount) => {
+    //     if(prevCount <= 1){
+    //       clearInterval(timer);
+    //       setIsLoading(false);
+    //       return 0;
+    //     }
+    //     return prevCount -1;
+    //   })
+    // }, 1000);
+    const timer = setInterval(() => {
+      setCountdown((prevCount) => {
+        if (prevCount <= 1) {
+          clearInterval(timer);
+          setIsLoading(false);
+          return 0;
+        }
+        return prevCount - 1;
+      });
+    }, 1000);
+  }
+
   return (
     <View style={styles.mainContainer}>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={isLoading}
+        onRequestClose={() => setIsLoading(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <ActivityIndicator size="large" color="#0000ff" />
+            <Text style={styles.loadingText}>
+              Processing... {countdown}s
+            </Text>
+          </View>
+        </View>
+      </Modal>
       <View style={styles.blockOne}>
         <View style={styles.box3}>
-          <Zoom sendMessage={sendMessage}/>
+          <Zoom sendMessage={sendMessage} />
         </View>
         <View style={styles.box3}>
-          <Focus sendMessage={sendMessage}/>
+          <Focus sendMessage={sendMessage} />
         </View>
-        {/* <View style={styles.box2}>
-          <Iris context={irisValue} sendMessage={sendMessage}/>
-        </View> */}
       </View>
       <View style={styles.blockTwo}>
         {/* <View style={styles.box2}>
           <ImageRotation sendMessage={sendMessage}/>
           </View> */}
         <View style={styles.box2}>
-          <AntiFlicker context={flickerValue}/>
+          <Iris context={irisValue} sendMessage={sendMessage} />
         </View>
-          <View style={styles.box2}>
-            <PowerButton context={powerValue} sendMessage={sendMessage} reset={reset}/>
-          </View>
         <View style={styles.box2}>
-          <CameraSetting navigation={navigation}/>
+          <AntiFlicker context={flickerValue} />
+        </View>
+        <View style={styles.box2}>
+          <PowerButton context={powerValue} sendMessage={sendMessage} reset={reset} loading={handleButtonPress} />
+        </View>
+        <View style={styles.box2}>
+          <CameraSetting navigation={navigation} />
         </View>
       </View>
+      {/* <Text style={styles.dome}>AHD Camera</Text> */}
     </View>
   )
 }
@@ -81,6 +129,15 @@ const Page4 = ({navigation}:page4Prop) => {
 export default Page4
 
 const styles = StyleSheet.create({
+  dome: {
+    textAlign: 'right',
+    paddingRight: 30,
+    fontSize: hp('3.2%'),
+    fontStyle: 'italic',
+    color: 'green',
+    fontWeight: 'bold',
+    opacity:0.5
+  },
   mainContainer: {
     backgroundColor: 'white',
     height: hp('85.5%'),
@@ -102,12 +159,31 @@ const styles = StyleSheet.create({
     height: hp('37%'),
   },
   box2: {
-    width: wp('33%'),
+    width: wp('25%'),
     height: hp('37%'),
   },
   box3: {
     // borderWidth:2,
     width: wp('50%'),
     height: hp('38%'),
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+    elevation: 5,
+    minWidth: 200,
+  },
+  loadingText: {
+    fontSize: 16,
+    marginTop: 10,
+    color: '#000',
   },
 })

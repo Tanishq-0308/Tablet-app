@@ -27,7 +27,9 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
         sdiEnable, 
         setSdiEnable, 
         analogEnable, 
-        setAnalogEnable 
+        setAnalogEnable,
+        ipEnable,
+        setIpEnable
     } = useContext(BtnEnableContext)
     const leftGreenEnable = {
         enable: greenEnabled,
@@ -50,7 +52,9 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
         sdiEnable: sdiEnable,
         setSdiEnable: setSdiEnable,
         analogEnable,
-        setAnalogEnable
+        setAnalogEnable,
+        ipEnable,
+        setIpEnable
     }
 
     const [enterPassword, setEnterPassword] = useState('');
@@ -70,6 +74,7 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
         readSensorEnable();
         readSdiEnable();
         readAnalogEnable();
+        readIpEnable();
     }, []);
 
     const handleCheckCode = () => {
@@ -209,6 +214,21 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
             
         }
     }
+
+    const readIpEnable= async()=>{
+        try {
+          const filePath = `${RNFS.DocumentDirectoryPath}/ipEnable.txt`;
+          const pass = await RNFS.readFile(filePath, 'utf8');
+          const checkpass = pass;
+          if(checkpass == 'on'){
+            leftCameraEnable.setIpEnable(true);
+          }else if(checkpass == 'off'){
+            leftCameraEnable.setIpEnable(false);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
     return (
         <View style={styles.mainContainer}>
             <Modal

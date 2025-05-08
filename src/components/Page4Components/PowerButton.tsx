@@ -11,13 +11,14 @@ type powerProps={
   },
   sendMessage: any;
   reset:()=> void;
+  loading:any;
 }
 
-const PowerButton = ({context, sendMessage, reset}: powerProps) => {
+const PowerButton = ({context, sendMessage,loading, reset}: powerProps) => {
   const {analogPowerEnable, setAnalogPowerEnable}= context;
   const handlePower =() =>{
     if(analogPowerEnable){
-        // loading(5);
+        loading(5);
         setAnalogPowerEnable(false);
         sendMessage('$PA1#')
         console.log('$PA1#');
