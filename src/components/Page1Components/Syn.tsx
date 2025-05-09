@@ -9,17 +9,18 @@ import useStore from '../../Store/stateStore';
 type SynctModeInputType ={
   value: string
   sendMessage: any;
+  code: string
   context: {
     syncEnable:boolean,
     setSyncEnable:(syncEnable: boolean)=>void;
   }
 }
 
-const Syn = ({ value, sendMessage, context}: SynctModeInputType) => {
+const Syn = ({ value, sendMessage,code,  context}: SynctModeInputType) => {
   const {syncEnable, setSyncEnable}= context;
   const setState= useStore((state)=>state.setState);
   const component = 'N';
-  let code= 'L0';
+  // let code= 'L0';
   const dome = code == 'R0' ? 'R' : 'L';
   const key = `state${component + dome}`;
 

@@ -65,7 +65,7 @@ const Page3 = ({ navigation }: page3Props) => {
           <Settings navigation={navigation} navigateTo="FactorySettingTwo" />
         </View>
         <View style={styles.box}>
-          <Syn value={value7} sendMessage={sendMessage} context={syncValue}/>
+          <Syn value={value7} sendMessage={sendMessage} context={syncValue} code="R0"/>
         </View>
 
         <View style={styles.box}>

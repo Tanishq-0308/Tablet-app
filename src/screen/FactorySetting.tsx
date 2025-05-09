@@ -130,21 +130,21 @@ const FactorySetting = ({ navigation }: FactorySettingProps) => {
                     <View style={styles.box}>
                         <FactoryBtn navigation={navigation} navigateTo='ColorMode' />
                     </View>
-                    <View style={styles.box}>
+                    {/* <View style={styles.box}>
                         {
                             cameraPass == 'on' && <CameraBtn context={cameraLeftObject} value={value} sendMessage={sendMessage} code="L0" />
                         }
-                    </View>
-                    <View style={styles.box}>
+                    </View> */}
+                    <View style={styles.box2}>
                         {
-                            sensorPass == 'on' && <OverheadEnable context={leftHeadObjects} value={value4} sendMessage={sendMessage} code="L0" />
+                            greenPass == 'on' && <GreenIntensity context={greenLeftObjects} value={value2} sendMessage={sendMessage} code="L0" />
                         }
                     </View>
                 </View>
                 <View style={styles.blockTwo}>
-                    <View style={styles.box2}>
+                    <View style={styles.box}>
                         {
-                            greenPass == 'on' && <GreenIntensity context={greenLeftObjects} value={value2} sendMessage={sendMessage} code="L0" />
+                            sensorPass == 'on' && <OverheadEnable context={leftHeadObjects} value={value4} sendMessage={sendMessage} code="L0" />
                         }
                     </View>
                     <View style={styles.box2}>
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     box: {
         flexDirection: 'row',
         alignItems: 'center',
-        width: wp('30.6%'),
+        width: wp('41%'),
         height: hp('37%'),
     },
     box2: {
@@ -201,6 +201,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     blockTwo: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        justifyContent:'flex-end'
     },
 })
