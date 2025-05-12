@@ -59,6 +59,8 @@ const RedIntensity = ({ value, sendMessage, code, context }: RedInputType) => {
     if (value.length > 0) {
       if (value === `@R_0#T${code}`) {
         setEnable(`@R_0#T${code}`);
+        setIntImage(IntOne)
+        setColor(0)
       }
       else if (value === `@R_1#T${code}`) {
         setEnable(`@R_1#T${code}`);
@@ -223,7 +225,7 @@ const RedIntensity = ({ value, sendMessage, code, context }: RedInputType) => {
         <Text style={styles.heading}>INTENSITY</Text>
         <View style={styles.diceContainer}>
           <TouchableOpacity
-            disabled={enable ? false : true}
+            disabled={enable == `@R_1#T${code}` ? false : true}
             onPress={() => {
               if (color > 0) {
                 const newCounter = color - 1; // Calculate the new counter
@@ -239,7 +241,7 @@ const RedIntensity = ({ value, sendMessage, code, context }: RedInputType) => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            disabled={enable ? false : true}
+            disabled={enable == `@R_1#T${code}` ? false : true}
             onPress={() => {
               if (color < 9) {
                 const newCounter = color + 1; // Calculate the new counter

@@ -65,6 +65,8 @@ const GreenIntensity = ({ value, sendMessage, code, context }: GreenInputType) =
 
       if (value === `@G_0#T${code}`) {
         setEnable(`@G_0#T${code}`);
+        setIntImage(IntZero)
+        setColor(0)
       }
       else if (value === `@G_1#T${code}`) {
         setEnable(`@G_1#T${code}`);
@@ -123,7 +125,6 @@ const GreenIntensity = ({ value, sendMessage, code, context }: GreenInputType) =
       setEnable(`@G_1#T${code}`);
       sendMessage(`@G_1#T${code}`)
       setState(key, `@G_1#T${code}`);
-
     }
     else {
       setEnable(`@G_0#T${code}`)
@@ -231,7 +232,7 @@ const GreenIntensity = ({ value, sendMessage, code, context }: GreenInputType) =
         <Text style={styles.heading}>INTENSITY</Text>
         <View style={styles.diceContainer}>
           <TouchableOpacity
-            disabled={enable ? false : true}
+            disabled={enable == `@G_1#T${code}` ? false : true}
             onPress={() => {
               if (color > 0) {
                 const newgreenValue = color - 1; // Calculate the new color
@@ -247,7 +248,7 @@ const GreenIntensity = ({ value, sendMessage, code, context }: GreenInputType) =
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            disabled={enable ? false : true}
+            disabled={enable == `@G_1#T${code}` ? false : true}
             onPress={() => {
               if (color < 9) {
                 const newgreenValue = color + 1; // Calculate the new color
