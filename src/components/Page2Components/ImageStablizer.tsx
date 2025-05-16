@@ -40,6 +40,11 @@ const ImageStablizer = ({ value, context, sendMessage ,loading}: stabilizerProps
             setFOnePushEnbale(false);
             sendMessage('$F_M#');
             setState(key, '$F_M#');
+        }else {
+            setStablizerEnable(false);
+            setFAutoEnbale(true);
+            sendMessage('$F_A#');
+            setState(key, '$F_A#');
         }
     }
     return (
