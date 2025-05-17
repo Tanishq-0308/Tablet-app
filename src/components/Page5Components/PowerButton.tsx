@@ -6,8 +6,8 @@ import { moderateScale, moderateVerticalScale } from 'react-native-size-matters'
 
 type powerProps={
   context:{
-    analogPowerEnable: boolean;
-    setAnalogPowerEnable: (analogPowerEnable: boolean)=> void;
+    ipPowerEnable: boolean;
+    setIpPowerEnable: (ipPowerEnable: boolean)=> void;
   },
   sendMessage: any;
   reset:()=> void;
@@ -15,15 +15,15 @@ type powerProps={
 }
 
 const PowerButton = ({context, sendMessage,loading, reset}: powerProps) => {
-  const {analogPowerEnable, setAnalogPowerEnable}= context;
+  const {ipPowerEnable, setIpPowerEnable}= context;
   const handlePower =() =>{
-    if(analogPowerEnable){
+    if(ipPowerEnable){
         loading(5);
-        setAnalogPowerEnable(false);
+        setIpPowerEnable(false);
         sendMessage('$PA1#')
         console.log('$PA1#');
     }else{
-        setAnalogPowerEnable(true);
+        setIpPowerEnable(true);
         sendMessage('$PA0#')
         console.log('$PA0#');
         reset();
@@ -39,7 +39,7 @@ const PowerButton = ({context, sendMessage,loading, reset}: powerProps) => {
                 </View>
                 <TouchableOpacity>
                     {
-                        analogPowerEnable ?
+                        ipPowerEnable ?
                 <Text style={styles.onheading} onPress={handlePower}>Power On</Text>
                 :
                 <Text style={styles.heading} onPress={handlePower}>Power Off</Text>

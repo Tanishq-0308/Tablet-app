@@ -43,31 +43,40 @@ const Syn = ({ value, sendMessage, code, context }: SynctModeInputType) => {
       setState(key, `@N_1#T${code}`);
       //intensity
       sendMessage(`@I01#T${code}`);
-      setState(`stateI${dome}`, `@I01#T${code}`);
+      setState(`stateIR`, `@I01#T${code}`);
+      setState(`stateIL`, `@I01#T${code}`);
       //color
       sendMessage(`@C05#T${code}`);
-      setState(`stateC${dome}`, `@C05#T${code}`);
+      setState(`stateCR`, `@C05#T${code}`);
+      setState(`stateCL`, `@C05#T${code}`);
       //endo
       sendMessage(`@E_0#T${code}`);
-      setState(`stateE${dome}`, `@E_0#T${code}`);
+      setState(`stateER`, `@E_0#T${code}`);
+      setState(`stateEL`, `@E_0#T${code}`);
       //lamp
       sendMessage(`@L_1#T${code}`);
-      setState(`stateL${dome}`, `@L_1#T${code}`);
+      setState(`stateLR`, `@L_1#TR0`);
+      setState(`stateLL`, `@L_1#TL0`);
       //boost
       sendMessage(`@D_0#T${code}`);
-      setState(`stateD${dome}`, `@D_0#T${code}`);
+      setState(`stateDR`, `@D_0#T${code}`);
+      setState(`stateDL`, `@D_0#T${code}`);
       //focus
       sendMessage(`@F_0#T${code}`)
-      setState(`stateF${dome}`, `@F_0#T${code}`);
+      setState(`stateFR`, `@F_0#TR0`);
+      setState(`stateFL`, `@F_0#TL0`);
       //red intensity Off
       sendMessage(`@R_0#T${code}`);
-      setState(`stateR${dome}`, `@R_0#T${code}`);
+      setState(`stateRR`, `@R_0#T${code}`);
+      setState(`stateRL`, `@R_0#T${code}`);
       //overhead sensor
       sendMessage(`@O_0#T${code}`);
-      setState(`stateO${dome}`, `@O_0#T${code}`);
+      setState(`stateOR`, `@O_0#T${code}`);
+      setState(`stateOL`, `@O_0#T${code}`);
       //green intensity Off
       sendMessage(`@G_0#T${code}`);
-      setState(`stateG${dome}`, `@G_0#T${code}`);
+      setState(`stateGR`, `@G_0#T${code}`);
+      setState(`stateGL`, `@G_0#T${code}`);
     }
     else {
       setSyncEnable(false);
@@ -76,31 +85,40 @@ const Syn = ({ value, sendMessage, code, context }: SynctModeInputType) => {
       setState(key, `@N_0#T${code}`);
       //intensity
       sendMessage(`@I01#T${code}`);
-      setState(`stateI${dome}`, `@I01#T${code}`);
+      setState(`stateIR`, `@I01#T${code}`);
+      setState(`stateIL`, `@I01#T${code}`);
       //color
       sendMessage(`@C05#T${code}`);
-      setState(`stateC${dome}`, `@C05#T${code}`);
+      setState(`stateCR`, `@C05#T${code}`);
+      setState(`stateCL`, `@C05#T${code}`);
       //endo
       sendMessage(`@E_0#T${code}`);
-      setState(`stateE${dome}`, `@E_0#T${code}`);
+      setState(`stateER`, `@E_0#T${code}`);
+      setState(`stateEL`, `@E_0#T${code}`);
       //lamp
       sendMessage(`@L_1#T${code}`);
-      setState(`stateL${dome}`, `@L_1#T${code}`);
+      setState(`stateLR`, `@L_1#TR0`);
+      setState(`stateLL`, `@L_1#TL0`);
       //boost
       sendMessage(`@D_0#T${code}`);
-      setState(`stateD${dome}`, `@D_0#T${code}`);
+      setState(`stateDR`, `@D_0#T${code}`);
+      setState(`stateDL`, `@D_0#T${code}`);
       //focus
       sendMessage(`@F_0#T${code}`)
-      setState(`stateF${dome}`, `@F_0#T${code}`);
+      setState(`stateFR`, `@F_0#TR0`);
+      setState(`stateFL`, `@F_0#TL0`);
       //red intensity Off
       sendMessage(`@R_0#T${code}`);
-      setState(`stateR${dome}`, `@R_0#T${code}`);
+      setState(`stateRR`, `@R_0#T${code}`);
+      setState(`stateRL`, `@R_0#T${code}`);
       //overhead sensor
       sendMessage(`@O_0#T${code}`);
-      setState(`stateO${dome}`, `@O_0#T${code}`);
+      setState(`stateOR`, `@O_0#T${code}`);
+      setState(`stateOL`, `@O_0#T${code}`);
       //green intensity Off
       sendMessage(`@G_0#T${code}`);
-      setState(`stateG${dome}`, `@G_0#T${code}`);
+      setState(`stateGR`, `@G_0#T${code}`);
+      setState(`stateGL`, `@G_0#T${code}`);
     }
   }
   return (

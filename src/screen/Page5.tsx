@@ -8,7 +8,7 @@ import Zoom from '../components/Page5Components/Zoom';
 import Focus from '../components/Page5Components/Focus';
 import ImageStablizer from '../components/Page5Components/ImageStablizer';
 import Iris from '../components/Page5Components/Iris';
-import PowerButton from '../components/Page4Components/PowerButton';
+import PowerButton from '../components/Page5Components/PowerButton';
 
 const Page5 = () => {
   const { sendMessage } = useWebSocket();
@@ -16,11 +16,11 @@ const Page5 = () => {
   const [countdown, setCountdown] = useState(0);
   const {
     analogIrisEnable,
-    analogPowerEnable,
     flickerEnable,
+    ipPowerEnable,
     setAnalogIrisEnable,
-    setAnalogPowerEnable,
-    setFlickerEnable
+    setFlickerEnable,
+    setIpPowerEnable
   } = useContext(CameraContext);
 
   const irisValue = {
@@ -29,8 +29,8 @@ const Page5 = () => {
   };
 
   const powerValue = {
-    analogPowerEnable,
-    setAnalogPowerEnable
+    ipPowerEnable,
+    setIpPowerEnable
   };
 
   const flickerValue = {

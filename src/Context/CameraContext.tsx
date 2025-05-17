@@ -27,6 +27,8 @@ type CameraType={
     setAnalogPowerEnable: (analogPowerEnable: boolean)=> void;
     flickerEnable: boolean;
     setFlickerEnable: (flickerEnable: boolean)=> void;
+    ipPowerEnable: boolean;
+    setIpPowerEnable: (ipPowerEnable: boolean)=> void;
 }
 
 export const CameraContext= createContext<CameraType>({
@@ -48,14 +50,16 @@ export const CameraContext= createContext<CameraType>({
     setFreezeEnable:()=>{},
     stablizerEnable: false,
     setStablizerEnable:()=>{},
-    powerEnable: false,
+    powerEnable: true,
     setPowerEnable: ()=>{},
     analogIrisEnable: false,
     setAnalogIrisEnable: ()=>{},
-    analogPowerEnable: false,
+    analogPowerEnable: true,
     setAnalogPowerEnable: ()=>{},
     flickerEnable: false,
     setFlickerEnable: ()=>{},
+    ipPowerEnable: true,
+    setIpPowerEnable: ()=> {}
 })
 
 export const CameraContextProvider:FC<PropsWithChildren>=({children})=>{
@@ -68,10 +72,11 @@ export const CameraContextProvider:FC<PropsWithChildren>=({children})=>{
     const [fOnePushEnable, setFOnePushEnbale]= useState(false);
     const [freezeEnable, setFreezeEnable]= useState(false);
     const [stablizerEnable, setStablizerEnable]= useState(false);
-    const [powerEnable, setPowerEnable]= useState(false);
+    const [powerEnable, setPowerEnable]= useState(true);
     const [analogIrisEnable, setAnalogIrisEnable]= useState(false);
-    const [analogPowerEnable, setAnalogPowerEnable]= useState(false);
+    const [analogPowerEnable, setAnalogPowerEnable]= useState(true);
     const [flickerEnable, setFlickerEnable]= useState(false);
+    const [ipPowerEnable, setIpPowerEnable]= useState(true);
 
     const defaultValue={
         wAutoEnable,
@@ -99,7 +104,9 @@ export const CameraContextProvider:FC<PropsWithChildren>=({children})=>{
         analogPowerEnable,
         setAnalogPowerEnable,
         flickerEnable, 
-        setFlickerEnable
+        setFlickerEnable,
+        ipPowerEnable,
+        setIpPowerEnable
     }
     return(
         <CameraContext.Provider value={defaultValue}>
