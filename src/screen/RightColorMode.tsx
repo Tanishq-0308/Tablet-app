@@ -13,25 +13,28 @@ import { RootParamList } from '../App';
 import CameraMode from '../components/SwitchModeComponents/CameraMode';
 import RNFS from 'react-native-fs';
 import Icon from 'react-native-vector-icons/FontAwesome'
+import SynMode from '../components/SwitchModeComponents/SynMode';
 
 
 type RightColorModeProps = NativeStackScreenProps<RootParamList, 'RightColorMode'>
 const RightColorMode = ({ navigation }: RightColorModeProps) => {
-    const { 
-        cameraEnabled, 
-        setCameraEnabled, 
-        greenEnabled, 
-        setGreenEnabled, 
-        redEnabled, 
-        setRedEnabled, 
-        headSensorEnabled, 
-        setHeadSensorEnabled, 
-        sdiEnable, 
-        setSdiEnable, 
-        analogEnable, 
+    const {
+        cameraEnabled,
+        setCameraEnabled,
+        greenEnabled,
+        setGreenEnabled,
+        redEnabled,
+        setRedEnabled,
+        headSensorEnabled,
+        setHeadSensorEnabled,
+        sdiEnable,
+        setSdiEnable,
+        analogEnable,
         setAnalogEnable,
         ipEnable,
-        setIpEnable
+        setIpEnable,
+        syncModeEnable,
+        setSyncModeEnable
     } = useContext(RightBtnEnableContext)
     const rightGreenEnable = {
         enable: greenEnabled,
@@ -59,6 +62,11 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
         setIpEnable
     }
 
+    const rightSyncEnable = {
+        syncModeEnable,
+        setSyncModeEnable
+    }
+
     const [enterPassword, setEnterPassword] = useState('');
     const [createPassword, setCreatePassword] = useState('');
     const [storePassword, setStorePassword] = useState('');
@@ -75,6 +83,7 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
         readSdiEnable();
         readAnalogEnable();
         readIpEnable();
+        readSyncEnable();
     }, []);
 
     const savePasswordToFile = async (password: string) => {
@@ -178,51 +187,66 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
         }
     }
 
-        const readSdiEnable = async () => {
-            try {
-                const filePath= `${RNFS.DocumentDirectoryPath}/sdiEnable.txt`;
-                const pass = await RNFS.readFile(filePath, 'utf8');
-                const checkpass= pass;
-                if(checkpass == 'on') {
-                    rightCameraEnable.setSdiEnable(true);
-                } else if(checkpass == 'off'){
-                    rightCameraEnable.setSdiEnable(false);
-                }
-            } catch (error) {
-                
+    const readSdiEnable = async () => {
+        try {
+            const filePath = `${RNFS.DocumentDirectoryPath}/sdiEnable.txt`;
+            const pass = await RNFS.readFile(filePath, 'utf8');
+            const checkpass = pass;
+            if (checkpass == 'on') {
+                rightCameraEnable.setSdiEnable(true);
+            } else if (checkpass == 'off') {
+                rightCameraEnable.setSdiEnable(false);
             }
-        }
-    
-        const readAnalogEnable = async () => {
-            try {
-                const filePath= `${RNFS.DocumentDirectoryPath}/analogEnable.txt`;
-                const pass = await RNFS.readFile(filePath, 'utf8');
-                const checkpass= pass;
-                if(checkpass == 'on') {
-                    rightCameraEnable.setAnalogEnable(true);
-                } else if(checkpass == 'off'){
-                    rightCameraEnable.setAnalogEnable(false);
-                }
-            } catch (error) {
-                
-            }
-        }
+        } catch (error) {
 
-        
-        const readIpEnable= async()=>{
-            try {
-              const filePath = `${RNFS.DocumentDirectoryPath}/ipEnable.txt`;
-              const pass = await RNFS.readFile(filePath, 'utf8');
-              const checkpass = pass;
-              if(checkpass == 'on'){
-                rightCameraEnable.setIpEnable(true);
-              }else if(checkpass == 'off'){
-                rightCameraEnable.setIpEnable(false);
-              }
-            } catch (error) {
-              console.log(error);
+        }
+    }
+
+    const readAnalogEnable = async () => {
+        try {
+            const filePath = `${RNFS.DocumentDirectoryPath}/analogEnable.txt`;
+            const pass = await RNFS.readFile(filePath, 'utf8');
+            const checkpass = pass;
+            if (checkpass == 'on') {
+                rightCameraEnable.setAnalogEnable(true);
+            } else if (checkpass == 'off') {
+                rightCameraEnable.setAnalogEnable(false);
             }
-          }
+        } catch (error) {
+
+        }
+    }
+
+
+    const readIpEnable = async () => {
+        try {
+            const filePath = `${RNFS.DocumentDirectoryPath}/ipEnable.txt`;
+            const pass = await RNFS.readFile(filePath, 'utf8');
+            const checkpass = pass;
+            if (checkpass == 'on') {
+                rightCameraEnable.setIpEnable(true);
+            } else if (checkpass == 'off') {
+                rightCameraEnable.setIpEnable(false);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const readSyncEnable = async () => {
+        try {
+            const filePath = `${RNFS.DocumentDirectoryPath}/sync.txt`;
+            const pass = await RNFS.readFile(filePath, 'utf8');
+            const checkpass = pass;
+            if (checkpass == 'on') {
+                rightSyncEnable.setSyncModeEnable(true);
+            } else if (checkpass == 'off') {
+                rightSyncEnable.setSyncModeEnable(false);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
     return (
         <View style={styles.mainContainer}>
             <Modal
@@ -282,12 +306,15 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
                     <View style={styles.box}>
                         <RedMode context={rightRedEnable} />
                     </View>
-                </View>
-                <View style={styles.blockTwo}>
                     <View style={styles.box}>
                         <OverHeadSensor context={rightHeadEnable} />
                     </View>
-                    <View style={styles.box}>
+                </View>
+                <View style={styles.blockTwo}>
+                    <View style={styles.box1}>
+                        <SynMode context={rightSyncEnable} />
+                    </View>
+                    <View style={styles.box1}>
                         <CameraMode context={rightCameraEnable} />
                     </View>
                 </View>
@@ -327,9 +354,16 @@ const styles = StyleSheet.create({
     box: {
         flexDirection: 'row',
         alignItems: 'center',
-        width: wp('45.61%'),
+        width: wp('31%'),
         height: hp('37%'),
         // borderWidth:1,
+    },
+    box1: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: wp('45.61%'),
+        height: hp('37%'),
+        // borderWidth: 1,
     },
     blockOne: {
         flexDirection: 'row'

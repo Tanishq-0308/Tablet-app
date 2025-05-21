@@ -11,6 +11,7 @@ import { BtnEnableContext } from '../Context/EnableContext';
 import CameraMode from '../components/SwitchModeComponents/CameraMode';
 import RNFS from 'react-native-fs';
 import Icon from 'react-native-vector-icons/FontAwesome'
+import SynMode from '../components/SwitchModeComponents/SynMode';
 
 
 type ColorModeProps = NativeStackScreenProps<RootParamList, 'ColorMode'>
@@ -29,8 +30,11 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
         analogEnable, 
         setAnalogEnable,
         ipEnable,
-        setIpEnable
+        setIpEnable,
+        syncModeEnable,
+        setSyncModeEnable
     } = useContext(BtnEnableContext)
+
     const leftGreenEnable = {
         enable: greenEnabled,
         setEnable: setGreenEnabled
@@ -57,6 +61,11 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
         setIpEnable
     }
 
+    const leftSyncEnable= {
+        syncModeEnable,
+        setSyncModeEnable
+    }
+
     const [enterPassword, setEnterPassword] = useState('');
     const [enterCode, setEnterCode] = useState('');
     const [createPassword, setCreatePassword] = useState('');
@@ -75,6 +84,7 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
         readSdiEnable();
         readAnalogEnable();
         readIpEnable();
+        readSyncEnable();
     }, []);
 
     const handleCheckCode = () => {
@@ -228,7 +238,22 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
         } catch (error) {
           console.log(error);
         }
-      }
+    }
+
+    const readSyncEnable= async()=>{
+        try {
+            const filePath= `${RNFS.DocumentDirectoryPath}/sync.txt`;
+            const pass = await RNFS.readFile(filePath, 'utf8');
+            const checkpass = pass;
+            if(checkpass == 'on'){
+                leftSyncEnable.setSyncModeEnable(true);
+            }else if (checkpass == 'off'){
+                leftSyncEnable.setSyncModeEnable(false);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
     return (
         <View style={styles.mainContainer}>
             <Modal
@@ -313,12 +338,15 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
                     <View style={styles.box}>
                         <RedMode context={leftRedEnable} />
                     </View>
-                </View>
-                <View style={styles.blockTwo}>
                     <View style={styles.box}>
                         <OverHeadSensor context={leftHeadEnable} />
                     </View>
-                    <View style={styles.box}>
+                </View>
+                <View style={styles.blockTwo}>
+                    <View style={styles.box1}>
+                        <SynMode context={leftSyncEnable} />
+                    </View>
+                    <View style={styles.box1}>
                         <CameraMode context={leftCameraEnable} />
                     </View>
                 </View>
@@ -356,6 +384,13 @@ const styles = StyleSheet.create({
         gap: 15
     },
     box: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: wp('31%'),
+        height: hp('37%'),
+        // borderWidth: 1,
+    },
+    box1: {
         flexDirection: 'row',
         alignItems: 'center',
         width: wp('45.61%'),

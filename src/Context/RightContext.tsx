@@ -31,6 +31,8 @@ type RightBtnEnableType = {
     setFocusEnable: (focusEnable: boolean)=> void;
     ipEnable: boolean;
     setIpEnable: (ipEnable: boolean)=> void;
+    syncModeEnable: boolean;
+    setSyncModeEnable: (syncModeEnable: boolean)=> void;
 }
 
 export const RightBtnEnableContext = createContext<RightBtnEnableType>({
@@ -63,7 +65,9 @@ export const RightBtnEnableContext = createContext<RightBtnEnableType>({
     focusEnable: false,
     setFocusEnable: ()=>{},
     ipEnable: false,
-    setIpEnable:()=>{}
+    setIpEnable:()=>{},
+    syncModeEnable: false,
+    setSyncModeEnable: ()=>{}
 })
 
 export const RightBtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -82,6 +86,7 @@ export const RightBtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
     const [lampEnable, setlampEnable]= useState(true);
     const [focusEnable, setFocusEnable]= useState(false);
     const [ipEnable, setIpEnable]= useState(false);
+    const [syncModeEnable, setSyncModeEnable]= useState(false);
 
     const defaultValue = {
         greenEnabled,
@@ -113,7 +118,9 @@ export const RightBtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
         focusEnable,
         setFocusEnable,
         ipEnable,
-        setIpEnable
+        setIpEnable,
+        syncModeEnable,
+        setSyncModeEnable
     }
     return (
         <RightBtnEnableContext.Provider value={defaultValue}>

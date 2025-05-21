@@ -33,6 +33,8 @@ type BtnEnableType = {
     setFocusEnable: (focusEnable: boolean)=> void;
     ipEnable: boolean;
     setIpEnable: (ipEnable: boolean)=> void;
+    syncModeEnable: boolean;
+    setSyncModeEnable: (syncModeEnable: boolean)=> void;
 }
 
 export const BtnEnableContext = createContext<BtnEnableType>({
@@ -67,7 +69,9 @@ export const BtnEnableContext = createContext<BtnEnableType>({
     focusEnable: false,
     setFocusEnable: ()=>{},
     ipEnable: false,
-    setIpEnable:()=>{}
+    setIpEnable:()=>{},
+    syncModeEnable: false,
+    setSyncModeEnable: ()=>{}
 })
 
 export const BtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -87,6 +91,7 @@ export const BtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
     const [lampEnable, setlampEnable]= useState(true);
     const [focusEnable, setFocusEnable]= useState(false);
     const [ipEnable, setIpEnable]= useState(false);
+    const [syncModeEnable, setSyncModeEnable]= useState(false);
 
     const defaultValue = {
         greenEnabled,
@@ -120,7 +125,9 @@ export const BtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
         focusEnable,
         setFocusEnable,
         ipEnable,
-        setIpEnable
+        setIpEnable,
+        syncModeEnable,
+        setSyncModeEnable
     }
     return (
         <BtnEnableContext.Provider value={defaultValue}>
