@@ -11,10 +11,10 @@ type zoomProps={
 const Zoom = ({sendMessage}:zoomProps) => {
 
     const increase = () => {
-        sendMessage('$ZIP#')
+        sendMessage('$Z_P#')
     };
     const decrease = () => {
-        sendMessage('$ZIM#')
+        sendMessage('$Z_M#')
     };
 
     const handleZoomIN=async()=>{
