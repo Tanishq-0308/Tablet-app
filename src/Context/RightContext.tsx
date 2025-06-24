@@ -52,7 +52,7 @@ export const RightBtnEnableContext = createContext<RightBtnEnableType>({
     setHeadSensor: ()=>{},
     greenEnabledValue: '@G_0#TR0',
     setGreenEnabledValue: () => { },
-    redEnabledValue: '@R_0#TL0',
+    redEnabledValue: '@R_0#TR0',
     setRedEnabledValue: () => { },
     cameraEnabledValue: false,
     setCameraEnabledValue: () => {},

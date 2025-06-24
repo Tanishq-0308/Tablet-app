@@ -49,7 +49,7 @@ const RedIntensity = ({ value, sendMessage, code, context }: RedInputType) => {
   const { color, setColor, enable, setEnable } = context;
   const setState = useStore((state) => state.setState);
   const component = 'R';
-  const dome = code == 'R1'? 'R': 'L';
+  const dome = code == 'R0'? 'R': 'L';
   const key = `state${component + dome}`;
 
   useEffect(() => {
@@ -64,6 +64,8 @@ const RedIntensity = ({ value, sendMessage, code, context }: RedInputType) => {
       }
       else if (value === `@R_1#T${code}`) {
         setEnable(`@R_1#T${code}`);
+        setIntImage(IntOne)
+        setColor(0)
       }
       else {
         let number = parseInt(value[3]);
@@ -118,12 +120,12 @@ const RedIntensity = ({ value, sendMessage, code, context }: RedInputType) => {
     if (enable == `@R_0#T${code}`) {
       setEnable(`@R_1#T${code}`);
       sendMessage(`@R_1#T${code}`)
-      setState(key, `@R_1#T${code}`);
+      setState(key, `@R01#T${code}`);
     }
     else {
       setEnable(`@R_0#T${code}`)
       sendMessage(`@R_0#T${code}`);
-      setState(key, `@R_0#T${code}`);
+      setState(key, `@R01#T${code}`);
     }
   }
 

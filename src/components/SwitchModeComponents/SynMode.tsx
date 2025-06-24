@@ -56,7 +56,7 @@ const SynMode = ({ context }: SynctModeInputType) => {
       <Text
 
         style={styles.heading}
-      >OVERHEAD SENSOR</Text>
+      >SYNC MODE</Text>
       <View style={styles.switchContainer}>
         <Switch
           trackColor={{ false: '#767577', true: '#81b0ff' }}

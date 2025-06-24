@@ -49,7 +49,7 @@ const GreenIntensity = ({ value, sendMessage, code, context }: GreenInputType) =
   const { color, setColor, enable, setEnable } = context;
   const setState = useStore((state) => state.setState);
   const component = 'G';
-  const dome = code == 'R1' ? 'R' : 'L';
+  const dome = code == 'R0' ? 'R' : 'L';
   const key = `state${component + dome}`;
 
   useEffect(() => {
@@ -70,6 +70,8 @@ const GreenIntensity = ({ value, sendMessage, code, context }: GreenInputType) =
       }
       else if (value === `@G_1#T${code}`) {
         setEnable(`@G_1#T${code}`);
+        setIntImage(IntZero)
+        setColor(0)
       }
       else {
         let number = parseInt(value[3]);
@@ -124,12 +126,12 @@ const GreenIntensity = ({ value, sendMessage, code, context }: GreenInputType) =
     if (enable == `@G_0#T${code}`) {
       setEnable(`@G_1#T${code}`);
       sendMessage(`@G_1#T${code}`)
-      setState(key, `@G_1#T${code}`);
+      setState(key, `@G01#T${code}`);
     }
     else {
       setEnable(`@G_0#T${code}`)
       sendMessage(`@G_0#T${code}`);
-      setState(key, `@G_0#T${code}`);
+      setState(key, `@G01#T${code}`);
 
     }
   }
