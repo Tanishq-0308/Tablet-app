@@ -12,10 +12,14 @@ import CameraMode from '../components/SwitchModeComponents/CameraMode';
 import RNFS from 'react-native-fs';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import SynMode from '../components/SwitchModeComponents/SynMode';
+import { cameraStore } from '../Store/cameraStore';
 
 
 type ColorModeProps = NativeStackScreenProps<RootParamList, 'ColorMode'>
 const ColorMode = ({ navigation }: ColorModeProps) => {
+
+    const hdmiEnable= cameraStore((state)=>state.hdmiEnable);
+    const setHdmiEnable = cameraStore((state)=>state.setHdmiEnable);
     const { 
         greenEnabled, 
         setGreenEnabled, 
@@ -32,7 +36,7 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
         ipEnable,
         setIpEnable,
         syncModeEnable,
-        setSyncModeEnable
+        setSyncModeEnable,
     } = useContext(BtnEnableContext)
 
     const leftGreenEnable = {
@@ -58,7 +62,9 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
         analogEnable,
         setAnalogEnable,
         ipEnable,
-        setIpEnable
+        setIpEnable,
+        hdmiEnable,
+        setHdmiEnable
     }
 
     const leftSyncEnable= {
@@ -85,6 +91,7 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
         readAnalogEnable();
         readIpEnable();
         readSyncEnable();
+        readHdmiEnable();
     }, []);
 
     const handleCheckCode = () => {
@@ -254,6 +261,22 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
             console.error(error);
         }
     }
+
+    const readHdmiEnable = async()=>{
+        try {
+            const filePath= `${RNFS.DocumentDirectoryPath}/hdmiEnable.txt`;
+            const pass = await RNFS.readFile(filePath, 'utf8');
+            const checkpass = pass;
+            if(checkpass == 'on'){
+                leftCameraEnable.setHdmiEnable(true);
+            }else if (checkpass == 'off'){
+                leftCameraEnable.setHdmiEnable(false);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return (
         <View style={styles.mainContainer}>
             <Modal

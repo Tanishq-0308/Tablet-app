@@ -17,9 +17,10 @@ import { cameraStore } from '../../Store/cameraStore';
             setStablizerEnable:(stablizerEnable:boolean)=>void,
         };
         loading:any;
+        hdmiValue:boolean;
     }
 
-const CameraFocus = ({value,context,sendMessage, loading}:focusProps) => {
+const CameraFocus = ({value,context,sendMessage, loading, hdmiValue}:focusProps) => {
     const {autoBtn, pushBtn, setAutoBtn, setPushBtn, setStablizerEnable}= context;
     const setState= cameraStore((state)=>state.setCameraState);
     const key='stateF';
@@ -60,7 +61,11 @@ const CameraFocus = ({value,context,sendMessage, loading}:focusProps) => {
 
         if(setButtonStates[mode]){
             setButtonStates[mode](true);
-            sendMessage(commands[mode])
+            if(hdmiValue){
+            sendMessage(commands[mode]+'H');
+            }else{
+            sendMessage(commands[mode]);
+            }
             setState(key, commands[mode]);
         }
     }

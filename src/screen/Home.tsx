@@ -12,6 +12,7 @@ type HomeProps = NativeStackScreenProps<RootParamList>;
 
 const Home = ({ navigation }: HomeProps) => {
   const [cameraPass, setCameraPass] = useState('');
+  const [hdmiPass, setHdmiPass]= useState('');
   const [analogEnable, setAnalogEnbale] = useState('');
   const [ipEnable, setIpEnable] = useState('');
 
@@ -23,6 +24,16 @@ const Home = ({ navigation }: HomeProps) => {
       setCameraPass(checkpass)
     } catch (error) {
 
+    }
+  }
+  const readHdmiEnable= async()=>{
+    try {
+      const filePath=`${RNFS.DocumentDirectoryPath}/hdmiEnable.txt`;
+      const pass = await RNFS.readFile(filePath, 'utf8');
+      const checkpass = pass;
+      setHdmiPass(checkpass);
+    } catch (error) {
+      
     }
   }
   const readAnalogEnable = async () => {
@@ -50,7 +61,8 @@ const Home = ({ navigation }: HomeProps) => {
     readSDIEnable();
     readAnalogEnable();
     readIpEnable();
-  })
+    readHdmiEnable();
+  },[])
   return (
     <ScrollView
       horizontal
@@ -61,6 +73,9 @@ const Home = ({ navigation }: HomeProps) => {
       <Page1 navigation={navigation} />
       {
         cameraPass == 'on' && <Page2 navigation={navigation} />
+      }
+      {
+        hdmiPass == 'on' && <Page2 navigation={navigation}/>
       }
       {
         analogEnable == 'on' && <Page4 navigation={navigation} />

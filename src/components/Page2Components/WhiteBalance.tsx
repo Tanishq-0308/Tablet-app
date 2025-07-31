@@ -5,51 +5,52 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
 import { cameraStore } from '../../Store/cameraStore';
 
-type balanceProps={
-    value:string;
-    sendMessage:any;
-    context:{
-        autoBtn:boolean,
-        indoorBtn:boolean,
-        outdoorBtn:boolean,
-        manualBtn:boolean,
-        setAutoBtn:(autoBtn:boolean)=>void,
-        setIndoorBtn:(indoorBtn:boolean)=>void,
-        setOutdoorBtn:(outdoorBtn:boolean)=>void,
-        setManualBtn: (manualBtn: boolean)=>void
+type balanceProps = {
+    value: string;
+    sendMessage: any;
+    context: {
+        autoBtn: boolean,
+        indoorBtn: boolean,
+        outdoorBtn: boolean,
+        manualBtn: boolean,
+        setAutoBtn: (autoBtn: boolean) => void,
+        setIndoorBtn: (indoorBtn: boolean) => void,
+        setOutdoorBtn: (outdoorBtn: boolean) => void,
+        setManualBtn: (manualBtn: boolean) => void
     }
-    loading:any;
+    loading: any;
+    hdmiValue: boolean;
 }
 
-const WhiteBalance = ({value,sendMessage, context, loading}:balanceProps) => {
-    const {autoBtn,setAutoBtn, indoorBtn, outdoorBtn, manualBtn, setIndoorBtn, setOutdoorBtn, setManualBtn}=context;
-    const setState= cameraStore((state)=>state.setCameraState);
-    const key='stateW';
-    useEffect(()=>{
-        if(value.length >0){
-            if(value == '$WA1#'){
+const WhiteBalance = ({ value, sendMessage, context, loading, hdmiValue }: balanceProps) => {
+    const { autoBtn, setAutoBtn, indoorBtn, outdoorBtn, manualBtn, setIndoorBtn, setOutdoorBtn, setManualBtn } = context;
+    const setState = cameraStore((state) => state.setCameraState);
+    const key = 'stateW';
+    useEffect(() => {
+        if (value.length > 0) {
+            if (value == '$WA1#') {
                 setAutoBtn(true);
                 setIndoorBtn(false);
                 setOutdoorBtn(false);
                 setManualBtn(false);
-            }else if( value == '$WI1#'){
+            } else if (value == '$WI1#') {
                 setAutoBtn(false);
                 setIndoorBtn(true);
                 setOutdoorBtn(false);
                 setManualBtn(false);
-            }else if(value == '$WO1#'){     
+            } else if (value == '$WO1#') {
                 setAutoBtn(false);
                 setIndoorBtn(false);
                 setOutdoorBtn(true);
                 setManualBtn(false);
-            }else if(value == '$WM1#'){
+            } else if (value == '$WM1#') {
                 setAutoBtn(false);
                 setIndoorBtn(false);
                 setOutdoorBtn(false);
                 setManualBtn(true);
             }
         }
-    },[value])
+    }, [value])
 
 
     const redGainIncrease = () => {
@@ -77,33 +78,39 @@ const WhiteBalance = ({value,sendMessage, context, loading}:balanceProps) => {
         sendMessage('$WCM#')
     };
 
-    const handleModeChange = (mode:string) => {
+    const handleModeChange = (mode: string) => {
         loading(7);
-        const commands:any = {
+        const commands: any = {
             auto: '$WA1#',
             indoor: '$WI1#',
             outdoor: '$WO1#',
             manual: '$WM1#'
         };
-    
-        const setButtonStates:any = {
+
+        const setButtonStates: any = {
             auto: setAutoBtn,
             indoor: setIndoorBtn,
             outdoor: setOutdoorBtn,
             manual: setManualBtn
         };
-    
+
         // Reset all buttons
         setAutoBtn(false);
         setIndoorBtn(false);
         setOutdoorBtn(false);
         setManualBtn(false);
-    
+
         // Set the selected mode
         if (setButtonStates[mode]) {
             setButtonStates[mode](true);
-            sendMessage(commands[mode]);
-            setState(key,commands[mode])
+            if (hdmiValue) {
+                sendMessage(commands[mode] + 'H');
+                // console.log(commands[mode]+'H');
+            } else {
+                sendMessage(commands[mode]);
+                // console.log(commands[mode]);
+            }
+            setState(key, commands[mode])
         }
     }
 
@@ -198,7 +205,7 @@ const styles = StyleSheet.create({
     heading: {
         fontSize: hp('2.6%'),
         fontWeight: 'bold',
-        color:'black',
+        color: 'black',
         // borderWidth: 2,
         // backgroundColor: '#ced6e0',
         paddingHorizontal: moderateScale(16),
@@ -222,7 +229,7 @@ const styles = StyleSheet.create({
         elevation: 5,
         borderColor: '#747d8c'
     },
-    onbutton:{
+    onbutton: {
         fontSize: hp('2.7%'),
         fontWeight: 'bold',
         borderWidth: 2,
@@ -232,7 +239,7 @@ const styles = StyleSheet.create({
         borderRadius: 22,
         elevation: 9,
         borderColor: '#747d8c',
-        color:'#fff'
+        color: '#fff'
     },
     length: {
         flexDirection: 'row',
@@ -269,35 +276,35 @@ const styles = StyleSheet.create({
     valueContainer: {
         flexDirection: 'row',
         gap: 20,
-        marginLeft:moderateVerticalScale(10)
+        marginLeft: moderateVerticalScale(10)
         // borderWidth:2
     },
     minus: {
         fontSize: hp('3.5%'),
         // backgroundColor:'grey', 
-        color:'white',
+        color: 'white',
         // margin:moderateScale(2)
     },
     plus: {
         fontSize: hp('3%'),
         // paddingBottom:moderateScale(5)
-        color:'white'
+        color: 'white'
     },
-    pressable:{
-        height:hp('5%')
+    pressable: {
+        height: hp('5%')
     },
-    plusButton:{
-        paddingHorizontal:moderateScale(10),
-        backgroundColor:'grey',
-        borderRadius:25,
-        elevation:8,
-        marginBottom:7
+    plusButton: {
+        paddingHorizontal: moderateScale(10),
+        backgroundColor: 'grey',
+        borderRadius: 25,
+        elevation: 8,
+        marginBottom: 7
     },
-    minusButton:{
-        paddingHorizontal:moderateScale(10),
-        backgroundColor:'grey',
-        borderRadius:25,
-        elevation:8,
-        marginBottom:7
+    minusButton: {
+        paddingHorizontal: moderateScale(10),
+        backgroundColor: 'grey',
+        borderRadius: 25,
+        elevation: 8,
+        marginBottom: 7
     }
 })

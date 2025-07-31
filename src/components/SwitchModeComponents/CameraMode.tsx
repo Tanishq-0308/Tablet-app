@@ -12,28 +12,30 @@ type CameraModeType = {
         enable: boolean,
         setEnable: (enable: boolean) => void,
         sdiEnable: boolean,
-        setSdiEnable: (sdiEnable: boolean)=> void
+        setSdiEnable: (sdiEnable: boolean) => void
         analogEnable: boolean,
-        setAnalogEnable: (analogEnable: boolean)=> void;
+        setAnalogEnable: (analogEnable: boolean) => void;
         ipEnable: boolean,
-        setIpEnable:(ipEnable: boolean)=> void;
+        setIpEnable: (ipEnable: boolean) => void;
+        hdmiEnable: boolean,
+        setHdmiEnable: (hdmiEnable: boolean) => void;
     }
 }
 
 const CameraMode = ({ context }: CameraModeType) => {
 
-    const { enable, setEnable, sdiEnable, setSdiEnable, analogEnable, setAnalogEnable, ipEnable, setIpEnable } = context;
+    const { enable, setEnable, sdiEnable, setSdiEnable, analogEnable, setAnalogEnable, ipEnable, setIpEnable, hdmiEnable, setHdmiEnable } = context;
     // const [sdiEnable,setSdiEnable]= useState(false);
     // const [analogEnable,setAnalogEnable]= useState(false);
 
-        const saveCameraEnable=async(value:string)=>{
-            try{
-                const filePath=`${RNFS.DocumentDirectoryPath}/camera.txt`;
-                await RNFS.writeFile(filePath, value, 'utf8');
-            }catch(error){
-                console.error('Error saving value to file:', error);
-            }
+    const saveCameraEnable = async (value: string) => {
+        try {
+            const filePath = `${RNFS.DocumentDirectoryPath}/camera.txt`;
+            await RNFS.writeFile(filePath, value, 'utf8');
+        } catch (error) {
+            console.error('Error saving value to file:', error);
         }
+    }
 
     const toggleSwitch = () => {
         setEnable(!enable);
@@ -48,7 +50,7 @@ const CameraMode = ({ context }: CameraModeType) => {
                 backgroundColor: '#5BBD17',
                 textColor: 'white'
             })
-        }else{
+        } else {
             saveCameraEnable('off');
             saveSdiEnable('off')
             saveAnalogEnable('off')
@@ -59,38 +61,63 @@ const CameraMode = ({ context }: CameraModeType) => {
         }
     }
 
-    const saveSdiEnable=async(value:string)=>{
+    const saveSdiEnable = async (value: string) => {
         try {
-            const filePath= `${RNFS.DocumentDirectoryPath}/sdiEnable.txt`;
+            const filePath = `${RNFS.DocumentDirectoryPath}/sdiEnable.txt`;
             await RNFS.writeFile(filePath, value, 'utf8');
         } catch (error) {
-            
+
         }
     }
 
-    const saveAnalogEnable= async (value: string)=>{
+    const saveAnalogEnable = async (value: string) => {
         try {
-            const filePath= `${RNFS.DocumentDirectoryPath}/analogEnable.txt`;
+            const filePath = `${RNFS.DocumentDirectoryPath}/analogEnable.txt`;
             await RNFS.writeFile(filePath, value, 'utf8');
         } catch (error) {
-            
+
         }
     }
 
-    const saveIpEnable= async (value: string)=>{
+    const saveIpEnable = async (value: string) => {
         try {
-            const filePath= `${RNFS.DocumentDirectoryPath}/ipEnable.txt`;
+            const filePath = `${RNFS.DocumentDirectoryPath}/ipEnable.txt`;
             await RNFS.writeFile(filePath, value, 'utf8');
         } catch (error) {
-            
+
         }
     }
 
-    const sdiEnableFunction=()=>{
-        if(sdiEnable){
+    const saveHDMIEnable = async (value: string) => {
+        try {
+            const filePath = `${RNFS.DocumentDirectoryPath}/hdmiEnable.txt`;
+            await RNFS.writeFile(filePath, value, 'utf8');
+        } catch (error) {
+
+        }
+    }
+
+    const hdmiEnableFunction = () => {
+        if (hdmiEnable) {
+            setHdmiEnable(false);
+            saveHDMIEnable('off');
+        } else {
+            setHdmiEnable(true);
+            saveHDMIEnable('on');
+        }
+        saveSdiEnable('off');
+        setSdiEnable(false);
+        saveAnalogEnable('off')
+        setAnalogEnable(false);
+        setIpEnable(false);
+        saveIpEnable('off');
+    }
+
+    const sdiEnableFunction = () => {
+        if (sdiEnable) {
             setSdiEnable(false);
             saveSdiEnable('off');
-        }else{
+        } else {
             setSdiEnable(true);
             saveSdiEnable('on');
         }
@@ -99,13 +126,15 @@ const CameraMode = ({ context }: CameraModeType) => {
         setAnalogEnable(false);
         setIpEnable(false);
         saveIpEnable('off');
+        setHdmiEnable(false);
+        saveHDMIEnable('off');
     }
 
-    const sdiAnalogFunction=()=>{
-        if(analogEnable){
+    const sdiAnalogFunction = () => {
+        if (analogEnable) {
             setAnalogEnable(false);
             saveAnalogEnable('off');
-        }else{
+        } else {
             setAnalogEnable(true);
             saveAnalogEnable('on');
         }
@@ -114,12 +143,14 @@ const CameraMode = ({ context }: CameraModeType) => {
         setSdiEnable(false);
         setIpEnable(false);
         saveIpEnable('off');
+        setHdmiEnable(false);
+        saveHDMIEnable('off');
     }
-    const ipFunction=()=>{
-        if(ipEnable){
+    const ipFunction = () => {
+        if (ipEnable) {
             setIpEnable(false);
             saveIpEnable('off');
-        }else{            
+        } else {
             setIpEnable(true);
             saveIpEnable('on');
         }
@@ -128,44 +159,53 @@ const CameraMode = ({ context }: CameraModeType) => {
         saveSdiEnable('off');
         setAnalogEnable(false);
         setSdiEnable(false);
+        setHdmiEnable(false);
+        saveHDMIEnable('off');
     }
-    return (
-        <View style={{flexDirection:'row'}}>
-        <View style={styles.container2}>
-            {
-                !enable ?
-                    <View style={styles.offImgContainer}>
-                        <Image source={cameraModeOff} style={styles.boostOffImg} resizeMode='contain' />
-                    </View>
-                    :
-                    <View style={styles.onImgContainer}>
-                        <Image source={cameraModeOn} style={styles.boostOnImg} resizeMode='contain' />
-                    </View>
-            }
-            <Text
 
-                style={styles.heading}
-            >CAMERA</Text>
-            <View style={styles.switchContainer}>
-                <Switch
-                    trackColor={{ false: '#767577', true: '#81b0ff' }}
-                    thumbColor={enable ? '#f5dd4b' : '#f4f3f4'}
-                    ios_backgroundColor="#3e3e3e"
-                    onValueChange={toggleSwitch}
-                    value={enable}
-                    style={[styles.switchBtn, { transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }] }]}
-                />
+
+    return (
+        <View style={{ flexDirection: 'row' }}>
+            <View style={styles.container2}>
+                {
+                    !enable ?
+                        <View style={styles.offImgContainer}>
+                            <Image source={cameraModeOff} style={styles.boostOffImg} resizeMode='contain' />
+                        </View>
+                        :
+                        <View style={styles.onImgContainer}>
+                            <Image source={cameraModeOn} style={styles.boostOnImg} resizeMode='contain' />
+                        </View>
+                }
+                <Text
+
+                    style={styles.heading}
+                >CAMERA</Text>
+                <View style={styles.switchContainer}>
+                    <Switch
+                        trackColor={{ false: '#767577', true: '#81b0ff' }}
+                        thumbColor={enable ? '#f5dd4b' : '#f4f3f4'}
+                        ios_backgroundColor="#3e3e3e"
+                        onValueChange={toggleSwitch}
+                        value={enable}
+                        style={[styles.switchBtn, { transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }] }]}
+                    />
+                </View>
             </View>
-        </View>
-        {
-            enable && 
-        <View style={styles.container}>
-            <Text style={[styles.button, sdiEnable == true ? { backgroundColor:'green'}: {backgroundColor:'#ced6e0'}]} onPress={sdiEnableFunction}>SDI</Text>
-            <Text style={[styles.button, analogEnable == true ? { backgroundColor:'green'}: {backgroundColor:'#ced6e0'}]} onPress={sdiAnalogFunction}>AHD</Text>
-            <Text style={[styles.button, ipEnable == true ? { backgroundColor:'green'}: {backgroundColor:'#ced6e0'}]} onPress={ipFunction}>IP</Text>
-            
-        </View>
-        }
+            {
+                enable &&
+                <View style={styles.container}>
+                    <View style={{flex:1, gap:20}}>
+                        <Text style={[styles.button, hdmiEnable == true ? { backgroundColor: 'green' } : { backgroundColor: '#ced6e0' }]} onPress={hdmiEnableFunction}>Hdmi</Text>
+                        <Text style={[styles.button, sdiEnable == true ? { backgroundColor: 'green' } : { backgroundColor: '#ced6e0' }]} onPress={sdiEnableFunction}>SDI</Text>
+                    </View>
+                    <View style={{flex:1, gap:20}}>
+                        <Text style={[styles.button, analogEnable == true ? { backgroundColor: 'green' } : { backgroundColor: '#ced6e0' }]} onPress={sdiAnalogFunction}>AHD</Text>
+                        <Text style={[styles.button, ipEnable == true ? { backgroundColor: 'green' } : { backgroundColor: '#ced6e0' }]} onPress={ipFunction}>IP</Text>
+
+                    </View>
+                </View>
+            }
         </View>
     )
 }
@@ -181,20 +221,21 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         gap: 5,
     },
-    container:{
-        width:wp('22%'),
-        alignItems:'center',
-        justifyContent:'center',
-        gap:35
+    container: {
+        width: wp('22%'),
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 20,
+        flexDirection:'row'
     },
-    button:{
-        fontSize:hp('3%'),
-        width:wp('10%'),
-        textAlign:'center',
-        padding:moderateVerticalScale(10),
-        color:'#fff',
-        borderRadius:12,
-        elevation:4
+    button: {
+        fontSize: hp('3%'),
+        width: wp('10%'),
+        textAlign: 'center',
+        padding: moderateVerticalScale(10),
+        color: '#fff',
+        borderRadius: 12,
+        elevation: 4
     },
     heading: {
         fontWeight: 'bold',

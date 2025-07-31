@@ -1,5 +1,5 @@
 import { ActivityIndicator, Button, Modal, StyleSheet, Text, TextInput, View } from 'react-native'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import WhiteBalance from '../components/Page2Components/WhiteBalance'
 import Iris from '../components/Page2Components/Iris'
 import CameraFocus from '../components/Page2Components/CameraFocus'
@@ -22,6 +22,7 @@ type page2Prop={
 }
 
 const Page2 = ({navigation}:page2Prop) => {
+  const hdmiEnable= cameraStore((state)=>state.hdmiEnable);
 
   const {
     wAutoEnable, 
@@ -164,31 +165,21 @@ const Page2 = ({navigation}:page2Prop) => {
       </Modal>
       <View style={styles.block}>
         <View style={styles.box}>
-          <WhiteBalance value={value} context={wbvalues} sendMessage={sendMessage} loading={handleButtonPress}/>
+          <WhiteBalance value={value} context={wbvalues} sendMessage={sendMessage} loading={handleButtonPress} hdmiValue={hdmiEnable}/>
         </View>
         <View style={styles.box1}>
-          <Iris value={value1} context={irisValues} sendMessage={sendMessage} loading={handleButtonPress}/>
+          <Iris value={value1} context={irisValues} sendMessage={sendMessage} loading={handleButtonPress} hdmiValue={hdmiEnable}/>
         </View>
         <View style={styles.box1}>
           <Reset sendMessage={sendMessage} loading={handleButtonPress} reset={reset}/>
         </View>
-      {/* <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          value={loadingTime}
-          onChangeText={setLoadingTime}
-          keyboardType="numeric"
-          placeholder="Enter seconds"
-          maxLength={3} // Limit input length
-        />
-      </View> */}
       </View>
       <View style={styles.block}>
         <View style={styles.box3}>
           <Zoom value={value2} sendMessage={sendMessage}/>
         </View>
         <View style={styles.box4}>
-          <CameraFocus value={value3} context={focusValues} sendMessage={sendMessage} loading={handleButtonPress}/>
+          <CameraFocus value={value3} context={focusValues} sendMessage={sendMessage} loading={handleButtonPress} hdmiValue={hdmiEnable}/>
         </View>
         <View style={styles.box1}>
           <PowerButton context={powerValues} sendMessage={sendMessage} loading={handleButtonPress} reset={reset}/>
@@ -197,15 +188,15 @@ const Page2 = ({navigation}:page2Prop) => {
       <View style={styles.block}>
         <View style={styles.innerBlock}>
           <View style={styles.box2}>
-            <ImageStablizer value={value3} context={stablizerValues} sendMessage={sendMessage} loading={handleButtonPress}/>
+            <ImageStablizer value={value3} context={stablizerValues} sendMessage={sendMessage} loading={handleButtonPress} hdmiValue={hdmiEnable}/>
           </View>
           <View style={styles.box2}>
-            <ImageFreeze value={value5} context={freezeValues} sendMessage={sendMessage} loading={handleButtonPress}/>
+            <ImageFreeze value={value5} context={freezeValues} sendMessage={sendMessage} loading={handleButtonPress}hdmiValue={hdmiEnable}/>
           </View>
         </View>
         <View style={styles.innerBlock}>
           <View style={styles.box2}>
-            <ImageRotation value={value6} sendMessage={sendMessage} loading={handleButtonPress}/>
+            <ImageRotation value={value6} sendMessage={sendMessage} loading={handleButtonPress} hdmiValue={hdmiEnable}/>
           </View>
           <View style={styles.box2}>
             <CameraSetting navigation={navigation}/>

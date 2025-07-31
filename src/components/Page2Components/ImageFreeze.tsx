@@ -13,9 +13,10 @@ type freezeProps={
         setFreeze: (freeze: boolean)=> void;
     };
     loading:any;
+    hdmiValue:boolean;
 }
 
-const ImageFreeze = ({value,sendMessage, context, loading}:freezeProps) => {
+const ImageFreeze = ({value,sendMessage, context, loading, hdmiValue}:freezeProps) => {
     const {freeze, setFreeze}= context;
     const setState= cameraStore((state)=>state.setCameraState);
     const key= 'stateH';
@@ -30,12 +31,20 @@ const ImageFreeze = ({value,sendMessage, context, loading}:freezeProps) => {
         loading(7);
         if(freeze == true){
             setFreeze(false);
+            if(hdmiValue){
+            sendMessage('$H_0#H');
+            }else{
             sendMessage('$H_0#');
+            }
             setState(key,'$H_0#')
         }
         else {
             setFreeze(true);
+            if(hdmiValue){
+            sendMessage('$H_1#H');
+            }else{
             sendMessage('$H_1#');
+            }
             setState(key,'$H_1#')
         }
     }

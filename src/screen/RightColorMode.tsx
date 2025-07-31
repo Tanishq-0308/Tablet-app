@@ -14,10 +14,14 @@ import CameraMode from '../components/SwitchModeComponents/CameraMode';
 import RNFS from 'react-native-fs';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import SynMode from '../components/SwitchModeComponents/SynMode';
+import { cameraStore } from '../Store/cameraStore';
 
 
 type RightColorModeProps = NativeStackScreenProps<RootParamList, 'RightColorMode'>
 const RightColorMode = ({ navigation }: RightColorModeProps) => {
+
+    const hdmiEnable = cameraStore((state) => state.hdmiEnable);
+    const setHdmiEnable = cameraStore((state) => state.setHdmiEnable);
     const {
         cameraEnabled,
         setCameraEnabled,
@@ -34,7 +38,7 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
         ipEnable,
         setIpEnable,
         syncModeEnable,
-        setSyncModeEnable
+        setSyncModeEnable,
     } = useContext(RightBtnEnableContext)
     const rightGreenEnable = {
         enable: greenEnabled,
@@ -59,7 +63,9 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
         analogEnable,
         setAnalogEnable,
         ipEnable,
-        setIpEnable
+        setIpEnable,
+        hdmiEnable,
+        setHdmiEnable
     }
 
     const rightSyncEnable = {
@@ -84,6 +90,7 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
         readAnalogEnable();
         readIpEnable();
         readSyncEnable();
+        readHdmiEnable();
     }, []);
 
     const savePasswordToFile = async (password: string) => {
@@ -247,6 +254,22 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
             console.error(error);
         }
     }
+
+    const readHdmiEnable = async () => {
+        try {
+            const filePath = `${RNFS.DocumentDirectoryPath}/hdmiEnable.txt`;
+            const pass = await RNFS.readFile(filePath, 'utf8');
+            const checkpass = pass;
+            if (checkpass == 'on') {
+                rightCameraEnable.setHdmiEnable(true);
+            } else if (checkpass == 'off') {
+                rightCameraEnable.setHdmiEnable(false);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return (
         <View style={styles.mainContainer}>
             <Modal

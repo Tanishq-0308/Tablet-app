@@ -17,8 +17,9 @@ type stabilizerProps = {
         setFOnePushEnbale: (fOnePushEnable: boolean) => void,
     };
     loading:any;
+    hdmiValue:boolean;
 }
-const ImageStablizer = ({ value, context, sendMessage ,loading}: stabilizerProps) => {
+const ImageStablizer = ({ value, context, sendMessage ,loading, hdmiValue}: stabilizerProps) => {
     const { stablizerEnable, setStablizerEnable, fAutoEnable, setFAutoEnbale, fOnePushEnable, setFOnePushEnbale } = context;
     const setState = cameraStore((state) => state.setCameraState);
     const key = 'stateF'
@@ -38,12 +39,20 @@ const ImageStablizer = ({ value, context, sendMessage ,loading}: stabilizerProps
             setStablizerEnable(true);
             setFAutoEnbale(false);
             setFOnePushEnbale(false);
+            if(hdmiValue){
+            sendMessage('$F_M#H');
+            }else{
             sendMessage('$F_M#');
+            }
             setState(key, '$F_M#');
         }else {
             setStablizerEnable(false);
             setFAutoEnbale(true);
+            if(hdmiValue){
+            sendMessage('$F_A#H');
+            }else{
             sendMessage('$F_A#');
+            }
             setState(key, '$F_A#');
         }
     }

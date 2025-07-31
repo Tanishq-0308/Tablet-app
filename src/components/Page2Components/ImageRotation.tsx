@@ -8,9 +8,10 @@ type rotationProps = {
     value: string;
     sendMessage: any;
     loading: any;
+    hdmiValue:boolean;
 }
 
-const ImageRotation = ({ value, sendMessage, loading }: rotationProps) => {
+const ImageRotation = ({ value, sendMessage, loading, hdmiValue }: rotationProps) => {
 
     useEffect(() => {
         if (value == '$R_1#') {
@@ -27,7 +28,11 @@ const ImageRotation = ({ value, sendMessage, loading }: rotationProps) => {
             duration: 500,
             useNativeDriver: true,
         }).start();
+        if(hdmiValue){
+        sendMessage('$R_1#H');
+        }else{
         sendMessage('$R_1#');
+        }
     }
 
     const rotateInterpolate = rotation.interpolate({

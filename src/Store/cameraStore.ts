@@ -5,6 +5,8 @@ type StateType={
         [key:string]:any;
     };
     setCameraState:(key: string, value: any)=>void;
+    hdmiEnable:boolean;
+    setHdmiEnable:(value:boolean)=>void;
 }
 
 export const cameraStore= create<StateType>((set)=>({
@@ -24,5 +26,7 @@ export const cameraStore= create<StateType>((set)=>({
                 [key]:value,
             }
         }))
-    }
+    },
+    hdmiEnable:false,
+    setHdmiEnable:(value)=>set({hdmiEnable:value}),
 }))

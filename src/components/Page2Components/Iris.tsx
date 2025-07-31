@@ -13,9 +13,10 @@ type irisProps={
         setIrisEnable:(irisEnable:boolean)=>void
     };
     loading: any;
+    hdmiValue: boolean;
 }
 
-const Iris = ({value,context,sendMessage, loading}:irisProps) => {
+const Iris = ({value,context,sendMessage, loading, hdmiValue}:irisProps) => {
     const {irisEnable, setIrisEnable}= context
     const setState= cameraStore((state)=>state.setCameraState);
     const key='stateI';
@@ -34,11 +35,19 @@ const Iris = ({value,context,sendMessage, loading}:irisProps) => {
         loading(7);
         if(irisEnable){
             setIrisEnable(false);
-            sendMessage('$IB0#')
+            if(hdmiValue){
+                sendMessage('$IB0#H');
+            }else{
+                sendMessage('$IB0#');
+            }
             setState(key,'$IB0#');
         }else{
             setIrisEnable(true);
+            if(hdmiValue){
+            sendMessage('$IB1#H')
+            }else{
             sendMessage('$IB1#')
+            }
             setState(key,'$IB1#');
         }
     }
