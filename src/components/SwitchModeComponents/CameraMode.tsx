@@ -196,7 +196,7 @@ const CameraMode = ({ context }: CameraModeType) => {
                 enable &&
                 <View style={styles.container}>
                     <View style={{flex:1, gap:20}}>
-                        <Text style={[styles.button, hdmiEnable == true ? { backgroundColor: 'green' } : { backgroundColor: '#ced6e0' }]} onPress={hdmiEnableFunction}>Hdmi</Text>
+                        <Text style={[styles.button, hdmiEnable == true ? { backgroundColor: 'green' } : { backgroundColor: '#ced6e0' }]} onPress={hdmiEnableFunction}>HDMI</Text>
                         <Text style={[styles.button, sdiEnable == true ? { backgroundColor: 'green' } : { backgroundColor: '#ced6e0' }]} onPress={sdiEnableFunction}>SDI</Text>
                     </View>
                     <View style={{flex:1, gap:20}}>

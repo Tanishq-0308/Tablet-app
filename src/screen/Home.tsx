@@ -7,6 +7,7 @@ import Page2 from './Page2';
 import RNFS from 'react-native-fs';
 import Page4 from './Page4';
 import Page5 from './Page5';
+import { cameraStore } from '../Store/cameraStore';
 
 type HomeProps = NativeStackScreenProps<RootParamList>;
 
@@ -15,6 +16,7 @@ const Home = ({ navigation }: HomeProps) => {
   const [hdmiPass, setHdmiPass]= useState('');
   const [analogEnable, setAnalogEnbale] = useState('');
   const [ipEnable, setIpEnable] = useState('');
+  const setHdmiEnable= cameraStore((state)=>state.setHdmiEnable);
 
   const readSDIEnable = async () => {
     try {
@@ -32,6 +34,11 @@ const Home = ({ navigation }: HomeProps) => {
       const pass = await RNFS.readFile(filePath, 'utf8');
       const checkpass = pass;
       setHdmiPass(checkpass);
+      if(checkpass == 'on'){
+        setHdmiEnable(true);
+      }else{
+        setHdmiEnable(false);
+      }
     } catch (error) {
       
     }
