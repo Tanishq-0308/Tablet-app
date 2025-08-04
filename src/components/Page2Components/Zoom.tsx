@@ -7,15 +7,24 @@ import { moderateScale } from 'react-native-size-matters';
 type zoomProps={
     value:string;
     sendMessage:any;
+    hdmiValue:boolean;
 }
 
-const Zoom = ({sendMessage}:zoomProps) => {
+const Zoom = ({sendMessage, hdmiValue}:zoomProps) => {
 
     const increase = () => {
+        if(hdmiValue){
+        sendMessage('$Z_P#H')
+        }else{
         sendMessage('$Z_P#')
+        }
     };
     const decrease = () => {
+        if(hdmiValue){
+        sendMessage('$Z_M#H')
+        }else{
         sendMessage('$Z_M#')
+        }
     };
     return (
         <View style={styles.mainContainer}>

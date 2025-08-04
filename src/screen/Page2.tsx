@@ -176,7 +176,7 @@ const Page2 = ({navigation}:page2Prop) => {
       </View>
       <View style={styles.block}>
         <View style={styles.box3}>
-          <Zoom value={value2} sendMessage={sendMessage}/>
+          <Zoom value={value2} sendMessage={sendMessage} hdmiValue={hdmiEnable}/>
         </View>
         <View style={styles.box4}>
           <CameraFocus value={value3} context={focusValues} sendMessage={sendMessage} loading={handleButtonPress} hdmiValue={hdmiEnable}/>

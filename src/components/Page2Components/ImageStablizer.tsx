@@ -28,10 +28,18 @@ const ImageStablizer = ({ value, context, sendMessage ,loading, hdmiValue}: stab
     }, [value])
 
     const increase = () => {
+        if(hdmiValue){
+        sendMessage('$FMP#H');
+        }else{
         sendMessage('$FMP#');
+        }
     };
     const decrease = () => {
+        if(hdmiValue){
+        sendMessage('$FMM#H');
+        }else{
         sendMessage('$FMM#');
+        }
     };
     const handleBtn = () => {
         loading(7);
