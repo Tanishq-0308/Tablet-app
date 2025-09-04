@@ -1,73 +1,74 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, } from 'react'
-import overHdSensorOn from '../../../assets/updatedIcons/overheadSensorOn.png'
-import overHdSensorOff from '../../../assets/updatedIcons/overheadSensorOff.png'
+import PointerOn from '../../../assets/updatedIcons/FinalPointerUIOn.png'
+import PointerOff from '../../../assets/updatedIcons/FinalPointerUIOff.png'
+// import PointerOff from '../../../assets/Pointer_off.png'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { moderateScale } from 'react-native-size-matters';
 import useStore from '../../Store/stateStore';
 
 
-type OverHeadSensorType = {
+type PointerType = {
     value: string;
     sendMessage: any;
     code: string;
     context: {
-        sensor: string,
-        setSensor: (sensor: string) => void
+        pointerValue: string,
+        setPointerValue: (pointerValue: string) => void
     }
 }
 
 
-const OverheadEnable = ({ value, sendMessage, code, context }: OverHeadSensorType) => {
-    const { sensor, setSensor } = context;
+const PointerBtn = ({ value, sendMessage, code, context }: PointerType) => {
+    const { pointerValue, setPointerValue } = context;
     const setState = useStore((state) => state.setState);
-    const component = 'O';
+    const component = 'LA';
     const dome = code == 'R1'? 'R': 'L';
     const key = `state${component + dome}`;
 
     useEffect(() => {
         if (value.length > 0) {
-            if (value === `@O_1#T${code}`) {
-                setSensor(`@O_1#T${code}`)
+            if (value === `@LA1#T${code}`) {
+                setPointerValue(`@LA1#T${code}`)
 
-            } else if (value === `@O_0#T${code}`) {
-                setSensor(`@O_0#T${code}`)
+            } else if (value === `@LA0#T${code}`) {
+                setPointerValue(`@LA0#T${code}`)
             }
         }
     }, [value])
 
     const handleButton = () => {
-        if (sensor == `@O_0#T${code}`) {
-            setSensor(`@O_1#T${code}`);
-            sendMessage(`@O_1#T${code}`)
-            setState(key,`@O_1#T${code}`);
+        if (pointerValue == `@LA0#T${code}`) {
+            setPointerValue(`@LA1#T${code}`);
+            sendMessage(`@LA1#T${code}`)
+            setState(key,`@LA1#T${code}`);
         }
         else {
-            setSensor(`@O_0#T${code}`)
-            sendMessage(`@O_0#T${code}`);
-            setState(key,`@O_0#T${code}`);
+            setPointerValue(`@LA0#T${code}`)
+            sendMessage(`@LA0#T${code}`);
+            setState(key,`@LA0#T${code}`);
         }
     }
     return (
         <View style={styles.container2}>
             {
-                sensor == `@O_0#T${code}` ?
+                pointerValue == `@LA0#T${code}` ?
                     <View style={styles.offImgContainer}>
-                        <Image source={overHdSensorOff} style={styles.boostOffImg} resizeMode='contain' />
+                        <Image source={PointerOff} style={styles.boostOffImg} resizeMode='contain' />
                     </View>
                     :
                     <View style={styles.onImgContainer}>
-                        <Image source={overHdSensorOn} style={styles.boostOnImg} resizeMode='contain' />
+                        <Image source={PointerOn} style={styles.boostOnImg} resizeMode='contain' />
                     </View>
             }
             <Text
                 style={styles.heading}
-            >OVERHEAD SENSOR</Text>
+            >POINTER</Text>
             <TouchableOpacity
                 onPress={handleButton}
             >
                 {
-                    sensor === `@O_0#T${code}` ?
+                    pointerValue === `@LA0#T${code}` ?
                         <Text style={styles.onBtnTxt}>
                             ON
                         </Text>
@@ -81,7 +82,7 @@ const OverheadEnable = ({ value, sendMessage, code, context }: OverHeadSensorTyp
     )
 }
 
-export default OverheadEnable
+export default PointerBtn
 
 const styles = StyleSheet.create({
     container2: {

@@ -13,6 +13,7 @@ import RNFS from 'react-native-fs';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import SynMode from '../components/SwitchModeComponents/SynMode';
 import { cameraStore } from '../Store/cameraStore';
+import Pointer from '../components/SwitchModeComponents/Pointer';
 
 
 type ColorModeProps = NativeStackScreenProps<RootParamList, 'ColorMode'>
@@ -37,6 +38,8 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
         setIpEnable,
         syncModeEnable,
         setSyncModeEnable,
+        pointerModeEnable,
+        setPointerModeEnable
     } = useContext(BtnEnableContext)
 
     const leftGreenEnable = {
@@ -72,6 +75,11 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
         setSyncModeEnable
     }
 
+    const leftPointerEnable= {
+        pointerModeEnable,
+        setPointerModeEnable
+    }
+
     const [enterPassword, setEnterPassword] = useState('');
     const [enterCode, setEnterCode] = useState('');
     const [createPassword, setCreatePassword] = useState('');
@@ -92,6 +100,7 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
         readIpEnable();
         readSyncEnable();
         readHdmiEnable();
+        readPointerEnable();
     }, []);
 
     const handleCheckCode = () => {
@@ -262,6 +271,21 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
         }
     }
 
+    const readPointerEnable= async()=>{
+        try {
+            const filePath = `${RNFS.DocumentDirectoryPath}/pointer.txt`;
+            const pass = await RNFS.readFile(filePath, 'utf8');
+            const checkpass = pass;
+            if(checkpass == 'on'){
+                leftPointerEnable.setPointerModeEnable(true);
+            }else if (checkpass == 'off'){
+                leftPointerEnable.setPointerModeEnable(false);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     const readHdmiEnable = async()=>{
         try {
             const filePath= `${RNFS.DocumentDirectoryPath}/hdmiEnable.txt`;
@@ -370,6 +394,9 @@ const ColorMode = ({ navigation }: ColorModeProps) => {
                         <SynMode context={leftSyncEnable} />
                     </View>
                     <View style={styles.box1}>
+                        <Pointer context={leftPointerEnable} />
+                    </View>
+                    <View style={styles.box1}>
                         <CameraMode context={leftCameraEnable} />
                     </View>
                 </View>
@@ -416,7 +443,7 @@ const styles = StyleSheet.create({
     box1: {
         flexDirection: 'row',
         alignItems: 'center',
-        width: wp('45.61%'),
+        width: wp('22%'),
         height: hp('37%'),
         // borderWidth: 1,
     },

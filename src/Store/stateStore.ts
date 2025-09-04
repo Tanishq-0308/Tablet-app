@@ -30,6 +30,8 @@ const useStore= create<StateType>((set)=>({
         stateRL:'',
         stateRR:'',
         stateNL:'',
+        statePL:'',
+        statePR:''
         // stateNR:''
     },
     setState:(key, value)=>

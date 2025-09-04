@@ -14,11 +14,13 @@ import useStore from '../Store/stateStore'
 import { useWebSocket } from '../Context/webSocketContext'
 import RNFS from 'react-native-fs';
 import { BtnEnableContext } from '../Context/EnableContext'
+import PointerBtn from '../components/SettingsPage/PointerBtn'
+import { moderateScale } from 'react-native-size-matters'
 
 type FactorySettingTwoProps = NativeStackScreenProps<RootParamList>
 
 const FactorySettingTwo = ({ navigation }: FactorySettingTwoProps) => {
-    const { cameraEnabledValue, setCameraEnabledValue, greenValue, setGreenValue, greenEnabledValue, setGreenEnabledValue, redValue, setRedValue, redEnabledValue, setRedEnabledValue, headSensor, setHeadSensor } = useContext(RightBtnEnableContext);
+    const { cameraEnabledValue, setCameraEnabledValue, greenValue, setGreenValue, greenEnabledValue, setGreenEnabledValue, redValue, setRedValue, redEnabledValue, setRedEnabledValue, headSensor, setHeadSensor, pointerValue, setPointerValue } = useContext(RightBtnEnableContext);
 
     const greenRightObjects = {
         color: greenValue,
@@ -30,6 +32,11 @@ const FactorySettingTwo = ({ navigation }: FactorySettingTwoProps) => {
     const rightHeadObjects = {
         sensor: headSensor,
         setSensor: setHeadSensor
+    }
+
+    const rightPointerObjects = {
+        pointerValue,
+        setPointerValue
     }
 
     const redRightObjects = {
@@ -46,10 +53,12 @@ const FactorySettingTwo = ({ navigation }: FactorySettingTwoProps) => {
     const [redPass, setRedPass] = useState('');
     const [cameraPass, setCameraPass] = useState('');
     const [sensorPass, setSensorPass] = useState('');
+    const [pointerPass, setPointerPass] = useState('');
     const value = useStore((state) => state.states.stateMR);
     const value2 = useStore((state) => state.states.stateGR);
     const value3 = useStore((state) => state.states.stateRR);
     const value4 = useStore((state) => state.states.stateOR)
+    const value5 = useStore((state) => state.states.statePR)
     const { sendMessage } = useWebSocket();
 
     const readGreenEnable = async () => {
@@ -103,12 +112,24 @@ const FactorySettingTwo = ({ navigation }: FactorySettingTwoProps) => {
         }
     }
 
+    const readPointerEnable = async () => {
+        try {
+            const filePath = `${RNFS.DocumentDirectoryPath}/pointer.txt`;
+            const pass = await RNFS.readFile(filePath, 'utf8');
+            const checkpass = pass;
+            setPointerPass(checkpass);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     useEffect(() => {
         readGreenEnable();
         readRedEnbale();
         // readCameraEnbale();
         readAnalogEnable();
         readSensorEnbale();
+        readPointerEnable();
     }, []);
 
     return (
@@ -135,9 +156,14 @@ const FactorySettingTwo = ({ navigation }: FactorySettingTwoProps) => {
                     </View>
                 </View>
                 <View style={styles.blockTwo}>
-                    <View style={styles.box}>
+                    <View style={styles.box1}>
                         {
                             sensorPass == 'on' && <OverheadEnable context={rightHeadObjects} value={value4} sendMessage={sendMessage} code="R0" />
+                        }
+                    </View>
+                    <View style={styles.box3}>
+                        {
+                            pointerPass == 'on' && <PointerBtn context={rightPointerObjects} value={value5} sendMessage={sendMessage} code="L0" />
                         }
                     </View>
                     <View style={styles.box2}>
@@ -184,6 +210,19 @@ const styles = StyleSheet.create({
         width: wp('41%'),
         height: hp('37%'),
     },
+        box1: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            width: wp('23%'),
+            height: hp('37%')
+        },
+        box3: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            width: wp('23%'),
+            height: hp('37%'),
+            marginRight:moderateScale(25)
+        },
     box2: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -195,6 +234,6 @@ const styles = StyleSheet.create({
     },
     blockTwo: {
         flexDirection: 'row',
-        justifyContent:'flex-end'
+        justifyContent: 'flex-end'
     }
 })

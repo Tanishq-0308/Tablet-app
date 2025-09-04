@@ -33,6 +33,10 @@ type RightBtnEnableType = {
     setIpEnable: (ipEnable: boolean)=> void;
     syncModeEnable: boolean;
     setSyncModeEnable: (syncModeEnable: boolean)=> void;
+    pointerModeEnable: boolean;
+    setPointerModeEnable: (pointerModeEnable: boolean)=> void;
+    pointerValue: string;
+    setPointerValue: (pointerValue: string)=>void;
 }
 
 export const RightBtnEnableContext = createContext<RightBtnEnableType>({
@@ -67,7 +71,11 @@ export const RightBtnEnableContext = createContext<RightBtnEnableType>({
     ipEnable: false,
     setIpEnable:()=>{},
     syncModeEnable: false,
-    setSyncModeEnable: ()=>{}
+    setSyncModeEnable: ()=>{},
+    pointerModeEnable: false,
+    setPointerModeEnable: ()=>{},
+    pointerValue: '@LA0#TR0',
+    setPointerValue:()=>{}
 })
 
 export const RightBtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -87,6 +95,8 @@ export const RightBtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
     const [focusEnable, setFocusEnable]= useState(false);
     const [ipEnable, setIpEnable]= useState(false);
     const [syncModeEnable, setSyncModeEnable]= useState(false);
+    const [pointerModeEnable, setPointerModeEnable] = useState(false);
+    const [pointerValue, setPointerValue] = useState('@LA0#TR0');
 
     const defaultValue = {
         greenEnabled,
@@ -120,7 +130,11 @@ export const RightBtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
         ipEnable,
         setIpEnable,
         syncModeEnable,
-        setSyncModeEnable
+        setSyncModeEnable,
+        pointerModeEnable,
+        setPointerModeEnable,
+        pointerValue,
+        setPointerValue
     }
     return (
         <RightBtnEnableContext.Provider value={defaultValue}>

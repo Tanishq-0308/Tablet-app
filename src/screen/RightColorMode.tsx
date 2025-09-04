@@ -15,6 +15,7 @@ import RNFS from 'react-native-fs';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import SynMode from '../components/SwitchModeComponents/SynMode';
 import { cameraStore } from '../Store/cameraStore';
+import Pointer from '../components/SwitchModeComponents/Pointer';
 
 
 type RightColorModeProps = NativeStackScreenProps<RootParamList, 'RightColorMode'>
@@ -39,7 +40,10 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
         setIpEnable,
         syncModeEnable,
         setSyncModeEnable,
+        pointerModeEnable,
+        setPointerModeEnable
     } = useContext(RightBtnEnableContext)
+
     const rightGreenEnable = {
         enable: greenEnabled,
         setEnable: setGreenEnabled
@@ -73,6 +77,11 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
         setSyncModeEnable
     }
 
+    const rightPointerEnable = {
+        pointerModeEnable,
+        setPointerModeEnable
+    }
+
     const [enterPassword, setEnterPassword] = useState('');
     const [createPassword, setCreatePassword] = useState('');
     const [storePassword, setStorePassword] = useState('');
@@ -91,6 +100,7 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
         readIpEnable();
         readSyncEnable();
         readHdmiEnable();
+        readPointerEnable();
     }, []);
 
     const savePasswordToFile = async (password: string) => {
@@ -224,6 +234,20 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
         }
     }
 
+    const readPointerEnable= async()=>{
+        try {
+            const filePath = `${RNFS.DocumentDirectoryPath}/pointer.txt`;
+            const pass = await RNFS.readFile(filePath, 'utf8');
+            const checkpass = pass;
+            if(checkpass == 'on'){
+                rightPointerEnable.setPointerModeEnable(true);
+            }else if (checkpass == 'off'){
+                rightPointerEnable.setPointerModeEnable(false);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     const readIpEnable = async () => {
         try {
@@ -336,6 +360,9 @@ const RightColorMode = ({ navigation }: RightColorModeProps) => {
                 <View style={styles.blockTwo}>
                     <View style={styles.box1}>
                         <SynMode context={rightSyncEnable} />
+                    </View>
+                    <View style={styles.box1}>
+                        <Pointer context={rightPointerEnable} />
                     </View>
                     <View style={styles.box1}>
                         <CameraMode context={rightCameraEnable} />

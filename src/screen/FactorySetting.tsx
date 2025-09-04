@@ -13,11 +13,13 @@ import CameraBtn from '../components/SettingsPage/CameraBtn'
 import useStore from '../Store/stateStore'
 import { useWebSocket } from '../Context/webSocketContext'
 import RNFS from 'react-native-fs';
+import PointerBtn from '../components/SettingsPage/PointerBtn'
+import { moderateScale } from 'react-native-size-matters'
 
 type FactorySettingProps = NativeStackScreenProps<RootParamList>
 
 const FactorySetting = ({ navigation }: FactorySettingProps) => {
-    const { cameraEnabledValue, setCameraEnabledValue, greenValue, setGreenValue, greenEnabledValue, setGreenEnabledValue, redValue, setRedValue, redEnabledValue, setRedEnabledValue, headSensor, setHeadSensor } = useContext(BtnEnableContext)
+    const { cameraEnabledValue, setCameraEnabledValue, greenValue, setGreenValue, greenEnabledValue, setGreenEnabledValue, redValue, setRedValue, redEnabledValue, setRedEnabledValue, headSensor, setHeadSensor, pointerValue, setPointerValue } = useContext(BtnEnableContext)
 
     const greenLeftObjects = {
         color: greenValue,
@@ -29,6 +31,11 @@ const FactorySetting = ({ navigation }: FactorySettingProps) => {
     const leftHeadObjects = {
         sensor: headSensor,
         setSensor: setHeadSensor
+    }
+
+    const leftPointerObjects={
+        pointerValue,
+        setPointerValue
     }
 
     const redLeftObjects = {
@@ -47,10 +54,12 @@ const FactorySetting = ({ navigation }: FactorySettingProps) => {
     const [redPass, setRedPass] = useState('');
     const [cameraPass, setCameraPass] = useState('');
     const [sensorPass, setSensorPass] = useState('');
+    const [pointerPass, setPointerPass] = useState('');
     const value = useStore((state) => state.states.stateML);
     const value2 = useStore((state) => state.states.stateGL);
     const value3 = useStore((state) => state.states.stateRL);
     const value4 = useStore((state) => state.states.stateOL)
+    const value5 = useStore((state) => state.states.statePL)
     const { sendMessage } = useWebSocket();
 
     const readGreenEnable = async () => {
@@ -94,6 +103,17 @@ const FactorySetting = ({ navigation }: FactorySettingProps) => {
         }
     }
 
+    const readPointerEnable= async()=>{
+        try {
+            const filePath = `${RNFS.DocumentDirectoryPath}/pointer.txt`;
+            const pass = await RNFS.readFile(filePath, 'utf8');
+            const checkpass = pass;
+            setPointerPass(checkpass);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
 
     const readAnalogEnable = async () => {
         try {
@@ -112,6 +132,7 @@ const FactorySetting = ({ navigation }: FactorySettingProps) => {
         // readCameraEnbale();
         readSensorEnbale();
         readAnalogEnable();
+        readPointerEnable();
     }, []);
     return (
         <View style={styles.mainContainer}>
@@ -142,9 +163,14 @@ const FactorySetting = ({ navigation }: FactorySettingProps) => {
                     </View>
                 </View>
                 <View style={styles.blockTwo}>
-                    <View style={styles.box}>
+                    <View style={styles.box1}>
                         {
                             sensorPass == 'on' && <OverheadEnable context={leftHeadObjects} value={value4} sendMessage={sendMessage} code="L0" />
+                        }
+                    </View>
+                    <View style={styles.box3}>
+                        {
+                            pointerPass == 'on' && <PointerBtn context={leftPointerObjects} value={value5} sendMessage={sendMessage} code="L0" />
                         }
                     </View>
                     <View style={styles.box2}>
@@ -190,6 +216,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: wp('41%'),
         height: hp('37%'),
+    },
+    box1: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: wp('23%'),
+        height: hp('37%')
+    },
+    box3: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: wp('23%'),
+        height: hp('37%'),
+        marginRight:moderateScale(25)
     },
     box2: {
         flexDirection: 'row',
