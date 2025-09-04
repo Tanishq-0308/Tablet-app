@@ -50,9 +50,9 @@ export const RightBtnEnableContext = createContext<RightBtnEnableType>({
     setRedValue: ()=>{},
     headSensor: '@O_0#TR0',
     setHeadSensor: ()=>{},
-    greenEnabledValue: '@G_0#TR0',
+    greenEnabledValue: '@G_1#TR0',
     setGreenEnabledValue: () => { },
-    redEnabledValue: '@R_0#TR0',
+    redEnabledValue: '@R_1#TR0',
     setRedEnabledValue: () => { },
     cameraEnabledValue: false,
     setCameraEnabledValue: () => {},
@@ -78,8 +78,8 @@ export const RightBtnEnableProvider: FC<PropsWithChildren> = ({ children }) => {
     const [greenValue, setGreenValue]= useState(0)
     const [redValue, setRedValue] = useState(0)
     const [headSensor, setHeadSensor]= useState('@O_0#TR0')
-    const [greenEnabledValue,setGreenEnabledValue]= useState('@G_0#TR0')
-    const [redEnabledValue,setRedEnabledValue] = useState('@R_0#TR0')
+    const [greenEnabledValue,setGreenEnabledValue]= useState('@G_1#TR0')
+    const [redEnabledValue,setRedEnabledValue] = useState('@R_1#TR0')
     const [cameraEnabledValue, setCameraEnabledValue]= useState(false);
     const [sdiEnable, setSdiEnable]= useState(false);
     const [analogEnable, setAnalogEnable]= useState(false);

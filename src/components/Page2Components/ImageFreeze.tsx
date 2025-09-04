@@ -57,7 +57,11 @@ const ImageFreeze = ({value,sendMessage, context, loading, hdmiValue}:freezeProp
                 </View>
                 </View>
                 <TouchableOpacity onPress={switching}>
-                <Text style={freeze ? styles.onheading : styles.heading}>Image Freeze</Text>
+                    {freeze ?
+                      
+                <Text style={freeze ? styles.onheading : styles.heading}>Image unfreeze</Text>  :
+                
+                <Text style={freeze ? styles.onheading : styles.heading}>Image Freeze</Text>    }
                 </TouchableOpacity>
             </View>
         </View>
