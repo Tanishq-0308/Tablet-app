@@ -58,7 +58,7 @@ const PointerBtn = ({ value, sendMessage, code, context }: PointerType) => {
                     </View>
                     :
                     <View style={styles.onImgContainer}>
-                        <Image source={PointerOn} style={styles.boostOnImg} resizeMode='contain' />
+                        <Image source={PointerOff} style={styles.boostOnImg} resizeMode='contain' />
                     </View>
             }
             <Text

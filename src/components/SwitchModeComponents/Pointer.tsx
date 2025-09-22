@@ -48,7 +48,7 @@ const Pointer = ({ context }: PointerModeInputType) => {
       {
         pointerModeEnable !== false ?
           <View style={styles.offImgContainer}>
-            <Image source={PointerOn} style={styles.settingImg} resizeMode='contain' />
+            <Image source={PointerOff} style={styles.settingImg} resizeMode='contain' />
           </View>
           :
           <View style={styles.onImgContainer}>

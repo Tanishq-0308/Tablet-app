@@ -52,9 +52,9 @@ const RedIntensity = ({ value, sendMessage, code, context }: RedInputType) => {
   const dome = code == 'R0'? 'R': 'L';
   const key = `state${component + dome}`;
 
-  useEffect(() => {
-    setimage(color)
-  }, [])
+  // useEffect(() => {
+  //   setimage(color)
+  // }, [])
   useEffect(() => {
     if (value.length > 0) {
       if (value === `@R_0#T${code}`) {

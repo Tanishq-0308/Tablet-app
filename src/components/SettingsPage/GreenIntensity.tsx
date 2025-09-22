@@ -52,10 +52,10 @@ const GreenIntensity = ({ value, sendMessage, code, context }: GreenInputType) =
   const dome = code == 'R0' ? 'R' : 'L';
   const key = `state${component + dome}`;
 
-  useEffect(() => {
-    setimage(color);
+  // useEffect(() => {
+  //   setimage(color);
 
-  }, [])
+  // }, [])
 
   useEffect(() => {
     setEnable(enable);
